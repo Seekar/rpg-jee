@@ -1,4 +1,4 @@
-
+Modeleur UML : https://cacoo.com
 
 
 Tâches à partager :
@@ -23,8 +23,3 @@ Ensuite :
 - rédaction readme.txt
 - rédaction manuel utilisateur
 - rédaction bilan
-
-
-Modeleur UML : https://cacoo.com
-
-
