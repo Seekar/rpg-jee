@@ -1,5 +1,6 @@
 Modeleur UML :
 - https://cacoo.com
+- Open ModelSphere : http://www.modelsphere.com/org/ (peut-être mieux, mais marche mieux sur Windows)
 - https://www.genmymodel.com/ (gratuit pour projet public)
 - PowerDesigner (tool propriétaire)
 - ArgoUML (assez moyen)
