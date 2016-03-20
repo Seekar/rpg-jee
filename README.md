@@ -1,4 +1,9 @@
-Modeleur UML : https://cacoo.com
+Modeleur UML :
+
+https://cacoo.com
+https://www.genmymodel.com/ (gratuit pour projet public)
+PowerDesigner (tool propriétaire)
+ArgoUML (assez moyen)
 
 
 Tâches à partager :
