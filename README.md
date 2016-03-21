@@ -1,4 +1,9 @@
-
+Modeleur UML :
+- https://www.genmymodel.com/ : the best je vais choper une licence finalement
+- https://cacoo.com
+- Open ModelSphere : http://www.modelsphere.com/org/ (peut-être mieux, mais marche mieux sur Windows)
+- PowerDesigner (tool propriétaire)
+- ArgoUML (assez moyen)
 
 
 Tâches à partager :
@@ -23,8 +28,3 @@ Ensuite :
 - rédaction readme.txt
 - rédaction manuel utilisateur
 - rédaction bilan
-
-
-Modeleur UML : ArgoUML
-
-
