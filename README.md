@@ -3,16 +3,13 @@ Modeleur UML : https://genmymodel.com
 
 Tâches à partager :
 
-1 personne
+2 personnes
 - acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents
 
-1 personne
-- diagramme de classes d'analyse
+- diagramme de classes d'analyse à finaliser
+- install_bd.sql de création de la base initiale à finaliser
 
-1 personne
-- écriture install_bd.sql de création de la base initiale
-
-1 personne
+2 personnes
 début JEE
 
 
