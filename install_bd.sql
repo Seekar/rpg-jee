@@ -45,12 +45,12 @@ create table Personnage (
     id bigint not null,
     naissance varchar(255) not null,
     nom varchar(255) not null,
-    portrait varchar(255) not null,
+    portrait varchar(255),
     profession varchar(255) not null,
     valid bit not null,
     biographie_id bigint,
-    cible_id bigint,
     joueur_id bigint not null,
+    transfert_id bigint,
     univers_id bigint not null,
     primary key (id)
 );
@@ -94,15 +94,15 @@ alter table Paragraphe
     references Episode;
 
 alter table Personnage 
+    add constraint FK9F513EC64E47F43 
+    foreign key (transfert_id) 
+    references Joueur;
+
+alter table Personnage 
     add constraint FK9F513EC65D6E559A 
     foreign key (univers_id) 
     references Univers 
     on delete cascade;
-
-alter table Personnage 
-    add constraint FK9F513EC610786277 
-    foreign key (cible_id) 
-    references Joueur;
 
 alter table Personnage 
     add constraint FK9F513EC674088A9A 
