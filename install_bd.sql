@@ -7,7 +7,6 @@ create table Aventure (
     lieu varchar(255) not null,
     situation varchar(255) not null,
     titre varchar(255) not null,
-    episode_id bigint,
     mj_id bigint not null,
     univers_id bigint not null,
     primary key (id)
@@ -23,6 +22,7 @@ create table Episode (
     id bigint not null,
     eDate integer not null,
     valid bit not null,
+    aventure_id bigint,
     biographie_id bigint not null,
     primary key (id)
 );
@@ -36,7 +36,7 @@ create table Joueur (
 create table Paragraphe (
     id bigint not null,
     secret bit not null,
-    text varchar(255) not null,
+    texte varchar(255) not null,
     episode_id bigint not null,
     primary key (id)
 );
@@ -45,19 +45,20 @@ create table Personnage (
     id bigint not null,
     naissance varchar(255) not null,
     nom varchar(255) not null,
-    portrait varchar(255),
+    portrait varchar(255) not null,
     profession varchar(255) not null,
-    bioPriv_id bigint,
-    bioPub_id bigint,
+    valid bit not null,
+    biographie_id bigint,
+    cible_id bigint,
     joueur_id bigint not null,
     univers_id bigint not null,
     primary key (id)
 );
 
 create table Personnage_Aventure (
-    personnage_id bigint not null,
-    aventure_id bigint not null,
-    primary key (personnage_id, aventure_id)
+    personnages_id bigint not null,
+    aventures_id bigint not null,
+    primary key (personnages_id, aventures_id)
 );
 
 create table Univers (
@@ -72,19 +73,20 @@ alter table Aventure
     references Joueur;
 
 alter table Aventure 
-    add constraint FK74E9C53267F703BA 
-    foreign key (episode_id) 
-    references Episode;
-
-alter table Aventure 
     add constraint FK74E9C5325D6E559A 
     foreign key (univers_id) 
-    references Univers;
+    references Univers 
+    on delete cascade;
 
 alter table Episode 
     add constraint FK72A55DB74088A9A 
     foreign key (biographie_id) 
     references Biographie;
+
+alter table Episode 
+    add constraint FK72A55DB619C649A 
+    foreign key (aventure_id) 
+    references Aventure;
 
 alter table Paragraphe 
     add constraint FK889B40D767F703BA 
@@ -92,18 +94,19 @@ alter table Paragraphe
     references Episode;
 
 alter table Personnage 
-    add constraint FK9F513EC6326B3FA5 
-    foreign key (bioPriv_id) 
-    references Biographie;
-
-alter table Personnage 
     add constraint FK9F513EC65D6E559A 
     foreign key (univers_id) 
-    references Univers;
+    references Univers 
+    on delete cascade;
 
 alter table Personnage 
-    add constraint FK9F513EC6F977F1A7 
-    foreign key (bioPub_id) 
+    add constraint FK9F513EC610786277 
+    foreign key (cible_id) 
+    references Joueur;
+
+alter table Personnage 
+    add constraint FK9F513EC674088A9A 
+    foreign key (biographie_id) 
     references Biographie;
 
 alter table Personnage 
@@ -112,11 +115,11 @@ alter table Personnage
     references Joueur;
 
 alter table Personnage_Aventure 
-    add constraint FK4050F68B619C649A 
-    foreign key (aventure_id) 
-    references Aventure;
+    add constraint FK4050F68BDEA896D3 
+    foreign key (personnages_id) 
+    references Personnage;
 
 alter table Personnage_Aventure 
-    add constraint FK4050F68B5F4B841A 
-    foreign key (personnage_id) 
-    references Personnage;
+    add constraint FK4050F68B1E9405AB 
+    foreign key (aventures_id) 
+    references Aventure;
