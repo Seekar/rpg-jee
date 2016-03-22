@@ -1,9 +1,4 @@
-Modeleur UML :
-- https://www.genmymodel.com/ : the best je vais choper une licence finalement
-- https://cacoo.com
-- Open ModelSphere : http://www.modelsphere.com/org/ (peut-être mieux, mais marche mieux sur Windows)
-- PowerDesigner (tool propriétaire)
-- ArgoUML (assez moyen)
+Modeleur UML : https://genmymodel.com
 
 
 Tâches à partager :
