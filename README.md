@@ -15,8 +15,6 @@ Organisation des vues en plsrs dossiers correspondant aux contrôleurs
 - Design Bootstrap Twitter
 - Usage de jQuery
 
-> CQFD
-
 
 
 Ensuite :
