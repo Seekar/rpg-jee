@@ -1,6 +1,7 @@
 
 
 
+# drop everything
 drop table Paragraphe;
 drop table Episode;
 drop table Participe;
@@ -10,9 +11,19 @@ drop table Biographie;
 drop table Joueur;
 drop table Univers;
 
+drop sequence av_seq;
+drop sequence bio_seq;
 
+
+# Create fresh sequences
+create sequence av_seq;
+create sequence bio_seq;
+# implem séquences à finir
+
+
+# Create database
 create table Aventure (
-    id int not null,
+    id int default av_seq.nextval not null,
     aDate varchar(255) not null,
     events varchar(255) not null,
     finie int not null,
@@ -25,7 +36,7 @@ create table Aventure (
 );
 
 create table Biographie (
-    id int not null,
+    id int default bio_seq.nextval not null,
     texte varchar(255) not null,
     primary key (id)
 );
