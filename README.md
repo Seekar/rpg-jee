@@ -1,10 +1,22 @@
 Tool UML : https://genmymodel.com
 
 
-todo :
+Todo :
 
 - acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents
-- début JEE : conception archi
+
+Code JEE : conception archi
+
+1 servlet + 1 url par contrôleur
+	plusieurs sous-contrôleurs par fichier selon un paramètre GET
+
+Organisation des vues en plsrs dossiers correspondant aux contrôleurs
+
+- Design Bootstrap Twitter
+- Usage de jQuery
+
+> CQFD
+
 
 
 Ensuite :
