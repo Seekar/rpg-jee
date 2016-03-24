@@ -3,6 +3,7 @@ Tool UML : https://genmymodel.com
 
 Todo :
 
+- maquette à finir
 - acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents
 
 Code JEE : conception archi
@@ -14,6 +15,11 @@ Organisation des vues en plsrs dossiers correspondant aux contrôleurs
 
 - Design Bootstrap Twitter
 - Usage de jQuery
+
+
+Problèmes :
+- Le MJ valide quoi exactemt pr les persos proposés ?
+Si chaque mj valide un lien Aventure-Perso alors il faudrait mettre valid ds ce lien
 
 
 
