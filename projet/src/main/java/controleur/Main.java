@@ -44,12 +44,9 @@ public class Main extends HttpServlet {
             throws IOException, ServletException {
 
         request.setCharacterEncoding("UTF-8");
-        
+
         AbstractJoueurDAO joueurs = new JoueurDAO(ds);
-        request.getRequestDispatcher("/WEB-INF/index.html").forward(request, response);
-
-
-
+        request.getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
     }
 
     /**
