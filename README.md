@@ -3,7 +3,7 @@ Tool UML : https://genmymodel.com
 
 Todo :
 
-- maquette à finir
+- maquette à finir pour visualiser les fonctionnalités comprises facilement (équivalence Usecase)
 - acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents
 
 Code JEE : conception archi
