@@ -46,7 +46,15 @@ public class Main extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         AbstractJoueurDAO joueurs = new JoueurDAO(ds);
-        request.getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
+        String page = "accueil";
+
+        if (request.getParameter("login") != null) {
+            page = "login";
+        }
+
+        request.setAttribute("section", page);
+
+        request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
 
     /**
