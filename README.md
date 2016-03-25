@@ -2,12 +2,10 @@ Tool UML : https://genmymodel.com
 
 
 ###Problèmes BDD
-####Entité-relation Jouer
-- Non justifiée car n'a de cardinalité multiple que sur Aventure
+#### Relation Aventure-Perso-Joueur
 - Pour un transfert, il faudrait changer le joueur içi aussi et pas que dans Personnage
-- Après chaque partie finie, il faut supprimer la relation Jouer
-- Aucune utilité justifiable !
-- Pour preuve, l'entité Personnage remplit déjà le role de la relation Jouer qui n'est donc qu'une copie partielle de Personnage !
+- Après chaque partie finie, il faudrait supprimer la relation Jouer
+- Personnage pourrait aussi remplir le role de la relation Jouer pour simplifier
 
 
 
