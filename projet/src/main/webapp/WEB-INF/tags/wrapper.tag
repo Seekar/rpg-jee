@@ -26,11 +26,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">RPG</a>
+          <a class="navbar-brand" href=".">RPG</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li <c:if test="${section == 'accueil'}">class="active"</c:if>><a href=".">Accueil</a></li>
             <li <c:if test="${section == 'login'}">class="active"</c:if>><a href="?login">Login</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personnages<span class="caret"></span></a>
@@ -41,6 +40,13 @@
                 <li class="dropdown-header">Sous-titre</li>
                 <li><a href="#">Fonction3</a></li>
                 <li><a href="#">Fonction4</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parties<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Créer</a></li>
+                <li><a href="#">Liste</a></li>
               </ul>
             </li>
           </ul>
