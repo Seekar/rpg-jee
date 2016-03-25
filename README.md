@@ -1,6 +1,16 @@
 Tool UML : https://genmymodel.com
 
 
+###Problèmes BDD
+####Entité-relation Jouer
+- Non justifiée car n'a de cardinalité multiple que sur Aventure
+- Pour un transfert, il faudrait changer le joueur içi aussi et pas que dans Personnage
+- Après chaque partie finie, il faut supprimer la relation Jouer
+- Aucune utilité justifiable !
+
+
+
+
 Todo :
 
 - maquette/vues à finir pour visualiser les fonctionnalités comprises facilement (équivalence Usecase)
