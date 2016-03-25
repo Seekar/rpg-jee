@@ -3,7 +3,7 @@ Tool UML : https://genmymodel.com
 
 Todo :
 
-- maquette à finir pour visualiser les fonctionnalités comprises facilement (équivalence Usecase)
+- maquette/vues à finir pour visualiser les fonctionnalités comprises facilement (équivalence Usecase)
 - acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents
 
 Code JEE : conception archi
@@ -12,9 +12,9 @@ Code JEE : conception archi
 	plusieurs sous-contrôleurs par fichier selon un paramètre GET
 
 Organisation des vues en plsrs dossiers correspondant aux contrôleurs
+Utilisation des templates 'tag' JSP pour factoriser les vues
 
-- Design Bootstrap Twitter
-- Usage de jQuery
+- Design [Bootstrap Twitter](http://getbootstrap.com/) : [documentation](http://getbootstrap.com/)
 
 
 Problèmes :
