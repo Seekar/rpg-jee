@@ -1,4 +1,5 @@
 Tool UML : https://genmymodel.com
+Design CSS : [Bootstrap Twitter](http://getbootstrap.com/) : [documentation](http://getbootstrap.com/)
 
 
 ###Problèmes BDD
@@ -22,8 +23,6 @@ Code JEE : conception archi
 
 Organisation des vues en plsrs dossiers correspondant aux contrôleurs
 Utilisation des templates 'tag' JSP pour factoriser les vues
-
-- Design [Bootstrap Twitter](http://getbootstrap.com/) : [documentation](http://getbootstrap.com/)
 
 
 Ensuite :
