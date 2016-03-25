@@ -17,12 +17,6 @@ Utilisation des templates 'tag' JSP pour factoriser les vues
 - Design [Bootstrap Twitter](http://getbootstrap.com/) : [documentation](http://getbootstrap.com/)
 
 
-Problèmes :
-- Le MJ valide quoi exactemt pr les persos proposés ?
-Si chaque mj valide un lien Aventure-Perso alors il faudrait mettre valid ds ce lien
-
-
-
 Ensuite :
 
 - doc conception : à rédiger après implém java pour éviter les changements
