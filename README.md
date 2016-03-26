@@ -6,6 +6,11 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 
 ###Problèmes BDD
+
+"Un épisode peut être lié à une aventure. Lors de la création d’un épisode, l’application propose la liste des aventures auxquelles le personnage a participé pour permettre ce lien."
+=> Donc il faut conserver l'historique des aventure de chaque personnage
+
+
 #### Relation Aventure-Perso-Joueur
 - Pour un transfert, il faudrait changer le joueur içi aussi et pas que dans Personnage
 - Après chaque partie finie, il faudrait supprimer la relation Jouer
