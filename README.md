@@ -12,12 +12,6 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 => Donc il faut conserver l'historique des aventure de chaque personnage
 
 
-#### Relation Aventure-Perso-Joueur
-- Pour un transfert, il faudrait changer le joueur içi aussi et pas que dans Personnage
-- Après chaque partie finie, il faudrait supprimer la relation Jouer
-- Personnage pourrait aussi remplir le role de la relation Jouer pour simplifier
-
-
 
 
 Todo :
