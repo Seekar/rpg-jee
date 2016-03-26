@@ -1,4 +1,17 @@
+Appli en ligne : http://rpg-723.rhcloud.com/
+
 Tool UML : https://genmymodel.com
+
+Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
+
+
+###Problèmes BDD
+
+"Un épisode peut être lié à une aventure. Lors de la création d’un épisode, l’application propose la liste des aventures auxquelles le personnage a participé pour permettre ce lien."
+
+=> Donc il faut conserver l'historique des aventure de chaque personnage
+
+
 
 
 Todo :
@@ -13,8 +26,6 @@ Code JEE : conception archi
 
 Organisation des vues en plsrs dossiers correspondant aux contrôleurs
 Utilisation des templates 'tag' JSP pour factoriser les vues
-
-- Design [Bootstrap Twitter](http://getbootstrap.com/) : [documentation](http://getbootstrap.com/)
 
 
 Ensuite :
