@@ -16,7 +16,7 @@ public class Paragraphe
 	 * @ordered
 	 */
 	
-	private String text;
+	private String texte;
 
 	/**
 	 * <!-- begin-user-doc -->

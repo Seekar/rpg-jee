@@ -18,7 +18,16 @@ public class Episode
 	 * @ordered
 	 */
 	
-	private String eDate;
+	private int eDate;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	private boolean valide;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -38,7 +47,14 @@ public class Episode
 	
 	public Joueur mj;
 
-
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Biographie biographie;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -47,7 +63,7 @@ public class Episode
 	 * @ordered
 	 */
 	
-	public Set<Paragraphe> paragraphe;
+	public Set<Paragraphe> paragraphes;
 
 	/**
 	 * <!-- begin-user-doc -->

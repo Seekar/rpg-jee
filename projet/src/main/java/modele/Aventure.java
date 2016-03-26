@@ -81,7 +81,7 @@ public class Aventure
 	 * @ordered
 	 */
 	
-	public Set<Episode> episodeAventure;
+	public Episode episode;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -99,7 +99,7 @@ public class Aventure
 	 * @ordered
 	 */
 	
-	public Set<Jouer> jouer;
+	public Set<Joue> parties;
 
 	/**
 	 * <!-- begin-user-doc -->

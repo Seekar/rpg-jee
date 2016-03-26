@@ -1,4 +1,6 @@
 package modele;
+import java.util.Set;
+import java.util.HashSet;
 
 
 /**
@@ -52,7 +54,7 @@ public class Personnage
 	 * @ordered
 	 */
 	
-	private Biographie bio;
+	private boolean valide;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -70,7 +72,7 @@ public class Personnage
 	 * @ordered
 	 */
 	
-	public Jouer jouer;
+	public Joueur transfert;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -79,8 +81,49 @@ public class Personnage
 	 * @ordered
 	 */
 	
+	public Joueur mj;
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Joueur joueur;
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Joueur validateur;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Set<Joue> parties;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Biographie biographie;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 */
 	public Personnage(){
 		super();
 	}

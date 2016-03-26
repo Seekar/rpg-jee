@@ -27,7 +27,7 @@ public class Biographie
 	 * @ordered
 	 */
 	
-	public Set<Episode> episodesEnEdition;
+	public Personnage personnage;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -36,7 +36,7 @@ public class Biographie
 	 * @ordered
 	 */
 	
-	public Set<Episode> episode;
+	public Set<Episode> episodes;
 
 	/**
 	 * <!-- begin-user-doc -->

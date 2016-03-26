@@ -34,7 +34,7 @@ public class AbstractDAO {
             try {
                 c.close();
             } catch (SQLException sqle) {
-                throw new DAOException("Problème fermeture de connexion avec la BD ", sqle);
+                throw new DAOException("Erreur fermeture de la connexion bdd", sqle);
             }
         }
 

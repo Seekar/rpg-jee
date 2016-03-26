@@ -1,15 +1,51 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modele;
+import java.util.Set;
+import java.util.HashSet;
+
 
 /**
- *
- * @author reysi
+ * <!-- begin-user-doc -->
+ * <!--  end-user-doc  -->
+ * @generated
  */
-class Univers {
-    private String nom;
-    
+
+public class Univers
+{
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	private String nom;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Set<Aventure> aventures;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 * @ordered
+	 */
+	
+	public Set<Personnage> personnages;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!--  end-user-doc  -->
+	 * @generated
+	 */
+	public Univers(){
+		super();
+	}
+
 }
+

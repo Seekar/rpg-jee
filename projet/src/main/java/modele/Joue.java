@@ -1,6 +1,4 @@
 package modele;
-import java.util.Set;
-import java.util.HashSet;
 
 
 /**
@@ -9,7 +7,7 @@ import java.util.HashSet;
  * @generated
  */
 
-public class Jouer
+public class Joue
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -27,7 +25,7 @@ public class Jouer
 	 * @ordered
 	 */
 	
-	public Set<Personnage> personnage;
+	public Personnage personnage;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -43,7 +41,7 @@ public class Jouer
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public Jouer(){
+	public Joue(){
 		super();
 	}
 
