@@ -5,7 +5,7 @@ Tool UML : https://genmymodel.com
 Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 
-###Problèmes BDD
+### BDD
 
 "Un épisode peut être lié à une aventure. Lors de la création d’un épisode, l’application propose la liste des aventures auxquelles le personnage a participé pour permettre ce lien."
 
