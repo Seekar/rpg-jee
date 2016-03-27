@@ -1,8 +1,6 @@
-Appli en ligne : http://rpg-723.rhcloud.com/
+Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 Tool UML : https://genmymodel.com
-
-Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 
 ### BDD
@@ -16,8 +14,8 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 Todo :
 
-- maquette/vues à finir pour visualiser les fonctionnalités comprises facilement (équivalence Usecase)
-- acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents
+- acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents (voir l'ensemble des fonctionnalités décrites dans todo.txt)
+
 
 Code JEE : conception archi
 
