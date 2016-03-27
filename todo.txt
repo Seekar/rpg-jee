@@ -1,0 +1,80 @@
+
+
+
+Login : affichage forcé si non connecté
+
+bouton logout menu
+
+
+
+Persos : dropdown menu
+	Créer
+	Liste
+
+MJ : dropdown menu
+	Personnages
+	Validations
+	Transferts
+
+Parties : dropdown menu
+	Créer
+	Liste
+
+
+
+
+Liste des parties :
+	affichage lien vers chacune avec info en cours ou terminée
+
+
+
+Perso :
+	Affichage nom + naissance + portrait + univers
+	Profession ds champ modifiable (intégré avec un submit)
+	Transférer (intégré via liste déroulante + submit)
+	Changer de MJ, intégré via liste déroulante + submit (désactivé si perso ds une partie en cours)
+	Biographie > lien vers page bio
+	Liste des parties intégrée + lien vers chacune
+
+
+Biographie :
+	Ajouter un épisode (si joueur ou MJ du perso)
+
+	afficher la liste des épisodes avec si non validé :
+		Supprimer
+		Modifier -> lien vers vue Episode, même si episode validé !
+		Valider (crée la demande de vali par mj)
+
+
+Episode : 1 seule vue
+
+	Modification intégrée via champs + submit :
+		date relative à naissance perso
+		aventure liée (via liste déroulante des aventures finies par ce perso)
+
+	Ajout de paragraphe via un textarea vide intégré + son bouton submit
+
+	afficher une liste des paragraphes modifiables avec :
+		Révéler (si secret, par joueur seulement + demander confirmation via Javascript avant [API Modal de Bootstrap])
+		Modifier (via bouton submit de textarea) : seulement si l'épisode n'est pas validé
+
+	pr le public afficher uniquement la suite de paragraphes
+
+
+
+
+Page de partie en cours : 1 seule vue
+	affichage univers
+	Edition des infos intégrée via champs modifiables + submit
+	Liste des participants intégrée (avec bouton supprimer)
+	Ajouter participant (intégré via liste déroulante + submit)
+	Terminer la partie (intégrée à la page avec la rédaction de résumé)
+	Supprimer la partie
+
+
+
+Page de partie terminée : 1 seule vue
+	affichage univers + infos
+	Liste des participants intégrée
+
+

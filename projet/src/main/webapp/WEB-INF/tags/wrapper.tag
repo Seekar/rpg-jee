@@ -30,26 +30,39 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li <c:if test="${section == 'login'}">class="active"</c:if>><a href="?login">Login</a></li>
+            <!--<li <c:if test="${section == 'login'}">class="active"</c:if>><a href="?login">Login</a></li>-->
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personnages<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personnages <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Créer</a></li>
-                <li><a href="#">Liste</a></li>
-                <li role="separator" class="divider"></li>
+                <li><a href="#">Créer un personnage</a></li>
+                <li><a href="#">Liste des personnages</a></li>
+                <!--<li role="separator" class="divider"></li>
                 <li class="dropdown-header">Sous-titre</li>
                 <li><a href="#">Fonction3</a></li>
-                <li><a href="#">Fonction4</a></li>
+                <li><a href="#">Fonction4</a></li>-->
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parties<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parties <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Créer</a></li>
-                <li><a href="#">Liste</a></li>
+                <li><a href="#">Proposer une partie</a></li>
+                <li><a href="#">Liste des parties</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MJ <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Personnages gérés</a></li>
+                <li><a href="#">Personnages à valider</a></li>
+                <li><a href="#">Transferts à valider</a></li>
               </ul>
             </li>
           </ul>
+          <div class="navbar-right">
+            <c:if test="${section != 'login'}">
+              <a type="button" class="btn btn-danger navbar-btn" href="#">Logout</a>
+            </c:if>
+          </div>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
