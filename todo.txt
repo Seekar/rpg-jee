@@ -1,25 +1,9 @@
 
 
 
+A faire :
+
 Login : affichage forcé si non connecté
-
-bouton logout menu
-
-
-
-Persos : dropdown menu
-	Créer
-	Liste
-
-MJ : dropdown menu
-	Personnages
-	Validations
-	Transferts
-
-Parties : dropdown menu
-	Créer
-	Liste
-
 
 
 
@@ -77,4 +61,23 @@ Page de partie terminée : 1 seule vue
 	affichage univers + infos
 	Liste des participants intégrée
 
+
+
+
+Menu principal : (déjà fait)
+
+	bouton logout
+
+	Persos : dropdown menu
+		Créer
+		Liste
+
+	Parties : dropdown menu
+		Créer
+		Liste
+
+	MJ : dropdown menu
+		Personnages
+		Validations
+		Transferts
 
