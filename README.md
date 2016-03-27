@@ -15,6 +15,7 @@ Tool UML : https://genmymodel.com
 Todo :
 
 - acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents (voir l'ensemble des fonctionnalités décrites dans todo.txt)
+- définir l'ensemble des fonctions de contrôleur + servlets + chaque vue
 
 
 Code JEE : conception archi
