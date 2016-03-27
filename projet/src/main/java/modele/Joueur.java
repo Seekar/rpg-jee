@@ -1,6 +1,6 @@
 package modele;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -36,7 +36,7 @@ public class Joueur
 	 * @ordered
 	 */
 	
-	public Set<Aventure> aventures;
+	public List<Aventure> aventures;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -45,7 +45,7 @@ public class Joueur
 	 * @ordered
 	 */
 	
-	public Set<Episode> episodes;
+	public List<Episode> episodes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -54,7 +54,7 @@ public class Joueur
 	 * @ordered
 	 */
 	
-	public Set<Personnage> transferts;
+	public List<Personnage> transferts;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -63,7 +63,7 @@ public class Joueur
 	 * @ordered
 	 */
 	
-	public Set<Personnage> supervisions;
+	public List<Personnage> supervisions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -72,7 +72,7 @@ public class Joueur
 	 * @ordered
 	 */
 	
-	public Set<Personnage> possessions;
+	public List<Personnage> possessions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -81,7 +81,7 @@ public class Joueur
 	 * @ordered
 	 */
 	
-	public Set<Personnage> validations;
+	public List<Personnage> validations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -90,7 +90,7 @@ public class Joueur
 	 * @ordered
 	 */
 	
-	public Set<Joue> parties;
+	public List<Joue> parties;
 
 	/**
 	 * <!-- begin-user-doc -->

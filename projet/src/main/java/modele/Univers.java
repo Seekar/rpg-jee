@@ -1,6 +1,6 @@
 package modele;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -27,7 +27,7 @@ public class Univers
 	 * @ordered
 	 */
 	
-	public Set<Aventure> aventures;
+	public List<Aventure> aventures;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -36,7 +36,7 @@ public class Univers
 	 * @ordered
 	 */
 	
-	public Set<Personnage> personnages;
+	public List<Personnage> personnages;
 
 	/**
 	 * <!-- begin-user-doc -->

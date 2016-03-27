@@ -1,6 +1,6 @@
 package modele;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -108,7 +108,7 @@ public class Personnage
 	 * @ordered
 	 */
 	
-	public Set<Joue> parties;
+	public List<Joue> parties;
 
 	/**
 	 * <!-- begin-user-doc -->

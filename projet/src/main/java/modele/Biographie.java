@@ -1,6 +1,6 @@
 package modele;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -36,7 +36,7 @@ public class Biographie
 	 * @ordered
 	 */
 	
-	public Set<Episode> episodes;
+	public List<Episode> episodes;
 
 	/**
 	 * <!-- begin-user-doc -->
