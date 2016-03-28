@@ -128,7 +128,7 @@ public class Main extends HttpServlet {
             return (joueur != null && joueur.getPwd().equals(hexString.toString()));
         }
         catch (Exception e) {
-            //System.out.println("isLoginValid err " + e.getMessage());
+            System.out.println("Error : " + e.getMessage());
             return false;
         }
     }

@@ -5,6 +5,12 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 Tool UML : https://genmymodel.com
 
 
+# Identifiants Oracle
+
+Dans le dossier src/main/webapp/META-INF, copier le template context.xml.template vers context.xml et remplacer XXXX par les identifiants Oracle
+
+
+
 ### BDD
 
 "Un épisode peut être lié à une aventure. Lors de la création d’un épisode, l’application propose la liste des aventures auxquelles le personnage a participé pour permettre ce lien."
