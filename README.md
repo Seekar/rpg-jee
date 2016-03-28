@@ -32,6 +32,7 @@ Code JEE : conception archi
 	plusieurs sous-contrôleurs par fichier selon un paramètre GET
 
 Organisation des vues en plsrs dossiers correspondant aux contrôleurs
+
 Utilisation des templates 'tag' JSP pour factoriser les vues
 
 
