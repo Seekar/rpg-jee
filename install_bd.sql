@@ -176,7 +176,8 @@ alter table Personnage
 
 
 -- pass : james007tb (hash md5)
-insert into Joueur (pseudo, pwd) values ('James', 'ea262e6e612acd24c49c050f66f04607');
+insert into Joueur (pseudo, pwd)
+    values ('James', 'ea262e6e612acd24c49c050f66f04607');
 
 
 commit;
