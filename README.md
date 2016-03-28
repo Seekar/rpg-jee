@@ -5,7 +5,7 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 Tool UML : https://genmymodel.com
 
 
-# Identifiants Oracle
+### Identifiants Oracle
 
 Dans le dossier src/main/webapp/META-INF, copier le template context.xml.template vers context.xml et remplacer XXXX par les identifiants Oracle
 
