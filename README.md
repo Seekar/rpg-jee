@@ -11,7 +11,7 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 
 ### Répartition
 
-[Description des fonctionnalités](https://github.com/leogouttefarde/rpg/edit/master/todo.txt)
+[Description des fonctionnalités](https://github.com/leogouttefarde/rpg/blob/master/todo.txt)
 
 L'idéal serait d'avoir 1 personne sur les parties, 1-2 personne(s) sur les épisodes + paragraphes et 1 personne sur les personnages à priori
 
