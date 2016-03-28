@@ -1,10 +1,4 @@
-
-
-
-A faire :
-
-Login : affichage forcé si non connecté
-
+# Liste des fonctions à implémenter
 
 
 Liste des parties :
@@ -61,23 +55,4 @@ Page de partie terminée : 1 seule vue
 	affichage univers + infos
 	Liste des participants intégrée
 
-
-
-
-Menu principal : (déjà fait)
-
-	bouton logout
-
-	Persos : dropdown menu
-		Créer
-		Liste
-
-	Parties : dropdown menu
-		Créer
-		Liste
-
-	MJ : dropdown menu
-		Personnages
-		Validations
-		Transferts
 
