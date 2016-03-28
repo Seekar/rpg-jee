@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="favicon.ico" />
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-        <link href="css/theme.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
 
     </head>
     <body role="document">
@@ -98,6 +98,7 @@
 
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
     </div>
     </div>
     </body>

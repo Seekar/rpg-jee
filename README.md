@@ -23,13 +23,8 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 Todo :
 
 - acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents (voir l'ensemble des fonctionnalités décrites dans todo.txt)
-- définir l'ensemble des fonctions de contrôleur + servlets + chaque vue
 
 
-Code JEE : conception archi
-
-1 servlet + 1 url par contrôleur
-	plusieurs sous-contrôleurs par fichier selon un paramètre GET
 
 Organisation des vues en plsrs dossiers correspondant aux contrôleurs
 Utilisation des templates 'tag' JSP pour factoriser les vues
