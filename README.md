@@ -9,6 +9,11 @@ Tool UML : https://genmymodel.com
 
 Dans le dossier src/main/webapp/META-INF, copier le template context.xml.template vers context.xml et remplacer XXXX par les identifiants Oracle
 
+### Répartition
+
+[Description des fonctionnalités](https://github.com/leogouttefarde/rpg/edit/master/README.md)
+
+L'idéal serait d'avoir 1 personne sur les parties, 1-2 personne(s) sur les épisodes + paragraphes et 1 personne sur les personnages à priori
 
 
 ### BDD
