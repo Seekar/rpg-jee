@@ -13,11 +13,13 @@ drop table Univers;
 
 drop sequence av_seq;
 drop sequence bio_seq;
+drop sequence joueur_seq;
 
 
 -- Create fresh sequences
 create sequence av_seq;
 create sequence bio_seq;
+create sequence joueur_seq;
 -- implem séquences à finir
 
 
@@ -60,8 +62,8 @@ create table Joue (
 );
 
 create table Joueur (
-    id int not null,
-    pseudo varchar(255) not null,
+    id int default joueur_seq.nextval not null,
+    pseudo varchar(255) unique not null,
     pwd varchar(255) not null,
     primary key (id)
 );
@@ -171,5 +173,12 @@ alter table Personnage
     add constraint FK9F513EC6D3CA809A 
     foreign key (joueur_id) 
     references Joueur;
+
+
+-- pass : james007tb (hash md5)
+insert into Joueur (pseudo, pwd) values ('James', 'ea262e6e612acd24c49c050f66f04607');
+
+
+commit;
 
 

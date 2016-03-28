@@ -5,6 +5,7 @@ import dao.DAOException;
 import dao.JoueurDAO;
 
 import java.io.*;
+import java.security.MessageDigest;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.*;
@@ -45,11 +46,15 @@ public class Main extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        AbstractJoueurDAO joueurs = new JoueurDAO(ds);
+        JoueurDAO.Create(ds);
         String page = "accueil";
 
         if (request.getParameter("login") != null) {
             page = "login";
+        }
+        else if (request.getParameter("logout") != null) {
+            HttpSession session = request.getSession();
+            session.invalidate();
         }
 
         request.setAttribute("section", page);
@@ -77,8 +82,56 @@ public class Main extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
 
+        request.setCharacterEncoding("UTF-8");
+
+        String login = request.getParameter("nickname");
+        String pass = request.getParameter("password");
+        String page = "login";
+
+        if (isLoginValid(login, pass)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", login);
+            page = "accueil";
+        }
+        else {
+            request.setAttribute("error", "Login incorrect");
+        }
+
+        request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
 
-   
+    private boolean isLoginValid(String login, String pwd) {
 
+        try {
+            Joueur joueur = JoueurDAO.Get().getJoueur(login);
+
+            MessageDigest mdAlgorithm = MessageDigest.getInstance("MD5");
+            mdAlgorithm.update(pwd.getBytes());
+
+            byte[] digest = mdAlgorithm.digest();
+            StringBuilder hexString = new StringBuilder();
+            String plainText;
+
+            for (int i = 0; i < digest.length; i++) {
+                plainText = Integer.toHexString(0xFF & digest[i]);
+
+                if (plainText.length() < 2) {
+                    plainText = "0" + plainText;
+                }
+
+                hexString.append(plainText);
+            }
+
+            //System.out.println("md5(" + pwd + ") == " + hexString);
+            //System.out.println("joueur.getPwd() == " + joueur.getPwd());
+
+            return (joueur != null && joueur.getPwd().equals(hexString.toString()));
+        }
+        catch (Exception e) {
+            //System.out.println("isLoginValid err " + e.getMessage());
+            return false;
+        }
+    }
 }
+
+

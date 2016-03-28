@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Joueur
 {
+	private int id;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -97,8 +99,14 @@ public class Joueur
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public Joueur(){
-		super();
+	public Joueur(int id, String pseudo, String pwd) {
+		this.id = id;
+		this.pseudo = pseudo;
+		this.pwd = pwd;
+	}
+
+	public String getPwd() {
+		return pwd;
 	}
 
 }

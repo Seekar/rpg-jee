@@ -7,15 +7,21 @@ package dao;
 
 import java.util.List;
 import javax.sql.DataSource;
+import modele.*;
 
 /**
  *
  * @author reysi
  */
-public abstract class AbstractJoueurDAO extends AbstractDAO{
+public abstract class AbstractJoueurDAO extends AbstractDAO {
 
     public AbstractJoueurDAO(DataSource ds) {
         super(ds);
     }
-    public abstract List getListePersos();
+
+    public abstract Joueur getJoueur(String pseudo) throws DAOException;
+
+    public abstract Joueur getJoueur(int id) throws DAOException;
+
+    //public abstract List getListeJoueurs() throws DAOException;
 }

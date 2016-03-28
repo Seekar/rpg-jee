@@ -30,10 +30,13 @@
           <a class="navbar-brand" href=".">RPG</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+          <c:choose>
+          <c:when test="${sessionScope.user != null}">
           <ul class="nav navbar-nav">
             <!--<li <c:if test="${section == 'login'}">class="active"</c:if>><a href="?login">Login</a></li>-->
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personnages <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Personnages <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Créer un personnage</a></li>
                 <li><a href="#">Liste des personnages</a></li>
@@ -44,14 +47,16 @@
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parties <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> Parties <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Proposer une partie</a></li>
                 <li><a href="#">Liste des parties</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MJ <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="glyphicon glyphicon-glass" aria-hidden="true"></span> MJ <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">Personnages gérés</a></li>
                 <li><a href="#">Personnages à valider</a></li>
@@ -59,11 +64,21 @@
               </ul>
             </li>
           </ul>
-          <div class="navbar-right">
-            <c:if test="${section != 'login'}">
-              <a type="button" class="btn btn-danger navbar-btn" href="#">Logout</a>
-            </c:if>
+          <div class="btn-group navbar-right navbar-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ${sessionScope.user} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="?logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout</a></li>
+            </ul>
           </div>
+          </c:when> 
+          <c:otherwise>
+          <div class="navbar-right">
+              <a type="button" class="btn btn-default navbar-btn" href="?login">Login</a>
+          </div>
+          </c:otherwise>
+        </c:choose>
         </div><!--/.nav-collapse -->
       </div>
     </nav>

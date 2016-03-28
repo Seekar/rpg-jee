@@ -13,7 +13,7 @@ import javax.sql.DataSource;
  *
  * @author reysi
  */
-public class AbstractDAO {
+public abstract class AbstractDAO {
     
     protected final DataSource dataSource;
     
@@ -24,9 +24,11 @@ public class AbstractDAO {
     protected Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
+
     /**
-     * fermeture d'une connexion
-     * @param c la connexion à fermer
+     * Fermeture d'une connexion
+     *
+     * @param c La connexion à fermer
      * @throws DAOException si problème lors de la fermeture de la connexion
      */
     protected void closeConnection(Connection c) throws DAOException {
