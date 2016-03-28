@@ -28,13 +28,13 @@ L'idéal serait d'avoir 1 personne sur les parties, 1-2 personne(s) sur les épi
 => Donc il faut conserver l'historique des aventure de chaque personnage
 
 
-### ACVL :
+### ACVL
 
 - acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents (voir l'ensemble des fonctionnalités décrites dans todo.txt)
 
 
 
-Ensuite :
+### Autre
 
 - doc conception : à rédiger après implém java pour éviter les changements
 
