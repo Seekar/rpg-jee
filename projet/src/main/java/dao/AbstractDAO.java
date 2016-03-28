@@ -39,6 +39,5 @@ public abstract class AbstractDAO {
                 throw new DAOException("Erreur fermeture de la connexion bdd", sqle);
             }
         }
-
     }
 }

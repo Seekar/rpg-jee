@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import javax.sql.DataSource;
 import modele.Aventure;
 import modele.Episode;
@@ -21,11 +22,11 @@ public abstract class AbstractAventureDAO extends AbstractDAO
         super(ds);
     }
     
-    public abstract Aventure getPartiesEnCours(Joueur j) throws DAOException;
+    public abstract List<Aventure> getPartiesEnCours(Joueur j) throws DAOException;
     
-    public abstract Aventure getAventureAssociée(Episode e) throws DAOException;
+    public abstract Aventure getAventureAssociee(Episode e) throws DAOException;
     
-    public abstract Aventure getPartieMenée(Joueur j) throws DAOException;
+    public abstract List<Aventure> getPartiesMenees(Joueur j) throws DAOException;
     
     public abstract void editPartie(Aventure a) throws DAOException;
     

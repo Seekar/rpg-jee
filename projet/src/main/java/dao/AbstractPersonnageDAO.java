@@ -25,13 +25,10 @@ public abstract class AbstractPersonnageDAO extends AbstractDAO {
     
     public abstract Collection<Personnage> getPersonnagesAValider(Joueur j)throws DAOException;
     
-    public abstract Personnage getPersonnageAssocié(Joueur j, Aventure a)throws DAOException;
+    public abstract Personnage getPersonnageAssocie(Joueur j, Aventure a) throws DAOException;
     
-    public abstract Collection<Personnage> getPersonnageMené(Joueur j)
- throws DAOException;
+    public abstract Collection<Personnage> getPersonnagesMenes(Joueur j) throws DAOException;
     
-    public abstract Collection<Personnage> getTransfertsAValider(Joueur j) throws
-            DAOException;
-    
-    
+    public abstract Collection<Personnage> getTransfertsAValider(Joueur j) throws DAOException;
+
 }

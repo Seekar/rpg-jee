@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.List;
 import javax.sql.DataSource;
 import modele.Aventure;
 import modele.Episode;
@@ -15,7 +16,9 @@ import modele.Joueur;
  * @author plouviej
  */
 public final class AventureDAO extends AbstractAventureDAO {
+    
     static private AventureDAO instance;
+    
     private AventureDAO(DataSource ds) {
         super(ds);
     }
@@ -33,27 +36,27 @@ public final class AventureDAO extends AbstractAventureDAO {
     }
 
     @Override
-    public Aventure getPartiesEnCours(Joueur j) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Aventure getAventureAssociée(Episode e) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Aventure getPartieMenée(Joueur j) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void editPartie(Aventure a) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void creerPartie(Aventure a) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Aventure> getPartiesEnCours(Joueur j) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Aventure getAventureAssociee(Episode e) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Aventure> getPartiesMenees(Joueur j) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

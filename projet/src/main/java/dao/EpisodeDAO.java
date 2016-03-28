@@ -18,6 +18,7 @@ import modele.Joueur;
 public final class EpisodeDAO extends AbstractEpisodeDAO {
 
     static private EpisodeDAO instance;
+    
     private EpisodeDAO(DataSource ds) {
         super(ds);
     }
@@ -33,6 +34,7 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
     public static EpisodeDAO Get() {
         return instance;
     }
+    
     @Override
     public Collection<Episode> getEpisodesEnEdition(Biographie b) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

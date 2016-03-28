@@ -1,12 +1,17 @@
 package controleur;
 
-import dao.AbstractJoueurDAO;
+import dao.AventureDAO;
+import dao.BiographieDAO;
 import dao.DAOException;
+import dao.EpisodeDAO;
 import dao.JoueurDAO;
+import dao.ParagrapheDAO;
+import dao.PersonnageDAO;
+import dao.UniversDAO;
 
 import java.io.*;
 import java.security.MessageDigest;
-import java.util.List;
+import java.security.NoSuchAlgorithmException;
 import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +27,19 @@ public class Main extends HttpServlet {
 
     @Resource(name = "jdbc/rpg")
     private DataSource ds;
+    
+    @Override
+    public void init() {
+        
+        // Creation des DAO
+        AventureDAO.Create(ds);
+        BiographieDAO.Create(ds);
+        EpisodeDAO.Create(ds);
+        JoueurDAO.Create(ds);
+        ParagrapheDAO.Create(ds);
+        PersonnageDAO.Create(ds);
+        UniversDAO.Create(ds);
+    }
 
     /* pages d’erreurs */
     private void invalidParameters(HttpServletRequest request,
@@ -39,14 +57,18 @@ public class Main extends HttpServlet {
     /**
      * Actions possibles en GET : afficher (correspond à l’absence du param),
      * getOuvrage.
+     * @param request
+     * @param response
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
      */
+    @Override
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
 
         request.setCharacterEncoding("UTF-8");
 
-        JoueurDAO.Create(ds);
         String page = "accueil";
 
         if (request.getParameter("login") != null) {
@@ -77,7 +99,12 @@ public class Main extends HttpServlet {
      * Actions possibles en POST : ajouter, supprimer, modifier. Une fois
      * l’action demandée effectuée, on retourne à la page d’accueil avec
      * actionAfficher(...)
+     * @param request
+     * @param response
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
      */
+    @Override
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
@@ -103,34 +130,44 @@ public class Main extends HttpServlet {
     private boolean isLoginValid(String login, String pwd) {
 
         try {
-            Joueur joueur = JoueurDAO.Get().getJoueur(login);
+            byte[] digest;
+            Joueur joueur;
+            String data, hash;
+            MessageDigest mdAlg;
+            
+            joueur = JoueurDAO.Get().getJoueur(login);
 
-            MessageDigest mdAlgorithm = MessageDigest.getInstance("MD5");
-            mdAlgorithm.update(pwd.getBytes());
+            if (joueur != null) {
+                mdAlg = MessageDigest.getInstance("MD5");
+                mdAlg.update(pwd.getBytes());
 
-            byte[] digest = mdAlgorithm.digest();
-            StringBuilder hexString = new StringBuilder();
-            String plainText;
+                digest = mdAlg.digest();
+                StringBuilder hashBuilder = new StringBuilder();
 
-            for (int i = 0; i < digest.length; i++) {
-                plainText = Integer.toHexString(0xFF & digest[i]);
+                for (int i = 0; i < digest.length; i++) {
+                    data = Integer.toHexString(0xFF & digest[i]);
 
-                if (plainText.length() < 2) {
-                    plainText = "0" + plainText;
+                    if (data.length() < 2) {
+                        data = "0" + data;
+                    }
+
+                    hashBuilder.append(data);
                 }
 
-                hexString.append(plainText);
+                hash = hashBuilder.toString();
+
+                //System.out.println("md5(" + pwd + ") == " + hash);
+                //System.out.println("joueur.getPwd() == " + joueur.getPwd());
+
+
+                return joueur.getPwd().equals(hash);
             }
-
-            //System.out.println("md5(" + pwd + ") == " + hexString);
-            //System.out.println("joueur.getPwd() == " + joueur.getPwd());
-
-            return (joueur != null && joueur.getPwd().equals(hexString.toString()));
         }
-        catch (Exception e) {
+        catch (DAOException | NoSuchAlgorithmException e) {
             System.out.println("Error : " + e.getMessage());
-            return false;
         }
+        
+        return false;
     }
 }
 

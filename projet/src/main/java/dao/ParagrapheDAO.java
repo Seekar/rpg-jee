@@ -15,7 +15,9 @@ import modele.Paragraphe;
  * @author plouviej
  */
 public final class ParagrapheDAO extends AbstractParagrapheDAO {
+    
     static private ParagrapheDAO instance;
+    
     private ParagrapheDAO(DataSource ds) {
         super(ds);
     }

@@ -19,8 +19,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     
     private static PersonnageDAO instance;
     
-    private PersonnageDAO(DataSource ds) 
-    {
+    private PersonnageDAO(DataSource ds) {
         super(ds);
     }
     
@@ -32,7 +31,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         return instance;
     }
     
-    public static PersonnageDAO get()
+    public static PersonnageDAO Get()
     {
         return instance;
     }
@@ -48,17 +47,17 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     }
 
     @Override
-    public Personnage getPersonnageAssocié(Joueur j, Aventure a) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Collection<Personnage> getPersonnageMené(Joueur j) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public Collection<Personnage> getTransfertsAValider(Joueur j) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Personnage getPersonnageAssocie(Joueur j, Aventure a) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Collection<Personnage> getPersonnagesMenes(Joueur j) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

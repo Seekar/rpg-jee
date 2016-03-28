@@ -13,7 +13,7 @@ import modele.Personnage;
  *
  * @author plouviej
  */
-public final class BiographieDAO extends AbstractBiographieDAO{
+public final class BiographieDAO extends AbstractBiographieDAO {
 
     private static BiographieDAO instance;
     
@@ -21,14 +21,14 @@ public final class BiographieDAO extends AbstractBiographieDAO{
         super(ds);
     }
     
-    public static BiographieDAO create(DataSource ds){
+    public static BiographieDAO Create(DataSource ds) {
         if(instance == null)
             instance = new BiographieDAO(ds);
+        
         return instance;
     }
     
-    public static BiographieDAO get()
-    {
+    public static BiographieDAO Get() {
         return instance;
     }
 
