@@ -58,34 +58,40 @@ public class PersonnageCtrl extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         if (request.getParameter("create") != null) {
-            try {
-                String naissance = request.getParameter("naissance");
-                String bio = request.getParameter("biographie");
-                String nom = request.getParameter("nom");
-                String portrait = request.getParameter("portrait");
-                String profession = request.getParameter("profession");
-                Univers univers = new Univers(Integer.parseInt(request.getParameter("univers")));
-                
-                
-                HttpSession session = request.getSession();
-                
-                if (session == null)
-                    throw new Exception("Erreur session");
-                    
-                int idUser = (int)session.getAttribute("idUser");
-                
-                Personnage perso = new Personnage(nom, naissance, profession, portrait, univers);
-                perso.setJoueur(new Joueur(idUser));
-                
-                PersonnageDAO.Get().creer(perso, bio);
-                response.sendRedirect(request.getContextPath());
-                
-            } catch (Exception ex) {
-                System.out.println("Erreur : " + ex.getMessage());
-                doGet(request, response);
-            }
+            actionCreate(request, response);
         }
         
+    }
+
+    public void actionCreate(HttpServletRequest request,
+           HttpServletResponse response) throws IOException, ServletException {
+
+        try {
+            String naissance = request.getParameter("naissance");
+            String bio = request.getParameter("biographie");
+            String nom = request.getParameter("nom");
+            String portrait = request.getParameter("portrait");
+            String profession = request.getParameter("profession");
+            Univers univers = new Univers(Integer.parseInt(request.getParameter("univers")));
+            
+            
+            HttpSession session = request.getSession();
+            
+            if (session == null)
+                throw new Exception("Erreur session");
+                
+            int idUser = (int)session.getAttribute("idUser");
+            
+            Personnage perso = new Personnage(nom, naissance, profession, portrait, univers);
+            perso.setJoueur(new Joueur(idUser));
+            
+            PersonnageDAO.Get().creer(perso, bio);
+            response.sendRedirect(request.getContextPath());
+            
+        } catch (Exception ex) {
+            System.out.println("Erreur : " + ex.getMessage());
+            doGet(request, response);
+        }
     }
 }
 
