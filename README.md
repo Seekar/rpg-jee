@@ -5,6 +5,11 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 Tool UML : https://genmymodel.com
 
 
+### Bugs to fix
+
+- Si on accède à une servlet et que Main.java n'a pas été créée, le Datasource n'est pas dispo
+
+
 ### Identifiants Oracle
 
 Dans le dossier src/main/webapp/META-INF, copier le template context.xml.template vers context.xml et remplacer XXXX par les identifiants Oracle
