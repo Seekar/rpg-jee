@@ -5,11 +5,6 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 Tool UML : https://genmymodel.com
 
 
-### Bugs to fix
-
-- Si on accède à une servlet et que Main.java n'a pas été créée, le Datasource n'est pas dispo
-
-
 ### Identifiants Oracle
 
 Dans le dossier src/main/webapp/META-INF, copier le template context.xml.template vers context.xml et remplacer XXXX par les identifiants Oracle
@@ -19,6 +14,11 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 [Description des fonctionnalités](https://github.com/leogouttefarde/rpg/blob/master/todo.txt)
 
 L'idéal serait d'avoir 1 personne sur les parties, 1-2 personne(s) sur les épisodes + paragraphes et 1 personne sur les personnages à priori
+
+- Personnages : ?
+- Parties : ?
+- Episodes / Paragraphes : ?
+
 
 ### Vues JSP
 
@@ -33,10 +33,14 @@ L'idéal serait d'avoir 1 personne sur les parties, 1-2 personne(s) sur les épi
 => Donc il faut conserver l'historique des aventure de chaque personnage
 
 
+### Bugs
+
+- Si on accède à une servlet et que Main.java n'a pas été créée, le Datasource n'est pas dispo : voir http://jersey.576304.n2.nabble.com/Initialization-at-startup-as-opposed-to-first-request-td5164440.html
+
+
 ### ACVL
 
 - acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents (voir l'ensemble des fonctionnalités décrites dans todo.txt)
-
 
 
 ### Autre
