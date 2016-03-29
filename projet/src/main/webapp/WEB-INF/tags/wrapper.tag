@@ -38,8 +38,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Personnages <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="character?create">Créer un personnage</a></li>
-                <li><a href="character?list">Liste des personnages</a></li>
+                <li><a href="character?action=create">Créer un personnage</a></li>
+                <li><a href="character?action=list">Liste des personnages</a></li>
                 <!--<li role="separator" class="divider"></li>
                 <li class="dropdown-header">Sous-titre</li>
                 <li><a href="#">Fonction3</a></li>
@@ -50,8 +50,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> Parties <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="game?create">Proposer une partie</a></li>
-                <li><a href="game?list">Liste des parties</a></li>
+                <li><a href="game?action=create">Proposer une partie</a></li>
+                <li><a href="game?action=list">Liste des parties</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -69,7 +69,7 @@
           </ul>
           <div class="btn-group navbar-right navbar-btn">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ${sessionScope.user} <span class="caret"></span>
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ${sessionScope.user.getPseudo()} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
               <li><a href="?logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout</a></li>

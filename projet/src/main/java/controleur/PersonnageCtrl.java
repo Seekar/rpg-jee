@@ -33,10 +33,11 @@ public class PersonnageCtrl extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
-        
+        String action = request.getParameter("action");
+
         String page = "liste";
 
-        if (request.getParameter("create") != null) {
+        if (action.equals("create")) {
             page = "creation";
         }
 
@@ -56,11 +57,11 @@ public class PersonnageCtrl extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
 
-        if (request.getParameter("create") != null) {
+        if (action.equals("create")) {
             actionCreate(request, response);
         }
-        
     }
 
     public void actionCreate(HttpServletRequest request,
@@ -79,11 +80,11 @@ public class PersonnageCtrl extends HttpServlet {
             
             if (session == null)
                 throw new Exception("Erreur session");
-                
-            int idUser = (int)session.getAttribute("idUser");
+
+            Joueur user = (Joueur)session.getAttribute("user");
             
             Personnage perso = new Personnage(nom, naissance, profession, portrait, univers);
-            perso.setJoueur(new Joueur(idUser));
+            perso.setJoueur(user);
             
             PersonnageDAO.Get().creer(perso, bio);
             response.sendRedirect(request.getContextPath());

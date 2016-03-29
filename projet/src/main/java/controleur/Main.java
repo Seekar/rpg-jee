@@ -118,10 +118,8 @@ public class Main extends HttpServlet {
 
         if ((joueur = isLoginValid(login, pass)) != null) {
             HttpSession session = request.getSession();
-            
-            session.setAttribute("user", login);
-            session.setAttribute("idUser", joueur.getId());
-            
+            session.setAttribute("user", joueur);
+
             page = "accueil";
         }
         else {

@@ -58,6 +58,7 @@ Episode : 1 seule vue
 
 
 
+/game?action=create
 /game?action=display&id=XXXX
 /game?action=edit (+ params id=XXXX ...)
 /game?action=delMember&id=XXXX&idMember=XXXX
