@@ -30,5 +30,7 @@ public abstract class AbstractPersonnageDAO extends AbstractDAO {
     public abstract Collection<Personnage> getPersonnagesMenes(Joueur j) throws DAOException;
     
     public abstract Collection<Personnage> getTransfertsAValider(Joueur j) throws DAOException;
+    
+    public abstract void creer(Personnage p, String bio) throws DAOException;
 
 }

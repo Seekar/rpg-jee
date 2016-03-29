@@ -38,8 +38,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Personnages <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Créer un personnage</a></li>
-                <li><a href="#">Liste des personnages</a></li>
+                <li><a href="character?create">Créer un personnage</a></li>
+                <li><a href="character?list">Liste des personnages</a></li>
                 <!--<li role="separator" class="divider"></li>
                 <li class="dropdown-header">Sous-titre</li>
                 <li><a href="#">Fonction3</a></li>
@@ -50,15 +50,18 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> Parties <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Proposer une partie</a></li>
-                <li><a href="#">Liste des parties</a></li>
+                <li><a href="game?create">Proposer une partie</a></li>
+                <li><a href="game?list">Liste des parties</a></li>
               </ul>
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="glyphicon glyphicon-glass" aria-hidden="true"></span> MJ <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Personnages gérés</a></li>
+                <li class="dropdown-header">Gestion</li>
+                <li><a href="#">Personnages menés</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Validation</li>
                 <li><a href="#">Personnages à valider</a></li>
                 <li><a href="#">Transferts à valider</a></li>
               </ul>

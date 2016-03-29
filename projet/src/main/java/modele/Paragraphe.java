@@ -9,6 +9,8 @@ package modele;
 
 public class Paragraphe
 {
+	private int id;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->

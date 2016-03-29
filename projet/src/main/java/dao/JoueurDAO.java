@@ -8,8 +8,11 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 import modele.*;
 
@@ -41,7 +44,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
     public Joueur getJoueur(int id) throws DAOException {
         Joueur joueur = null;
         Connection link = null;
-        PreparedStatement statement;
+        PreparedStatement statement = null;
 
         try {
             link = getConnection();
@@ -53,12 +56,17 @@ public final class JoueurDAO extends AbstractJoueurDAO {
                 throw new Exception("Aucun joueur d'id " + id);
 
             joueur = new Joueur(id, res.getString("pseudo"), res.getString("pwd"));
-            statement.close();
 
         } catch (Exception e) {
             throw new DAOException("Erreur bdd " + e.getMessage(), e);
 
         } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+            
             closeConnection(link);
         }
 
@@ -69,7 +77,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
     public Joueur getJoueur(String pseudo) throws DAOException {
         Joueur joueur = null;
         Connection link = null;
-        PreparedStatement statement;
+        PreparedStatement statement = null;
 
         try {
             link = getConnection();
@@ -82,12 +90,17 @@ public final class JoueurDAO extends AbstractJoueurDAO {
                 throw new Exception("Aucun joueur de pseudo " + pseudo);
 
             joueur = new Joueur(rs.getInt("id"), pseudo, rs.getString("pwd"));
-            statement.close();
 
         } catch (Exception e) {
             throw new DAOException("Erreur bdd " + e.getMessage(), e);
 
         } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+            
             closeConnection(link);
         }
 

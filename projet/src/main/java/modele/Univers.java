@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Univers
 {
+	private int id;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -47,5 +49,32 @@ public class Univers
 		super();
 	}
 
+    public Univers(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
+    public Univers(int id) {
+        this(id, null);
+    }
+
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    
 }
 

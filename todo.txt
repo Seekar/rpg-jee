@@ -14,7 +14,7 @@ Liste des parties (toutes ou d'un perso précis) : 1 seule vue
 /character?action=editMJ (+ params POST idPerso=XXXX idMJ=XXXX)
 /character?action=gamesList&id=XXXX	(liste des parties d'un perso)
 Perso :
-	Affichage nom + naissance + portrait + univers
+	Affichage nom + naissance + portrait + univers + validé ou non
 	Profession ds champ modifiable (intégré avec un submit)
 	Transférer (intégré via liste déroulante + submit)
 	Changer de MJ, intégré via liste déroulante + submit (désactivé si perso ds une partie en cours)

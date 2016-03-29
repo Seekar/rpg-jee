@@ -14,12 +14,16 @@ drop table Univers;
 drop sequence av_seq;
 drop sequence bio_seq;
 drop sequence joueur_seq;
+drop sequence univers_seq;
+drop sequence pers_seq;
 
 
 -- Create fresh sequences
 create sequence av_seq;
 create sequence bio_seq;
 create sequence joueur_seq;
+create sequence univers_seq;
+create sequence pers_seq;
 -- implem séquences à finir
 
 
@@ -77,12 +81,12 @@ create table Paragraphe (
 );
 
 create table Personnage (
-    id int not null,
+    id int default pers_seq.nextval not null,
     naissance varchar(255) not null,
     nom varchar(255) not null,
     portrait varchar(255),
     profession varchar(255) not null,
-    valide int not null,
+    valide int default 0 not null,
     biographie_id int,
     joueur_id int not null,
     mj_id int,
@@ -93,7 +97,7 @@ create table Personnage (
 );
 
 create table Univers (
-    id int not null,
+    id int default univers_seq.nextval not null,
     nom varchar(255) not null,
     primary key (id)
 );
@@ -179,6 +183,9 @@ alter table Personnage
 insert into Joueur (pseudo, pwd)
     values ('James', 'ea262e6e612acd24c49c050f66f04607');
 
+
+insert into Univers (nom) values ('La Guerre des étoiles');
+insert into Univers (nom) values ('Les Caraïbes au temps des pirates');
 
 commit;
 

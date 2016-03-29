@@ -36,14 +36,13 @@ public class Joue
 	
 	public Joueur joueur;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public Joue(){
-		super();
-	}
+        
+    public Joue(Aventure aventure, Personnage personnage, Joueur joueur) {
+        this.aventure = aventure;
+        this.personnage = personnage;
+        this.joueur = joueur;
+    }
+
 
 }
 

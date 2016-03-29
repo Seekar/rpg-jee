@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Episode
 {
+	private int id;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -65,14 +67,19 @@ public class Episode
 	
 	public List<Paragraphe> paragraphes;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public Episode(){
-		super();
-	}
+
+    public Episode(int id, int eDate, boolean valide, Aventure aventure, Joueur mj, Biographie biographie) {
+        this.id = id;
+        this.eDate = eDate;
+        this.valide = valide;
+        this.aventure = aventure;
+        this.mj = mj;
+        this.biographie = biographie;
+    }
+    
+    public Episode(int eDate, boolean valide, Aventure aventure, Joueur mj, Biographie biographie) {
+        this(-1, eDate, valide, aventure, mj, biographie);
+    }
 
 }
 

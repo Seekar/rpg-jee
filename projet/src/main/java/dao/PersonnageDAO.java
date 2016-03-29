@@ -5,6 +5,10 @@
  */
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 import javax.sql.DataSource;
 import modele.Aventure;
@@ -59,6 +63,54 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     @Override
     public Collection<Personnage> getPersonnagesMenes(Joueur j) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void creer(Personnage p, String bio) throws DAOException {
+        Joueur joueur = null;
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            link.setAutoCommit(false);
+            link.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            
+            statement = link.prepareStatement("INSERT INTO Biographie (texte) VALUES (?)");
+            statement.setString(1, bio);
+            statement.executeUpdate();
+            
+            statement = link.prepareStatement("INSERT INTO Personnage (naissance, nom, portrait, profession, joueur_id, " +
+                                              "univers_id, biographie_id) VALUES (?, ?, ?, ?, ?, ?, bio_seq.currval)");
+
+            statement.setString(1, p.getNaissance());
+            statement.setString(2, p.getNom());
+            statement.setString(3, p.getPortrait());
+            statement.setString(4, p.getProfession());
+            statement.setInt(5, p.getJoueur().getId());
+            statement.setInt(6, p.getUnivers().getId());
+            statement.executeUpdate();
+            
+            link.commit();
+
+        } catch (Exception e) {
+            if (link != null) {
+                try {
+                    link.rollback();
+                } catch (SQLException ex) {}
+            }
+            
+            throw new DAOException("Erreur bdd " + e.getMessage(), e);
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+            
+            closeConnection(link);
+        }
     }
     
 }

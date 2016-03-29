@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 import modele.*;
 
 /**
- * Le contrôleur de l'application.
+ * Le contrôleur d'application.
  */
 @WebServlet(name = "Main", urlPatterns = {"/main"})
 public class Main extends HttpServlet {
@@ -79,7 +79,7 @@ public class Main extends HttpServlet {
             session.invalidate();
         }
 
-        request.setAttribute("section", page);
+        //request.setAttribute("section", page);
 
         request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
@@ -114,10 +114,14 @@ public class Main extends HttpServlet {
         String login = request.getParameter("nickname");
         String pass = request.getParameter("password");
         String page = "login";
+        Joueur joueur;
 
-        if (isLoginValid(login, pass)) {
+        if ((joueur = isLoginValid(login, pass)) != null) {
             HttpSession session = request.getSession();
+            
             session.setAttribute("user", login);
+            session.setAttribute("idUser", joueur.getId());
+            
             page = "accueil";
         }
         else {
@@ -127,7 +131,7 @@ public class Main extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
 
-    private boolean isLoginValid(String login, String pwd) {
+    private Joueur isLoginValid(String login, String pwd) {
 
         try {
             byte[] digest;
@@ -160,14 +164,16 @@ public class Main extends HttpServlet {
                 //System.out.println("joueur.getPwd() == " + joueur.getPwd());
 
 
-                return joueur.getPwd().equals(hash);
+                if (joueur.getPwd().equals(hash)) {
+                    return joueur;
+                }
             }
         }
         catch (DAOException | NoSuchAlgorithmException e) {
             System.out.println("Error : " + e.getMessage());
         }
         
-        return false;
+        return null;
     }
 }
 

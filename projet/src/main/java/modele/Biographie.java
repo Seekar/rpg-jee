@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Biographie
 {
+	private int id;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -38,14 +40,15 @@ public class Biographie
 	
 	public List<Episode> episodes;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public Biographie(){
-		super();
-	}
+ 
+    public Biographie(int id, String texte) {
+        this.id = id;
+        this.texte = texte;
+    }
+ 
+    public Biographie(String texte) {
+        this(-1, texte);
+    }
 
 }
 

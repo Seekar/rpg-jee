@@ -11,10 +11,10 @@ import javax.sql.DataSource;
 import modele.*;
 
 /**
- * Contrôleur de personnages.
+ * Contrôleur de paragraphes.
  */
-@WebServlet(name = "Personnage", urlPatterns = {"/character"})
-public class Personnage extends HttpServlet {
+@WebServlet(name = "ParagrapheCtrl", urlPatterns = {"/paragraph"})
+public class ParagrapheCtrl extends HttpServlet {
 
     /**
      * Requetes GET
