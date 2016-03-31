@@ -13,7 +13,7 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 
 [Description des fonctionnalités](https://github.com/leogouttefarde/rpg/blob/master/todo.txt)
 
-- Personnages : Léo
+- Personnages / Joueurs : Léo
 - Parties : Salim
 - Biographie / Episodes / Paragraphes : Jules-Eugène / Simon
 
