@@ -13,8 +13,6 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 
 [Description des fonctionnalités](https://github.com/leogouttefarde/rpg/blob/master/todo.txt)
 
-L'idéal serait d'avoir 1 personne sur les parties, 1-2 personne(s) sur les épisodes + paragraphes et 1 personne sur les personnages à priori
-
 - Personnages : Léo
 - Parties : Salim
 - Biographie / Episodes / Paragraphes : Jules-Eugène / Simon
