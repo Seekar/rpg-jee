@@ -26,9 +26,7 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 
 ### BDD
 
-"Un épisode peut être lié à une aventure. Lors de la création d’un épisode, l’application propose la liste des aventures auxquelles le personnage a participé pour permettre ce lien."
-
-=> Donc il faut conserver l'historique des aventure de chaque personnage
+[Graphique SVG](https://github.com/leogouttefarde/rpg/blob/master/bdd.svg)
 
 
 ### Bugs
