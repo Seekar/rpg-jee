@@ -42,12 +42,12 @@ public class Main extends HttpServlet {
     }
 
     /* pages d’erreurs */
-    private void invalidParameters(HttpServletRequest request,
+    protected static void invalidParameters(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/controleurErreur.jsp").forward(request, response);
     }
 
-    private void erreurBD(HttpServletRequest request,
+    protected static void erreurBD(HttpServletRequest request,
             HttpServletResponse response, DAOException e)
             throws ServletException, IOException {
         request.setAttribute("erreurMessage", e.getMessage());
@@ -80,7 +80,7 @@ public class Main extends HttpServlet {
         }
 
         //request.setAttribute("section", page);
-
+        page = "personnage/creation";
         request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
 
