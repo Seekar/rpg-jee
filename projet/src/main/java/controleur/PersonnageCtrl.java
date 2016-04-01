@@ -5,6 +5,8 @@ import dao.PersonnageDAO;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -20,6 +22,12 @@ import modele.*;
 @WebServlet(name = "PersonnageCtrl", urlPatterns = {"/character"})
 public class PersonnageCtrl extends HttpServlet {
 
+    
+    
+     /**
+     * Actions possibles en GET : afficher (correspond à l’absence du param),
+     * creation.
+     */
     /**
      * Requetes GET
      *
@@ -34,11 +42,29 @@ public class PersonnageCtrl extends HttpServlet {
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
+        String page ="";
+        if (action == null){
+            PersonnageDAO persoDAO = PersonnageDAO.Get();
+        
+                Collection<Personnage> persos;
+            try {
+                persos = persoDAO.getAllPersonnages();
+                request.setAttribute("persos", persos);
+            } catch (DAOException e) {
+               Main.erreurBD(request, response, e);
+            }
+                 
+                        page = "liste";
+                
+        }
 
-        String page = "liste";
 
-        if (action.equals("create")) {
+        else if (action.equals("create")) {
             page = "creation";
+        }
+        else {
+            Main.invalidParameters(request, response);
+            return;
         }
 
         request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);

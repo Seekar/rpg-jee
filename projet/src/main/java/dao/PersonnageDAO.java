@@ -39,6 +39,11 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     {
         return instance;
     }
+    
+
+    public Collection<Personnage> getAllPersonnages() throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public Collection<Personnage> getPersonnagesJoueur(Joueur j) throws DAOException {
