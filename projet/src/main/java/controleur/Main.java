@@ -80,7 +80,6 @@ public class Main extends HttpServlet {
         }
 
         //request.setAttribute("section", page);
-        page = "personnage/creation";
         request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
 
