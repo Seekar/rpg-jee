@@ -22,12 +22,8 @@ import modele.*;
 @WebServlet(name = "PersonnageCtrl", urlPatterns = {"/character"})
 public class PersonnageCtrl extends HttpServlet {
 
-    
-    
-     /**
-     * Actions possibles en GET : afficher (correspond à l’absence du param),
-     * creation.
-     */
+
+    // Actions possibles en GET : 
     /**
      * Requetes GET
      *
@@ -42,20 +38,20 @@ public class PersonnageCtrl extends HttpServlet {
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-        String page ="";
+        String page = "";
+
         if (action == null){
             PersonnageDAO persoDAO = PersonnageDAO.Get();
-        
-                Collection<Personnage> persos;
+            Collection<Personnage> persos;
+
             try {
                 persos = persoDAO.getAllPersonnages();
                 request.setAttribute("persos", persos);
             } catch (DAOException e) {
-               Main.erreurBD(request, response, e);
+               Main.dbError(request, response, e);
             }
-                 
-                        page = "liste";
-                
+
+            page = "liste";
         }
 
 

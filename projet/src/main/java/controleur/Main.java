@@ -41,17 +41,17 @@ public class Main extends HttpServlet {
         UniversDAO.Create(ds);
     }
 
-    /* pages d’erreurs */
+    /* pages d'erreurs */
     protected static void invalidParameters(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/controleurErreur.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/ctrlError.jsp").forward(request, response);
     }
 
-    protected static void erreurBD(HttpServletRequest request,
+    protected static void dbError(HttpServletRequest request,
             HttpServletResponse response, DAOException e)
             throws ServletException, IOException {
-        request.setAttribute("erreurMessage", e.getMessage());
-        request.getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+        request.setAttribute("error", e.getMessage());
+        request.getRequestDispatcher("/WEB-INF/dbError.jsp").forward(request, response);
     }
 
     /**
@@ -79,8 +79,6 @@ public class Main extends HttpServlet {
             session.invalidate();
         }
 
-        //request.setAttribute("section", page);
-        page = "personnage/creation";
         request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
 
