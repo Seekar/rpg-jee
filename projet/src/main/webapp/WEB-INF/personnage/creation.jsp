@@ -16,8 +16,9 @@
     <div class="col-sm-4">
         <%-- TODO : afficher univers depuis une requete bdd --%>
         <select class="form-control" id="univers" name="univers" required>
-            <option>1</option>
-            <option>2</option>
+            <c:forEach var="univers" items="${listeUnivers}">
+            <option value="${univers.getId()}">${univers.getNom()}</option>
+            </c:forEach>
         </select>
     </div>
   </div>

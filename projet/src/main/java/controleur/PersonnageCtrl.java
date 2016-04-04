@@ -2,6 +2,7 @@ package controleur;
 
 import dao.DAOException;
 import dao.PersonnageDAO;
+import dao.UniversDAO;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -53,10 +54,18 @@ public class PersonnageCtrl extends HttpServlet {
 
             page = "liste";
         }
-
-
         else if (action.equals("create")) {
             page = "creation";
+            
+            UniversDAO universDAO = UniversDAO.Get();
+            Collection<Univers> univers;
+            
+            try {
+                univers = universDAO.getUnivers();
+                request.setAttribute("listeUnivers", univers);
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
+            }
         }
         else {
             Main.invalidParameters(request, response);

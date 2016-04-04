@@ -16,6 +16,8 @@ drop sequence bio_seq;
 drop sequence joueur_seq;
 drop sequence univers_seq;
 drop sequence pers_seq;
+drop sequence para_seq;
+drop sequence epi_seq;
 
 
 -- Create fresh sequences
@@ -24,18 +26,19 @@ create sequence bio_seq;
 create sequence joueur_seq;
 create sequence univers_seq;
 create sequence pers_seq;
--- implem séquences à finir
+create sequence para_seq;
+create sequence epi_seq;
 
 
 -- Create database
 create table Aventure (
     id int default av_seq.nextval not null,
-    aDate varchar(255) not null,
-    events varchar(255) not null,
+    aDate varchar(70) not null,
+    events varchar(4000) not null,
     finie int not null,
-    lieu varchar(255) not null,
-    situation varchar(255) not null,
-    titre varchar(255) not null,
+    lieu varchar(70) not null,
+    situation varchar(4000) not null,
+    titre varchar(70) not null,
     mj_id int not null,
     univers_id int not null,
     primary key (id)
@@ -43,12 +46,12 @@ create table Aventure (
 
 create table Biographie (
     id int default bio_seq.nextval not null,
-    texte varchar(255) not null,
+    texte varchar(4000) not null,
     primary key (id)
 );
 
 create table Episode (
-    id int not null,
+    id int default epi_seq.nextval not null,
     eDate integer not null,
     valide int not null,
     aventure_id int,
@@ -58,34 +61,33 @@ create table Episode (
 );
 
 create table Joue (
-    id int not null,
     aventure_id int not null,
     joueur_id int not null,
     personnage_id int not null,
-    primary key (id)
+    primary key (aventure_id, joueur_id, personnage_id)
 );
 
 create table Joueur (
     id int default joueur_seq.nextval not null,
-    pseudo varchar(255) unique not null,
-    pwd varchar(255) not null,
+    pseudo varchar(30) unique not null,
+    pwd char(32) not null,
     primary key (id)
 );
 
 create table Paragraphe (
-    id int not null,
+    id int default para_seq.nextval not null,
     secret int not null,
-    texte varchar(255) not null,
+    texte varchar(4000) not null,
     episode_id int not null,
     primary key (id)
 );
 
 create table Personnage (
     id int default pers_seq.nextval not null,
-    naissance varchar(255) not null,
-    nom varchar(255) not null,
-    portrait varchar(255),
-    profession varchar(255) not null,
+    naissance varchar(70) not null,
+    nom varchar(70) not null,
+    portrait varchar(4000),
+    profession varchar(70) not null,
     valide int default 0 not null,
     biographie_id int,
     joueur_id int not null,
@@ -98,7 +100,7 @@ create table Personnage (
 
 create table Univers (
     id int default univers_seq.nextval not null,
-    nom varchar(255) not null,
+    nom varchar(70) not null,
     primary key (id)
 );
 
@@ -184,16 +186,20 @@ insert into Joueur (pseudo, pwd)
     values ('James', 'ea262e6e612acd24c49c050f66f04607');
 
 
-insert into Univers (nom) values ('La Guerre des étoiles');
-insert into Univers (nom) values ('Les Caraïbes au temps des pirates');
-INSERT INTO BIOGRAPHIE (ID, TEXTE) 
-	VALUES (DEFAULT, 'Simon est étudiant à l''ensimag ...');
-INSERT INTO PERSONNAGE (ID, NAISSANCE, NOM, PORTRAIT, PROFESSION, VALIDE, BIOGRAPHIE_ID, JOUEUR_ID, MJ_ID, TRANSFERT_ID, UNIVERS_ID, VALIDATEUR_ID) 
-	VALUES (DEFAULT, '30 mai 2015', 'Simon', 'http://url', 'pirate des réseaux', 0, 1, 1, 1, NULL, 1, NULL);
-insert into episode values(1, 2, 1, null, 1,1);
+-- problèmes avec les caractères spéciaux
+insert into Univers (nom) values ('La Guerre des etoiles');
+insert into Univers (nom) values ('Les Caraibes au temps des pirates');
+insert into BIOGRAPHIE (ID, TEXTE) 
+    values (DEFAULT, 'Simon est etudiant a l''ensimag');
+insert into PERSONNAGE (ID, NAISSANCE, NOM, PORTRAIT, PROFESSION, VALIDE, BIOGRAPHIE_ID, JOUEUR_ID, MJ_ID, TRANSFERT_ID, UNIVERS_ID, VALIDATEUR_ID) 
+    values (DEFAULT, '30 mai 2015', 'Simon', 'http://url', 'activite', 0, 1, 1, 1, NULL, 1, NULL);
 
-INSERT INTO PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID) 
-	VALUES (1, 0, 'simon est en retard', 1)
+insert into episode values (DEFAULT, 2, 1, null, 1, 1);
+
+insert into PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID) 
+    values (DEFAULT, 0, 'Paragraphe d''episode', 1);
+
+
 commit;
 
 
