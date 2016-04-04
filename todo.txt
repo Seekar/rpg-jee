@@ -7,10 +7,10 @@ Liste des parties (toutes ou d'un perso précis) : 1 seule vue
 
 
 DONE /character?action=create
-/character?action=ownedList
-/character?action=leaderList
-/character?action=transferList
-/character?action=validationList
+DONE /character?action=ownedList
+DONE /character?action=leaderList
+DONE /character?action=transferList
+DONE /character?action=validationList
 /character?action=show&id=XXXX	(affiche un perso)
 /character?action=edit (+ param POST idPerso=XXXX newWork=XXXX)
 /character?action=transfer (+ params POST idPerso=XXXX idJoueur=XXXX)

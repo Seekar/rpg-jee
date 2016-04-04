@@ -70,20 +70,39 @@ public class PersonnageCtrl extends HttpServlet {
                Main.dbError(request, response, e);
             }
         }
-        else if (action.equals("ownedList")) {
+        else if (action.endsWith("List")) {
             page = "liste";
             
             PersonnageDAO persoDAO = PersonnageDAO.Get();
-            Collection<Personnage> persos;
+            Collection<Personnage> persos = null;
             
             try {
-                persos = persoDAO.getPersonnagesJoueur(user);
+                String titre = null;
+                
+                if (action.equals("ownedList")) {
+                    persos = persoDAO.getPersonnagesJoueur(user);
+                    titre = "Personnages possédés";
+                }
+                else if (action.equals("leaderList")) {
+                    persos = persoDAO.getPersonnagesMenes(user);
+                    titre = "Personnages menés";
+                }
+                else if (action.equals("transferList")) {
+                    persos = persoDAO.getTransfertsAValider(user);
+                    titre = "Demandes de transfert";
+                }
+                else if (action.equals("validationList")) {
+                    persos = persoDAO.getPersonnagesAValider(user);
+                    titre = "Personnages à valider";
+                }
+
+                request.setAttribute("titre", titre);
                 request.setAttribute("persos", persos);
             } catch (DAOException e) {
                Main.dbError(request, response, e);
             }
         }
-        
+
         if (page != null) {
             request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);
         }

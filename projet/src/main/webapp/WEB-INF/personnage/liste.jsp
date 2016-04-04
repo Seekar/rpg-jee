@@ -4,7 +4,7 @@
 
 <t:wrapper>
     <jsp:attribute name="header">
-        <h1>Liste des personnages possédés</h1>
+        <h1>${titre}</h1>
     </jsp:attribute>
 
     <jsp:body>

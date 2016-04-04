@@ -89,12 +89,83 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
     @Override
     public Collection<Personnage> getPersonnagesAValider(Joueur j) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Personnage> persos = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT id, nom FROM Personnage "
+                    + "where valide = 0 and validateur_id = ?");
+            
+            statement.setInt(1, j.getId());
+            ResultSet res = statement.executeQuery();
+            Personnage perso;
+
+            while (res.next()) {
+                perso = new Personnage();
+                perso.setId(Integer.parseInt(res.getString("id")));
+                perso.setNom(res.getString("nom"));
+                
+                persos.add(perso);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des personnages "
+                    + "à valider : " + e.getMessage(), e);
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+            
+            closeConnection(link);
+        }
+
+        return persos;
     }
 
     @Override
     public Collection<Personnage> getTransfertsAValider(Joueur j) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Personnage> persos = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT id, nom FROM Personnage "
+                    + "where transfert_id = ? and mj_id != ? and valide = 1");
+            
+            statement.setInt(1, j.getId());
+            statement.setInt(2, j.getId());
+            ResultSet res = statement.executeQuery();
+            Personnage perso;
+
+            while (res.next()) {
+                perso = new Personnage();
+                perso.setId(Integer.parseInt(res.getString("id")));
+                perso.setNom(res.getString("nom"));
+                
+                persos.add(perso);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des transferts "
+                    + "à valider : " + e.getMessage(), e);
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+            
+            closeConnection(link);
+        }
+
+        return persos;
     }
 
     @Override
@@ -104,7 +175,42 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
     @Override
     public Collection<Personnage> getPersonnagesMenes(Joueur j) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Personnage> persos = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT id, nom FROM Personnage "
+                    + "where mj_id = ? and valide = 1");
+            
+            statement.setInt(1, j.getId());
+            ResultSet res = statement.executeQuery();
+            Personnage perso;
+
+            while (res.next()) {
+                perso = new Personnage();
+                perso.setId(Integer.parseInt(res.getString("id")));
+                perso.setNom(res.getString("nom"));
+                
+                persos.add(perso);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des personnages "
+                    + "menés : " + e.getMessage(), e);
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+            
+            closeConnection(link);
+        }
+
+        return persos;
     }
 
     @Override
