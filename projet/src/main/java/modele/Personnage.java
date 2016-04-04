@@ -120,7 +120,7 @@ public class Personnage
 	 */
 	
 	private Biographie biographie;
-
+       
 
     public Personnage(int id, String nom, String naissance, String profession, String portrait, Univers univers, Joueur joueur) {
         this.id = id;

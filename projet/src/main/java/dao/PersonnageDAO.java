@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import modele.Aventure;
 import modele.Joueur;
 import modele.Personnage;
+import modele.Univers;
 
 /**
  *
@@ -110,6 +111,36 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             }
             
             closeConnection(link);
+        }
+    }
+
+    @Override
+    public Personnage getPersonnage(int personnageID) throws DAOException {
+        Connection c = null; boolean closed = false;
+        try{
+            c  =dataSource.getConnection();
+        PreparedStatement ps = c.prepareStatement("select * from personnage p where p.id = ?");
+        ps.setInt(1, personnageID);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        
+        String nom = rs.getString("nom");
+        String naissance = rs.getString("naissance");
+        String profession = rs.getString("profession") ;
+        String portrait  =rs.getString("portrait");
+        Univers u = new Univers(rs.getInt("univers_id"));
+        int jid =rs.getInt("joueur_id");
+        closeConnection(c);
+        closed = true;
+        Personnage  p = new Personnage(personnageID,nom ,naissance ,profession
+                , portrait, u,
+                JoueurDAO.Get().getJoueur(jid));
+        return p;
+        }catch(Exception e){
+            throw new DAOException(null,e);
+        }finally{
+            if(!closed)
+                closeConnection(c);
         }
     }
     

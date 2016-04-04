@@ -5,6 +5,9 @@
  */
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.sql.DataSource;
 import modele.Biographie;
 import modele.Personnage;
@@ -34,7 +37,21 @@ public final class BiographieDAO extends AbstractBiographieDAO {
 
     @Override
     public Biographie getBiographie(Personnage p) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c=null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps =c.prepareStatement("select b.id, b.texte from Biographie b, Personnage p where b.id=p.biographie_id and p.id=?");
+            ps.setInt(1, p.getId());
+            ResultSet res = ps.executeQuery();
+            res.next();
+            Biographie b = new Biographie(res.getInt("id"), res.getString("texte"));
+            return b;
+        } catch (Exception e) {
+            throw new DAOException("", e);
+        }finally{
+            
+            closeConnection(c);
+        }
     }
     
 }

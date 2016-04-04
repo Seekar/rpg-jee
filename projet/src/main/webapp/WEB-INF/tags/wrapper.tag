@@ -72,13 +72,13 @@
             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ${sessionScope.user.getPseudo()} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a href="?logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout</a></li>
+              <li><a href="main?logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout</a></li>
             </ul>
           </div>
           </c:when> 
           <c:otherwise>
           <div class="navbar-right">
-              <a type="button" class="btn btn-default navbar-btn" href="?login">Login</a>
+              <a type="button" class="btn btn-default navbar-btn" href="main?login">Login</a>
           </div>
           </c:otherwise>
         </c:choose>
@@ -90,7 +90,7 @@
     <div class="text-center">
 
         <div class="page-header">
-            <jsp:invoke fragment="header"/>
+            <jsp:invoke fragment="header" />
         </div>
 
         <jsp:doBody/>

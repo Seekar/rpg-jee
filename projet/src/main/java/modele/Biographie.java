@@ -12,7 +12,7 @@ import java.util.List;
 public class Biographie
 {
 	private int id;
-
+        public int getID() {return id;};
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -21,7 +21,7 @@ public class Biographie
 	 */
 	
 	private String texte;
-
+        public String getTexte(){return texte;}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -38,8 +38,9 @@ public class Biographie
 	 * @ordered
 	 */
 	
-	public List<Episode> episodes;
-
+	public List<Episode> episodes= new LinkedList<>();
+           
+       public List<Episode> getEpisodes(){return episodes;}
  
     public Biographie(int id, String texte) {
         this.id = id;

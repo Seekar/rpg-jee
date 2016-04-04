@@ -186,7 +186,14 @@ insert into Joueur (pseudo, pwd)
 
 insert into Univers (nom) values ('La Guerre des étoiles');
 insert into Univers (nom) values ('Les Caraïbes au temps des pirates');
+INSERT INTO BIOGRAPHIE (ID, TEXTE) 
+	VALUES (DEFAULT, 'Simon est étudiant à l''ensimag ...');
+INSERT INTO PERSONNAGE (ID, NAISSANCE, NOM, PORTRAIT, PROFESSION, VALIDE, BIOGRAPHIE_ID, JOUEUR_ID, MJ_ID, TRANSFERT_ID, UNIVERS_ID, VALIDATEUR_ID) 
+	VALUES (DEFAULT, '30 mai 2015', 'Simon', 'http://url', 'pirate des réseaux', 0, 1, 1, 1, NULL, 1, NULL);
+insert into episode values(1, 2, 1, null, 1,1);
 
+INSERT INTO PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID) 
+	VALUES (1, 0, 'simon est en retard', 1)
 commit;
 
 
