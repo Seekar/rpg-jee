@@ -31,7 +31,7 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 
 ### Bugs
 
-- Si on accède à une servlet et que Main.java n'a pas été créée, le Datasource n'est pas dispo : voir http://jersey.576304.n2.nabble.com/Initialization-at-startup-as-opposed-to-first-request-td5164440.html
+- Si on accède à une servlet et que Main.java n'a pas été créée, le Datasource n'est pas dispo (pas important selon le prof). Fix possible : http://jersey.576304.n2.nabble.com/Initialization-at-startup-as-opposed-to-first-request-td5164440.html
 
 
 ### ACVL
