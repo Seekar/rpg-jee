@@ -40,6 +40,26 @@ public class Main extends HttpServlet {
         PersonnageDAO.Create(ds);
         UniversDAO.Create(ds);
     }
+    
+    /**
+     * Récupère le joueur connecté.
+     * 
+     * @param request La requete
+     * @return null si non connecté, le joueur sinon
+     */
+    public static Joueur GetJoueurSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Joueur joueur = null;
+
+        if (session != null) {
+            Object obj = session.getAttribute("user");
+            
+            if (obj != null)
+                joueur = (Joueur)obj;
+        }
+
+        return joueur;
+    }
 
     /* pages d'erreurs */
     protected static void invalidParameters(HttpServletRequest request,

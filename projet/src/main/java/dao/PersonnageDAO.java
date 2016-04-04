@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.sql.DataSource;
 import modele.Aventure;
@@ -47,8 +48,43 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     }
 
     @Override
-    public Collection<Personnage> getPersonnagesJoueur(Joueur j) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Personnage> getPersonnagesJoueur(Joueur j) throws DAOException {
+        ArrayList<Personnage> persos = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT id, nom "
+                    + "FROM Personnage where joueur_id = ?");
+            
+            statement.setInt(1, j.getId());
+            ResultSet res = statement.executeQuery();
+            Personnage perso;
+
+            while (res.next()) {
+                perso = new Personnage();
+                perso.setId(Integer.parseInt(res.getString("id")));
+                perso.setNom(res.getString("nom"));
+                
+                persos.add(perso);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des personnages "
+                    + "possédés : " + e.getMessage(), e);
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+            
+            closeConnection(link);
+        }
+
+        return persos;
     }
 
     @Override

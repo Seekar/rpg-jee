@@ -10,10 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.sql.DataSource;
 import modele.Aventure;
-import modele.Joueur;
 import modele.Personnage;
 import modele.Univers;
 

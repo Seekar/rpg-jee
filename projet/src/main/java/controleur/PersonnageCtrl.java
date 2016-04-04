@@ -38,9 +38,12 @@ public class PersonnageCtrl extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
+        
+        String page = null;
         String action = request.getParameter("action");
-        String page = "";
+        Joueur user = Main.GetJoueurSession(request);
 
+        
         if (action == null){
             PersonnageDAO persoDAO = PersonnageDAO.Get();
             Collection<Personnage> persos;
@@ -67,12 +70,26 @@ public class PersonnageCtrl extends HttpServlet {
                Main.dbError(request, response, e);
             }
         }
+        else if (action.equals("ownedList")) {
+            page = "liste";
+            
+            PersonnageDAO persoDAO = PersonnageDAO.Get();
+            Collection<Personnage> persos;
+            
+            try {
+                persos = persoDAO.getPersonnagesJoueur(user);
+                request.setAttribute("persos", persos);
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
+            }
+        }
+        
+        if (page != null) {
+            request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);
+        }
         else {
             Main.invalidParameters(request, response);
-            return;
         }
-
-        request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);
     }
 
     /**
@@ -106,16 +123,8 @@ public class PersonnageCtrl extends HttpServlet {
             String profession = request.getParameter("profession");
             Univers univers = new Univers(Integer.parseInt(request.getParameter("univers")));
             
-            
-            HttpSession session = request.getSession();
-            
-            if (session == null)
-                throw new Exception("Erreur session");
-
-            Joueur user = (Joueur)session.getAttribute("user");
-            
             Personnage perso = new Personnage(nom, naissance, profession, portrait, univers);
-            perso.setJoueur(user);
+            perso.setJoueur(Main.GetJoueurSession(request));
             
             PersonnageDAO.Get().creer(perso, bio);
             response.sendRedirect(request.getContextPath());

@@ -8,7 +8,7 @@
     </jsp:attribute>
 
     <jsp:body>
-        
+
 <form class="form-horizontal col-sm-offset-3" method="post" action="character?action=create">
 
   <div class="form-group">
