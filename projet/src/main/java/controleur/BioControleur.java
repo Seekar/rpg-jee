@@ -52,7 +52,7 @@ public class BioControleur extends HttpServlet{
             e.paragraphes.add(pa =new Paragraphe());
             pa.setTexte("ceci n'est qu'un essai");
             pa.setSecret(false);*/
-            int persoID =1; //= Integer.parseInt(request.getParameter("persoID"));
+            int persoID = Integer.parseInt(request.getParameter("id"));
             PersonnageDAO persoD = PersonnageDAO.Get();
             BiographieDAO bioD = BiographieDAO.Get();
             EpisodeDAO epiD = EpisodeDAO.Get();

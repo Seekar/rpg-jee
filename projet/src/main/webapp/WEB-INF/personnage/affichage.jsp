@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <th>Biographie</th>
-                    <td><a href="#" class="btn btn-primary">Accès biographie</a></td>
+                    <td><a href="biographie?action=afficher&id=${perso.getId()}" class="btn btn-primary">Accès biographie</a></td>
                 </tr>
                 <tr>
                     <th>Meneur</th>
