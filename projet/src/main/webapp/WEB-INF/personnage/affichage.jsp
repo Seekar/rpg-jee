@@ -15,6 +15,11 @@
             <br/><br/>
         </c:if>
         <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Informations</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
                     <th>Nom</th>

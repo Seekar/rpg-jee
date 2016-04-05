@@ -41,7 +41,7 @@
   <div class="form-group">
     <label for="portrait" class="col-sm-3 control-label">URL du portrait</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="portrait" name="portrait" placeholder="URL du portrait" value="${param.portrait}" required/>
+      <input type="text" class="form-control" id="portrait" name="portrait" placeholder="URL du portrait" value="${param.portrait}"/>
     </div>
   </div>
   <div class="form-group">
