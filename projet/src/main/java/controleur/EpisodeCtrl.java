@@ -1,7 +1,10 @@
 package controleur;
 
+import dao.AventureDAO;
 import dao.EpisodeDAO;
+import dao.ParagrapheDAO;
 import java.io.*;
+import java.rmi.ServerException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
@@ -31,54 +34,64 @@ public class EpisodeCtrl extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
        String action = (request.getParameter("action")!= null ? request.getParameter("action") : "");
-       if(action.equals("edit")){
-           int epID = Integer.parseInt(request.getParameter("id"));
-           EpisodeDAO ed = EpisodeDAO.Get();
-           //requete DAO
-          
-           Episode e = new Episode(0, 35, false, null, null, null);
-           Paragraphe p = new Paragraphe();
-           p.setTexte("essai .....");
-           e.paragraphes.add(p);
-           request.setAttribute("episode", e);
-           request.getRequestDispatcher("/WEB-INF/episode/EditionEpisode.jsp").forward(request, response);
-       }else if(action.equals("suppr")){
-           int epID = Integer.parseInt(request.getParameter("id"));
-           //requete DAO
-           
-           Episode e = new Episode(0, 35, false, null, null, null);
-           Paragraphe p = new Paragraphe();
-           p.setTexte("essai .....");
-           e.paragraphes.add(p);
-           request.setAttribute("episode", e);
-           request.getRequestDispatcher("/WEB-INF/episode/Supprimer.jsp").forward(request, response);
-           
-       }else if(action.equals("valider")){
-           int epID = Integer.parseInt(request.getParameter("id"));
-           //requete DAO
-           
-           Episode e = new Episode(0, 35, false, null, null, null);
-           Paragraphe p = new Paragraphe();
-           p.setTexte("essai .....");
-           e.paragraphes.add(p);
-           request.setAttribute("episode", e);
-           request.getRequestDispatcher("/WEB-INF/episode/Valider.jsp").forward(request, response);
-           
-       }else if(action.equals("new")){
-           int bioID = Integer.parseInt(request.getParameter("bioID"));
-           
-           //DAO : liste des aventures
-           
-           LinkedList<Aventure> l = new  LinkedList<>();
-           Aventure a;
-           l.add(a =new Aventure(0));
-           a.setTitre("avt essai");
-           
-           request.setAttribute("aventures", l);
-           request.setAttribute("bioID", bioID);
-           request.getRequestDispatcher("/WEB-INF/episode/NouvelEpisode.jsp").forward(request, response);
-           
-       }
+        switch (action) {
+            case "edit":
+                {
+                    int epID = Integer.parseInt(request.getParameter("id"));
+                    EpisodeDAO ed = EpisodeDAO.Get();
+                    //requete DAO
+                    EpisodeDAO edd = EpisodeDAO.Get();
+                    ParagrapheDAO pad =ParagrapheDAO.Get();
+                    try{
+                        Episode e = edd.getEpisode(epID);
+                        e.paragraphes = pad.getParagraphes(e);
+                        request.setAttribute("episode", e);
+                        request.getRequestDispatcher("/WEB-INF/episode/EditionEpisode.jsp").forward(request, response);
+                    }catch(Exception e){
+                        throw new ServerException(null,e);
+                    }        break;
+                }
+            case "suppr":
+            {
+                int epID = Integer.parseInt(request.getParameter("id"));
+                    EpisodeDAO ed = EpisodeDAO.Get();
+                    //requete DAO
+                    EpisodeDAO edd = EpisodeDAO.Get();
+                    ParagrapheDAO pad =ParagrapheDAO.Get();
+                    try{
+                        Episode e = edd.getEpisode(epID);
+                        e.paragraphes = pad.getParagraphes(e);
+                        request.setAttribute("episode", e);
+                        request.getRequestDispatcher("/WEB-INF/episode/Supprimer.jsp").forward(request, response);
+                    }catch(Exception e){
+                        throw new ServerException(null,e);
+                    }      break;  
+            }
+            case "valider":
+            {
+                int epID = Integer.parseInt(request.getParameter("id"));
+                //requete DAO
+                EpisodeDAO ed = EpisodeDAO.Get();
+                ParagrapheDAO pad =ParagrapheDAO.Get();
+                try{
+                    Episode e = ed.getEpisode(epID);
+                    e.paragraphes = pad.getParagraphes(e);
+                    request.setAttribute("episode", e);
+                    request.getRequestDispatcher("/WEB-INF/episode/Valider.jsp").forward(request, response);
+                }catch(Exception e){
+                    throw new ServerException(null,e);
+                }        break;
+            }
+            case "new":
+                int bioID = Integer.parseInt(request.getParameter("bioID"));
+                //DAO : liste des aventures
+                /*AventureDAO ad = AventureDAO.Get();
+                
+                request.setAttribute("aventures", l);
+                request.setAttribute("bioID", bioID);*/
+                request.getRequestDispatcher("/WEB-INF/episode/NouvelEpisode.jsp").forward(request, response);
+                break;
+        }
     }
 
     /**
