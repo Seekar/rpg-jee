@@ -4,6 +4,10 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 Tool UML : https://genmymodel.com
 
+### Probléme BD
+il faut garder l'historique des aventures jouées pas un personnage, que fait on?
+on peut utiliser la relation joue mais dans ce cas il faut faire attention aux parties finis
+ou on peut créeer une autre relation
 
 ### Identifiants Oracle
 
