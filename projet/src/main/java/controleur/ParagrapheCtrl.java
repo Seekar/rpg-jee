@@ -1,5 +1,6 @@
 package controleur;
 
+import dao.EpisodeDAO;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -13,7 +14,7 @@ import modele.*;
 /**
  * Contrôleur de paragraphes.
  */
-@WebServlet(name = "ParagrapheCtrl", urlPatterns = {"/paragraph"})
+@WebServlet(name = "ParagrapheCtrl", urlPatterns = {"/paragraphe"})
 public class ParagrapheCtrl extends HttpServlet {
 
     /**
@@ -28,7 +29,24 @@ public class ParagrapheCtrl extends HttpServlet {
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-
+        String action = (request.getParameter("action")!= null ? request.getParameter("action") : "");
+       if(action.equals("edit")){
+           int paragid= Integer.parseInt(request.getParameter("ID"));
+           
+           //requete DAO
+          
+           
+           Paragraphe p = new Paragraphe();
+           p.setTexte("essai .....");
+           
+           request.setAttribute("parag", p);
+           request.getRequestDispatcher("/WEB-INF/Paragraphe/Editparagraphes.jsp").forward(request, response);
+     
+       }else if(action.equals("new")){
+           int eid = Integer.parseInt(request.getParameter("eID"));
+           request.setAttribute("eID", eid);
+           request.getRequestDispatcher("/WEB-INF/Paragraphe/NewParagraphe.jsp").forward(request, response);
+       }
     }
 
     /**
@@ -43,7 +61,10 @@ public class ParagrapheCtrl extends HttpServlet {
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-
+        String action = (request.getParameter("action")!= null ? request.getParameter("action") : "");
+        if(action.equals("reveler")){
+            
+        }
     }
 }
 

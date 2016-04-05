@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -84,7 +86,6 @@ public final class JoueurDAO extends AbstractJoueurDAO {
             statement = link.prepareStatement("SELECT id, pwd FROM Joueur where pseudo = ?");
             statement.setString(1, pseudo);
             ResultSet rs = statement.executeQuery();
-            System.out.println(statement);
 
             if (!rs.next())
                 throw new Exception("Aucun joueur de pseudo " + pseudo);
@@ -134,4 +135,42 @@ public final class JoueurDAO extends AbstractJoueurDAO {
         return list;
     }*/
     
+    @Override
+    public ArrayList<Joueur> getMeneurs() throws DAOException {
+        ArrayList<Joueur> meneurs = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT j.id, j.pseudo "
+                    + "FROM Joueur j join Aventure a on j.id = a.mj_id");
+            
+            ResultSet res = statement.executeQuery();
+            Joueur meneur;
+
+            while (res.next()) {
+                meneur = new Joueur();
+                meneur.setId(res.getInt("id"));
+                meneur.setPseudo(res.getString("pseudo"));
+                
+                meneurs.add(meneur);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des meneurs "
+                    + e.getMessage(), e);
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+            
+            closeConnection(link);
+        }
+
+        return meneurs;
+    }
 }

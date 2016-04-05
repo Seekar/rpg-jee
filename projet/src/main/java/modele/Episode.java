@@ -12,8 +12,8 @@ import java.util.List;
 public class Episode
 {
 	private int id;
-
-	/**
+        public int getId()
+        {return id;}	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
@@ -21,7 +21,7 @@ public class Episode
 	 */
 	
 	private int eDate;
-
+        public int getDate(){return eDate;}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -30,7 +30,7 @@ public class Episode
 	 */
 	
 	private boolean valide;
-
+        public boolean getValide(){return valide;}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -39,7 +39,7 @@ public class Episode
 	 */
 	
 	public Aventure aventure;
-
+        public Aventure getAventure(){return aventure;}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -65,8 +65,8 @@ public class Episode
 	 * @ordered
 	 */
 	
-	public List<Paragraphe> paragraphes;
-
+	public List<Paragraphe> paragraphes = new LinkedList<>();
+        public List<Paragraphe> getParagraphes(){return paragraphes;}
 
     public Episode(int id, int eDate, boolean valide, Aventure aventure, Joueur mj, Biographie biographie) {
         this.id = id;

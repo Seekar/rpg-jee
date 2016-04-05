@@ -5,8 +5,14 @@
  */
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import javax.sql.DataSource;
+import modele.Biographie;
 import modele.Episode;
 import modele.Paragraphe;
 
@@ -35,8 +41,44 @@ public final class ParagrapheDAO extends AbstractParagrapheDAO {
     }
 
     @Override
-    public Collection<Paragraphe> getParagraphes(Episode e) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Paragraphe> getParagraphes(Episode e) throws DAOException {
+        Connection c = null;
+        try{
+            c = dataSource.getConnection();
+        PreparedStatement ps = c.prepareStatement("select * from Paragraphe p where p.id = ?");
+        ps.setInt(1, e.getId());
+            ResultSet rs = ps.executeQuery();
+            LinkedList<Paragraphe> pars = new LinkedList<>();
+            while(rs.next()){
+                pars.add(new Paragraphe(rs.getInt("id"), rs.getInt("secret")==1, rs.getString("texte")));
+            }
+            closeConnection(c);
+            return pars;
+        }catch(Exception ex){
+            throw new DAOException(null, ex);
+        }finally{
+            closeConnection(c);
+        }
+    }
+
+    @Override
+    public Paragraphe getParagraphe(int pid) throws DAOException {
+        Connection c=null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps =c.prepareStatement("select * from Paragraphe where id=?");
+            ps.setInt(1, pid);
+            ResultSet res = ps.executeQuery();
+            res.next();
+            Paragraphe p = new Paragraphe(res.getInt("id"), res.getInt("secret") == 1 , res.getString("texte"));
+            closeConnection(c);
+            return p;
+        } catch (Exception e) {
+            throw new DAOException("", e);
+        }finally{
+            
+            closeConnection(c);
+        }
     }
     
 }

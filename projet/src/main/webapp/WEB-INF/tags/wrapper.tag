@@ -2,11 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@attribute name="header" fragment="true" %>
 <%@attribute name="footer" fragment="true" %>
+<%@attribute name="title" fragment="true" %>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Gestion de RPG</title>
+        <title>Gestion de RPG<jsp:invoke fragment="title" /></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="favicon.ico" />
@@ -39,7 +40,7 @@
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Personnages <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="character?action=create">Créer un personnage</a></li>
-                <li><a href="character?action=list">Liste des personnages</a></li>
+                <li><a href="character?action=ownedList">Liste des personnages</a></li>
                 <!--<li role="separator" class="divider"></li>
                 <li class="dropdown-header">Sous-titre</li>
                 <li><a href="#">Fonction3</a></li>
@@ -59,11 +60,11 @@
               <span class="glyphicon glyphicon-glass" aria-hidden="true"></span> MJ <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">Gestion</li>
-                <li><a href="#">Personnages menés</a></li>
+                <li><a href="character?action=leaderList">Personnages menés</a></li>
                 <li role="separator" class="divider"></li>
                 <li class="dropdown-header">Validation</li>
-                <li><a href="#">Personnages à valider</a></li>
-                <li><a href="#">Transferts à valider</a></li>
+                <li><a href="character?action=validationList">Personnages à valider</a></li>
+                <li><a href="character?action=transferList">Transferts à valider</a></li>
               </ul>
             </li>
           </ul>
@@ -72,13 +73,13 @@
             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ${sessionScope.user.getPseudo()} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><a href="?logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout</a></li>
+              <li><a href=".?logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout</a></li>
             </ul>
           </div>
           </c:when> 
           <c:otherwise>
           <div class="navbar-right">
-              <a type="button" class="btn btn-default navbar-btn" href="?login">Login</a>
+              <a type="button" class="btn btn-default navbar-btn" href=".?login">Login</a>
           </div>
           </c:otherwise>
         </c:choose>
@@ -90,7 +91,7 @@
     <div class="text-center">
 
         <div class="page-header">
-            <jsp:invoke fragment="header"/>
+            <jsp:invoke fragment="header" />
         </div>
 
         <jsp:doBody/>

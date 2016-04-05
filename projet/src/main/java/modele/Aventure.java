@@ -19,7 +19,8 @@ public class Aventure
 	 */
 	
 	private String titre;
-
+        public String getTitre(){return titre;}
+        public void setTitre(String g){ titre =g;}
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -106,9 +107,15 @@ public class Aventure
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public Aventure(){
-		super();
-	}
+	/*public Aventure(){
+		super(); 
+	}*/
+        
+        public Aventure(int id){
+            ID= id;
+        }
+        
+        public final int ID;
 
 }
 

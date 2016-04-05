@@ -1,7 +1,9 @@
 package controleur;
 
 import dao.DAOException;
+import dao.JoueurDAO;
 import dao.PersonnageDAO;
+import dao.UniversDAO;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,12 +24,8 @@ import modele.*;
 @WebServlet(name = "PersonnageCtrl", urlPatterns = {"/character"})
 public class PersonnageCtrl extends HttpServlet {
 
-    
-    
-     /**
-     * Actions possibles en GET : afficher (correspond à l’absence du param),
-     * creation.
-     */
+
+    // Actions possibles en GET : 
     /**
      * Requetes GET
      *
@@ -41,33 +39,92 @@ public class PersonnageCtrl extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
-        String page ="";
-        if (action == null){
-            PersonnageDAO persoDAO = PersonnageDAO.Get();
         
-                Collection<Personnage> persos;
+        String page = null;
+        String action = request.getParameter("action");
+        Joueur user = Main.GetJoueurSession(request);
+
+
+        if (action.equals("create")) {
+            page = "creation";
+            
+            UniversDAO universDAO = UniversDAO.Get();
+            Collection<Univers> univers;
+            
             try {
-                persos = persoDAO.getAllPersonnages();
-                request.setAttribute("persos", persos);
+                univers = universDAO.getUnivers();
+                request.setAttribute("listeUnivers", univers);
             } catch (DAOException e) {
-               Main.erreurBD(request, response, e);
+               Main.dbError(request, response, e);
             }
-                 
-                        page = "liste";
+        }
+        else if (action.endsWith("List")) {
+            page = "liste";
+            
+            PersonnageDAO persoDAO = PersonnageDAO.Get();
+            Collection<Personnage> persos = null;
+            
+            try {
+                String titre = null;
                 
+                if (action.equals("ownedList")) {
+                    persos = persoDAO.getPersonnagesJoueur(user);
+                    titre = "Personnages possédés";
+                }
+                else if (action.equals("leaderList")) {
+                    persos = persoDAO.getPersonnagesMenes(user);
+                    titre = "Personnages menés";
+                }
+                else if (action.equals("transferList")) {
+                    persos = persoDAO.getTransfertsAValider(user);
+                    titre = "Demandes de transfert";
+                }
+                else if (action.equals("validationList")) {
+                    persos = persoDAO.getPersonnagesAValider(user);
+                    titre = "Personnages à valider";
+                }
+
+                request.setAttribute("titre", titre);
+                request.setAttribute("persos", persos);
+                
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
+            }
+        }
+        else if (action.equals("show")) {
+            page = "affichage";
+
+            PersonnageDAO persoDAO = PersonnageDAO.Get();
+            Personnage perso;
+            boolean canEdit = false;
+            
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                perso = persoDAO.getPersonnage(id);
+                
+                if (perso.getJoueur().getId() == user.getId()
+                    || perso.getMj().getId() == user.getId())
+                    canEdit = true;
+
+                request.setAttribute("canEdit", canEdit);
+                request.setAttribute("perso", perso);
+                request.setAttribute("listeMJ", JoueurDAO.Get().getMeneurs());
+                
+            } catch (NumberFormatException e) {
+               Main.invalidParameters(request, response);
+               
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
+            }
         }
 
 
-        else if (action.equals("create")) {
-            page = "creation";
+        if (page != null) {
+            request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);
         }
         else {
             Main.invalidParameters(request, response);
-            return;
         }
-
-        request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);
     }
 
     /**
@@ -101,16 +158,10 @@ public class PersonnageCtrl extends HttpServlet {
             String profession = request.getParameter("profession");
             Univers univers = new Univers(Integer.parseInt(request.getParameter("univers")));
             
-            
-            HttpSession session = request.getSession();
-            
-            if (session == null)
-                throw new Exception("Erreur session");
-
-            Joueur user = (Joueur)session.getAttribute("user");
-            
             Personnage perso = new Personnage(nom, naissance, profession, portrait, univers);
-            perso.setJoueur(user);
+
+            perso.setJoueur(Main.GetJoueurSession(request));
+            
             PersonnageDAO.Get().creer(perso, bio);
             response.sendRedirect(request.getContextPath());
             

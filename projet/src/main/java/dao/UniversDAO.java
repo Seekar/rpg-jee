@@ -5,7 +5,11 @@
  */
 package dao;
 
-import java.util.Collection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.sql.DataSource;
 import modele.Aventure;
 import modele.Personnage;
@@ -46,8 +50,34 @@ public final class UniversDAO extends AbstractUniversDAO {
     }
 
     @Override
-    public Collection<Univers> getUnivers() throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Univers> getUnivers() throws DAOException {
+        ArrayList<Univers> univers = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT id, nom FROM Univers");
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                univers.add(new Univers(res.getInt("id"), res.getString("nom")));
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des univers : " + e.getMessage(), e);
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+            
+            closeConnection(link);
+        }
+
+        return univers;
     }
     
 }

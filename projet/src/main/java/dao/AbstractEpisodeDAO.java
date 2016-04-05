@@ -6,6 +6,7 @@
 package dao;
 
 import java.util.Collection;
+import java.util.List;
 import javax.sql.DataSource;
 import modele.Biographie;
 import modele.Episode;
@@ -24,7 +25,7 @@ public abstract class AbstractEpisodeDAO extends AbstractDAO{
     public abstract Collection<Episode> getEpisodesEnEdition(Biographie b) 
             throws DAOException;
     
-    public abstract Collection<Episode> getEpisodes(Biographie b) 
+    public abstract List<Episode> getEpisodes(Biographie b) 
             throws DAOException; 
     
     public abstract Collection<Episode> getEpisodesAValider(Joueur mj) 

@@ -40,18 +40,38 @@ public class Main extends HttpServlet {
         PersonnageDAO.Create(ds);
         UniversDAO.Create(ds);
     }
+    
+    /**
+     * Récupère le joueur connecté.
+     * 
+     * @param request La requete
+     * @return null si non connecté, le joueur sinon
+     */
+    public static Joueur GetJoueurSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Joueur joueur = null;
 
-    /* pages d’erreurs */
-    protected static void invalidParameters(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/controleurErreur.jsp").forward(request, response);
+        if (session != null) {
+            Object obj = session.getAttribute("user");
+            
+            if (obj != null)
+                joueur = (Joueur)obj;
+        }
+
+        return joueur;
     }
 
-    protected static void erreurBD(HttpServletRequest request,
+    /* pages d'erreurs */
+    protected static void invalidParameters(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/ctrlError.jsp").forward(request, response);
+    }
+
+    protected static void dbError(HttpServletRequest request,
             HttpServletResponse response, DAOException e)
             throws ServletException, IOException {
-        request.setAttribute("erreurMessage", e.getMessage());
-        request.getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+        request.setAttribute("error", e.getMessage());
+        request.getRequestDispatcher("/WEB-INF/dbError.jsp").forward(request, response);
     }
 
     /**
@@ -79,7 +99,7 @@ public class Main extends HttpServlet {
             session.invalidate();
         }
 
-        //request.setAttribute("section", page);
+
         request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
 
