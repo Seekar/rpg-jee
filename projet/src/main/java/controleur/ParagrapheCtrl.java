@@ -31,25 +31,25 @@ public class ParagrapheCtrl extends HttpServlet {
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        String action = (request.getParameter("action")!= null ? request.getParameter("action") : "");
-       if(action.equals("edit")){
-           int paragid= Integer.parseInt(request.getParameter("ID"));
-           
-           //requete DAO
-           try{
-          ParagrapheDAO pad = ParagrapheDAO.Get();
-           Paragraphe p = pad.getParagraphe(paragid);
-           
-           request.setAttribute("parag", p);
-           request.getRequestDispatcher("/WEB-INF/Paragraphe/Editparagraphes.jsp").forward(request, response);
-           }catch(Exception e){
-               throw new ServerException(null,e);
-           }
-       }else if(action.equals("new")){
-           int eid = Integer.parseInt(request.getParameter("eID"));
-           request.setAttribute("eID", eid);
-           request.getRequestDispatcher("/WEB-INF/Paragraphe/NewParagraphe.jsp").forward(request, response);
-       }
+        String action = (request.getParameter("action") != null ? request.getParameter("action") : "");
+        if (action.equals("edit")) {
+            int paragid = Integer.parseInt(request.getParameter("ID"));
+
+            //requete DAO
+            try {
+                ParagrapheDAO pad = ParagrapheDAO.Get();
+                Paragraphe p = pad.getParagraphe(paragid);
+
+                request.setAttribute("parag", p);
+                request.getRequestDispatcher("/WEB-INF/Paragraphe/Editparagraphes.jsp").forward(request, response);
+            } catch (Exception e) {
+                throw new ServerException(null, e);
+            }
+        } else if (action.equals("new")) {
+            int eid = Integer.parseInt(request.getParameter("eID"));
+            request.setAttribute("eID", eid);
+            request.getRequestDispatcher("/WEB-INF/Paragraphe/NewParagraphe.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -64,21 +64,31 @@ public class ParagrapheCtrl extends HttpServlet {
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        String action = (request.getParameter("action")!= null ? request.getParameter("action") : "");
-        if(action.equals("reveler")){
-            if(request.getParameter("res").equals("oui")){
+        String action = (request.getParameter("action") != null ? request.getParameter("action") : "");
+        if (action.equals("reveler")) {
+            if (request.getParameter("res").equals("oui")) {
                 int pid = Integer.parseInt(request.getParameter("pID"));
                 ParagrapheDAO pad = ParagrapheDAO.Get();
-                try{
-                pad.reveleParagraphe(pid);
-                response.sendRedirect("/character?action=ownedList");
-                }catch(Exception e){
-                    
+                try {
+                    pad.reveleParagraphe(pid);
+                    response.sendRedirect("character?action=ownedList");
+                } catch (Exception e) {
+
                     throw new ServerException(null, e);
                 }
+            }
+        } else if (action.equals("new")) {
+            boolean secret = request.getParameter("secret").equals("true");
+            String texte = request.getParameter("texte");
+            int episode = Integer.parseInt(request.getParameter("episodeID"));
+            ParagrapheDAO pad = ParagrapheDAO.Get();
+            try {
+                pad.ajouteParagraphe(secret, texte, episode);
+                response.sendRedirect("character?action=ownedList");
+            } catch (Exception e) {
+
+                throw new ServerException(null, e);
             }
         }
     }
 }
-
-
