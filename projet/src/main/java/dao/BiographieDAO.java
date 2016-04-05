@@ -62,7 +62,7 @@ public final class BiographieDAO extends AbstractBiographieDAO {
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT b.id, b.text"
+            statement = link.prepareStatement("SELECT * "
                     + "FROM Biographie b "
                     + "where b.id = ?");
             
@@ -70,9 +70,9 @@ public final class BiographieDAO extends AbstractBiographieDAO {
             ResultSet rs = statement.executeQuery();
 
             if (!rs.next())
-                throw new Exception("Aucun personnage d'identifiant " + id);
+                throw new Exception("Aucun biographie correcpondant à l'ID : " + id);
 
-            bio = new Biographie(rs.getInt(id),rs.getString("nom"));
+            bio = new Biographie(rs.getInt("id"),rs.getString("texte"));
 
         } catch (Exception e) {
             throw new DAOException(e.getMessage(), e);

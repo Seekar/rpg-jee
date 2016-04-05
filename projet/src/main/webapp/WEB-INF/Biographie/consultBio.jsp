@@ -44,7 +44,7 @@
         <form action="biographie" method="POST">
             <button type="submit" > Editer </button>
             <input type="hidden" name="biographie" value="${perso.getBiographie().getID()}"/>
-            <input type="hidden" name="perso" value="${perso.getId()}"/>
+            <input type="hidden" name="persoID" value="${perso.getId()}"/>
             <input type="hidden" name="action" value="edition"/>
         </form>
     </c:if>      

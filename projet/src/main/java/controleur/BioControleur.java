@@ -59,6 +59,7 @@ public class BioControleur extends HttpServlet{
             ParagrapheDAO paD = ParagrapheDAO.Get();
             try{
             Personnage p = persoD.getPersonnage(persoID);
+            p.setId(persoID);
             Joueur j = (Joueur)request.getSession().getAttribute("user");
             p.setBiographie(bioD.getBiographie(p));
             p.getBiographie().episodes = epiD.getEpisodes(p.getBiographie());
@@ -101,27 +102,30 @@ public class BioControleur extends HttpServlet{
                 throw new ServletException(null,e);
             }
         }else if(action.equals("edition")){
-            int idPerso = Integer.parseInt(request.getParameter("perso"));
+           
             //faire la requete SQL
             
-            //POUR LE TEST UNIQUEMENT
-            Personnage p = new Personnage("essai",null , null, null, null);
-            Biographie b = new Biographie(0, "");
-            p.setBiographie(b);
-            Episode e;
-            b.episodes.add(e = new Episode(35, false, null, null, b));
-            Paragraphe pa;
-            e.paragraphes.add(pa =new Paragraphe());
-            pa.setTexte("ceci n'est qu'un essai en édition");
-            pa.setSecret(false);
-            b.episodes.add(e = new Episode(37,false, null, null, b));
-            e.paragraphes.add(pa =new Paragraphe());
-            pa.setTexte("ceci n'est qu'un essai secret en édition");
-            pa.setSecret(true);
             
+            int bioID = Integer.parseInt(request.getParameter("biographie"));
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
+            PersonnageDAO persoD = PersonnageDAO.Get();
+            BiographieDAO bioD = BiographieDAO.Get();
+            EpisodeDAO epiD = EpisodeDAO.Get();
+            ParagrapheDAO paD = ParagrapheDAO.Get();
+            try{
+            Personnage p = persoD.getPersonnage(persoID);
+            //Joueur j = (Joueur)request.getSession().getAttribute("user");
+            p.setBiographie(bioD.getBiographie(bioID));
+            p.getBiographie().episodes = epiD.getEpisodesEnEdition(p.getBiographie());
+            for(Episode e : p.getBiographie().episodes){
+                e.paragraphes = paD.getParagraphes(e);
+            }
             //A GARDER
             request.setAttribute("perso", p);
             request.getRequestDispatcher("/WEB-INF/Biographie/EditionBio.jsp").forward(request, response);
+            }catch(Exception e){
+                throw new ServerException(null, e);
+            }
         }
 
     }

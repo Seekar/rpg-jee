@@ -80,5 +80,21 @@ public final class ParagrapheDAO extends AbstractParagrapheDAO {
             closeConnection(c);
         }
     }
+
+    @Override
+    public void reveleParagraphe(int pid) throws DAOException {
+        Connection c=null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps = c.prepareStatement("update paragraphe set secret = '0' where id =?");
+            ps.setInt(1, pid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new DAOException("", e);
+        }finally{
+            
+            closeConnection(c);
+        }
+    }
     
 }

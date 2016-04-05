@@ -1,7 +1,9 @@
 package controleur;
 
 import dao.EpisodeDAO;
+import dao.ParagrapheDAO;
 import java.io.*;
+import java.rmi.ServerException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.Resource;
@@ -63,7 +65,17 @@ public class ParagrapheCtrl extends HttpServlet {
             throws IOException, ServletException {
         String action = (request.getParameter("action")!= null ? request.getParameter("action") : "");
         if(action.equals("reveler")){
-            
+            if(request.getParameter("res").equals("oui")){
+                int pid = Integer.parseInt(request.getParameter("pID"));
+                ParagrapheDAO pad = ParagrapheDAO.Get();
+                try{
+                pad.reveleParagraphe(pid);
+                response.sendRedirect("/character?action=ownedList");
+                }catch(Exception e){
+                    
+                    throw new ServerException(null, e);
+                }
+            }
         }
     }
 }

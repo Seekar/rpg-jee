@@ -42,8 +42,27 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
     }
     
     @Override
-    public Collection<Episode> getEpisodesEnEdition(Biographie b) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Episode> getEpisodesEnEdition(Biographie b) throws DAOException {
+        Connection c = null;
+        try{
+            c = dataSource.getConnection();
+        PreparedStatement ps = c.prepareStatement("select * from Episode e where e.biographie_id = ? and e.valide = 0 order by e.eDate");
+        ps.setInt(1, b.getID());
+            ResultSet rs = ps.executeQuery();
+            LinkedList<Episode> epi = new LinkedList<Episode>();
+            while(rs.next()){
+                if(rs.getObject("aventure_id") !=null)
+                    epi.add(new Episode(rs.getInt("id"), rs.getInt("eDate"), false, new Aventure(rs.getInt("aventure_id")), new Joueur(rs.getInt("mj_id")), b));
+                else
+                  epi.add(new Episode(rs.getInt("id"), rs.getInt("eDate"), false, null, new Joueur(rs.getInt("mj_id")), b));  
+            }
+            closeConnection(c);
+            return epi;
+        }catch(Exception e){
+            throw new DAOException(null, e);
+        }finally{
+            closeConnection(c);
+        }
     }
 
     @Override

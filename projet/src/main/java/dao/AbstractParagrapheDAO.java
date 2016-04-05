@@ -22,5 +22,5 @@ public abstract class AbstractParagrapheDAO extends AbstractDAO {
     
     public abstract Collection<Paragraphe> getParagraphes(Episode e) throws DAOException;
     public abstract Paragraphe getParagraphe(int pid) throws DAOException;
-    
+    public abstract void reveleParagraphe(int pid) throws DAOException;
 }
