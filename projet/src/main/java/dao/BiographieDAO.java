@@ -8,6 +8,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.sql.DataSource;
 import modele.Biographie;
 import modele.Personnage;
@@ -53,5 +54,39 @@ public final class BiographieDAO extends AbstractBiographieDAO {
             closeConnection(c);
         }
     }
-    
+    @Override
+    public Biographie getBiographie(int id) throws DAOException {
+        Biographie bio = null;
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT b.id, b.text"
+                    + "FROM Biographie b "
+                    + "where b.id = ?");
+            
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            if (!rs.next())
+                throw new Exception("Aucun personnage d'identifiant " + id);
+
+            bio = new Biographie(rs.getInt(id),rs.getString("nom"));
+
+        } catch (Exception e) {
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+
+            closeConnection(link);
+        }
+
+        return bio;
+    }
 }
