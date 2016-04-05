@@ -4,15 +4,20 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 Tool UML : https://genmymodel.com
 
-### Probléme BD
-il faut garder l'historique des aventures jouées pas un personnage, que fait on?
-on peut utiliser la relation joue mais dans ce cas il faut faire attention aux parties finis
+
+### Protection contre les [failles d'injection XSS](https://fr.wikipedia.org/wiki/Cross-site_scripting)
+
+Pour empêcher l'affichage de champs donnés par l'utilisateur de modifier la page HTML, il suffit d'afficher ce genre de champs avec JSTL, exemple : ```<c:out value="${monChamp}"/>```
+
+
+### Problème BD
+Il faut garder l'historique des aventures jouées pas un personnage, que fait-on ?
+On peut utiliser la relation joue mais dans ce cas il faut faire attention aux parties finies
 ou on peut créeer une autre relation
 
 => En effet c'est plus compliqué avec un truc ternaire comme Joue et tous les autres groupes font avec une table entre persos / parties.
 
 Du coup j'ai supprimé Joue et créé Participe
-
 
 ### Identifiants Oracle
 
