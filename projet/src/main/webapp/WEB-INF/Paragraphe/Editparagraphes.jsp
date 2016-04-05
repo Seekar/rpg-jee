@@ -15,7 +15,7 @@
             
             <button type="submit"> Ok </button>
             <input type="hidden" value="${parag.getID()}" name="id"/>
-            <input type="hidden" value="${parag.getSecret()}" name="secret"/>
+            <input type="hidden" value="edit" name="action"/>
         </form>
     </jsp:body>
 </t:wrapper>

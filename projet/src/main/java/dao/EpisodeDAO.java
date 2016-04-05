@@ -117,5 +117,25 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
             closeConnection(c);
         }
     }
+
+    @Override
+    public void suppressEpisode(int pid) throws DAOException {
+        Connection c = null;
+        try {
+            c = dataSource.getConnection(); 
+            PreparedStatement ps = c.prepareStatement("delete from paragraphe where episode_id =?");
+            ps.setInt(1, pid);
+            ps.executeUpdate();
+            ps = c.prepareStatement("delete from episode where id = ?");
+            ps.setInt(1, pid);
+            ps.executeUpdate();          
+            closeConnection(c);
+           
+        } catch (Exception e) {
+            throw new DAOException(null, e);
+        } finally {
+            closeConnection(c);
+        }
+    }
     
 }

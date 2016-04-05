@@ -14,6 +14,7 @@
          <c:forEach items="${perso.getBiographie().getEpisodes()}" var="episode">
              
             <c:if test="${!episode.getValide()}" >
+               
             <c:forEach items="${episode.getParagraphes()}" var="parag">
                 <c:choose>
                     <c:when test="${parag.getSecret()}">

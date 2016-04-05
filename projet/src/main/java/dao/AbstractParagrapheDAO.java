@@ -28,4 +28,5 @@ public abstract class AbstractParagrapheDAO extends AbstractDAO {
 
     public abstract void ajouteParagraphe(boolean secret, String texte, int episode) throws DAOException;
 
+    public abstract void updateParagraphe(int paragid, String texte) throws DAOException;
 }

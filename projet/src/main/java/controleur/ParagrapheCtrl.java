@@ -78,7 +78,7 @@ public class ParagrapheCtrl extends HttpServlet {
                 }
             }
         } else if (action.equals("new")) {
-            boolean secret = request.getParameter("secret").equals("true");
+            boolean secret = request.getParameter("secret") !=null ;
             String texte = request.getParameter("texte");
             int episode = Integer.parseInt(request.getParameter("episodeID"));
             ParagrapheDAO pad = ParagrapheDAO.Get();
@@ -87,7 +87,18 @@ public class ParagrapheCtrl extends HttpServlet {
                 response.sendRedirect("character?action=ownedList");
             } catch (Exception e) {
 
-                throw new ServerException(null, e);
+                throw new ServerException( null, e);
+            }
+        } else if(action.equals("edit")){
+            String texte = request.getParameter("texte");
+            int pid = Integer.parseInt(request.getParameter("id"));
+            ParagrapheDAO pad = ParagrapheDAO.Get();
+            try {
+                pad.updateParagraphe(pid, texte);
+                response.sendRedirect("character?action=ownedList");
+            } catch (Exception e) {
+
+                throw new ServerException( null, e);
             }
         }
     }

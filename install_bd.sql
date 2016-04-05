@@ -198,6 +198,8 @@ insert into episode values (DEFAULT, 2, 1, null, 1, 1);
 
 insert into PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID) 
     values (DEFAULT, 0, 'Paragraphe d''episode', 1);
+INSERT INTO EPISODE (ID, EDATE, VALIDE, AVENTURE_ID, BIOGRAPHIE_ID, MJ_ID) 
+	VALUES (DEFAULT, 2, 0, NULL, 1, 1)
 
 
 insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);

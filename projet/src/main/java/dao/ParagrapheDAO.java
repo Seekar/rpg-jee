@@ -45,7 +45,7 @@ public final class ParagrapheDAO extends AbstractParagrapheDAO {
         Connection c = null;
         try{
             c = dataSource.getConnection();
-        PreparedStatement ps = c.prepareStatement("select * from Paragraphe p where p.id = ?");
+        PreparedStatement ps = c.prepareStatement("select * from Paragraphe p where p.episode_id = ?");
         ps.setInt(1, e.getId());
             ResultSet rs = ps.executeQuery();
             LinkedList<Paragraphe> pars = new LinkedList<>();
@@ -102,14 +102,31 @@ public final class ParagrapheDAO extends AbstractParagrapheDAO {
         Connection c=null;
         try {
             c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("INSERT INTO PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID) \n" +
-"	VALUES (DEFAULT, ?, ?, ?)");
+            PreparedStatement ps = c.prepareStatement("INSERT INTO PARAGRAPHE ( SECRET, TEXTE, EPISODE_ID) \n" +
+"	VALUES (?, ?, ?)");
             ps.setInt(1, secret==true?1:0);
             ps.setString(2, texte);
             ps.setInt(3, episode);
             ps.executeUpdate();
         } catch (Exception e) {
             throw new DAOException("L'insertion du paragraphe dans la base de données n'a pas fonctionnée", e);
+        }finally{
+            
+            closeConnection(c);
+        }
+    }
+
+    @Override
+    public void updateParagraphe(int paragid, String texte) throws DAOException{
+        Connection c=null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps = c.prepareStatement("update paragraphe set  texte =? where id =?");
+            ps.setString(1, texte);
+            ps.setInt(2, paragid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new DAOException("", e);
         }finally{
             
             closeConnection(c);

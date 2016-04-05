@@ -112,7 +112,20 @@ public class EpisodeCtrl extends HttpServlet {
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
+            String action = (request.getParameter("action") != null ? request.getParameter("action") : "");
+        if (action.equals("validesuppr")) {
+            if (request.getParameter("res").equals("oui")) {
+                int pid = Integer.parseInt(request.getParameter("pID"));
+                EpisodeDAO ed = EpisodeDAO.Get();
+                try {
+                    ed.suppressEpisode(pid);
+                    response.sendRedirect("character?action=ownedList");
+                } catch (Exception e) {
 
+                    throw new ServerException(null, e);
+                }
+            }
+        }
     }
 }
 
