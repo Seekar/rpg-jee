@@ -17,7 +17,7 @@ import modele.Univers;
 
 /**
  *
- * @author plouviej
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class UniversDAO extends AbstractUniversDAO {
 
@@ -73,7 +73,7 @@ public final class UniversDAO extends AbstractUniversDAO {
                     statement.close();
                 } catch (SQLException ex) {}
             }
-            
+
             closeConnection(link);
         }
 

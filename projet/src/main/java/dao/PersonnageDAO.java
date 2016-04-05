@@ -22,7 +22,7 @@ import modele.Univers;
 
 /**
  *
- * @author plouviej
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class PersonnageDAO extends AbstractPersonnageDAO {
     
@@ -40,8 +40,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         return instance;
     }
     
-    public static PersonnageDAO Get()
-    {
+    public static PersonnageDAO Get() {
         return instance;
     }
 
@@ -49,18 +48,23 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     public Collection<Personnage> getAllPersonnages() throws DAOException {
         List<Personnage> result = new ArrayList<>();
         Connection conn = null;
+        Statement st = null;
+        
         try {
             conn = getConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM personnage");
+            st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Personnage");
             while (rs.next()) {
                 Personnage personnage
                         = new Personnage(rs.getString("nom"), rs.getString("naissance"), rs.getString("profession"), rs.getString("portrait"), new Univers(rs.getInt("univers_id")));
                 result.add(personnage);
             }
+            
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
+            
         } finally {
+            CloseStatement(st);
             closeConnection(conn);
         }
         return result;
@@ -95,12 +99,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                     + "possédés : " + e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-            
+            CloseStatement(statement);
             closeConnection(link);
         }
 
@@ -135,12 +134,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                     + "à valider : " + e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-            
+            CloseStatement(statement);
             closeConnection(link);
         }
 
@@ -176,12 +170,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                     + "à valider : " + e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-            
+            CloseStatement(statement);
             closeConnection(link);
         }
 
@@ -221,12 +210,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                     + "menés : " + e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-            
+            CloseStatement(statement);
             closeConnection(link);
         }
 
@@ -239,9 +223,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         PreparedStatement statement = null;
 
         try {
-            link = getConnection();
-            link.setAutoCommit(false);
-            link.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            link = initConnection();
             
             statement = link.prepareStatement("INSERT INTO Biographie (texte) VALUES (?)");
             statement.setString(1, bio);
@@ -263,21 +245,11 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             link.commit();
 
         } catch (Exception e) {
-            if (link != null) {
-                try {
-                    link.rollback();
-                } catch (SQLException ex) {}
-            }
-            
+            rollback();
             throw new DAOException(e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-            
+            CloseStatement(statement);
             closeConnection(link);
         }
     }
@@ -324,15 +296,148 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             throw new DAOException(e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-
+            CloseStatement(statement);
             closeConnection(link);
         }
 
         return perso;
     }
+
+    @Override
+    public void requestValidation(int idPerso, int idMJ, int idUser) throws DAOException {
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            // Pas le droit de valider soi-même ses propres personnages
+            if (idMJ == idUser)
+                throw new DAOException("Access refused");
+
+            
+            link = initConnection();
+
+            // On vérifie que l'utilisateur a le droit de demander validation
+            statement = link.prepareStatement("SELECT 1 FROM Joueur j join Personnage p "
+                    + "on p.joueur_id = j.id where p.id = ? and j.id = ? and p.valide = 0");
+
+            statement.setInt(1, idPerso);
+            statement.setInt(2, idUser);
+            ResultSet rs = statement.executeQuery();
+
+            if (!rs.next())
+                throw new DAOException("Access refused");
+
+            
+            statement = link.prepareStatement("UPDATE Personnage "
+                    + "SET validateur_id = ? WHERE id = ?");
+
+            statement.setInt(1, idMJ);
+            statement.setInt(2, idPerso);
+            statement.executeUpdate();
+
+            link.commit();
+
+        } catch (DAOException e) {
+            throw new DAOException(e.getMessage(), e);
+
+        } catch (SQLException e) {
+            rollback();
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+    }
+/*
+    @Override
+    public void requestTransfer(int id, int mj) throws DAOException {
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = initConnection();
+
+            statement = link.prepareStatement("UPDATE Personnage "
+                    + "SET transfert_id = ? WHERE id = ?");
+
+            statement.setInt(1, id);
+            statement.setInt(2, mj);
+            statement.executeUpdate();
+
+            link.commit();
+
+        } catch (Exception e) {
+            rollback();
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+    }*/
+
+    @Override
+    public void acceptValidation(int idPerso, int idUser) throws DAOException {
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = initConnection();
+
+            // On vérifie que l'utilisateur a le droit de valider
+            statement = link.prepareStatement("SELECT 1 FROM Joueur j join "
+                    + "Aventure a on j.id = a.mj_id join Personnage p "
+                    + "on p.validateur_id = j.id where p.id = ? and j.id = ?");
+
+            statement.setInt(1, idPerso);
+            statement.setInt(1, idUser);
+            ResultSet rs = statement.executeQuery();
+
+            if (!rs.next())
+                throw new Exception("Access refused");
+
+            statement = link.prepareStatement("UPDATE Personnage "
+                    + "SET valide = 1, mj_id = validateur_id WHERE id = ?");
+
+            statement.setInt(1, idPerso);
+            statement.executeUpdate();
+
+            link.commit();
+
+        } catch (Exception e) {
+            rollback();
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+    }
+/*
+    @Override
+    public void acceptTransfer(int id) throws DAOException {
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = initConnection();
+
+            statement = link.prepareStatement("UPDATE Personnage "
+                    + "SET mj_id = transfert_id WHERE id = ?");
+
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            link.commit();
+
+        } catch (Exception e) {
+            rollback();
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+    }*/
 }

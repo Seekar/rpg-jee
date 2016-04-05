@@ -12,7 +12,7 @@ import modele.*;
 
 /**
  *
- * @author reysi
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public abstract class AbstractJoueurDAO extends AbstractDAO {
 

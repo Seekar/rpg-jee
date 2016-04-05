@@ -11,7 +11,7 @@
 
     <jsp:body>
         <c:if test='${perso.getPortrait() != null}'>
-            <img src="${perso.getPortrait()}" alt="Portrait"/>
+            <img src="<c:out value="${perso.getPortrait()}"/>" alt="Portrait"/>
             <br/><br/>
         </c:if>
         <table class="table table-hover">
@@ -23,15 +23,15 @@
             <tbody>
                 <tr>
                     <th>Nom</th>
-                    <td>${perso.getNom()}</td>
+                    <td><c:out value="${perso.getNom()}"/></td>
                 </tr>
                 <tr>
                     <th>Naissance</th>
-                    <td>${perso.getNaissance()}</td>
+                    <td><c:out value="${perso.getNaissance()}"/></td>
                 </tr>
                 <tr>
                     <th>Univers</th>
-                    <td>${perso.getUnivers().getNom()}</td>
+                    <td><c:out value="${perso.getUnivers().getNom()}"/></td>
                 </tr>
                 <tr>
                     <th>Biographie</th>
@@ -42,7 +42,7 @@
                     <td>
                         <c:choose>
                         <c:when test='${perso.getMj().getId() != 0}'>
-                            ${perso.getMj().getPseudo()}
+                            <c:out value="${perso.getMj().getPseudo()}"/>
                         </c:when>
                         <c:otherwise>
                         <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
@@ -57,13 +57,13 @@
                         <c:when test='${canEdit}'>
                         <form action="character?action=edit" method="post" class="form-inline">
                         <div class="form-group">
-                          <input name="newWork" type="text" class="form-control" placeholder="Profession" value="${perso.getProfession()}">
+                          <input name="newWork" type="text" class="form-control" placeholder="Profession" value="<c:out value="${perso.getProfession()}"/>">
                         </div>
                         <input type="hidden" name="idPerso" value="${perso.getId()}">
                         <button type="submit" class="btn btn-default">Modifier</button>
                       </form>
                         </c:when>
-                        <c:otherwise>${perso.getProfession()}</c:otherwise>
+                        <c:otherwise><c:out value="${perso.getProfession()}"/></c:otherwise>
                         </c:choose>
                     </td>
                 </tr>
@@ -89,7 +89,7 @@
                                         class="form-control col-sm-offset-2">
                                     <option value="-1"></option>
                                     <c:forEach var="mj" items="${listeMJ}">
-                                    <option value="${mj.getId()}">${mj.getPseudo()}</option>
+                                    <option value="${mj.getId()}"><c:out value="${mj.getPseudo()}"/></option>
                                     </c:forEach>
                                 </select>
                                 </div>
@@ -98,7 +98,14 @@
                         </c:when>
                         <c:otherwise>
                         <!--<span class="glyphicon glyphicon-send" aria-hidden="true"></span>-->
-                        En attente
+                            <c:choose>
+                            <c:when test='${perso.getValidateur().getId() == sessionScope.user.getId()}'>
+                            <a class="btn btn-default" href="character?action=editMJ?id=${perso.getId()}">Valider le personnage</button>
+                            </c:when>
+                            <c:otherwise>
+                            En attente
+                            </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                         </c:choose>
                     </c:otherwise>
@@ -123,7 +130,7 @@
                                         class="form-control col-sm-offset-2">
                                     <option value="-1"></option>
                                     <c:forEach var="mj" items="${listeMJ}">
-                                    <option value="${mj.getId()}">${mj.getPseudo()}</option>
+                                    <option value="${mj.getId()}"><c:out value="${mj.getPseudo()}"/></option>
                                     </c:forEach>
                                 </select>
                                 </div>

@@ -117,6 +117,9 @@ public class PersonnageCtrl extends HttpServlet {
                Main.dbError(request, response, e);
             }
         }
+        else if (action.equals("editMJ")) {
+            actionAcceptMJ(request, response);
+        }
 
 
         if (page != null) {
@@ -145,6 +148,9 @@ public class PersonnageCtrl extends HttpServlet {
         if (action.equals("create")) {
             actionCreate(request, response);
         }
+        else if (action.equals("editMJ")) {
+            actionEditMJ(request, response);
+        }
     }
 
     public void actionCreate(HttpServletRequest request,
@@ -156,20 +162,61 @@ public class PersonnageCtrl extends HttpServlet {
             String nom = request.getParameter("nom");
             String portrait = request.getParameter("portrait");
             String profession = request.getParameter("profession");
-            Univers univers = new Univers(Integer.parseInt(request.getParameter("univers")));
             
-            Personnage perso = new Personnage(nom, naissance, profession, portrait, univers);
-
+            int idUnivers = Integer.parseInt(request.getParameter("univers"));
+            Univers univers = new Univers(idUnivers);
+            
+            Personnage perso = new Personnage(nom, naissance,
+                    profession, portrait, univers);
+            
             perso.setJoueur(Main.GetJoueurSession(request));
-            
             PersonnageDAO.Get().creer(perso, bio);
-            response.sendRedirect(request.getContextPath());
+            
+            // Afficher les personnages possédés si la création a réussi
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=ownedList");
             
         } catch (Exception ex) {
-            System.out.println("Erreur : " + ex.getMessage());
+            System.out.println(ex.getMessage());
             doGet(request, response);
         }
     }
-}
 
+    public void actionEditMJ(HttpServletRequest request,
+           HttpServletResponse response) throws IOException, ServletException {
+
+        try {
+            Joueur user = Main.GetJoueurSession(request);
+            int idPerso = Integer.parseInt(request.getParameter("idPerso"));
+            int idMJ = Integer.parseInt(request.getParameter("idMJ"));
+
+            PersonnageDAO.Get().requestValidation(idPerso, idMJ, user.getId());
+
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=show&id="+idPerso);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            Main.invalidParameters(request, response, ex);
+        }
+    }
+
+    public void actionAcceptMJ(HttpServletRequest request,
+           HttpServletResponse response) throws IOException, ServletException {
+
+        try {
+            Joueur user = Main.GetJoueurSession(request);
+            int idPerso = Integer.parseInt(request.getParameter("id"));
+
+            PersonnageDAO.Get().acceptValidation(idPerso, user.getId());
+
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=show&id=" + idPerso);
+
+        } catch (Exception ex) {
+            System.out.println("wtf "+ex.getMessage());
+            Main.invalidParameters(request, response, ex);
+        }
+    }
+}
 

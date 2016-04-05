@@ -25,7 +25,7 @@ import modele.Personnage;
 
 /**
  *
- * @author plouviej
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 @WebServlet(name = "BioControleur", urlPatterns = {"/biographie"})
 public class BioControleur extends HttpServlet{

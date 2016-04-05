@@ -67,6 +67,14 @@ public class Main extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/ctrlError.jsp").forward(request, response);
     }
 
+    /* pages d'erreurs */
+    protected static void invalidParameters(HttpServletRequest request,
+            HttpServletResponse response, Exception e) throws ServletException, IOException {
+        request.setAttribute("error", e.getMessage());
+        response.setStatus(500);
+        invalidParameters(request, response);
+    }
+
     protected static void dbError(HttpServletRequest request,
             HttpServletResponse response, DAOException e)
             throws ServletException, IOException {

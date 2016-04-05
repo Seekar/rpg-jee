@@ -18,7 +18,7 @@
             <tbody>
             <c:forEach var="perso" items="${persos}">
                 <tr onclick="document.location = 'character?action=show&id=${perso.getId()}';">
-                    <td>${perso.getNom()}</td>
+                    <td><c:out value="${perso.getNom()}"/></td>
                 </tr>
             </c:forEach>
             </tbody>

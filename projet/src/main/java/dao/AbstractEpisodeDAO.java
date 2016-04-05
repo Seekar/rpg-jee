@@ -14,7 +14,7 @@ import modele.Joueur;
 
 /**
  *
- * @author plouviej
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public abstract class AbstractEpisodeDAO extends AbstractDAO{
 

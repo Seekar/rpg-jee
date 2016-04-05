@@ -13,7 +13,7 @@ import modele.Univers;
 
 /**
  *
- * @author plouviej
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public abstract class AbstractUniversDAO extends AbstractDAO {
 

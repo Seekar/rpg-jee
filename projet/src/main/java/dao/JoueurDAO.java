@@ -20,7 +20,7 @@ import modele.*;
 
 /**
  *
- * @author reysi
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class JoueurDAO extends AbstractJoueurDAO {
 
@@ -143,7 +143,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT j.id, j.pseudo "
+            statement = link.prepareStatement("SELECT distinct j.id, j.pseudo "
                     + "FROM Joueur j join Aventure a on j.id = a.mj_id");
             
             ResultSet res = statement.executeQuery();

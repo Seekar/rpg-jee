@@ -18,7 +18,7 @@ import modele.Paragraphe;
 
 /**
  *
- * @author plouviej
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class ParagrapheDAO extends AbstractParagrapheDAO {
     
