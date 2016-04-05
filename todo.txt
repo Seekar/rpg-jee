@@ -7,7 +7,7 @@ Liste des parties (toutes ou d'un perso précis) : 1 seule vue
 
 
 /character?action=edit (+ param POST idPerso=XXXX newWork=XXXX)
-/character?action=transfer (+ params POST idPerso=XXXX idJoueur=XXXX)
+/character?action=transfer (+ params POST idPerso=XXXX idMJ=XXXX)
 /character?action=editMJ (+ params POST idPerso=XXXX idMJ=XXXX)
 /character?action=gamesList&id=XXXX	(liste des parties d'un perso)
 DONE /character?action=create

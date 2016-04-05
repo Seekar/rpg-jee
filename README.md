@@ -9,6 +9,9 @@ il faut garder l'historique des aventures jouées pas un personnage, que fait on
 on peut utiliser la relation joue mais dans ce cas il faut faire attention aux parties finis
 ou on peut créeer une autre relation
 
+=> En effet c'est plus compliqué avec un truc ternaire comme Joue et tous les autres groupes font avec une table entre persos / parties donc faudrait refaire comme j'avais mis au début. Je vais regarder
+
+
 ### Identifiants Oracle
 
 Dans le dossier src/main/webapp/META-INF, copier le template context.xml.template vers context.xml et remplacer XXXX par les identifiants Oracle
