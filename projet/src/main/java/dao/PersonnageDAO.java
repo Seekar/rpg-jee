@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.sql.DataSource;
 import modele.Aventure;
+import modele.Biographie;
 import modele.Joueur;
 import modele.Personnage;
 import modele.Univers;
@@ -41,11 +42,6 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     {
         return instance;
     }
-    
-
-    public Collection<Personnage> getAllPersonnages() throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public ArrayList<Personnage> getPersonnagesJoueur(Joueur j) throws DAOException {
@@ -64,7 +60,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             while (res.next()) {
                 perso = new Personnage();
-                perso.setId(Integer.parseInt(res.getString("id")));
+                perso.setId(res.getInt("id"));
                 perso.setNom(res.getString("nom"));
                 
                 persos.add(perso);
@@ -104,7 +100,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             while (res.next()) {
                 perso = new Personnage();
-                perso.setId(Integer.parseInt(res.getString("id")));
+                perso.setId(res.getInt("id"));
                 perso.setNom(res.getString("nom"));
                 
                 persos.add(perso);
@@ -145,7 +141,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             while (res.next()) {
                 perso = new Personnage();
-                perso.setId(Integer.parseInt(res.getString("id")));
+                perso.setId(res.getInt("id"));
                 perso.setNom(res.getString("nom"));
                 
                 persos.add(perso);
@@ -190,7 +186,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             while (res.next()) {
                 perso = new Personnage();
-                perso.setId(Integer.parseInt(res.getString("id")));
+                perso.setId(res.getInt("id"));
                 perso.setNom(res.getString("nom"));
                 
                 persos.add(perso);
@@ -228,8 +224,10 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             statement.setString(1, bio);
             statement.executeUpdate();
             
-            statement = link.prepareStatement("INSERT INTO Personnage (naissance, nom, portrait, profession, joueur_id, " +
-                                              "univers_id, biographie_id) VALUES (?, ?, ?, ?, ?, ?, bio_seq.currval)");
+            statement = link.prepareStatement("INSERT INTO Personnage "
+                    + "(naissance, nom, portrait, profession, joueur_id, "
+                    + "univers_id, biographie_id) VALUES (?, ?, ?, ?, ?, ?, "
+                    + "bio_seq.currval)");
 
             statement.setString(1, p.getNaissance());
             statement.setString(2, p.getNom());
@@ -248,7 +246,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                 } catch (SQLException ex) {}
             }
             
-            throw new DAOException("Erreur bdd " + e.getMessage(), e);
+            throw new DAOException(e.getMessage(), e);
 
         } finally {
             if (statement != null) {
@@ -262,33 +260,56 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     }
 
     @Override
-    public Personnage getPersonnage(int personnageID) throws DAOException {
-        Connection c = null; boolean closed = false;
-        try{
-            c  =dataSource.getConnection();
-        PreparedStatement ps = c.prepareStatement("select * from personnage p where p.id = ?");
-        ps.setInt(1, personnageID);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        
-        String nom = rs.getString("nom");
-        String naissance = rs.getString("naissance");
-        String profession = rs.getString("profession") ;
-        String portrait  =rs.getString("portrait");
-        Univers u = new Univers(rs.getInt("univers_id"));
-        int jid =rs.getInt("joueur_id");
-        closeConnection(c);
-        closed = true;
-        Personnage  p = new Personnage(personnageID,nom ,naissance ,profession
-                , portrait, u,
-                JoueurDAO.Get().getJoueur(jid));
-        return p;
-        }catch(Exception e){
-            throw new DAOException(null,e);
-        }finally{
-            if(!closed)
-                closeConnection(c);
+    public Personnage getPersonnage(int id) throws DAOException {
+        Personnage perso = null;
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT p.id, p.nom, naissance, "
+                    + "profession, portrait, valide, biographie_id, mj_id, "
+                    + "transfert_id, validateur_id, joueur_id, u.id as u_id, "
+                    + "u.nom as u_nom, j.pseudo as meneur FROM Personnage p "
+                    + "join Univers u on p.univers_id = u.id "
+                    + "left join Joueur j on j.id = mj_id where p.id = ?");
+            
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            if (!rs.next())
+                throw new Exception("Aucun personnage d'identifiant " + id);
+
+            perso = new Personnage();
+            perso.setId(rs.getInt("id"));
+            perso.setNom(rs.getString("nom"));
+            perso.setNaissance(rs.getString("naissance"));
+            perso.setProfession(rs.getString("profession"));
+            perso.setPortrait(rs.getString("portrait"));
+            perso.setValide(rs.getBoolean("valide"));
+            perso.setBiographie(new Biographie(rs.getInt("biographie_id")));
+            perso.setMj(new Joueur(rs.getInt("mj_id"), rs.getString("meneur")));
+            perso.setJoueur(new Joueur(rs.getInt("joueur_id")));
+            perso.setTransfert(new Joueur(rs.getInt("transfert_id")));
+            perso.setValidateur(new Joueur(rs.getInt("validateur_id")));
+
+            Univers univers = new Univers(rs.getInt("u_id"),
+                                          rs.getString("u_nom"));
+            perso.setUnivers(univers);
+
+        } catch (Exception e) {
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {}
+            }
+
+            closeConnection(link);
         }
+
+        return perso;
     }
-    
 }

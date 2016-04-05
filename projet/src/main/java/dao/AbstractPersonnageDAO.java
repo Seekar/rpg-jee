@@ -21,9 +21,9 @@ public abstract class AbstractPersonnageDAO extends AbstractDAO {
         super(ds);
     }
     
-    public abstract Collection<Personnage> getPersonnagesJoueur(Joueur j)throws DAOException;
+    public abstract Collection<Personnage> getPersonnagesJoueur(Joueur j) throws DAOException;
     
-    public abstract Collection<Personnage> getPersonnagesAValider(Joueur j)throws DAOException;
+    public abstract Collection<Personnage> getPersonnagesAValider(Joueur j) throws DAOException;
     
     public abstract Personnage getPersonnageAssocie(Joueur j, Aventure a) throws DAOException;
     

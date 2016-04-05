@@ -61,8 +61,7 @@ public final class UniversDAO extends AbstractUniversDAO {
             ResultSet res = statement.executeQuery();
 
             while (res.next()) {
-                univers.add(new Univers(Integer.parseInt(res.getString("id")),
-                                        res.getString("nom")));
+                univers.add(new Univers(res.getInt("id"), res.getString("nom")));
             }
 
         } catch (Exception e) {

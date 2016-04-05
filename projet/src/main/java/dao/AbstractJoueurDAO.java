@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.Collection;
 import java.util.List;
 import javax.sql.DataSource;
 import modele.*;
@@ -23,5 +24,5 @@ public abstract class AbstractJoueurDAO extends AbstractDAO {
 
     public abstract Joueur getJoueur(int id) throws DAOException;
 
-    
+    public abstract Collection<Joueur> getMeneurs() throws DAOException;
 }

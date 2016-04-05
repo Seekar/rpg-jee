@@ -1,6 +1,7 @@
 package controleur;
 
 import dao.DAOException;
+import dao.JoueurDAO;
 import dao.PersonnageDAO;
 import dao.UniversDAO;
 import java.io.*;
@@ -43,21 +44,8 @@ public class PersonnageCtrl extends HttpServlet {
         String action = request.getParameter("action");
         Joueur user = Main.GetJoueurSession(request);
 
-        
-        if (action == null){
-            PersonnageDAO persoDAO = PersonnageDAO.Get();
-            Collection<Personnage> persos;
 
-            try {
-                persos = persoDAO.getAllPersonnages();
-                request.setAttribute("persos", persos);
-            } catch (DAOException e) {
-               Main.dbError(request, response, e);
-            }
-
-            page = "liste";
-        }
-        else if (action.equals("create")) {
+        if (action.equals("create")) {
             page = "creation";
             
             UniversDAO universDAO = UniversDAO.Get();
@@ -98,10 +86,38 @@ public class PersonnageCtrl extends HttpServlet {
 
                 request.setAttribute("titre", titre);
                 request.setAttribute("persos", persos);
+                
             } catch (DAOException e) {
                Main.dbError(request, response, e);
             }
         }
+        else if (action.equals("show")) {
+            page = "affichage";
+
+            PersonnageDAO persoDAO = PersonnageDAO.Get();
+            Personnage perso;
+            boolean canEdit = false;
+            
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                perso = persoDAO.getPersonnage(id);
+                
+                if (perso.getJoueur().getId() == user.getId()
+                    || perso.getMj().getId() == user.getId())
+                    canEdit = true;
+
+                request.setAttribute("canEdit", canEdit);
+                request.setAttribute("perso", perso);
+                request.setAttribute("listeMJ", JoueurDAO.Get().getMeneurs());
+                
+            } catch (NumberFormatException e) {
+               Main.invalidParameters(request, response);
+               
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
+            }
+        }
+
 
         if (page != null) {
             request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);

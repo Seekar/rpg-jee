@@ -34,8 +34,8 @@ create sequence epi_seq;
 create table Aventure (
     id int default av_seq.nextval not null,
     aDate varchar(70) not null,
-    events varchar(4000) not null,
-    finie int not null,
+    events varchar(4000),
+    finie int default 0 not null,
     lieu varchar(70) not null,
     situation varchar(4000) not null,
     titre varchar(70) not null,
@@ -198,6 +198,11 @@ insert into episode values (DEFAULT, 2, 1, null, 1, 1);
 
 insert into PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID) 
     values (DEFAULT, 0, 'Paragraphe d''episode', 1);
+
+
+insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
+insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
+insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
 
 
 commit;

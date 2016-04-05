@@ -112,6 +112,9 @@ public class Joueur
 	public Joueur(int id) {
             this(id, null, null);
 	}
+
+	public Joueur() {
+	}
         
         
     public int getId() {

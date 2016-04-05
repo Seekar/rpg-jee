@@ -10,11 +10,9 @@
     <jsp:body>
 
 <form class="form-horizontal col-sm-offset-3" method="post" action="character?action=create">
-
   <div class="form-group">
     <label for="univers" class="col-sm-3 control-label">Univers</label>
     <div class="col-sm-4">
-        <%-- TODO : afficher univers depuis une requete bdd --%>
         <select class="form-control" id="univers" name="univers" required>
             <c:forEach var="univers" items="${listeUnivers}">
             <option value="${univers.getId()}">${univers.getNom()}</option>
@@ -35,21 +33,21 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="portrait" class="col-sm-3 control-label">URL du portrait</label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="portrait" name="portrait" placeholder="URL du portrait" value="${param.portrait}" required/>
-    </div>
-  </div>
-  <div class="form-group">
     <label for="profession" class="col-sm-3 control-label">Profession</label>
     <div class="col-sm-4">
       <input type="text" class="form-control" id="profession" name="profession" placeholder="Profession" value="${param.profession}" required/>
     </div>
   </div>
   <div class="form-group">
+    <label for="portrait" class="col-sm-3 control-label">URL du portrait</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="portrait" name="portrait" placeholder="URL du portrait" value="${param.portrait}" required/>
+    </div>
+  </div>
+  <div class="form-group">
     <label for="biographie" class="col-sm-3 control-label">Biographie initiale</label>
-    <div class="col-sm-4">
-      <textarea class="form-control" rows="3" id="biographie" name="biographie" placeholder="Biographie initiale" value="${param.biographie}" required></textarea>
+    <div class="col-sm-7">
+      <textarea class="form-control" rows="7" id="biographie" name="biographie" placeholder="Biographie initiale" value="${param.biographie}" required></textarea>
     </div>
   </div>
 
@@ -59,6 +57,6 @@
     </div>
   </div>
 </form>
-      
+
     </jsp:body>
 </t:wrapper>

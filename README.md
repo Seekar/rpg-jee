@@ -24,6 +24,11 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 - Utilisation de JSTL pour conditionner les vues etc
 
 
+## TODO
+
+Forcer le login pour empêcher l'accès aux autres pages par des inconnus
+
+
 ### BDD
 
 [Graphique SVG](https://github.com/leogouttefarde/rpg/blob/master/bdd.svg)

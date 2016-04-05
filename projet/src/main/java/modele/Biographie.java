@@ -50,6 +50,10 @@ public class Biographie
     public Biographie(String texte) {
         this(-1, texte);
     }
+ 
+    public Biographie(int id) {
+        this(id, null);
+    }
 
 }
 
