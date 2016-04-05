@@ -36,14 +36,15 @@ public class ParagrapheCtrl extends HttpServlet {
            int paragid= Integer.parseInt(request.getParameter("ID"));
            
            //requete DAO
-          
-           
-           Paragraphe p = new Paragraphe();
-           p.setTexte("essai .....");
+           try{
+          ParagrapheDAO pad = ParagrapheDAO.Get();
+           Paragraphe p = pad.getParagraphe(paragid);
            
            request.setAttribute("parag", p);
            request.getRequestDispatcher("/WEB-INF/Paragraphe/Editparagraphes.jsp").forward(request, response);
-     
+           }catch(Exception e){
+               throw new ServerException(null,e);
+           }
        }else if(action.equals("new")){
            int eid = Integer.parseInt(request.getParameter("eID"));
            request.setAttribute("eID", eid);

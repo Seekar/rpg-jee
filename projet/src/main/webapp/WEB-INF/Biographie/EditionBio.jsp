@@ -10,7 +10,7 @@
     <jsp:body>
         <h2> Episodes en cours d'édition</h2>
         
-        <a href="/episode?action=new&bioID=${perso.getBiographie().getID()}" > Nouveau</a> <br/>
+        <a href="episode?action=new&bioID=${perso.getBiographie().getID()}" > Nouveau</a> <br/>
          <c:forEach items="${perso.getBiographie().getEpisodes()}" var="episode">
              
             <c:if test="${!episode.getValide()}" >
@@ -32,9 +32,9 @@
             </c:choose>
               <br/>
         </c:forEach>
-        <a href="/episode?id=${episode.getId()}&action=edit&persoID=${perso.getId()}" > Editer l'épisode</a>
-        <a href="/episode?id=${episode.getId()}&action=suppr&persoID=${perso.getId()}" > Supprimer l'épisode</a>
-        <a href="/episode?id=${episode.getId()}&action=valider&persoID=${perso.getId()}" > Valider l'épisode</a>
+        <a href="episode?id=${episode.getId()}&action=edit&persoID=${perso.getId()}" > Editer l'épisode</a>
+        <a href="episode?id=${episode.getId()}&action=suppr&persoID=${perso.getId()}" > Supprimer l'épisode</a>
+        <a href="episode?id=${episode.getId()}&action=valider&persoID=${perso.getId()}" > Valider l'épisode</a>
          </c:if><br/>
     </c:forEach>
               
