@@ -19,8 +19,13 @@ public abstract class AbstractParagrapheDAO extends AbstractDAO {
     public AbstractParagrapheDAO(DataSource ds) {
         super(ds);
     }
-    
+
     public abstract Collection<Paragraphe> getParagraphes(Episode e) throws DAOException;
+
     public abstract Paragraphe getParagraphe(int pid) throws DAOException;
+
     public abstract void reveleParagraphe(int pid) throws DAOException;
+
+    public abstract void ajouteParagraphe(boolean secret, String texte, int episode) throws DAOException;
+
 }

@@ -97,4 +97,23 @@ public final class ParagrapheDAO extends AbstractParagrapheDAO {
         }
     }
     
+    @Override
+    public void ajouteParagraphe(boolean secret, String texte, int episode) throws DAOException {
+        Connection c=null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps = c.prepareStatement("INSERT INTO PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID) \n" +
+"	VALUES (DEFAULT, ?, ?, ?)");
+            ps.setInt(1, secret==true?1:0);
+            ps.setString(2, texte);
+            ps.setInt(3, episode);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new DAOException("L'insertion du paragraphe dans la base de données n'a pas fonctionnée", e);
+        }finally{
+            
+            closeConnection(c);
+        }
+    }
+    
 }
