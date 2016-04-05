@@ -26,7 +26,7 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 
 ### TODO
 
-Forcer le login pour empêcher l'accès aux autres pages par des inconnus et aussi les erreurs liées
+Forcer le login pour empêcher l'accès aux autres pages par des inconnus et aussi les erreurs liées à l'accès sans login
 
 
 ### BDD
