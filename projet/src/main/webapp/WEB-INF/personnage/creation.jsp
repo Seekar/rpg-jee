@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Créer un personnage</jsp:attribute>
     <jsp:attribute name="header">
         <h1>Créer un personnage</h1>
     </jsp:attribute>

@@ -176,6 +176,12 @@ alter table Personnage
     references Joueur;
 
 
+
+-- problèmes avec les caractères spéciaux sur sqlplus
+insert into Univers (nom) values ('La Guerre des etoiles');
+insert into Univers (nom) values ('Les Caraibes au temps des pirates');
+
+
 -- hash générable avec la commande suivante :
 -- echo -n password | md5sum
 
@@ -187,19 +193,23 @@ insert into Joueur (pseudo, pwd)
 insert into Joueur (pseudo, pwd)
     values ('Clara', '436bc2b3b94cdc207e8a08763aa07e6f');
 
+insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
+
+
 -- pass : admin17Lord (hash md5)
 insert into Joueur (pseudo, pwd)
     values ('admin', 'd61ff73ffc50cec9c63180fdb7af0b7e');
+
+insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
+
 
 -- pass : james007tb (hash md5)
 insert into Joueur (pseudo, pwd)
     values ('James', 'ea262e6e612acd24c49c050f66f04607');
 
 
+insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
 
--- problèmes avec les caractères spéciaux sur sqlplus
-insert into Univers (nom) values ('La Guerre des etoiles');
-insert into Univers (nom) values ('Les Caraibes au temps des pirates');
 
 insert into BIOGRAPHIE (ID, TEXTE) 
     values (DEFAULT,
@@ -218,10 +228,6 @@ insert into PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID)
 
 INSERT INTO EPISODE (ID, EDATE, VALIDE, AVENTURE_ID, BIOGRAPHIE_ID, MJ_ID) 
     VALUES (DEFAULT, 2, DEFAULT, NULL, bio_seq.currval, NULL);
-
-insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
-insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
-insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
 
 
 commit;

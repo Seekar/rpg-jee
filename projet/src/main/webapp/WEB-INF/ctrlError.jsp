@@ -3,10 +3,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Erreur interne</jsp:attribute>
     <jsp:attribute name="header">
     	<h1>Erreur interne</h1>
     </jsp:attribute>
-        
+
     <jsp:body>
     <p>Une erreur interne s'est produite.</p>
     <c:if test="error != null">

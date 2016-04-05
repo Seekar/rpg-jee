@@ -69,8 +69,8 @@ public class Main extends HttpServlet {
 
     /* pages d'erreurs */
     protected static void invalidParameters(HttpServletRequest request,
-            HttpServletResponse response, Exception e) throws ServletException, IOException {
-        request.setAttribute("error", e.getMessage());
+            HttpServletResponse response, String mess) throws ServletException, IOException {
+        request.setAttribute("error", mess);
         response.setStatus(500);
         invalidParameters(request, response);
     }

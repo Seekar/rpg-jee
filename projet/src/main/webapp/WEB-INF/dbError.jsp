@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Erreur</jsp:attribute>
     <jsp:attribute name="header">
     	<h1>Erreur d'accès à la base de données</h1>
     </jsp:attribute>

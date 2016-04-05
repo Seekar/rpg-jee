@@ -338,7 +338,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             link.commit();
 
         } catch (DAOException e) {
-            throw new DAOException(e.getMessage(), e);
+            throw e;
 
         } catch (SQLException e) {
             rollback();
@@ -349,25 +349,46 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             closeConnection(link);
         }
     }
-/*
+
     @Override
-    public void requestTransfer(int id, int mj) throws DAOException {
+    public void requestTransfer(int idPerso, int idMJ, int idUser) throws DAOException {
         Connection link = null;
         PreparedStatement statement = null;
 
         try {
+            // Pas le droit de se transférer à soi-même ses propres personnages
+            if (idMJ == idUser)
+                throw new DAOException("Access refused");
+
+
             link = initConnection();
 
+            // On vérifie que l'utilisateur a le droit de demander un transfert
+            statement = link.prepareStatement("SELECT 1 FROM Joueur j "
+                    + "JOIN Personnage p on p.joueur_id = j.id "
+                    + "WHERE p.id = ? and j.id = ? and p.valide = 1");
+
+            statement.setInt(1, idPerso);
+            statement.setInt(2, idUser);
+            ResultSet rs = statement.executeQuery();
+
+            if (!rs.next())
+                throw new DAOException("Access refused");
+
+            
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET transfert_id = ? WHERE id = ?");
 
-            statement.setInt(1, id);
-            statement.setInt(2, mj);
+            statement.setInt(1, idMJ);
+            statement.setInt(2, idPerso);
             statement.executeUpdate();
 
             link.commit();
 
-        } catch (Exception e) {
+        } catch (DAOException e) {
+            throw e;
+
+        } catch (SQLException e) {
             rollback();
             throw new DAOException(e.getMessage(), e);
 
@@ -375,7 +396,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             CloseStatement(statement);
             closeConnection(link);
         }
-    }*/
+    }
 
     @Override
     public void acceptValidation(int idPerso, int idUser) throws DAOException {
@@ -391,11 +412,11 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                     + "on p.validateur_id = j.id where p.id = ? and j.id = ?");
 
             statement.setInt(1, idPerso);
-            statement.setInt(1, idUser);
+            statement.setInt(2, idUser);
             ResultSet rs = statement.executeQuery();
 
             if (!rs.next())
-                throw new Exception("Access refused");
+                throw new DAOException("Access refused");
 
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET valide = 1, mj_id = validateur_id WHERE id = ?");
@@ -405,7 +426,10 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             link.commit();
 
-        } catch (Exception e) {
+        } catch (DAOException e) {
+            throw e;
+
+        } catch (SQLException e) {
             rollback();
             throw new DAOException(e.getMessage(), e);
 
@@ -414,24 +438,39 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             closeConnection(link);
         }
     }
-/*
+
     @Override
-    public void acceptTransfer(int id) throws DAOException {
+    public void acceptTransfer(int idPerso, int idUser) throws DAOException {
         Connection link = null;
         PreparedStatement statement = null;
 
         try {
             link = initConnection();
 
-            statement = link.prepareStatement("UPDATE Personnage "
-                    + "SET mj_id = transfert_id WHERE id = ?");
+            // On vérifie que l'utilisateur a le droit de valider le transfert
+            statement = link.prepareStatement("SELECT 1 FROM Joueur j join "
+                    + "Aventure a on j.id = a.mj_id join Personnage p "
+                    + "on p.transfert_id = j.id where p.id = ? and j.id = ?");
 
-            statement.setInt(1, id);
+            statement.setInt(1, idPerso);
+            statement.setInt(2, idUser);
+            ResultSet rs = statement.executeQuery();
+
+            if (!rs.next())
+                throw new DAOException("Access refused");
+
+            statement = link.prepareStatement("UPDATE Personnage "
+                    + "SET mj_id = transfert_id, transfert_id = NULL WHERE id = ?");
+
+            statement.setInt(1, idPerso);
             statement.executeUpdate();
 
             link.commit();
 
-        } catch (Exception e) {
+        } catch (DAOException e) {
+            throw e;
+
+        } catch (SQLException e) {
             rollback();
             throw new DAOException(e.getMessage(), e);
 
@@ -439,5 +478,5 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             CloseStatement(statement);
             closeConnection(link);
         }
-    }*/
+    }
 }

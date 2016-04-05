@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Se connecter</jsp:attribute>
     <jsp:attribute name="header">
     	<h1>Se connecter</h1>
     </jsp:attribute>

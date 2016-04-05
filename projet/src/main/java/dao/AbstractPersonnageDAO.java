@@ -45,10 +45,10 @@ public abstract class AbstractPersonnageDAO extends AbstractDAO {
     public abstract void requestValidation(int idPerso, int idMJ, int idUser)
             throws DAOException;
 
-    //public abstract void requestTransfer(int id, int mj) throws DAOException;
+    public abstract void requestTransfer(int idPerso, int idMJ, int idUser) throws DAOException;
 
     public abstract void acceptValidation(int idPerso, int idUser) throws DAOException;
 
-    //public abstract void acceptTransfer(int id) throws DAOException;
+    public abstract void acceptTransfer(int idPerso, int idUser) throws DAOException;
 
 }

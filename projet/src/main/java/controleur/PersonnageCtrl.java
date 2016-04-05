@@ -7,6 +7,7 @@ import dao.UniversDAO;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
@@ -60,10 +61,10 @@ public class PersonnageCtrl extends HttpServlet {
         }
         else if (action.endsWith("List")) {
             page = "liste";
-            
+
             PersonnageDAO persoDAO = PersonnageDAO.Get();
             Collection<Personnage> persos = null;
-            
+
             try {
                 String titre = null;
                 
@@ -108,7 +109,29 @@ public class PersonnageCtrl extends HttpServlet {
 
                 request.setAttribute("canEdit", canEdit);
                 request.setAttribute("perso", perso);
-                request.setAttribute("listeMJ", JoueurDAO.Get().getMeneurs());
+                
+                Collection<Joueur> listeMJ = JoueurDAO.Get().getMeneurs();
+                Collection<Joueur> listeTransfert = new ArrayList<>();
+                
+                
+                Joueur toDelete = null;
+                int mj_id = perso.getMj().getId();
+                
+                for (Joueur mj : listeMJ) {
+                    if (mj.getId() == user.getId()) {
+                        toDelete = mj;
+                    }
+                    else if (mj.getId() != mj_id) {
+                        listeTransfert.add(mj);
+                    }
+                }
+
+                if (toDelete != null)
+                    listeMJ.remove(toDelete);
+                
+                
+                request.setAttribute("listeMJ", listeMJ);
+                request.setAttribute("listeTransfert", listeTransfert);
                 
             } catch (NumberFormatException e) {
                Main.invalidParameters(request, response);
@@ -120,12 +143,15 @@ public class PersonnageCtrl extends HttpServlet {
         else if (action.equals("editMJ")) {
             actionAcceptMJ(request, response);
         }
-
+        else if (action.equals("transfer")) {
+            actionAcceptTransfer(request, response);
+        }
 
         if (page != null) {
             request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);
         }
-        else {
+
+        else if (request.getAttribute("done") == null) {
             Main.invalidParameters(request, response);
         }
     }
@@ -150,6 +176,9 @@ public class PersonnageCtrl extends HttpServlet {
         }
         else if (action.equals("editMJ")) {
             actionEditMJ(request, response);
+        }
+        else if (action.equals("transfer")) {
+            actionTransfer(request, response);
         }
     }
 
@@ -197,7 +226,7 @@ public class PersonnageCtrl extends HttpServlet {
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            Main.invalidParameters(request, response, ex);
+            Main.invalidParameters(request, response, ex.getMessage());
         }
     }
 
@@ -212,10 +241,49 @@ public class PersonnageCtrl extends HttpServlet {
 
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=show&id=" + idPerso);
+            
+            request.setAttribute("done", true);
 
         } catch (Exception ex) {
-            System.out.println("wtf "+ex.getMessage());
-            Main.invalidParameters(request, response, ex);
+            Main.invalidParameters(request, response, ex.getMessage());
+        }
+    }
+
+    public void actionTransfer(HttpServletRequest request,
+           HttpServletResponse response) throws IOException, ServletException {
+
+        try {
+            Joueur user = Main.GetJoueurSession(request);
+            int idPerso = Integer.parseInt(request.getParameter("idPerso"));
+            int idMJ = Integer.parseInt(request.getParameter("idMJ"));
+
+            PersonnageDAO.Get().requestTransfer(idPerso, idMJ, user.getId());
+
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=show&id="+idPerso);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            Main.invalidParameters(request, response, ex.getMessage());
+        }
+    }
+
+    public void actionAcceptTransfer(HttpServletRequest request,
+           HttpServletResponse response) throws IOException, ServletException {
+
+        try {
+            Joueur user = Main.GetJoueurSession(request);
+            int idPerso = Integer.parseInt(request.getParameter("id"));
+
+            PersonnageDAO.Get().acceptTransfer(idPerso, user.getId());
+
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=show&id=" + idPerso);
+
+            request.setAttribute("done", true);
+
+        } catch (Exception ex) {
+            Main.invalidParameters(request, response, ex.getMessage());
         }
     }
 }

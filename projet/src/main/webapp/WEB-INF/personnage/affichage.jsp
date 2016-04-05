@@ -100,10 +100,10 @@
                         <!--<span class="glyphicon glyphicon-send" aria-hidden="true"></span>-->
                             <c:choose>
                             <c:when test='${perso.getValidateur().getId() == sessionScope.user.getId()}'>
-                            <a class="btn btn-default" href="character?action=editMJ?id=${perso.getId()}">Valider le personnage</button>
+                            <a class="btn btn-default" href="character?action=editMJ&id=${perso.getId()}">Valider le personnage</button>
                             </c:when>
                             <c:otherwise>
-                            En attente
+                            En attente de validation
                             </c:otherwise>
                             </c:choose>
                         </c:otherwise>
@@ -118,8 +118,8 @@
                     <c:choose>
                     <c:when test='${perso.isValide()}'>
                         <c:choose>
-                        <c:when test='${perso.getTransfert() == null}'>
-                            <form class="form-inline" action="character?action=editMJ" method="post">
+                        <c:when test='${perso.getTransfert().getId() == 0}'>
+                            <form class="form-inline" action="character?action=transfer" method="post">
                                 <div class="input-group">
                                 <input type="hidden" name="idPerso" value="${perso.getId()}">
                                 <div class="form-group">
@@ -129,7 +129,7 @@
                                 <select name="idMJ" onchange='if(this.value != -1) { this.form.submit(); }'
                                         class="form-control col-sm-offset-2">
                                     <option value="-1"></option>
-                                    <c:forEach var="mj" items="${listeMJ}">
+                                    <c:forEach var="mj" items="${listeTransfert}">
                                     <option value="${mj.getId()}"><c:out value="${mj.getPseudo()}"/></option>
                                     </c:forEach>
                                 </select>
@@ -139,7 +139,14 @@
                         </c:when>
                         <c:otherwise>
                         <!--<span class="glyphicon glyphicon-send" aria-hidden="true"></span>-->
-                        En attente
+                            <c:choose>
+                            <c:when test='${perso.getTransfert().getId() == sessionScope.user.getId()}'>
+                            <a class="btn btn-default" href="character?action=transfer&id=${perso.getId()}">Accepter le transfert</button>
+                            </c:when>
+                            <c:otherwise>
+                            En attente de transfert
+                            </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                         </c:choose>
                     </c:when>
