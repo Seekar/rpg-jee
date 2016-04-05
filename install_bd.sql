@@ -4,6 +4,7 @@
 -- Drop everything
 drop table Paragraphe;
 drop table Episode;
+drop table Joue;
 drop table Participe;
 drop table Aventure cascade constraints;
 drop table Personnage cascade constraints;
@@ -53,10 +54,10 @@ create table Biographie (
 create table Episode (
     id int default epi_seq.nextval not null,
     eDate integer not null,
-    valide int not null,
+    valide int default 0 not null,
     aventure_id int,
     biographie_id int not null,
-    mj_id int not null,
+    mj_id int,
     primary key (id)
 );
 
@@ -75,7 +76,7 @@ create table Joueur (
 
 create table Paragraphe (
     id int default para_seq.nextval not null,
-    secret int not null,
+    secret int default 1 not null,
     texte varchar(4000) not null,
     episode_id int not null,
     primary key (id)
@@ -175,26 +176,48 @@ alter table Personnage
     references Joueur;
 
 
+-- hash générable avec la commande suivante :
+-- echo -n password | md5sum
+
+-- pass : max71Lord (hash md5)
+insert into Joueur (pseudo, pwd)
+    values ('Max', '0e87b8eadc71d22a1a41a53ae30774d4');
+
+-- pass : Vasto42 (hash md5)
+insert into Joueur (pseudo, pwd)
+    values ('Clara', '436bc2b3b94cdc207e8a08763aa07e6f');
+
+-- pass : admin17Lord (hash md5)
+insert into Joueur (pseudo, pwd)
+    values ('admin', 'd61ff73ffc50cec9c63180fdb7af0b7e');
+
 -- pass : james007tb (hash md5)
 insert into Joueur (pseudo, pwd)
     values ('James', 'ea262e6e612acd24c49c050f66f04607');
 
 
--- problèmes avec les caractères spéciaux
+
+-- problèmes avec les caractères spéciaux sur sqlplus
 insert into Univers (nom) values ('La Guerre des etoiles');
 insert into Univers (nom) values ('Les Caraibes au temps des pirates');
-insert into BIOGRAPHIE (ID, TEXTE) 
-    values (DEFAULT, 'Simon est etudiant a l''ensimag');
-insert into PERSONNAGE (ID, NAISSANCE, NOM, PORTRAIT, PROFESSION, VALIDE, BIOGRAPHIE_ID, JOUEUR_ID, MJ_ID, TRANSFERT_ID, UNIVERS_ID, VALIDATEUR_ID) 
-    values (DEFAULT, '30 mai 2015', 'Simon', 'http://url', 'activite', 0, 1, 1, 1, NULL, 1, NULL);
 
-insert into episode values (DEFAULT, 2, 1, null, 1, 1);
+insert into BIOGRAPHIE (ID, TEXTE) 
+    values (DEFAULT,
+'Pikachu est un petit Pokemon potele qui ressemble a un rongeur. Il est couvert de fourrure jaune. Ses oreilles sont pointues et leurs bouts sont noirs. Il a une petite bouche, des yeux marron et deux cercles rouges sur les joues. Il y a des poches sous ses joues qui generent de l''electricite. Ses bras sont courts, avec cinq doigts chacun, et ses pieds possedent trois orteils. Il a deux stries marron sur le dos, et sa queue est en forme d''eclair avec un peu de fourrure marron a la base.. Il est classe comme un quadrupede, mais il est connu pour se tenir et meme marcher sur ses pattes arrieres.' || chr(13) || '' || chr(13) || 'Le dessin anime montre que Pikachu voyage parfois en groupes. Il leve sa queue pour verifier les environs, qui lorsqu''elle trouve quelque chose, se charge l''electricite. Comme il vit dans les regions boisees, Pikachu est connu pour griller les Baies qu''il mange avec de l''electricite pour les rendre plus tendres. On voit dans Electric Tale of Pikachu que Pikachu est capable de manger voire de detruire des cabines telephoniques, des cables ou autres installations electriques.' || chr(13) || '' || chr(13) || 'Pikachu est capable de lacher des decharges d''electricite a la puissance variante. Pikachu est connu pour generer l''energie dans les glandes situees sous ses joues, et doit la faire sortir pour eviter des complications. Il est aussi capable de relacher de l''energie de sa queue, de la recharger en la plantant dans la terre, ou encore meme d''aider a recharger un camarade avec des coups d''electricite. Pikachu peut aussi s''electriser lui-meme pour utiliser son attaque signature, Electacle. Quand il est menace, il relache l''energie de ses joues pour creer de l''electricite, et un groupe de Pikachu peut creer de veritables orages. Il est le plus souvent trouve dans les forets, et le signe qu''un Pikachu est passe par la est une tache d''herbe brulee.'
+);
+
+insert into PERSONNAGE (ID, NAISSANCE, NOM, PORTRAIT, PROFESSION, VALIDE, BIOGRAPHIE_ID, JOUEUR_ID, MJ_ID, TRANSFERT_ID, UNIVERS_ID, VALIDATEUR_ID) 
+    values (DEFAULT, '27 février 1996', 'Pikachu',
+    'http://gamegeex.blogomancer.com/files/gamegeex/images/headerimages/1443_new-pikachu-game-is-in-the-works.png',
+    'Pokemon', DEFAULT, bio_seq.currval, joueur_seq.currval, NULL, NULL, univers_seq.currval, NULL);
+
+insert into episode values (DEFAULT, 2, 1, null, bio_seq.currval, NULL);
 
 insert into PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID) 
-    values (DEFAULT, 0, 'Paragraphe d''episode', 1);
-INSERT INTO EPISODE (ID, EDATE, VALIDE, AVENTURE_ID, BIOGRAPHIE_ID, MJ_ID) 
-	VALUES (DEFAULT, 2, 0, NULL, 1, 1)
+    values (DEFAULT, 0, 'Paragraphe d''episode', epi_seq.currval);
 
+INSERT INTO EPISODE (ID, EDATE, VALIDE, AVENTURE_ID, BIOGRAPHIE_ID, MJ_ID) 
+    VALUES (DEFAULT, 2, DEFAULT, NULL, bio_seq.currval, NULL);
 
 insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
 insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
