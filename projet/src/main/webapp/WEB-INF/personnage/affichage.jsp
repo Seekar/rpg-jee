@@ -68,10 +68,12 @@
                     </td>
                 </tr>
                 <tr>
+                    <c:set var="user_id" value="${sessionScope.user.getId()}"/>
+                    <c:set var="valid" value="${perso.isValide()}"/>
                     <th>Validation</th>
                     <td>
                     <c:choose>
-                    <c:when test='${perso.isValide()}'>
+                    <c:when test='${valid}'>
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     </c:when>
                     <c:otherwise>
@@ -99,7 +101,7 @@
                         <c:otherwise>
                         <!--<span class="glyphicon glyphicon-send" aria-hidden="true"></span>-->
                             <c:choose>
-                            <c:when test='${perso.getValidateur().getId() == sessionScope.user.getId()}'>
+                            <c:when test='${perso.getValidateur().getId() == user_id}'>
                             <a class="btn btn-default" href="character?action=editMJ&id=${perso.getId()}">Valider le personnage</button>
                             </c:when>
                             <c:otherwise>
@@ -113,12 +115,15 @@
                     </td>
                 </tr>
                 <tr>
+                    <c:set var="mj_id" value="${perso.getMj().getId()}"/>
+                    <c:set var="notLeader" value="${mj_id != user_id}"/>
+                    <c:set var="noTransfer" value="${perso.getTransfert().getId() == 0}"/>
                     <th>Transfert</th>
                     <td>
                     <c:choose>
-                    <c:when test='${perso.isValide()}'>
+                    <c:when test='${valid}'>
                         <c:choose>
-                        <c:when test='${perso.getTransfert().getId() == 0}'>
+                        <c:when test='${noTransfer && notLeader}'>
                             <form class="form-inline" action="character?action=transfer" method="post">
                                 <div class="input-group">
                                 <input type="hidden" name="idPerso" value="${perso.getId()}">
@@ -136,6 +141,9 @@
                                 </div>
                                 </div>
                             </form>
+                        </c:when>
+                        <c:when test='${noTransfer && !notLeader}'>
+                        <p>Aucune demande de transfert</p>
                         </c:when>
                         <c:otherwise>
                         <!--<span class="glyphicon glyphicon-send" aria-hidden="true"></span>-->
