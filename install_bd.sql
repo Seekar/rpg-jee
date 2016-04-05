@@ -207,7 +207,7 @@ insert into BIOGRAPHIE (ID, TEXTE)
 );
 
 insert into PERSONNAGE (ID, NAISSANCE, NOM, PORTRAIT, PROFESSION, VALIDE, BIOGRAPHIE_ID, JOUEUR_ID, MJ_ID, TRANSFERT_ID, UNIVERS_ID, VALIDATEUR_ID) 
-    values (DEFAULT, '27 février 1996', 'Pikachu',
+    values (DEFAULT, '27 fevrier 1996', 'Pikachu',
     'http://gamegeex.blogomancer.com/files/gamegeex/images/headerimages/1443_new-pikachu-game-is-in-the-works.png',
     'Pokemon', DEFAULT, bio_seq.currval, joueur_seq.currval, NULL, NULL, univers_seq.currval, NULL);
 
