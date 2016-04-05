@@ -4,7 +4,7 @@
 -- Drop everything
 drop table Paragraphe;
 drop table Episode;
-drop table Joue;
+drop table Participe;
 drop table Aventure cascade constraints;
 drop table Personnage cascade constraints;
 drop table Biographie;
@@ -60,11 +60,10 @@ create table Episode (
     primary key (id)
 );
 
-create table Joue (
+create table Participe (
     aventure_id int not null,
-    joueur_id int not null,
     personnage_id int not null,
-    primary key (aventure_id, joueur_id, personnage_id)
+    primary key (aventure_id, personnage_id)
 );
 
 create table Joueur (
@@ -129,22 +128,17 @@ alter table Episode
     foreign key (aventure_id) 
     references Aventure;
 
-alter table Joue 
+alter table Participe 
     add constraint FK2352B5619C649A 
     foreign key (aventure_id) 
     references Aventure;
 
-alter table Joue 
+alter table Participe
     add constraint FK2352B55F4B841A 
     foreign key (personnage_id) 
     references Personnage;
 
-alter table Joue 
-    add constraint FK2352B5D3CA809A 
-    foreign key (joueur_id) 
-    references Joueur;
-
-alter table Paragraphe 
+alter table Paragraphe
     add constraint FK889B40D767F703BA 
     foreign key (episode_id) 
     references Episode;
