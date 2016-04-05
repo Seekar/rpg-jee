@@ -8,6 +8,7 @@ import java.rmi.ServerException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -84,12 +85,17 @@ public class EpisodeCtrl extends HttpServlet {
             }
             case "new":
                 int bioID = Integer.parseInt(request.getParameter("bioID"));
+                int pid = Integer.parseInt(request.getParameter("pid"));
                 //DAO : liste des aventures
-                /*AventureDAO ad = AventureDAO.Get();
-                
+                AventureDAO ad = AventureDAO.Get();
+                try{
+                List<Aventure> l = ad.getAventureAssociee(pid);
                 request.setAttribute("aventures", l);
-                request.setAttribute("bioID", bioID);*/
+                request.setAttribute("bioID", bioID);
                 request.getRequestDispatcher("/WEB-INF/episode/NouvelEpisode.jsp").forward(request, response);
+                }catch(Exception e){
+                    throw new ServerException(null,e);
+                }
                 break;
         }
     }

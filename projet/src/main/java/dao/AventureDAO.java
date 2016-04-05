@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import modele.Aventure;
 import modele.Episode;
 import modele.Joueur;
+import modele.Personnage;
 
 /**
  *
@@ -57,6 +58,11 @@ public final class AventureDAO extends AbstractAventureDAO {
 
     @Override
     public List<Aventure> getPartiesMenees(Joueur j) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Aventure> getAventureAssociee(int persoID) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

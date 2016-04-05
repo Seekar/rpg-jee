@@ -10,7 +10,7 @@
     <jsp:body>
         <h2> Episodes en cours d'édition</h2>
         
-        <a href="episode?action=new&bioID=${perso.getBiographie().getID()}" > Nouveau</a> <br/>
+        <a href="episode?action=new&bioID=${perso.getBiographie().getID()}&pid=${perso.getId()}" > Nouveau</a> <br/>
          <c:forEach items="${perso.getBiographie().getEpisodes()}" var="episode">
              
             <c:if test="${!episode.getValide()}" >
