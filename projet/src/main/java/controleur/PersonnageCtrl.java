@@ -111,7 +111,6 @@ public class PersonnageCtrl extends HttpServlet {
             
             Personnage perso = new Personnage(nom, naissance, profession, portrait, univers);
             perso.setJoueur(user);
-            
             PersonnageDAO.Get().creer(perso, bio);
             response.sendRedirect(request.getContextPath());
             

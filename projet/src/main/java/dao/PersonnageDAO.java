@@ -9,11 +9,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.sql.DataSource;
 import modele.Aventure;
 import modele.Joueur;
 import modele.Personnage;
+import modele.Univers;
 
 /**
  *
@@ -42,8 +46,25 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     
 
     public Collection<Personnage> getAllPersonnages() throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Personnage> result = new ArrayList<>();
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM personnage");
+            while (rs.next()) {
+                Personnage personnage
+                        = new Personnage(rs.getString("nom"), rs.getString("naissance"), rs.getString("profession"), rs.getString("portrait"), new Univers(rs.getInt("univers_id")));
+                result.add(personnage);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
+        return result;
     }
+    
 
     @Override
     public Collection<Personnage> getPersonnagesJoueur(Joueur j) throws DAOException {
@@ -72,7 +93,6 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
     @Override
     public void creer(Personnage p, String bio) throws DAOException {
-        Joueur joueur = null;
         Connection link = null;
         PreparedStatement statement = null;
 
