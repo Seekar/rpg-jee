@@ -16,6 +16,7 @@
             <button type="submit"> Ok </button>
             <input type="hidden" name="episodeID" value="${eID}"/>
             <input type="hidden" name="action" value="new"/>
+
         </form>
     </jsp:body>
 </t:wrapper>
