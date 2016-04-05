@@ -9,7 +9,9 @@ il faut garder l'historique des aventures jouées pas un personnage, que fait on
 on peut utiliser la relation joue mais dans ce cas il faut faire attention aux parties finis
 ou on peut créeer une autre relation
 
-=> En effet c'est plus compliqué avec un truc ternaire comme Joue et tous les autres groupes font avec une table entre persos / parties donc faudrait refaire comme j'avais mis au début. Je vais regarder
+=> En effet c'est plus compliqué avec un truc ternaire comme Joue et tous les autres groupes font avec une table entre persos / parties.
+
+Du coup j'ai supprimé Joue et créé Participe
 
 
 ### Identifiants Oracle
