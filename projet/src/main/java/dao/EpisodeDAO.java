@@ -93,5 +93,29 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
     public Collection<Episode> getEpisodesAValider(Joueur mj) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Episode getEpisode(int id) throws DAOException {
+        Connection c = null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps = c.prepareStatement("select * from Episode e where e.id=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            Episode e;
+            if (rs.getObject("aventure_id") != null) {
+                e = new Episode(rs.getInt("id"), rs.getInt("eDate"), true, new Aventure(rs.getInt("aventure_id")), new Joueur(rs.getInt("mj_id")), null);
+            } else {
+                e = new Episode(rs.getInt("id"), rs.getInt("eDate"), true, null, new Joueur(rs.getInt("mj_id")), null);
+            }
+            closeConnection(c);
+            return e;
+        } catch (Exception e) {
+            throw new DAOException(null, e);
+        } finally {
+            closeConnection(c);
+        }
+    }
     
 }

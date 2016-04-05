@@ -31,4 +31,6 @@ public abstract class AbstractEpisodeDAO extends AbstractDAO{
     public abstract Collection<Episode> getEpisodesAValider(Joueur mj) 
             throws DAOException; 
     
+    public abstract Episode getEpisode(int id) throws DAOException; 
+    
 }
