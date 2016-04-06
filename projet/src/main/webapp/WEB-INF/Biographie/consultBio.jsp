@@ -32,21 +32,14 @@
             </c:choose>
         </c:forEach>
          </c:if>
-                    <c:if test="${episode.getAventure() != null}">
-                        <form action="aventure" method="POST">
-                                <button type="submit"> voir l'aventure </button>
-                                <input type="hidden" name="nom" value="${episode.getAventure().getTitre()}"/>
-                                <input type="hidden" name="action" value="show"/> <!-- a valider avec celui qui fait aventure-->
-                            </form>
-                    </c:if>
+    <c:if test="${episode.getAventure() != null}">
+        <a href="aventure?action=show&nom=${episode.getAventure().getTitre()}" 
+        class="btn btn-primary">Aventure liée</a> <!-- a valider avec celui qui fait aventure-->
+    </c:if>
     </c:forEach>
     <c:if test="${owner}">
-        <form action="biographie" method="POST">
-            <button type="submit" > Editer </button>
-            <input type="hidden" name="biographie" value="${perso.getBiographie().getID()}"/>
-            <input type="hidden" name="persoID" value="${perso.getId()}"/>
-            <input type="hidden" name="action" value="edition"/>
-        </form>
+        <a href="biographie?action=edition&persoID=${perso.getId()}&biographie=${perso.getBiographie().getID()}" 
+        class="btn btn-primary">Editer</a>
     </c:if>      
 </jsp:body>
 </t:wrapper>

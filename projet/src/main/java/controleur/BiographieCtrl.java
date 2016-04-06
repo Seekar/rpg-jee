@@ -51,7 +51,7 @@ public class BiographieCtrl extends HttpServlet {
             return;
         }
 
-        if(action.equals("afficher")){
+        if(action.equals("afficher")) {
             /*//TEST
             Personnage p = new Personnage("essai",null , null, null, null);
             Biographie b = new Biographie(0, "");
@@ -81,6 +81,31 @@ public class BiographieCtrl extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/Biographie/consultBio.jsp").forward(request, response);
             }catch(Exception e){
                 //Aficher la page d'erreur BD
+                throw new ServerException(null, e);
+            }
+        } else if(action.equals("edition")) {
+           
+            //faire la requete SQL
+            
+            
+            int bioID = Integer.parseInt(request.getParameter("biographie"));
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
+            PersonnageDAO persoD = PersonnageDAO.Get();
+            BiographieDAO bioD = BiographieDAO.Get();
+            EpisodeDAO epiD = EpisodeDAO.Get();
+            ParagrapheDAO paD = ParagrapheDAO.Get();
+            try{
+            Personnage p = persoD.getPersonnage(persoID);
+            //Joueur j = (Joueur)request.getSession().getAttribute("user");
+            p.setBiographie(bioD.getBiographie(bioID));
+            p.getBiographie().episodes = epiD.getEpisodesEnEdition(p.getBiographie());
+            for(Episode e : p.getBiographie().episodes){
+                e.paragraphes = paD.getParagraphes(e);
+            }
+            //A GARDER
+            request.setAttribute("perso", p);
+            request.getRequestDispatcher("/WEB-INF/Biographie/EditionBio.jsp").forward(request, response);
+            }catch(Exception e){
                 throw new ServerException(null, e);
             }
         }
@@ -118,31 +143,6 @@ public class BiographieCtrl extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/Paragraphe/Reveler.jsp").forward(request, response);
             }catch(Exception e){
                 throw new ServletException(null,e);
-            }
-        }else if(action.equals("edition")) {
-           
-            //faire la requete SQL
-            
-            
-            int bioID = Integer.parseInt(request.getParameter("biographie"));
-            int persoID = Integer.parseInt(request.getParameter("persoID"));
-            PersonnageDAO persoD = PersonnageDAO.Get();
-            BiographieDAO bioD = BiographieDAO.Get();
-            EpisodeDAO epiD = EpisodeDAO.Get();
-            ParagrapheDAO paD = ParagrapheDAO.Get();
-            try{
-            Personnage p = persoD.getPersonnage(persoID);
-            //Joueur j = (Joueur)request.getSession().getAttribute("user");
-            p.setBiographie(bioD.getBiographie(bioID));
-            p.getBiographie().episodes = epiD.getEpisodesEnEdition(p.getBiographie());
-            for(Episode e : p.getBiographie().episodes){
-                e.paragraphes = paD.getParagraphes(e);
-            }
-            //A GARDER
-            request.setAttribute("perso", p);
-            request.getRequestDispatcher("/WEB-INF/Biographie/EditionBio.jsp").forward(request, response);
-            }catch(Exception e){
-                throw new ServerException(null, e);
             }
         }
     }
