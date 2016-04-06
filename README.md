@@ -1,4 +1,4 @@
-Tutos JSTL (pour les vue JSP) : http://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm
+Tutos JSTL (pour les vues JSP) : http://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm
 
 Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
