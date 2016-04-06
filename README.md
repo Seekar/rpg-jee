@@ -21,16 +21,6 @@ Tool UML : https://genmymodel.com
 Pour empêcher l'affichage de champs donnés par l'utilisateur de modifier la page HTML, il suffit d'afficher ce genre de champs avec JSTL, exemple : ```<c:out value="${monChamp}"/>``` au lieu de ```${monChamp}```
 
 
-### Problème BD
-Il faut garder l'historique des aventures jouées pas un personnage, que fait-on ?
-On peut utiliser la relation joue mais dans ce cas il faut faire attention aux parties finies
-ou on peut créeer une autre relation
-
-=> En effet c'est plus compliqué avec un truc ternaire comme Joue et tous les autres groupes font avec une table entre persos / parties.
-
-Du coup j'ai supprimé Joue et créé Participe (définitif car j'ai écrit plein de requêtes avec depuis)
-
-
 ### Identifiants Oracle
 
 Dans le dossier src/main/webapp/META-INF, copier le template context.xml.template vers context.xml et remplacer XXXX par les identifiants Oracle
@@ -39,7 +29,7 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 
 [Description des fonctionnalités](https://github.com/leogouttefarde/rpg/blob/master/todo.txt)
 
-- Personnages / Joueurs : Léo
+- Personnages / Joueurs : Terminé
 - Parties : Salim
 - Biographie / Episodes / Paragraphes : Jules-Eugène / Simon
 
@@ -48,11 +38,6 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 
 - Utilisation de template(s) 'tag' JSP pour factoriser les vues
 - Utilisation de JSTL pour conditionner les vues etc
-
-
-### TODO
-
-Forcer le login pour empêcher l'accès aux autres pages par des inconnus et aussi les erreurs liées à l'accès sans login
 
 
 ### BDD
