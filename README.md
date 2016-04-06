@@ -48,6 +48,13 @@ Forcer le login pour empêcher l'accès aux autres pages par des inconnus et aus
 [Graphique SVG](https://github.com/leogouttefarde/rpg/blob/master/bdd.svg)
 
 
+### Infos
+
+Dans ma gestion des persos, le seul moyen d'être le meneur d'un de ses propres persos est qu'un autre joueur nous le cède alors qu'on était déjà meneur
+
+De la même façon, on peut se retrouver à posséder plusieurs persos participant à une même partie etc car l'énoncé est ambigu et que sinon c'est encore plus complexe.
+
+
 ### Bugs
 
 - Si on accède à une servlet et que Main.java n'a pas été créée, le Datasource n'est pas dispo (pas important selon le prof). Fix possible : http://jersey.576304.n2.nabble.com/Initialization-at-startup-as-opposed-to-first-request-td5164440.html

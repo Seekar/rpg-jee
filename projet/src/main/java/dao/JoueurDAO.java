@@ -108,32 +108,71 @@ public final class JoueurDAO extends AbstractJoueurDAO {
         return joueur;
     }
 
-/*
-    @Override
-    public List<Joueur> getListeJoueurs() throws DAOException {
-        //throw new UnsupportedOperationException("TODO : Requête SQL obtenir liste persos joueur.");
-        List<Joueur> list = new LinkedList<>();
+    public ArrayList<Joueur> getListeJoueurs() throws DAOException {
+        ArrayList<Joueur> joueurs = new ArrayList<>();
         Connection link = null;
+        PreparedStatement statement = null;
 
         try {
             link = getConnection();
-            Statement state = link.createStatement();
-            ResultSet result = state.executeQuery("SELECT * FROM Joueur");
+            statement = link.prepareStatement("SELECT id, pseudo FROM Joueur");
+            
+            ResultSet res = statement.executeQuery();
+            Joueur joueur;
 
-            while (result.next()) {
-                Joueur joueur = new Joueur(rs.getString("pseudo"), rs.getString("pwd"));
-                list.add(joueur);
+            while (res.next()) {
+                joueur = new Joueur();
+                joueur.setId(res.getInt("id"));
+                joueur.setPseudo(res.getString("pseudo"));
+
+                joueurs.add(joueur);
             }
 
-        } catch (SQLException e) {
-            throw new DAOException("Erreur bd " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des joueurs "
+                    + e.getMessage(), e);
 
         } finally {
+            CloseStatement(statement);
             closeConnection(link);
         }
 
-        return list;
-    }*/
+        return joueurs;
+    }
+
+    public ArrayList<Joueur> getAutresJoueurs(int idUser) throws DAOException {
+        ArrayList<Joueur> joueurs = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT id, pseudo FROM Joueur "
+                    + "WHERE id != ?");
+            
+            statement.setInt(1, idUser);
+            ResultSet res = statement.executeQuery();
+            Joueur joueur;
+
+            while (res.next()) {
+                joueur = new Joueur();
+                joueur.setId(res.getInt("id"));
+                joueur.setPseudo(res.getString("pseudo"));
+
+                joueurs.add(joueur);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des autres joueurs "
+                    + e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+
+        return joueurs;
+    }
     
     @Override
     public ArrayList<Joueur> getMeneurs() throws DAOException {

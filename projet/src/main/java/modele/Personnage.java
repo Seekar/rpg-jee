@@ -140,6 +140,10 @@ public class Personnage
         this(-1, nom, naissance, profession, portrait, univers, null);
     }
 
+    public Personnage(int id) {
+        this(id, null, null, null, null, null, null);
+    }
+
     public Personnage() {
     }
 

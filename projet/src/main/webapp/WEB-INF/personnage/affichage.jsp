@@ -69,7 +69,10 @@
                 </tr>
                 <tr>
                     <c:set var="user_id" value="${sessionScope.user.getId()}"/>
+                    <c:set var="joueur_id" value="${perso.getJoueur().getId()}"/>
+                    <c:set var="isOwner" value="${user_id == joueur_id}"/>
                     <c:set var="valid" value="${perso.isValide()}"/>
+                    <c:set var="noVals" value="${perso.getValidateur().getId() == 0}"/>
                     <th>Validation</th>
                     <td>
                     <c:choose>
@@ -78,7 +81,7 @@
                     </c:when>
                     <c:otherwise>
                         <c:choose>
-                        <c:when test='${perso.getValidateur().getId() == 0}'>
+                        <c:when test='${noVals && isOwner}'>
                             <!--<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>-->
                             <form class="form-inline" action="character?action=editMJ" method="post">
                                 <div class="input-group">
@@ -98,6 +101,9 @@
                                 </div>
                             </form>
                         </c:when>
+                        <c:when test='${noVals && !isOwner}'>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </c:when>
                         <c:otherwise>
                         <!--<span class="glyphicon glyphicon-send" aria-hidden="true"></span>-->
                             <c:choose>
@@ -115,15 +121,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <c:set var="mj_id" value="${perso.getMj().getId()}"/>
-                    <c:set var="notLeader" value="${mj_id != user_id}"/>
                     <c:set var="noTransfer" value="${perso.getTransfert().getId() == 0}"/>
-                    <th>Transfert</th>
+                    <th>Changement de meneur</th>
                     <td>
                     <c:choose>
                     <c:when test='${valid}'>
                         <c:choose>
-                        <c:when test='${noTransfer && notLeader}'>
+                        <c:when test='${noTransfer && isOwner}'>
                             <form class="form-inline" action="character?action=transfer" method="post">
                                 <div class="input-group">
                                 <input type="hidden" name="idPerso" value="${perso.getId()}">
@@ -142,7 +146,7 @@
                                 </div>
                             </form>
                         </c:when>
-                        <c:when test='${noTransfer && !notLeader}'>
+                        <c:when test='${noTransfer && !isOwner}'>
                         <p>Aucune demande de transfert</p>
                         </c:when>
                         <c:otherwise>
@@ -163,6 +167,35 @@
                     </c:otherwise>
                     </c:choose>
                     </td>
+                <tr>
+                    <th>Céder le personnage</th>
+                    <td>
+                    <c:choose>
+                    <c:when test='${isOwner && canGive}'>
+                        <form class="form-inline" action="character?action=donate" method="post">
+                            <div class="input-group">
+                            <input type="hidden" name="idPerso" value="${perso.getId()}">
+                            <div class="form-group">
+                            <p>Céder à </p>
+                            </div>
+                            <div class="form-group">
+                            <select name="idDest" onchange='if (this.value != -1) { this.form.submit(); }'
+                                    class="form-control col-sm-offset-2">
+                                <option value="-1"></option>
+                                <c:forEach var="joueur" items="${listeJoueurs}">
+                                <option value="${joueur.getId()}"><c:out value="${joueur.getPseudo()}"/></option>
+                                </c:forEach>
+                            </select>
+                            </div>
+                            </div>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                    </c:otherwise>
+                    </c:choose>
+                    </td>
+                </tr>
             </tbody>
         </table>
 

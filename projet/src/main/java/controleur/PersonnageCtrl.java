@@ -5,18 +5,12 @@ import dao.JoueurDAO;
 import dao.PersonnageDAO;
 import dao.UniversDAO;
 import java.io.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.sql.DataSource;
 import modele.*;
 
 /**
@@ -98,20 +92,25 @@ public class PersonnageCtrl extends HttpServlet {
             PersonnageDAO persoDAO = PersonnageDAO.Get();
             Personnage perso;
             boolean canEdit = false;
-            
+            boolean canGive = false;
+
             try {
                 int id = Integer.parseInt(request.getParameter("id"));
                 perso = persoDAO.getPersonnage(id);
-                
+                canGive = !persoDAO.dansPartieEnCours(id);
+
                 if (perso.getJoueur().getId() == user.getId()
                     || perso.getMj().getId() == user.getId())
                     canEdit = true;
 
                 request.setAttribute("canEdit", canEdit);
+                request.setAttribute("canGive", canGive);
                 request.setAttribute("perso", perso);
                 
-                Collection<Joueur> listeMJ = JoueurDAO.Get().getMeneurs();
+                JoueurDAO joueurDAO = JoueurDAO.Get();
+                Collection<Joueur> listeMJ = joueurDAO.getMeneurs();
                 Collection<Joueur> listeTransfert = new ArrayList<>();
+                List<Joueur> listeJoueurs = joueurDAO.getAutresJoueurs(id);
                 
                 
                 Joueur toDelete = null;
@@ -130,6 +129,7 @@ public class PersonnageCtrl extends HttpServlet {
                     listeMJ.remove(toDelete);
                 
                 
+                request.setAttribute("listeJoueurs", listeJoueurs);
                 request.setAttribute("listeMJ", listeMJ);
                 request.setAttribute("listeTransfert", listeTransfert);
                 
@@ -179,6 +179,12 @@ public class PersonnageCtrl extends HttpServlet {
         }
         else if (action.equals("transfer")) {
             actionTransfer(request, response);
+        }
+        else if (action.equals("edit")) {
+            actionEdit(request, response);
+        }
+        else if (action.equals("donate")) {
+            actionDonate(request, response);
         }
     }
 
@@ -281,6 +287,44 @@ public class PersonnageCtrl extends HttpServlet {
                     + request.getServletPath() + "?action=show&id=" + idPerso);
 
             request.setAttribute("done", true);
+
+        } catch (Exception ex) {
+            Main.invalidParameters(request, response, ex.getMessage());
+        }
+    }
+
+    public void actionEdit(HttpServletRequest request,
+           HttpServletResponse response) throws IOException, ServletException {
+
+        try {
+            Joueur user = Main.GetJoueurSession(request);
+            int idPerso = Integer.parseInt(request.getParameter("idPerso"));
+            
+            Personnage perso = new Personnage(idPerso);
+            perso.setProfession(request.getParameter("newWork"));
+
+            PersonnageDAO.Get().modifierPersonnage(perso, user.getId());
+
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=show&id=" + idPerso);
+
+        } catch (Exception ex) {
+            Main.invalidParameters(request, response, ex.getMessage());
+        }
+    }
+
+    public void actionDonate(HttpServletRequest request,
+           HttpServletResponse response) throws IOException, ServletException {
+
+        try {
+            Joueur user = Main.GetJoueurSession(request);
+            int idPerso = Integer.parseInt(request.getParameter("idPerso"));
+            int idDest = Integer.parseInt(request.getParameter("idDest"));
+
+            PersonnageDAO.Get().donnerPersonnage(idPerso, idDest, user.getId());
+
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=ownedList");
 
         } catch (Exception ex) {
             Main.invalidParameters(request, response, ex.getMessage());

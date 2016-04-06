@@ -266,8 +266,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                     + "profession, portrait, valide, biographie_id, mj_id, "
                     + "transfert_id, validateur_id, joueur_id, u.id as u_id, "
                     + "u.nom as u_nom, j.pseudo as meneur FROM Personnage p "
-                    + "join Univers u on p.univers_id = u.id "
-                    + "left join Joueur j on j.id = mj_id where p.id = ?");
+                    + "JOIN Univers u on p.univers_id = u.id "
+                    + "LEFT JOIN Joueur j on j.id = mj_id WHERE p.id = ?");
             
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
@@ -363,10 +363,15 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             link = initConnection();
 
-            // On vérifie que l'utilisateur a le droit de demander un transfert
+            // On vérifie que l'utilisateur a le droit de demander un transfert :
+            // - le perso ne doit pas participer à une partie en cours
+            // - doit être propriétaire
             statement = link.prepareStatement("SELECT 1 FROM Joueur j "
                     + "JOIN Personnage p on p.joueur_id = j.id "
-                    + "WHERE p.id = ? and j.id = ? and p.valide = 1");
+                    + "WHERE p.id = ? and j.id = ? and p.valide = 1 "
+                    + "AND NOT EXISTS (SELECT 1 FROM Participe r JOIN "
+                    + "Aventure a on a.id = r.aventure_id "
+                    + "WHERE p.id = r.personnage_id and finie = 0)");
 
             statement.setInt(1, idPerso);
             statement.setInt(2, idUser);
@@ -447,10 +452,15 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         try {
             link = initConnection();
 
-            // On vérifie que l'utilisateur a le droit de valider le transfert
+            // On vérifie que l'utilisateur a le droit de valider le transfert :
+            // - le perso ne doit pas participer à une partie en cours
+            // - doit être le MJ concerné
             statement = link.prepareStatement("SELECT 1 FROM Joueur j join "
                     + "Aventure a on j.id = a.mj_id join Personnage p "
-                    + "on p.transfert_id = j.id where p.id = ? and j.id = ?");
+                    + "on p.transfert_id = j.id where p.id = ? and j.id = ? "
+                    + "AND NOT EXISTS (SELECT 1 FROM Participe r "
+                    + "WHERE a.id = r.aventure_id and p.id = r.personnage_id "
+                    + "and finie = 0)");
 
             statement.setInt(1, idPerso);
             statement.setInt(2, idUser);
@@ -478,5 +488,114 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             CloseStatement(statement);
             closeConnection(link);
         }
+    }
+
+    @Override
+    public void modifierPersonnage(Personnage p, int idUser) throws DAOException {
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = initConnection();
+
+            // On vérifie que l'utilisateur est bien propriétaire du personnage
+            statement = link.prepareStatement("SELECT 1 FROM Joueur j "
+                    + "JOIN Personnage p on p.joueur_id = j.id "
+                    + "WHERE p.id = ? and j.id = ?");
+
+            statement.setInt(1, p.getId());
+            statement.setInt(2, idUser);
+            ResultSet rs = statement.executeQuery();
+
+            if (!rs.next())
+                throw new DAOException("Access refused");
+
+            statement = link.prepareStatement("UPDATE Personnage "
+                    + "SET profession = ? WHERE id = ?");
+
+            statement.setString(1, p.getProfession());
+            statement.setInt(2, p.getId());
+            statement.executeUpdate();
+
+            link.commit();
+
+        } catch (DAOException e) {
+            throw e;
+
+        } catch (SQLException e) {
+            rollback();
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+    }
+
+    @Override
+    public void donnerPersonnage(int idPerso, int idDest, int idUser) throws DAOException {
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = initConnection();
+
+            // On vérifie que l'utilisateur est bien propriétaire du personnage
+            statement = link.prepareStatement("SELECT 1 FROM Joueur j "
+                    + "JOIN Personnage p on p.joueur_id = j.id "
+                    + "WHERE p.id = ? and j.id = ?");
+
+            statement.setInt(1, idPerso);
+            statement.setInt(2, idUser);
+            ResultSet rs = statement.executeQuery();
+
+            if (!rs.next())
+                throw new DAOException("Access refused");
+
+            statement = link.prepareStatement("UPDATE Personnage "
+                    + "SET joueur_id = ? WHERE id = ?");
+
+            statement.setInt(1, idDest);
+            statement.setInt(2, idPerso);
+            statement.executeUpdate();
+
+            link.commit();
+
+        } catch (DAOException e) {
+            throw e;
+
+        } catch (SQLException e) {
+            rollback();
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+    }
+
+    public boolean dansPartieEnCours(int idPerso) throws DAOException {
+        boolean result = true;
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT 1 FROM Personnage p "
+                    + "JOIN Participe r on p.id = r.personnage_id JOIN "
+                    + "Aventure a on a.id = r.aventure_id WHERE finie = 0");
+
+            ResultSet rs = statement.executeQuery();
+            result = rs.next();
+
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+
+        return result;
     }
 }

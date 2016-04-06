@@ -6,10 +6,11 @@ Liste des parties (toutes ou d'un perso précis) : 1 seule vue
 	affichage lien vers chacune avec info en cours ou terminée
 
 
-/character?action=edit (+ param POST idPerso=XXXX newWork=XXXX)
 /character?action=gamesList&id=XXXX	(liste des parties d'un perso)
+DONE /character?action=edit
 DONE /character?action=create
 DONE /character?action=editMJ
+DONE /character?action=donate
 DONE /character?action=transfer
 DONE /character?action=ownedList
 DONE /character?action=leaderList

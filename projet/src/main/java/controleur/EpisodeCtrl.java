@@ -5,15 +5,10 @@ import dao.EpisodeDAO;
 import dao.ParagrapheDAO;
 import java.io.*;
 import java.rmi.ServerException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
 import java.util.List;
-import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.sql.DataSource;
 import modele.*;
 
 /**
