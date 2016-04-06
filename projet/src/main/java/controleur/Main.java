@@ -105,6 +105,10 @@ public class Main extends HttpServlet {
         else if (request.getParameter("logout") != null) {
             HttpSession session = request.getSession();
             session.invalidate();
+            
+            response.sendRedirect(request.getContextPath() + "?login");
+            
+            return;
         }
 
 
