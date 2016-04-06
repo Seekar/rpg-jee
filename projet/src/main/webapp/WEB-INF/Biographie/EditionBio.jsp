@@ -4,34 +4,29 @@
 
 <t:wrapper>
     <jsp:attribute name="header">
-        <h1>Edition de la biographie de ${perso.nom}</h1>
+        <h1>Edition de la biographie de <c:out value="${perso.nom}"/></h1>
     </jsp:attribute>
 
     <jsp:body>
-        <h2> Episodes en cours d'édition</h2>
-        
-        <a href="episode?action=new&bioID=${perso.getBiographie().getID()}&pid=${perso.getId()}" > Nouveau</a> <br/>
+        <h2>Episodes en cours d'édition</h2>
+
+        <p><a href="episode?action=new&bioID=${perso.getBiographie().getID()}&pid=${perso.getId()}" >Nouveau</a></p>
          <c:forEach items="${perso.getBiographie().getEpisodes()}" var="episode">
-             
-            <c:if test="${!episode.getValide()}" >
-               
+            <c:if test="${!episode.getValide()}">
             <c:forEach items="${episode.getParagraphes()}" var="parag">
                 <c:choose>
                     <c:when test="${parag.getSecret()}">
-                        (secret) ${parag.getTexte()}  <br/>
-                          <form action="biographie" method="POST">
-                                <button type="submit"> reveler </button>
-                                <input type="hidden" name="paragID" value="${parag.getID()}"/>
-                                <input type="hidden" name="action" value="reveler"/>
-                          </form>                 
+                        <p><c:out value="${parag.getTexte()}"/> (secret)</p>
+                        <form action="biographie" method="POST">
+                            <button type="submit" class="btn btn-primary">Révéler</button>
+                            <input type="hidden" name="paragID" value="${parag.getID()}"/>
+                            <input type="hidden" name="action" value="reveler"/>
+                        </form>
                 </c:when>
                 <c:otherwise>
-                    ${parag.getTexte()} 
+                    <p><c:out value="${parag.getTexte()}"/></p>
                 </c:otherwise>
-                        
-                            
             </c:choose>
-              <br/>
         </c:forEach>
         <a href="episode?id=${episode.getId()}&action=edit&persoID=${perso.getId()}" > Editer l'épisode</a>
         <a href="episode?id=${episode.getId()}&action=suppr&persoID=${perso.getId()}" > Supprimer l'épisode</a>

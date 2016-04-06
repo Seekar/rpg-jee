@@ -9,9 +9,7 @@
 
     <jsp:body>
         <form action="paragraphe" method="post">
-            <textarea name="texte" >
-                
-            </textarea><br/>
+            <textarea name="texte" ></textarea><br/>
             <input type="checkbox" value="false" name="secret"/><label> secret </label><br/>
             <button type="submit"> Ok </button>
             <input type="hidden" name="episodeID" value="${eID}"/>

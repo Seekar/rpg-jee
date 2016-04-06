@@ -8,10 +8,10 @@
     </jsp:attribute>
 
     <jsp:body>
-        ${parag.getTexte()} <br/>
+        <p><c:out value="${parag.getTexte()}"/></p>
         <form action="paragraphe" method="post">
-           oui <input type="radio" name="res" value='oui'/><br/>
-           non <input type="radio" name="res" value="non" checked/><br/>
+           Oui <input type="radio" name="res" value='oui'/><br/>
+           Non <input type="radio" name="res" value="non" checked/><br/>
            <button type="submit"> Ok</button>
            <input type="hidden" name="pID" value="${parag.getID()}"/>
            <input type="hidden" name="action" value="reveler"/>
