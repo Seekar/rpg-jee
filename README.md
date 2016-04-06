@@ -1,8 +1,9 @@
-Appli en ligne à l'adresse : http://rpg-723.rhcloud.com
+Tutos JSTL (pour les vue JSP) : http://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm
 
 Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 Tool UML : https://genmymodel.com
+
 
 ### Critères de notation appli Web : [détail chamilo](http://chamilo2.grenet.fr/inp/courses/ENSIMAG4MMCAWEB/)
 - **Gestion des droits d’accès** des utilisateurs (impossibilité de faire des actions réservées à l’utilisateur U sans être identifié comme U, **même en contournant l’interface**, par exemple en entrant des URL à la main, ou en utilisant une version en cache d’un formulaire sur un navigateur où U s’est déloggué)
@@ -83,3 +84,6 @@ De la même façon, on peut se retrouver à posséder plusieurs persos participa
 - rédaction readme.txt
 - rédaction manuel utilisateur
 - rédaction bilan
+
+
+[Appli en ligne](http://rpg-723.rhcloud.com)
