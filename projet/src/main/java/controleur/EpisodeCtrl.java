@@ -29,7 +29,15 @@ public class EpisodeCtrl extends HttpServlet {
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-       String action = (request.getParameter("action")!= null ? request.getParameter("action") : "");
+
+        String action = request.getParameter("action");
+
+        // Force le login et gère les erreurs
+        if (Main.notLogged(request, response)
+            || action == null) {
+            return;
+        }
+
         switch (action) {
             case "edit":
                 {
@@ -107,7 +115,15 @@ public class EpisodeCtrl extends HttpServlet {
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-            String action = (request.getParameter("action") != null ? request.getParameter("action") : "");
+
+        String action = request.getParameter("action");
+
+        // Force le login et gère les erreurs
+        if (Main.notLogged(request, response)
+            || action == null) {
+            return;
+        }
+
         if (action.equals("validesuppr")) {
             if (request.getParameter("res").equals("oui")) {
                 int pid = Integer.parseInt(request.getParameter("pID"));

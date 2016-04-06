@@ -39,6 +39,16 @@ public class PersonnageCtrl extends HttpServlet {
         String action = request.getParameter("action");
         Joueur user = Main.GetJoueurSession(request);
 
+        // Force le login
+        if (Main.notLogged(request, response)) {
+            return;
+        }
+
+        // Affiche les personnages possédés par défaut
+        else if (action == null) {
+            action = "ownedList";
+        }
+
 
         if (action.equals("create")) {
             page = "creation";
@@ -170,6 +180,12 @@ public class PersonnageCtrl extends HttpServlet {
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
+
+        // Force le login et gère les erreurs
+        if (Main.notLogged(request, response)
+            || action == null) {
+            return;
+        }
 
         if (action.equals("create")) {
             actionCreate(request, response);

@@ -61,6 +61,22 @@ public class Main extends HttpServlet {
         return joueur;
     }
 
+    protected static boolean isLogged(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        return !notLogged(request, response);
+    }
+
+    protected static boolean notLogged(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        boolean fail = GetJoueurSession(request) == null;
+
+        if (fail) {
+            response.sendRedirect(request.getContextPath() + "?login");
+        }
+
+        return fail;
+    }
+
     /* pages d'erreurs */
     protected static void invalidParameters(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {

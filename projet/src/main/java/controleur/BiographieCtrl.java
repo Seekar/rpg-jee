@@ -28,7 +28,8 @@ import modele.Personnage;
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 @WebServlet(name = "BiographieCtrl", urlPatterns = {"/biographie"})
-public class BiographieCtrl extends HttpServlet{
+public class BiographieCtrl extends HttpServlet {
+
     /**
      * Requetes GET
      *
@@ -41,7 +42,16 @@ public class BiographieCtrl extends HttpServlet{
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        if(request.getParameter("action").equals("afficher")){
+
+        String action = request.getParameter("action");
+
+        // Force le login et gère les erreurs
+        if (Main.notLogged(request, response)
+            || action == null) {
+            return;
+        }
+
+        if(action.equals("afficher")){
             /*//TEST
             Personnage p = new Personnage("essai",null , null, null, null);
             Biographie b = new Biographie(0, "");
@@ -88,8 +98,16 @@ public class BiographieCtrl extends HttpServlet{
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
+
         String action = request.getParameter("action");
-        if(action.equals("reveler")){
+
+        // Force le login et gère les erreurs
+        if (Main.notLogged(request, response)
+            || action == null) {
+            return;
+        }
+
+        if(action.equals("reveler")) {
             int pid = Integer.parseInt(request.getParameter("paragID"));
             //DAO get paragraphe
             ParagrapheDAO paD = ParagrapheDAO.Get();
@@ -101,7 +119,7 @@ public class BiographieCtrl extends HttpServlet{
             }catch(Exception e){
                 throw new ServletException(null,e);
             }
-        }else if(action.equals("edition")){
+        }else if(action.equals("edition")) {
            
             //faire la requete SQL
             
@@ -127,6 +145,5 @@ public class BiographieCtrl extends HttpServlet{
                 throw new ServerException(null, e);
             }
         }
-
     }
 }

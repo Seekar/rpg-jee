@@ -24,6 +24,14 @@ public class AventureCtrl extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
 
+        String action = request.getParameter("action");
+
+        // Force le login et gère les erreurs
+        if (Main.notLogged(request, response)
+            || action == null) {
+            return;
+        }
+
     }
 
     /**
@@ -38,6 +46,14 @@ public class AventureCtrl extends HttpServlet {
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
+
+        String action = request.getParameter("action");
+
+        // Force le login et gère les erreurs
+        if (Main.notLogged(request, response)
+            || action == null) {
+            return;
+        }
 
     }
 }
