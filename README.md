@@ -17,7 +17,8 @@ ou on peut créeer une autre relation
 
 => En effet c'est plus compliqué avec un truc ternaire comme Joue et tous les autres groupes font avec une table entre persos / parties.
 
-Du coup j'ai supprimé Joue et créé Participe
+Du coup j'ai supprimé Joue et créé Participe (définitif car j'ai écrit plein de requêtes avec depuis)
+
 
 ### Identifiants Oracle
 
