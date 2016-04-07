@@ -34,5 +34,7 @@ public abstract class AbstractAventureDAO extends AbstractDAO
     public abstract void creerPartie(Aventure a) throws DAOException;
     
     public abstract List<Aventure> getAventureAssociee(int persoID) throws DAOException;
+ 
+    public abstract Aventure getAventure(int id) throws DAOException;
     
 }
