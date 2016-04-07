@@ -266,10 +266,12 @@ public class AventureCtrl extends HttpServlet {
             // Créer un objet Participe et l'ajoute à la base
             Participe participe = new Participe(aventure, perso);
             ParticipeDAO.Get().creerParticipe(participe);
+
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=show&id=" + aventureId);
             
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            doGet(request, response);
+            Main.invalidParameters(request, response, ex.getMessage());
         }
     }
 }

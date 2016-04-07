@@ -6,6 +6,7 @@ import dao.DAOException;
 import dao.EpisodeDAO;
 import dao.JoueurDAO;
 import dao.ParagrapheDAO;
+import dao.ParticipeDAO;
 import dao.PersonnageDAO;
 import dao.UniversDAO;
 
@@ -39,6 +40,7 @@ public class Main extends HttpServlet {
         ParagrapheDAO.Create(ds);
         PersonnageDAO.Create(ds);
         UniversDAO.Create(ds);
+        ParticipeDAO.Create(ds);
     }
     
     public static boolean ownerOrMj(int persoID, Joueur actuel)  {

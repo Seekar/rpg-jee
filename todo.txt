@@ -62,11 +62,11 @@ Episode : 1 seule vue
 
 
 
-/game?action=create
-/game?action=show&id=XXXX
+DONE /game?action=create
+DONE /game?action=show&id=XXXX
 /game?action=edit (+ params id=XXXX ...)
 /game?action=delMember&id=XXXX&idMember=XXXX
-/game?action=addMember&id=XXXX&idMember=XXXX
+PENDING /game?action=addMember&id=XXXX&idMember=XXXX
 /game?action=finish&id=XXXX
 /game?action=delete&id=XXXX
 Page de partie en cours : 1 seule vue
