@@ -41,6 +41,12 @@ public class Biographie
 	public List<Episode> episodes= new LinkedList<>();
            
        public List<Episode> getEpisodes(){return episodes;}
+       
+       public void addEpisodes(List<Episode> l){
+           for (Episode e  : l){
+           episodes.add(e);
+           }
+       }
  
     public Biographie(int id, String texte) {
         this.id = id;
