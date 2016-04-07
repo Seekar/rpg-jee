@@ -11,7 +11,7 @@
         <c:forEach items="${episodes}" var="episode">
         <c:forEach items="${episode.getParagraphes()}" var="parag">
                 <c:choose>
-                    <c:when test="${parag.getSecret()}">
+                    <c:when test="${parag.isSecret()}">
                         (secret) ${parag.getTexte()}  
            
                 </c:when>

@@ -13,7 +13,7 @@
             <label> Aventure (optionnel): </label> <br/>
             aucune aventure <input type="radio" name="aventure" value="__NONE__" checked/> <br/>
             <c:forEach var="aventure" items="${aventures}">
-               ${aventure.getTitre()} <input type="radio" name="aventure" value="${aventure.ID}"/> <br/>
+               ${aventure.getTitre()} <input type="radio" name="aventure" value="${aventure.getId()}"/> <br/>
             </c:forEach>
                <button class="btn btn-primary" type="submit"> créer</button>
                <input type="hidden" name="action" value="new"/>

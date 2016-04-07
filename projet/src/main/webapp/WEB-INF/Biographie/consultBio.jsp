@@ -17,7 +17,7 @@
             <c:forEach items="${episode.getParagraphes()}" var="parag">
                 <tr>
                 <c:choose>
-                <c:when test="${parag.getSecret()}">
+                <c:when test="${parag.isSecret()}">
                     <c:if test="${owner}">
                         <p><c:out value="${parag.getTexte()}"/> (secret)</p>
                         <form action="biographie" method="POST">

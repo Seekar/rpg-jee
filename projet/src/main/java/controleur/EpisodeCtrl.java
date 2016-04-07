@@ -40,95 +40,96 @@ public class EpisodeCtrl extends HttpServlet {
         }
 
         switch (action) {
-            case "edit": {
-                int epID = Integer.parseInt(request.getParameter("id"));
-                int persoID = Integer.parseInt(request.getParameter("persoID"));
-                Main.ownerOrMj(persoID, (Joueur) request.getSession().getAttribute("user"));
-                EpisodeDAO ed = EpisodeDAO.Get();
-                //requete DAO
-                EpisodeDAO edd = EpisodeDAO.Get();
-                ParagrapheDAO pad = ParagrapheDAO.Get();
-                try {
-                    Episode e = edd.getEpisode(epID);
-                    e.paragraphes = pad.getParagraphes(e);
-                    request.setAttribute("episode", e);
-                    request.setAttribute("persoID", persoID);
-                    request.getRequestDispatcher("/WEB-INF/episode/EditionEpisode.jsp").forward(request, response);
-                } catch (DAOException e) {
-                    Main.dbError(request, response, e);
-                }
-                break;
+        case "edit": {
+            int epID = Integer.parseInt(request.getParameter("id"));
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
+            Main.ownerOrMj(persoID, (Joueur) request.getSession().getAttribute("user"));
+            EpisodeDAO ed = EpisodeDAO.Get();
+            //requete DAO
+            EpisodeDAO edd = EpisodeDAO.Get();
+            ParagrapheDAO pad = ParagrapheDAO.Get();
+            try {
+                Episode e = edd.getEpisode(epID);
+                e.paragraphes = pad.getParagraphes(e);
+                request.setAttribute("episode", e);
+                request.setAttribute("persoID", persoID);
+                request.getRequestDispatcher("/WEB-INF/episode/EditionEpisode.jsp").forward(request, response);
+            } catch (DAOException e) {
+                Main.dbError(request, response, e);
             }
-            case "suppr": {
-                int epID = Integer.parseInt(request.getParameter("id"));
-                EpisodeDAO ed = EpisodeDAO.Get();
-                int persoID = Integer.parseInt(request.getParameter("persoID"));
-                Main.ownerOrMj(persoID, (Joueur) request.getSession().getAttribute("user"));
-                //requete DAO
-                EpisodeDAO edd = EpisodeDAO.Get();
-                ParagrapheDAO pad = ParagrapheDAO.Get();
-                try {
-                    Episode e = edd.getEpisode(epID);
-                    e.paragraphes = pad.getParagraphes(e);
-                    request.setAttribute("episode", e);
-                    request.setAttribute("persoID", persoID);
-                    request.getRequestDispatcher("/WEB-INF/episode/Supprimer.jsp").forward(request, response);
-                } catch (DAOException e) {
-                    Main.dbError(request, response, e);
-                }
-                break;
+            break;
+        }
+        case "suppr": {
+            int epID = Integer.parseInt(request.getParameter("id"));
+            EpisodeDAO ed = EpisodeDAO.Get();
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
+            Main.ownerOrMj(persoID, (Joueur) request.getSession().getAttribute("user"));
+            //requete DAO
+            EpisodeDAO edd = EpisodeDAO.Get();
+            ParagrapheDAO pad = ParagrapheDAO.Get();
+            try {
+                Episode e = edd.getEpisode(epID);
+                e.paragraphes = pad.getParagraphes(e);
+                request.setAttribute("episode", e);
+                request.setAttribute("persoID", persoID);
+                request.getRequestDispatcher("/WEB-INF/episode/Supprimer.jsp").forward(request, response);
+            } catch (DAOException e) {
+                Main.dbError(request, response, e);
             }
-            case "valider": {
-                int epID = Integer.parseInt(request.getParameter("id"));
-                int persoID = Integer.parseInt(request.getParameter("persoID"));
-                Main.ownerOrMj(persoID, (Joueur) request.getSession().getAttribute("user"));
-                //requete DAO
-                EpisodeDAO ed = EpisodeDAO.Get();
-                ParagrapheDAO pad = ParagrapheDAO.Get();
-                try {
-                    Episode e = ed.getEpisode(epID);
-                    e.paragraphes = pad.getParagraphes(e);
-                    request.setAttribute("episode", e);
-                    request.setAttribute("persoID", persoID);
-                    request.getRequestDispatcher("/WEB-INF/episode/Valider.jsp").forward(request, response);
-                } catch (DAOException e) {
-                    Main.dbError(request, response, e);
-                }
-                break;
+            break;
+        }
+        case "valider": {
+            int epID = Integer.parseInt(request.getParameter("id"));
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
+            Main.ownerOrMj(persoID, (Joueur) request.getSession().getAttribute("user"));
+            //requete DAO
+            EpisodeDAO ed = EpisodeDAO.Get();
+            ParagrapheDAO pad = ParagrapheDAO.Get();
+            try {
+                Episode e = ed.getEpisode(epID);
+                e.paragraphes = pad.getParagraphes(e);
+                request.setAttribute("episode", e);
+                request.setAttribute("persoID", persoID);
+                request.getRequestDispatcher("/WEB-INF/episode/Valider.jsp").forward(request, response);
+            } catch (DAOException e) {
+                Main.dbError(request, response, e);
             }
+            break;
+        }
 
-            case "validationList": {
-                //requete DAO
-                EpisodeDAO ed = EpisodeDAO.Get();
-                ParagrapheDAO pad = ParagrapheDAO.Get();
-                try {
-                    List<Episode> epi = ed.getEpisodesAValider((Joueur) request.getSession().getAttribute("user"));
-                    for (Episode e : epi) {
-                        e.paragraphes = pad.getParagraphes(e);
-                    }
-                    request.setAttribute("episodes", epi);
-                    request.getRequestDispatcher("/WEB-INF/episode/AValider.jsp").forward(request, response);
-                } catch (DAOException e) {
-                    Main.dbError(request, response, e);
+        case "validationList": {
+            //requete DAO
+            EpisodeDAO ed = EpisodeDAO.Get();
+            ParagrapheDAO pad = ParagrapheDAO.Get();
+            try {
+                List<Episode> epi = ed.getEpisodesAValider((Joueur) request.getSession().getAttribute("user"));
+                for (Episode e : epi) {
+                    e.paragraphes = pad.getParagraphes(e);
                 }
-                break;
+                request.setAttribute("episodes", epi);
+                request.getRequestDispatcher("/WEB-INF/episode/AValider.jsp").forward(request, response);
+            } catch (DAOException e) {
+                Main.dbError(request, response, e);
             }
-            case "new":
-                int bioID = Integer.parseInt(request.getParameter("bioID"));
-                int pid = Integer.parseInt(request.getParameter("pid"));
-                Main.ownerOrMj(pid, (Joueur) request.getSession().getAttribute("user"));
-                //DAO : liste des aventures
-                AventureDAO ad = AventureDAO.Get();
-                try {
-                    List<Aventure> l = ad.getAventureAssociee(pid);
-                    request.setAttribute("aventures", l);
-                    request.setAttribute("bioID", bioID);
-                    request.setAttribute("persoID", pid);
-                    request.getRequestDispatcher("/WEB-INF/episode/NouvelEpisode.jsp").forward(request, response);
-                } catch (DAOException e) {
-                    Main.dbError(request, response, e);
-                }
-                break;
+            break;
+        }
+        
+        case "new":
+            int bioID = Integer.parseInt(request.getParameter("bioID"));
+            int pid = Integer.parseInt(request.getParameter("pid"));
+            Main.ownerOrMj(pid, (Joueur) request.getSession().getAttribute("user"));
+            //DAO : liste des aventures
+            AventureDAO ad = AventureDAO.Get();
+            try {
+                List<Aventure> l = ad.getAventureAssociee(pid);
+                request.setAttribute("aventures", l);
+                request.setAttribute("bioID", bioID);
+                request.setAttribute("persoID", pid);
+                request.getRequestDispatcher("/WEB-INF/episode/NouvelEpisode.jsp").forward(request, response);
+            } catch (DAOException e) {
+                Main.dbError(request, response, e);
+            }
+            break;
         }
     }
 

@@ -57,6 +57,10 @@ public class Paragraphe
         return id;
     }
 
+    public int getID() {
+        return id;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -70,6 +74,10 @@ public class Paragraphe
     }
 
     public boolean isSecret() {
+        return secret;
+    }
+
+    public boolean getSecret() {
         return secret;
     }
 

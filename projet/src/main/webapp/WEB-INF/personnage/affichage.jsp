@@ -127,7 +127,7 @@
                     <c:choose>
                     <c:when test='${valid}'>
                         <c:choose>
-                        <c:when test='${noTransfer && isOwner}'>
+                        <c:when test='${noTransfer && isOwner && canTransfer}'>
                             <form class="form-inline" action="character?action=transfer" method="post">
                                 <div class="input-group">
                                 <input type="hidden" name="idPerso" value="${perso.getId()}">
@@ -146,17 +146,16 @@
                                 </div>
                             </form>
                         </c:when>
-                        <c:when test='${noTransfer && !isOwner}'>
-                        <p>Aucune demande de transfert</p>
+                        <c:when test='${!noTransfer}'>
+                        <p>En attente de transfert</p>
                         </c:when>
                         <c:otherwise>
-                        <!--<span class="glyphicon glyphicon-send" aria-hidden="true"></span>-->
                             <c:choose>
                             <c:when test='${perso.getTransfert().getId() == sessionScope.user.getId()}'>
                             <a class="btn btn-default" href="character?action=transfer&id=${perso.getId()}">Accepter le transfert</button>
                             </c:when>
                             <c:otherwise>
-                            En attente de transfert
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </c:otherwise>
                             </c:choose>
                         </c:otherwise>
@@ -171,7 +170,7 @@
                     <th>Céder le personnage</th>
                     <td>
                     <c:choose>
-                    <c:when test='${isOwner && canGive}'>
+                    <c:when test='${isOwner}'>
                         <form class="form-inline" action="character?action=donate" method="post">
                             <div class="input-group">
                             <input type="hidden" name="idPerso" value="${perso.getId()}">

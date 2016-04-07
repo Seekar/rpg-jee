@@ -72,25 +72,25 @@ public class PersonnageCtrl extends HttpServlet {
 
             Personnage perso;
             boolean canEdit = false;
-            boolean canGive = false;
+            boolean canTransfer = false;
 
             try {
                 int id = Integer.parseInt(request.getParameter("id"));
                 perso = persoDAO.getPersonnage(id);
-                canGive = !persoDAO.dansPartieEnCours(id);
+                canTransfer = !persoDAO.dansPartieEnCours(id);
 
                 if (perso.getJoueur().getId() == user.getId()
                     || perso.getMj().getId() == user.getId())
                     canEdit = true;
 
                 request.setAttribute("canEdit", canEdit);
-                request.setAttribute("canGive", canGive);
+                request.setAttribute("canTransfer", canTransfer);
                 request.setAttribute("perso", perso);
                 
                 JoueurDAO joueurDAO = JoueurDAO.Get();
                 Collection<Joueur> listeMJ = joueurDAO.getMeneurs();
                 Collection<Joueur> listeTransfert = new ArrayList<>();
-                List<Joueur> listeJoueurs = joueurDAO.getAutresJoueurs(id);
+                List<Joueur> listeJoueurs = joueurDAO.getAutresJoueurs(user.getId());
                 
                 
                 Joueur toDelete = null;

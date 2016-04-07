@@ -18,7 +18,7 @@
                     <c:when test="${episode.getParagraphes().size() !=0}">
                         <c:forEach items="${episode.getParagraphes()}" var="parag">
                             <c:choose>
-                                <c:when test="${parag.getSecret()}">  
+                                <c:when test="${parag.isSecret()}">  
                                     <p><c:out value="${parag.getTexte()}"/> (secret)</p>
                                     <form action="biographie" method="POST">
                                         <button class="btn btn-primary" type="submit" class="btn btn-primary">Révéler</button>
