@@ -96,6 +96,23 @@ public class EpisodeCtrl extends HttpServlet {
                 }
                 break;
             }
+
+            case "validationList": {
+                //requete DAO
+                EpisodeDAO ed = EpisodeDAO.Get();
+                ParagrapheDAO pad = ParagrapheDAO.Get();
+                try {
+                    List<Episode> epi = ed.getEpisodesAValider((Joueur) request.getSession().getAttribute("user"));
+                    for (Episode e : epi) {
+                        e.paragraphes = pad.getParagraphes(e);
+                    }
+                    request.setAttribute("episodes", epi);
+                    request.getRequestDispatcher("/WEB-INF/episode/AValider.jsp").forward(request, response);
+                } catch (DAOException e) {
+                    Main.dbError(request, response, e);
+                }
+                break;
+            }
             case "new":
                 int bioID = Integer.parseInt(request.getParameter("bioID"));
                 int pid = Integer.parseInt(request.getParameter("pid"));
@@ -182,6 +199,7 @@ public class EpisodeCtrl extends HttpServlet {
                 } catch (DAOException e) {
                     Main.dbError(request, response, e);
                 }
+
             } else {
                 int avent = Integer.parseInt(avt);
                 int idbio = Integer.parseInt(request.getParameter("IDbio"));
@@ -194,6 +212,22 @@ public class EpisodeCtrl extends HttpServlet {
                     Main.dbError(request, response, e);
                 }
             }
+        } else if (action.equals("validerParMJ")) {
+            int epID = Integer.parseInt(request.getParameter("eID"));
+
+            //requete DAO
+            EpisodeDAO ed = EpisodeDAO.Get();
+            if (request.getParameter("res").equals("oui")) {
+
+                try {
+                    ed.valideEpisodeParMj(epID);
+
+                } catch (DAOException e) {
+                    Main.dbError(request, response, e);
+                }
+            }
+            response.sendRedirect("episode?action=validationList");
+
         }
     }
 }

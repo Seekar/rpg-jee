@@ -48,7 +48,9 @@ public class Episode
 	 */
 	
 	public Joueur mj;
-
+        public Joueur getMJ(){
+            return mj;
+        }
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->

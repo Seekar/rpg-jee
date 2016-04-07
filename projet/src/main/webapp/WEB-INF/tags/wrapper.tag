@@ -65,6 +65,7 @@
                 <li class="dropdown-header">Validation</li>
                 <li><a href="character?action=validationList">Personnages à valider</a></li>
                 <li><a href="character?action=transferList">Transferts à valider</a></li>
+                <li><a href="episode?action=validationList">Episodes à valider</a></li>
               </ul>
             </li>
           </ul>

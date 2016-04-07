@@ -90,8 +90,29 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
     }
 
     @Override
-    public Collection<Episode> getEpisodesAValider(Joueur mj) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Episode> getEpisodesAValider(Joueur mj) throws DAOException {
+        Connection c = null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps = c.prepareStatement("select * from Episode e where e.mj_id=?");
+            ps.setInt(1, mj.getId());
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            LinkedList<Episode> epi = new LinkedList<>();
+            BiographieDAO bioD = BiographieDAO.Get();
+            while(rs.next()){
+                if(rs.getObject("aventure_id") !=null)
+                    epi.add(new Episode(rs.getInt("id"), rs.getInt("eDate"), rs.getInt("valide")==1, new Aventure(rs.getInt("aventure_id")), new Joueur(rs.getInt("mj_id")), bioD.getBiographie(rs.getInt("briographie_id"))));
+                else
+                    epi.add(new Episode(rs.getInt("id"), rs.getInt("eDate"), rs.getInt("valide")==1, null, new Joueur(rs.getInt("mj_id")), bioD.getBiographie(rs.getInt("biographie_id"))));
+            }
+            closeConnection(c);
+            return epi;
+        } catch (Exception e) {
+            throw new DAOException(null, e);
+        } finally {
+            closeConnection(c);
+        }
     }
 
     @Override
@@ -164,7 +185,21 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
             closeConnection(c);
         }
     }
-
+    @Override
+    public void valideEpisodeParMj(int epID) throws DAOException {
+       Connection c = null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps = c.prepareStatement("update Episode e set e.mj_id=NULL where e.id=?");
+            ps.setInt(1, epID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw new DAOException(null, e);
+        } finally {
+            closeConnection(c);
+        }
+    }
+    
     @Override
     public void nouvelEpisode(boolean avtValide, int aventureID, int bioID, int date) throws DAOException {
         Connection c = null;
