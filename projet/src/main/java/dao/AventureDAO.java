@@ -5,6 +5,7 @@
  */
 package dao;
 
+import static dao.AbstractDAO.CloseStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +19,7 @@ import modele.Personnage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import modele.Biographie;
 import modele.Univers;
 
@@ -80,6 +82,40 @@ public final class AventureDAO extends AbstractAventureDAO {
             CloseStatement(statement);
             closeConnection(link);
         }
+    }
+
+    public ArrayList<Aventure> getAventures() throws DAOException {
+        ArrayList<Aventure> avs = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT id, titre, finie "
+                    + "FROM Aventure");
+            
+            ResultSet res = statement.executeQuery();
+            Aventure av;
+
+            while (res.next()) {
+                av = new Aventure();
+                av.setId(res.getInt("id"));
+                av.setTitre(res.getString("titre"));
+                av.setFinie(res.getBoolean("finie"));
+                
+                avs.add(av);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des aventures "
+                    +  e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+
+        return avs;
     }
 
     @Override

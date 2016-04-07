@@ -49,57 +49,27 @@ public class PersonnageCtrl extends HttpServlet {
             action = "ownedList";
         }
 
+        
+        PersonnageDAO persoDAO = PersonnageDAO.Get();
 
-        if (action.equals("create")) {
+        switch (action) {
+        case "create":
             page = "creation";
-            
+
             UniversDAO universDAO = UniversDAO.Get();
             Collection<Univers> univers;
-            
+
             try {
                 univers = universDAO.getUnivers();
                 request.setAttribute("listeUnivers", univers);
             } catch (DAOException e) {
                Main.dbError(request, response, e);
             }
-        }
-        else if (action.endsWith("List")) {
-            page = "liste";
-
-            PersonnageDAO persoDAO = PersonnageDAO.Get();
-            Collection<Personnage> persos = null;
-
-            try {
-                String titre = null;
-                
-                if (action.equals("ownedList")) {
-                    persos = persoDAO.getPersonnagesJoueur(user);
-                    titre = "Personnages possédés";
-                }
-                else if (action.equals("leaderList")) {
-                    persos = persoDAO.getPersonnagesMenes(user);
-                    titre = "Personnages menés";
-                }
-                else if (action.equals("transferList")) {
-                    persos = persoDAO.getTransfertsAValider(user);
-                    titre = "Demandes de transfert";
-                }
-                else if (action.equals("validationList")) {
-                    persos = persoDAO.getPersonnagesAValider(user);
-                    titre = "Personnages à valider";
-                }
-
-                request.setAttribute("titre", titre);
-                request.setAttribute("persos", persos);
-                
-            } catch (DAOException e) {
-               Main.dbError(request, response, e);
-            }
-        }
-        else if (action.equals("show")) {
+            break;
+        
+        case "show":
             page = "affichage";
 
-            PersonnageDAO persoDAO = PersonnageDAO.Get();
             Personnage perso;
             boolean canEdit = false;
             boolean canGive = false;
@@ -149,12 +119,50 @@ public class PersonnageCtrl extends HttpServlet {
             } catch (DAOException e) {
                Main.dbError(request, response, e);
             }
-        }
-        else if (action.equals("editMJ")) {
+            
+            break;
+        
+        case "editMJ":
             actionAcceptMJ(request, response);
-        }
-        else if (action.equals("transfer")) {
+            break;
+        
+        case "transfer":
             actionAcceptTransfer(request, response);
+            break;
+        
+        default:
+            if (action.endsWith("List")) {
+                page = "liste";
+
+                Collection<Personnage> persos = null;
+
+                try {
+                    String titre = null;
+
+                    if (action.equals("ownedList")) {
+                        persos = persoDAO.getPersonnagesJoueur(user);
+                        titre = "Personnages possédés";
+                    }
+                    else if (action.equals("leaderList")) {
+                        persos = persoDAO.getPersonnagesMenes(user);
+                        titre = "Personnages menés";
+                    }
+                    else if (action.equals("transferList")) {
+                        persos = persoDAO.getTransfertsAValider(user);
+                        titre = "Demandes de transfert";
+                    }
+                    else if (action.equals("validationList")) {
+                        persos = persoDAO.getPersonnagesAValider(user);
+                        titre = "Personnages à valider";
+                    }
+
+                    request.setAttribute("titre", titre);
+                    request.setAttribute("persos", persos);
+
+                } catch (DAOException e) {
+                   Main.dbError(request, response, e);
+                }
+            }
         }
 
         if (page != null) {
@@ -187,20 +195,26 @@ public class PersonnageCtrl extends HttpServlet {
             return;
         }
 
-        if (action.equals("create")) {
+        switch (action) {
+        case "create":
             actionCreate(request, response);
-        }
-        else if (action.equals("editMJ")) {
+            break;
+        
+        case "editMJ":
             actionEditMJ(request, response);
-        }
-        else if (action.equals("transfer")) {
+            break;
+        
+        case "transfer":
             actionTransfer(request, response);
-        }
-        else if (action.equals("edit")) {
+            break;
+        
+        case "edit":
             actionEdit(request, response);
-        }
-        else if (action.equals("donate")) {
+            break;
+        
+        case "donate":
             actionDonate(request, response);
+            break;
         }
     }
 

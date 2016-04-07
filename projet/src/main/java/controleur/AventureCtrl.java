@@ -55,27 +55,35 @@ public class AventureCtrl extends HttpServlet {
                     univers = universDAO.getUnivers();
                     request.setAttribute("listeUnivers", univers);
                 } catch (DAOException e) {
-                   Main.dbError(request, response, e);
+                    Main.dbError(request, response, e);
                 }
+
+                break;
             }
+            
             case "addMember":
             {
-                
+
+                break;
             }
+            
             case "delMember":
             {
-                
+
+                break;
             }
             case "finish":
             {
-                
+
+                break;
             }
             case "delete":
             {
                 // Vérifier qu'il s'agit bien d'une proposition de partie (la partie n'est pas finie)
+
+                break;
             }
             case "show":
-            {
                 page = "affichage";
                 AventureDAO aventureDAO = AventureDAO.Get();
                 Aventure aventure;
@@ -106,6 +114,48 @@ public class AventureCtrl extends HttpServlet {
                 } catch (DAOException e) {
                    Main.dbError(request, response, e);
                 }
+
+                break;
+
+        default:
+            if (action.toLowerCase().endsWith("list")) {
+                page = "liste";
+
+                AventureDAO avDAO = AventureDAO.Get();
+                Collection<Aventure> parties = null;
+
+                try {
+                    String titre = "Liste des aventures";
+
+                    /*if (action.equals("ownedList")) {
+                        persos = persoDAO.getPersonnagesJoueur(user);
+                        titre = "Personnages possédés";
+                    }
+                    else if (action.equals("leaderList")) {
+                        persos = persoDAO.getPersonnagesMenes(user);
+                        titre = "Personnages menés";
+                    }
+                    else if (action.equals("transferList")) {
+                        persos = persoDAO.getTransfertsAValider(user);
+                        titre = "Demandes de transfert";
+                    }
+                    else if (action.equals("validationList")) {
+                        persos = persoDAO.getPersonnagesAValider(user);
+                        titre = "Personnages à valider";
+                    }*/
+                   /* if (null) {
+                        null;
+                    }
+                    else {*/
+                        parties = avDAO.getAventures();
+                    //}
+
+                    request.setAttribute("titre", titre);
+                    request.setAttribute("parties", parties);
+
+                } catch (DAOException e) {
+                   Main.dbError(request, response, e);
+                }
             }
         }
 
@@ -114,7 +164,6 @@ public class AventureCtrl extends HttpServlet {
         } else if (request.getAttribute("done") == null) {
             Main.invalidParameters(request, response);
         }
-
     }
 
     /**

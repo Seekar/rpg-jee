@@ -91,6 +91,7 @@ public class Main extends HttpServlet {
     /* pages d'erreurs */
     protected static void invalidParameters(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+        response.setStatus(500);
         request.getRequestDispatcher("/WEB-INF/ctrlError.jsp").forward(request, response);
     }
 
@@ -98,7 +99,6 @@ public class Main extends HttpServlet {
     protected static void invalidParameters(HttpServletRequest request,
             HttpServletResponse response, String mess) throws ServletException, IOException {
         request.setAttribute("error", mess);
-        response.setStatus(500);
         invalidParameters(request, response);
     }
 

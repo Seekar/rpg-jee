@@ -10,7 +10,7 @@ package modele;
 public class Paragraphe
 {
 	private int id;
-        public int getID(){return id;}
+        
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -19,8 +19,7 @@ public class Paragraphe
 	 */
 	
 	private String texte;
-        public String getTexte(){return texte;}
-        public void setTexte(String c){texte = c;}
+        
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -29,8 +28,7 @@ public class Paragraphe
 	 */
 	
 	private boolean secret;
-        public boolean getSecret(){return secret;}
-        public void setSecret(boolean b){secret = b;}
+        
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -54,6 +52,38 @@ public class Paragraphe
             secret = isSecret;
             this.texte = texte;
         }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTexte() {
+        return texte;
+    }
+
+    public void setTexte(String texte) {
+        this.texte = texte;
+    }
+
+    public boolean isSecret() {
+        return secret;
+    }
+
+    public void setSecret(boolean secret) {
+        this.secret = secret;
+    }
+
+    public Episode getEpisode() {
+        return episode;
+    }
+
+    public void setEpisode(Episode episode) {
+        this.episode = episode;
+    }
 
 }
 

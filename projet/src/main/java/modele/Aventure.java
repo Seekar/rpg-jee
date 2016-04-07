@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Aventure
 {
+    public int id;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -19,13 +21,7 @@ public class Aventure
 	 */
 	
 	private String titre;
-
-    public String getTitre() {
-    	return titre;
-    }
-    public void setTitre(String titre) {
-    	this.titre = titre;
-    }
+        
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -34,13 +30,6 @@ public class Aventure
 	 */
 	
 	private String situation;
-
-	public String getSituation() {
-		return situation;
-	}
-	public void setSituation(String situation) {
-		this.situation = situation;
-	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -51,13 +40,6 @@ public class Aventure
 	
 	private String aDate;
 
-	public String getDate() {
-		return aDate;
-	}
-	public void setDate(String date) {
-		this.aDate = date;
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -66,13 +48,6 @@ public class Aventure
 	 */
 	
 	private String lieu;
-
-	public String getLieu() {
-		return lieu;
-	}
-	public void setLieu(String lieu) {
-		this.lieu = lieu;
-	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -83,13 +58,6 @@ public class Aventure
 	
 	private String events;
 
-	public String getEvents() {
-		return events;
-	}
-	public void setEvents(String events) {
-		this.events = events;
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -99,13 +67,6 @@ public class Aventure
 	
 	private boolean finie;
 
-	public boolean estFinie() {
-		return finie;
-	}
-	public void setFinie(boolean finie) {
-		this.finie = finie;
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -114,13 +75,6 @@ public class Aventure
 	 */
 	
 	public Univers univers;
-
-	public Univers getUnivers() {
-		return univers;
-	}
-	public void setUnivers(Univers univers) {
-		this.univers = univers;
-	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -149,13 +103,6 @@ public class Aventure
 	
 	public Joueur mj;
 
-	public Joueur getMj() {
-		return mj;
-	}
-	public void setMj(Joueur mj) {
-		this.mj = mj;
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -165,23 +112,15 @@ public class Aventure
 	
 	public List<Joue> parties;
 
-	public List<Joue> getJoue() {
-		return parties;
-	}
-	public void setJoue(List<Joue> parties) {
-		this.parties = parties;
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public Aventure()
-	{
-		this.ID = -1;	
+	public Aventure() {
+		this.id = -1;	
 	}
-        
+
 	public Aventure(int id, String titre, String date, String lieu, Univers univers, String situation, Joueur mj) {
 		this.titre = titre;
 		this.situation = situation;
@@ -190,7 +129,7 @@ public class Aventure
 		this.univers = univers;
 		this.finie = false;
 		this.events = "";
-		this.ID = id;
+		this.id = id;
 		this.mj = mj;
 	}
 
@@ -199,10 +138,100 @@ public class Aventure
 	}
 
     public Aventure(int id){
-        ID = id;
+        this.id = id;
     }
-        
-    public final int ID;
+
+    public String getDate() {
+        return aDate;
+    }
+
+    public void setDate(String aDate) {
+        this.aDate = aDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getSituation() {
+        return situation;
+    }
+
+    public void setSituation(String situation) {
+        this.situation = situation;
+    }
+
+    public String getaDate() {
+        return aDate;
+    }
+
+    public void setaDate(String aDate) {
+        this.aDate = aDate;
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    public String getEvents() {
+        return events;
+    }
+
+    public void setEvents(String events) {
+        this.events = events;
+    }
+
+    public boolean isFinie() {
+        return finie;
+    }
+
+    public boolean estFinie() {
+        return finie;
+    }
+
+    public void setFinie(boolean finie) {
+        this.finie = finie;
+    }
+
+    public Univers getUnivers() {
+        return univers;
+    }
+
+    public void setUnivers(Univers univers) {
+        this.univers = univers;
+    }
+
+    public Joueur getMj() {
+        return mj;
+    }
+
+    public void setMj(Joueur mj) {
+        this.mj = mj;
+    }
+
+    public List<Joue> getParties() {
+        return parties;
+    }
+
+    public void setParties(List<Joue> parties) {
+        this.parties = parties;
+    }
 
 
 }
