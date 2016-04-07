@@ -20,7 +20,7 @@
             <tbody>
                 <tr>
                     <th>Nom</th>
-                    <td><c:out value="${aventure.getNom()}"/></td>
+                    <td><c:out value="${aventure.getTitre()}"/></td>
                 </tr>
                 <tr>
                     <th>Date</th>

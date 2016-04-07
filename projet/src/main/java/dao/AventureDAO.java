@@ -188,8 +188,8 @@ public final class AventureDAO extends AbstractAventureDAO {
 
             statement = link.prepareStatement("SELECT a.id, aDate, events, "
                     + "finie, lieu, situation, titre, mj_id, univers_id, "
-                    + "u.id as u_id, u.nom as u_nom, j.pseudo as meneur"
-                    + "FROM Aventure a"
+                    + "u.id as u_id, u.nom as u_nom, j.pseudo as meneur "
+                    + "FROM Aventure a "
                     + "JOIN Univers u on a.univers_id = u.id "
                     + "LEFT JOIN Joueur j on j.id = mj_id WHERE a.id = ?");
             
@@ -210,7 +210,8 @@ public final class AventureDAO extends AbstractAventureDAO {
             aventure.setUnivers(new Univers(rs.getInt("u_id"),rs.getString("u_nom")));
 
         } catch (Exception e) {
-            throw new DAOException(e.getMessage(), e);
+            throw new DAOException("Erreur d'accès à une partie "
+                    + e.getMessage(), e);
 
         } finally {
             CloseStatement(statement);
