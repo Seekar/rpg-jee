@@ -17,6 +17,8 @@ Tool UML : https://genmymodel.com
 ### question sur le mj
 un persoonage peut il ne pas avoir de MJ, si oui comment fait-on pour valider un épisode??
 
+=> Si un perso n'est pas valide, alors il n'a pas encore de MJ. Dans ce cas précis pas possible de faire valider un épisode je dirais.
+
 ### Protection contre les [failles d'injection XSS](https://fr.wikipedia.org/wiki/Cross-site_scripting)
 
 Pour empêcher l'affichage de champs donnés par l'utilisateur de modifier la page HTML, il suffit d'afficher ce genre de champs avec JSTL, exemple : ```<c:out value="${monChamp}"/>``` au lieu de ```${monChamp}```
