@@ -13,6 +13,7 @@
             <button type="submit" class="btn btn-primary">Ok</button>
             <input type="hidden" value="${parag.getID()}" name="id"/>
             <input type="hidden" value="edit" name="action"/>
+            <input type="hidden" name="persoID" value="${persoID}"/>
         </form>
     </jsp:body>
 </t:wrapper>

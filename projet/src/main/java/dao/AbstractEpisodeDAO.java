@@ -34,4 +34,10 @@ public abstract class AbstractEpisodeDAO extends AbstractDAO{
     public abstract Episode getEpisode(int id) throws DAOException; 
     
     public abstract void suppressEpisode(int pid) throws DAOException;
+    
+    public abstract void valideEpisode(int pid, int persoID, int joueurID) throws DAOException;
+    
+    public abstract void nouvelEpisode(boolean avtValide, int aventureID, int bioID, int date) throws DAOException;
+    
+    
 }

@@ -5,6 +5,10 @@
  */
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
 import modele.Aventure;
@@ -60,10 +64,49 @@ public final class AventureDAO extends AbstractAventureDAO {
     public List<Aventure> getPartiesMenees(Joueur j) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public Aventure getAventure(int aID) throws DAOException{
+        Connection c = null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps = c.prepareStatement("select * from aventure where  id=?");
+            ps.setInt(1, aID);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            Aventure a = getAventure(aID);
+            a.setTitre(rs.getString("titre"));
+            closeConnection(c);
+            return a;
+        } catch (Exception e) {
+            throw new DAOException(null, e);
+        } finally {
+            closeConnection(c);
+        }
+    }
 
     @Override
     public List<Aventure> getAventureAssociee(int persoID) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection c = null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps = c.prepareStatement("select aventure_id from participe where personnage_id =?");
+            ps.setInt(1, persoID);
+            ResultSet rs = ps.executeQuery();
+            LinkedList<Integer> avt = new LinkedList<Integer>();
+            while (rs.next()) {
+                avt.add(rs.getInt("aventure_id"));
+            }
+            closeConnection(c);
+            LinkedList<Aventure> a = new LinkedList<>();
+            for(int id :avt){
+                a.add(getAventure(id));
+            }
+            return a;
+        } catch (Exception e) {
+            throw new DAOException(null, e);
+        } finally {
+            closeConnection(c);
+        }
     }
     
 }

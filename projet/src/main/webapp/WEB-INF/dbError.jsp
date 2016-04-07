@@ -10,7 +10,7 @@
 
     <jsp:body>
         <p>Une erreur d'accès à la base de données s'est produite.</p>
-        <c:if test="error != null">
+        <c:if test="${error != null}">
             <p>Détails : ${error}</p>
         </c:if>
     </jsp:body>

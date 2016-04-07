@@ -24,9 +24,10 @@
         <form action="episode" method="post">
            oui <input type="radio" name="res" value='oui'/><br/>
            non <input type="radio" name="res" value="non" checked/><br/>
-           <button type="submit"> Ok</button>
+           <button class="btn btn-primary" type="submit"> Ok</button>
            <input type="hidden" name="pID" value="${episode.getId()}"/>
            <input type="hidden" name="action" value="validevalid"/>
+           <input type="hidden" name="persoID" value="${persoID}"/>
         </form>
     </jsp:body>
 </t:wrapper>

@@ -11,10 +11,10 @@
         <form action="paragraphe" method="post">
             <textarea name="texte" ></textarea><br/>
             <input type="checkbox" value="false" name="secret"/><label> secret </label><br/>
-            <button type="submit"> Ok </button>
+            <button class="btn btn-primary" type="submit"> Ok </button>
             <input type="hidden" name="episodeID" value="${eID}"/>
             <input type="hidden" name="action" value="new"/>
-
+            <input type="hidden" name="persoID" value="${persoID}"/>
         </form>
     </jsp:body>
 </t:wrapper>

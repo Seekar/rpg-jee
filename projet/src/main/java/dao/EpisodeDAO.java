@@ -70,7 +70,7 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
         Connection c = null;
         try{
             c = dataSource.getConnection();
-        PreparedStatement ps = c.prepareStatement("select * from Episode e where e.biographie_id = ? and e.valide = 1 order by e.eDate");
+        PreparedStatement ps = c.prepareStatement("select * from Episode e where e.biographie_id = ? and e.valide = 1 and e.mj_id = NULL order by e.eDate");
         ps.setInt(1, b.getID());
             ResultSet rs = ps.executeQuery();
             LinkedList<Episode> epi = new LinkedList<Episode>();
@@ -129,8 +129,61 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
             ps = c.prepareStatement("delete from episode where id = ?");
             ps.setInt(1, pid);
             ps.executeUpdate();          
-            closeConnection(c);
            
+        } catch (Exception e) {
+            throw new DAOException(null, e);
+        } finally {
+            closeConnection(c);
+        }
+    }
+
+    @Override
+    public void valideEpisode(int pid, int persoID, int joueurID) throws DAOException {
+        Connection c = null;
+        try {
+            c = dataSource.getConnection(); 
+            PreparedStatement ps = c.prepareStatement("select mj_id from personnage where id = ?");
+            ps.setInt(1, persoID);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int mj = rs.getInt("mj_id");
+            if( mj== joueurID){
+                ps = c.prepareStatement("update episode set valide = '1' where id =?");
+                ps.setInt(1, pid);
+                ps.executeUpdate();
+            }else{
+               ps = c.prepareStatement("update episode set valide ='1' , mj_id= ? where id=?");
+               ps.setInt(1, mj);
+               ps.setInt(2, pid);
+               ps.executeUpdate();
+            }       
+           
+        } catch (Exception e) {
+            throw new DAOException(null, e);
+        } finally {
+            closeConnection(c);
+        }
+    }
+
+    @Override
+    public void nouvelEpisode(boolean avtValide, int aventureID, int bioID, int date) throws DAOException {
+        Connection c = null;
+        try {
+            c = dataSource.getConnection();
+            PreparedStatement ps;
+            if (avtValide) {
+                ps = c.prepareStatement("insert into episode values (default, ?, default, ?,? , NULL )");
+                ps.setInt(1, date);
+                ps.setInt(2, aventureID);
+                ps.setInt(3, bioID);
+            } else {
+                ps = c.prepareStatement("insert into episode values (default, ?, default, NULL,? , NULL )");
+                ps.setInt(1, date);
+                ps.setInt(2, bioID);
+            }
+
+            ps.executeUpdate();
+
         } catch (Exception e) {
             throw new DAOException(null, e);
         } finally {

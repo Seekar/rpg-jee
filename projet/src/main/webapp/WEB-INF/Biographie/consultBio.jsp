@@ -11,7 +11,11 @@
         <p><c:out value="${perso.getBiographie().getTexte()}"/></p>
         <c:forEach items="${perso.getBiographie().getEpisodes()}" var="episode">
         <c:if test="${episode.getValide()}">
+            <table class="table table-striped">
+
+
             <c:forEach items="${episode.getParagraphes()}" var="parag">
+                <tr>
                 <c:choose>
                 <c:when test="${parag.getSecret()}">
                     <c:if test="${owner}">
@@ -27,12 +31,14 @@
                     <p><c:out value="${parag.getTexte()}"/></p>
                 </c:otherwise>
                 </c:choose>
+            </tr>
             </c:forEach>
         </c:if>
         <c:if test="${episode.getAventure() != null}">
             <a href="aventure?action=show&id=${episode.getAventure().getId()}" 
             class="btn btn-primary">Aventure liée</a> <!-- a valider avec celui qui fait aventure-->
         </c:if>
+            </table>
         </c:forEach>
         <c:if test="${owner}">
             <a href="biographie?action=edition&persoID=${perso.getId()}&biographie=${perso.getBiographie().getID()}" 

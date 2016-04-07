@@ -41,6 +41,17 @@ public class Main extends HttpServlet {
         UniversDAO.Create(ds);
     }
     
+    public static boolean ownerOrMj(int persoID, Joueur actuel)  {
+        PersonnageDAO persoD = PersonnageDAO.Get();
+        try{
+        Personnage p = persoD.getPersonnage(persoID);
+        return p.getJoueur().getId() == actuel.getId() || p.getMj().getId() == actuel.getId();
+        }catch (Exception e){
+            return false;
+        }
+
+    }
+    
     /**
      * Récupère le joueur connecté.
      * 
@@ -91,7 +102,7 @@ public class Main extends HttpServlet {
         invalidParameters(request, response);
     }
 
-    protected static void dbError(HttpServletRequest request,
+    static void dbError(HttpServletRequest request,
             HttpServletResponse response, DAOException e)
             throws ServletException, IOException {
         request.setAttribute("error", e.getMessage());

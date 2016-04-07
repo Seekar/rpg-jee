@@ -1,5 +1,6 @@
 package controleur;
 
+import dao.DAOException;
 import dao.ParagrapheDAO;
 import java.io.*;
 import java.rmi.ServerException;
@@ -37,20 +38,25 @@ public class ParagrapheCtrl extends HttpServlet {
 
         if (action.equals("edit")) {
             int paragid = Integer.parseInt(request.getParameter("ID"));
-
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
+            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
             //requete DAO
             try {
                 ParagrapheDAO pad = ParagrapheDAO.Get();
                 Paragraphe p = pad.getParagraphe(paragid);
 
                 request.setAttribute("parag", p);
+                request.setAttribute("persoID", persoID);
                 request.getRequestDispatcher("/WEB-INF/Paragraphe/Editparagraphes.jsp").forward(request, response);
             } catch (Exception e) {
                 throw new ServerException(null, e);
             }
         } else if (action.equals("new")) {
             int eid = Integer.parseInt(request.getParameter("eID"));
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
+            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
             request.setAttribute("eID", eid);
+            request.setAttribute("persoID", persoID);
             request.getRequestDispatcher("/WEB-INF/Paragraphe/NewParagraphe.jsp").forward(request, response);
         }
     }
@@ -79,37 +85,40 @@ public class ParagrapheCtrl extends HttpServlet {
         if (action.equals("reveler")) {
             if (request.getParameter("res").equals("oui")) {
                 int pid = Integer.parseInt(request.getParameter("pID"));
+                int persoID = Integer.parseInt(request.getParameter("persoID"));
+                Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
                 ParagrapheDAO pad = ParagrapheDAO.Get();
                 try {
                     pad.reveleParagraphe(pid);
-                    response.sendRedirect("character?action=ownedList");
-                } catch (Exception e) {
-
-                    throw new ServerException(null, e);
-                }
+                    response.sendRedirect("biographie?action=afficher&id="+persoID);
+                } catch(DAOException e){
+                Main.dbError(request, response, e);
+            }
             }
         } else if (action.equals("new")) {
             boolean secret = request.getParameter("secret") !=null ;
             String texte = request.getParameter("texte");
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
+            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
             int episode = Integer.parseInt(request.getParameter("episodeID"));
             ParagrapheDAO pad = ParagrapheDAO.Get();
             try {
                 pad.ajouteParagraphe(secret, texte, episode);
-                response.sendRedirect("character?action=ownedList");
-            } catch (Exception e) {
-
-                throw new ServerException( null, e);
+                response.sendRedirect("biographie?action=afficher&id="+persoID);
+            } catch(DAOException e){
+                Main.dbError(request, response, e);
             }
         } else if(action.equals("edit")){
             String texte = request.getParameter("texte");
             int pid = Integer.parseInt(request.getParameter("id"));
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
+            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
             ParagrapheDAO pad = ParagrapheDAO.Get();
             try {
                 pad.updateParagraphe(pid, texte);
-                response.sendRedirect("character?action=ownedList");
-            } catch (Exception e) {
-
-                throw new ServerException( null, e);
+                response.sendRedirect("biographie?action=afficher&id="+persoID);
+            } catch(DAOException e){
+                Main.dbError(request, response, e);
             }
         }
     }
