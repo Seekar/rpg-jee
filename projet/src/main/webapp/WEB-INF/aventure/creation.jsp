@@ -10,7 +10,7 @@
 
     <jsp:body>
 
-<form class="form-horizontal col-sm-offset-3" method="post" action="character?action=create">
+<form class="form-horizontal col-sm-offset-3" method="post" action="game?action=create">
 
   <div class="form-group">
     <label for="univers" class="col-sm-3 control-label">Univers</label>

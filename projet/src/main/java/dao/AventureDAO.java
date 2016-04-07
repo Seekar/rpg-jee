@@ -19,6 +19,7 @@ import modele.Personnage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import modele.Biographie;
 import modele.Univers;
@@ -74,9 +75,10 @@ public final class AventureDAO extends AbstractAventureDAO {
             
             link.commit();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             rollback();
-            throw new DAOException(e.getMessage(), e);
+            throw new DAOException("Erreur à la création d'une aventure "
+                    +  e.getMessage(), e);
 
         } finally {
             CloseStatement(statement);

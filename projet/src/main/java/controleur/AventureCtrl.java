@@ -189,16 +189,14 @@ public class AventureCtrl extends HttpServlet {
 
 
         switch(action) {
-            case "create":
-            {
-                actionCreate(request, response);
-            }            
-            case "addMember":
-            {
-                actionAddMember(request, response);
-            }
-        }
+        case "create":
+            actionCreate(request, response);
+            break;
 
+        case "addMember":
+            actionAddMember(request, response);
+            break;
+        }
     }
 
 
@@ -218,12 +216,14 @@ public class AventureCtrl extends HttpServlet {
             Aventure aventure = new Aventure(titre, date, lieu, univers, resume, Main.GetJoueurSession(request));
             AventureDAO.Get().creerPartie(aventure);
 
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=list");
+            
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            doGet(request, response);
+            Main.invalidParameters(request, response, ex.getMessage());
         }
     }
-    
+
     public void actionAddMember(HttpServletRequest request,
            HttpServletResponse response) throws IOException, ServletException {
         
