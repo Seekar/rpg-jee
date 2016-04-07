@@ -110,7 +110,7 @@ public class Personnage
 	 * @ordered
 	 */
 	
-	private List<Joue> parties;
+	private List<Aventure> parties;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -229,11 +229,11 @@ public class Personnage
         this.validateur = validateur;
     }
 
-    public List<Joue> getParties() {
+    public List<Aventure> getParties() {
         return parties;
     }
 
-    public void setParties(List<Joue> parties) {
+    public void setParties(List<Aventure> parties) {
         this.parties = parties;
     }
 
