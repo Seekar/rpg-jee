@@ -5,13 +5,10 @@
  */
 package dao;
 
-<<<<<<< HEAD
 import static dao.AbstractDAO.CloseStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-=======
->>>>>>> Aventure : addMember + maj modèles Joueur, Personnage & Aventure
 import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
