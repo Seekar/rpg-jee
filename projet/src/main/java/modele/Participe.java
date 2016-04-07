@@ -7,7 +7,7 @@ package modele;
  * @generated
  */
 
-public class Joue
+public class Participe
 {
 	/**
 	 * <!-- begin-user-doc -->
@@ -17,6 +17,13 @@ public class Joue
 	 */
 	
 	public Aventure aventure;
+        
+        public Aventure getAventure() {
+            return aventure;
+        }
+        public void setAventure(Aventure aventure) {
+            this.aventure = aventure;
+        }
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -26,6 +33,13 @@ public class Joue
 	 */
 	
 	public Personnage personnage;
+        
+        public Personnage getPersonnage() {
+            return personnage;
+        }
+        public void setPersonnage(Personnage personnage) {
+            this.personnage = personnage;
+        }
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -34,13 +48,10 @@ public class Joue
 	 * @ordered
 	 */
 	
-	public Joueur joueur;
-
         
-    public Joue(Aventure aventure, Personnage personnage, Joueur joueur) {
+    public Participe(Aventure aventure, Personnage personnage) {
         this.aventure = aventure;
         this.personnage = personnage;
-        this.joueur = joueur;
     }
 
 

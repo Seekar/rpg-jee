@@ -199,7 +199,7 @@ public final class AventureDAO extends AbstractAventureDAO {
             ResultSet rs = statement.executeQuery();
 
             if (!rs.next())
-                throw new Exception("Aucun personnage d'identifiant " + id);
+                throw new Exception("Aucune aventure d'identifiant " + id);
 
             aventure = new Aventure(rs.getInt("id"));
             aventure.setTitre(rs.getString("titre"));
@@ -210,6 +210,18 @@ public final class AventureDAO extends AbstractAventureDAO {
             aventure.setFinie(Boolean.parseBoolean(rs.getString("finie")));
             aventure.setMj(new Joueur(rs.getInt("mj_id"), rs.getString("meneur")));
             aventure.setUnivers(new Univers(rs.getInt("u_id"),rs.getString("u_nom")));
+            
+            // Liste des personnages dans l'aventure
+            statement = link.prepareCall("SELECT aventure_id, personnage_id " 
+                    + "FROM Participe WHERE aventure_id = ?");
+            statement.setInt(1, id);
+            rs = statement.executeQuery();
+            List<Personnage> listPerso = new ArrayList<>();
+            while (rs.next()) {
+                listPerso.add(PersonnageDAO.Get().getPersonnage(rs.getInt("personnage_id")));
+            }
+            aventure.setPersonnages(listPerso);
+            
 
         } catch (Exception e) {
             throw new DAOException("Erreur d'accès à une partie "

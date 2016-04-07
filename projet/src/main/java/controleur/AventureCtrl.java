@@ -6,8 +6,8 @@ import dao.JoueurDAO;
 import dao.PersonnageDAO;
 import dao.AventureDAO;
 import dao.UniversDAO;
+import dao.ParticipeDAO;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.servlet.*;
@@ -227,11 +227,50 @@ public class AventureCtrl extends HttpServlet {
     public void actionAddMember(HttpServletRequest request,
            HttpServletResponse response) throws IOException, ServletException {
         
-        // @Leo : (Je suis en train de coder cette fonction)
-        
+        try {
             // Récupérer personnage associé à l'id
+            int persoId = Integer.parseInt(request.getParameter("idJoueur"));
+            Personnage perso = PersonnageDAO.Get().getPersonnage(persoId);
+
             // Récupérer l'aventure courante
+            int aventureId = Integer.parseInt(request.getParameter("idAventure"));
+            Aventure aventure = AventureDAO.Get().getAventure(aventureId);
+            
             // Comparer les univers du personnage et de l'aventure
+            int persoUniversId = perso.getUnivers().getId();
+            int aventureUniversId = aventure.getUnivers().getId();
+            if (persoUniversId != aventureUniversId) {
+                // TODO
+                // Définir une variable erreur_univers
+                // RequestDispatcher vers l'affichage de l'aventure courante
+            }
+            
+            // Vérifier que le personnage n'est pas déjà dans l'aventure
+            for (Personnage p : aventure.getPersonnages()) {
+                if (p.getId() == persoId) {
+                    // TODO
+                    // Définir une variable erreur_doublon
+                    // RequestDispatcher vers l'affichage de l'aventure courante
+                }
+            }
+            
+            // Vérifier que l'utilisateur est bien le MJ de l'aventure
+            if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
+                    // TODO
+                    // Définir une variable erreur_not_mj
+                    // RequestDispatcher vers l'affichage de l'aventure courante
+            }
+            
+            // A ce stade, on a tout check et géré les erreurs
+            
+            // Créer un objet Participe et l'ajoute à la base
+            Participe participe = new Participe(aventure, perso);
+            ParticipeDAO.Get().creerParticipe(participe);
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            doGet(request, response);
+        }
     }
 }
 

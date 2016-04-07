@@ -110,7 +110,14 @@ public class Aventure
 	 * @ordered
 	 */
 	
-	public List<Joue> parties;
+	public List<Personnage> personnages;
+
+	public List<Personnage> getPersonnages() {
+		return personnages;
+	}
+	public void setPersonnages(List<Personnage> parties) {
+		this.personnages = parties;
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -224,15 +231,6 @@ public class Aventure
     public void setMj(Joueur mj) {
         this.mj = mj;
     }
-
-    public List<Joue> getParties() {
-        return parties;
-    }
-
-    public void setParties(List<Joue> parties) {
-        this.parties = parties;
-    }
-
 
 }
 

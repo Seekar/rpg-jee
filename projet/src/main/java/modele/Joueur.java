@@ -89,15 +89,6 @@ public class Joueur
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Joue> parties;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
 	 */
 	public Joueur(int id, String pseudo, String pwd) {
 		this.id = id;
@@ -187,14 +178,6 @@ public class Joueur
 
     public void setValidations(List<Personnage> validations) {
         this.validations = validations;
-    }
-
-    public List<Joue> getParties() {
-        return parties;
-    }
-
-    public void setParties(List<Joue> parties) {
-        this.parties = parties;
     }
 }
 
