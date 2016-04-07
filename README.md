@@ -14,7 +14,8 @@ Tool UML : https://genmymodel.com
 - Respect du cahier des charges
 - Respect de l’architecture MVC
 
-
+### question sur le mj
+un persoonage peut il ne pas avoir de MJ, si oui comment fait-on pour valider un épisode??
 
 ### Protection contre les [failles d'injection XSS](https://fr.wikipedia.org/wiki/Cross-site_scripting)
 
