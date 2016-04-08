@@ -35,7 +35,7 @@
             </c:forEach>
         </c:if>
         <c:if test="${episode.getAventure() != null}">
-            <a href="aventure?action=show&id=${episode.getAventure().getId()}" 
+            <a href="game?action=show&id=${episode.getAventure().getId()}" 
             class="btn btn-primary">Aventure liée</a> <!-- a valider avec celui qui fait aventure-->
         </c:if>
             </table>
