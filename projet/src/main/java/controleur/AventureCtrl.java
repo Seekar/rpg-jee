@@ -345,7 +345,7 @@ public class AventureCtrl extends HttpServlet {
             AventureDAO.Get().deletePartie(aventure);
             
             response.sendRedirect(request.getContextPath()
-                    + request.getServletPath() + "?action=list" + aventureId);
+                    + request.getServletPath() + "?action=list");
             
         } catch (NumberFormatException | IOException ex) {
             Main.invalidParameters(request, response, ex);
