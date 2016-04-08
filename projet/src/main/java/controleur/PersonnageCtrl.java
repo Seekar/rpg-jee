@@ -42,142 +42,150 @@ public class PersonnageCtrl extends HttpServlet {
         // Force le login
         if (Main.notLogged(request, response)) {
             return;
-        } // Affiche les personnages possédés par défaut
+        }
+
+        // Affiche les personnages possédés par défaut
         else if (action == null) {
             action = "ownedList";
         }
+
 
         PersonnageDAO persoDAO = PersonnageDAO.Get();
         AventureDAO avDAO = AventureDAO.Get();
 
         switch (action) {
-            case "create":
-                page = "creation";
+        case "create":
+            page = "creation";
 
-                UniversDAO universDAO = UniversDAO.Get();
-                Collection<Univers> univers;
+            UniversDAO universDAO = UniversDAO.Get();
+            Collection<Univers> univers;
+
+            try {
+                univers = universDAO.getUnivers();
+                request.setAttribute("listeUnivers", univers);
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
+            }
+            break;
+        
+        case "show":
+            page = "affichage";
+
+            Personnage perso;
+            boolean canEdit = false;
+            boolean canTransfer = false;
+
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                perso = persoDAO.getPersonnage(id);
+                canTransfer = !persoDAO.dansPartieEnCours(id);
+
+                if (perso.getJoueur().getId() == user.getId()
+                    || perso.getMj().getId() == user.getId())
+                    canEdit = true;
+
+                request.setAttribute("canEdit", canEdit);
+                request.setAttribute("canTransfer", canTransfer);
+                request.setAttribute("perso", perso);
+                
+                JoueurDAO joueurDAO = JoueurDAO.Get();
+                Collection<Joueur> listeMJ = joueurDAO.getMeneurs();
+                Collection<Joueur> listeTransfert = new ArrayList<>();
+                List<Joueur> listeJoueurs = joueurDAO.getAutresJoueurs(user.getId());
+                
+                
+                Joueur toDelete = null;
+                int mj_id = perso.getMj().getId();
+                
+                for (Joueur mj : listeMJ) {
+                    if (mj.getId() == user.getId()) {
+                        toDelete = mj;
+                    }
+                    else if (mj.getId() != mj_id) {
+                        listeTransfert.add(mj);
+                    }
+                }
+
+                if (toDelete != null)
+                    listeMJ.remove(toDelete);
+                
+                
+                request.setAttribute("listeJoueurs", listeJoueurs);
+                request.setAttribute("listeMJ", listeMJ);
+                request.setAttribute("listeTransfert", listeTransfert);
+                
+            } catch (NumberFormatException e) {
+               Main.invalidParameters(request, response);
+               
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
+            }
+            
+            break;
+
+        case "editMJ":
+            actionAcceptMJ(request, response);
+            break;
+
+        case "transfer":
+            actionAcceptTransfer(request, response);
+            break;
+
+        default:
+            if (action.endsWith("List")) {
+                page = "liste";
+
+                Collection<Personnage> persos = null;
 
                 try {
-                    univers = universDAO.getUnivers();
-                    request.setAttribute("listeUnivers", univers);
-                } catch (DAOException e) {
-                    Main.dbError(request, response, e);
-                }
-                break;
+                    String titre = null;
 
-            case "show":
-                page = "affichage";
-
-                Personnage perso;
-                boolean canEdit = false;
-                boolean canTransfer = false;
-
-                try {
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    perso = persoDAO.getPersonnage(id);
-                    canTransfer = !persoDAO.dansPartieEnCours(id);
-
-                    if (perso.getJoueur().getId() == user.getId()
-                            || perso.getMj().getId() == user.getId()) {
-                        canEdit = true;
+                    if (action.equals("ownedList")) {
+                        persos = persoDAO.getPersonnagesJoueur(user);
+                        titre = "Personnages possédés";
+                    }
+                    else if (action.equals("leaderList")) {
+                        persos = persoDAO.getPersonnagesMenes(user);
+                        titre = "Personnages menés";
+                    }
+                    else if (action.equals("transferList")) {
+                        persos = persoDAO.getTransfertsAValider(user);
+                        titre = "Demandes de transfert";
+                    }
+                    else if (action.equals("validationList")) {
+                        persos = persoDAO.getPersonnagesAValider(user);
+                        titre = "Personnages à valider";
+                    }
+                    else if (action.equals("gameList")) {
+                        String idParam = request.getParameter("id");
+                        int idPartie = Integer.parseInt(idParam);
+                        boolean persoKiller = false;
+                        
+                        Aventure partie = avDAO.getAventure(idPartie);
+                        persos = partie.getPersonnages();
+                        titre = "Participants à \"" + partie.getTitre() + "\"";
+  
+                        if (user.getId() == partie.getMj().getId()
+                            && !partie.isFinie())
+                            persoKiller = true;
+                        
+                        request.setAttribute("persoKiller", persoKiller);
                     }
 
-                    request.setAttribute("canEdit", canEdit);
-                    request.setAttribute("canTransfer", canTransfer);
-                    request.setAttribute("perso", perso);
-
-                    JoueurDAO joueurDAO = JoueurDAO.Get();
-                    Collection<Joueur> listeMJ = joueurDAO.getMeneurs();
-                    Collection<Joueur> listeTransfert = new ArrayList<>();
-                    List<Joueur> listeJoueurs = joueurDAO.getAutresJoueurs(user.getId());
-
-                    Joueur toDelete = null;
-                    int mj_id = perso.getMj().getId();
-
-                    for (Joueur mj : listeMJ) {
-                        if (mj.getId() == user.getId()) {
-                            toDelete = mj;
-                        } else if (mj.getId() != mj_id) {
-                            listeTransfert.add(mj);
-                        }
-                    }
-
-                    if (toDelete != null) {
-                        listeMJ.remove(toDelete);
-                    }
-
-                    request.setAttribute("listeJoueurs", listeJoueurs);
-                    request.setAttribute("listeMJ", listeMJ);
-                    request.setAttribute("listeTransfert", listeTransfert);
-
-                } catch (NumberFormatException e) {
-                    Main.invalidParameters(request, response);
+                    request.setAttribute("titre", titre);
+                    request.setAttribute("persos", persos);
 
                 } catch (DAOException e) {
-                    Main.dbError(request, response, e);
+                   Main.dbError(request, response, e);
                 }
-
-                break;
-
-            case "editMJ":
-                actionAcceptMJ(request, response);
-                break;
-
-            case "transfer":
-                actionAcceptTransfer(request, response);
-                break;
-
-            default:
-                if (action.endsWith("List")) {
-                    page = "liste";
-
-                    Collection<Personnage> persos = null;
-
-                    try {
-                        String titre = null;
-
-                        if (action.equals("ownedList")) {
-                            persos = persoDAO.getPersonnagesJoueur(user);
-                            titre = "Personnages possédés";
-                        } else if (action.equals("leaderList")) {
-                            persos = persoDAO.getPersonnagesMenes(user);
-                            titre = "Personnages menés";
-                        } else if (action.equals("transferList")) {
-                            persos = persoDAO.getTransfertsAValider(user);
-                            titre = "Demandes de transfert";
-                        } else if (action.equals("validationList")) {
-                            persos = persoDAO.getPersonnagesAValider(user);
-                            titre = "Personnages à valider";
-                        } else if (action.equals("gameList")) {
-                            String idParam = request.getParameter("id");
-                            int idPartie = Integer.parseInt(idParam);
-                            boolean persoKiller = false;
-
-                            Aventure partie = avDAO.getAventure(idPartie);
-                            persos = partie.getPersonnages();
-                            titre = "Participants à \"" + partie.getTitre() + "\"";
-
-                            if (user.getId() == partie.getMj().getId()
-                                    && !partie.isFinie()) {
-                                persoKiller = true;
-                            }
-
-                            request.setAttribute("persoKiller", persoKiller);
-                            request.setAttribute("idPartie", idPartie);
-                        }
-
-                        request.setAttribute("titre", titre);
-                        request.setAttribute("persos", persos);
-
-                    } catch (DAOException e) {
-                        Main.dbError(request, response, e);
-                    }
-                }
+            }
         }
 
         if (page != null) {
             request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);
-        } else if (request.getAttribute("done") == null) {
+        }
+
+        else if (request.getAttribute("done") == null) {
             Main.invalidParameters(request, response);
         }
     }
@@ -204,25 +212,25 @@ public class PersonnageCtrl extends HttpServlet {
         }
 
         switch (action) {
-            case "create":
-                actionCreate(request, response);
-                break;
-
-            case "editMJ":
-                actionEditMJ(request, response);
-                break;
-
-            case "transfer":
-                actionTransfer(request, response);
-                break;
-
-            case "edit":
-                actionEdit(request, response);
-                break;
-
-            case "donate":
-                actionDonate(request, response);
-                break;
+        case "create":
+            actionCreate(request, response);
+            break;
+        
+        case "editMJ":
+            actionEditMJ(request, response);
+            break;
+        
+        case "transfer":
+            actionTransfer(request, response);
+            break;
+        
+        case "edit":
+            actionEdit(request, response);
+            break;
+        
+        case "donate":
+            actionDonate(request, response);
+            break;
         }
     }
 
