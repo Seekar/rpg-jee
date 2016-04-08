@@ -94,7 +94,7 @@ public final class AventureDAO extends AbstractAventureDAO {
         try {
             link = getConnection();
             statement = link.prepareStatement("SELECT id, titre, finie "
-                    + "FROM Aventure");
+                    + "FROM Aventure ORDER BY titre, id");
             
             ResultSet res = statement.executeQuery();
             Aventure av;
@@ -132,7 +132,40 @@ public final class AventureDAO extends AbstractAventureDAO {
 
     @Override
     public List<Aventure> getPartiesMenees(Joueur j) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Aventure> avs = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT a.id, titre, finie "
+                    + "FROM Aventure a JOIN Joueur j on a.mj_id = j.id "
+                    + "WHERE j.id = ? ORDER BY titre");
+            
+            statement.setInt(1, j.getId());
+            ResultSet res = statement.executeQuery();
+            Aventure av;
+            Personnage p;
+
+            while (res.next()) {
+                av = new Aventure();
+                av.setId(res.getInt("id"));
+                av.setTitre(res.getString("titre"));
+                av.setFinie(res.getBoolean("finie"));
+                
+                avs.add(av);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des aventures "
+                    + "menées " +  e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+
+        return avs;
     }
     
     /*public Aventure getAventure(int aID) throws DAOException{
@@ -148,7 +181,7 @@ public final class AventureDAO extends AbstractAventureDAO {
             closeConnection(c);
             return a;
         } catch (Exception e) {
-            throw new DAOException(null, e);
+            throw new DAOException(e.getMessage(), e);
         } finally {
             closeConnection(c);
         }
@@ -159,7 +192,8 @@ public final class AventureDAO extends AbstractAventureDAO {
         Connection c = null;
         try {
             c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("select aventure_id from participe where personnage_id =?");
+            PreparedStatement ps = c.prepareStatement("select aventure_id "
+                    + "from participe where personnage_id =?");
             ps.setInt(1, persoID);
             ResultSet rs = ps.executeQuery();
             LinkedList<Integer> avt = new LinkedList<Integer>();
@@ -173,7 +207,7 @@ public final class AventureDAO extends AbstractAventureDAO {
             }
             return a;
         } catch (Exception e) {
-            throw new DAOException(null, e);
+            throw new DAOException(e.getMessage(), e);
         } finally {
             closeConnection(c);
         }
@@ -233,6 +267,87 @@ public final class AventureDAO extends AbstractAventureDAO {
         }
 
         return aventure;
+    }
+
+    public ArrayList<Aventure> getParties(Personnage p) throws DAOException {
+        ArrayList<Aventure> avs = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT a.id, titre, finie "
+                    + "FROM Aventure a JOIN Participe r "
+                    + "on a.id = r.aventure_id JOIN Personnage p "
+                    + "on p.id = r.personnage_id WHERE p.id = ? ORDER BY titre");
+            
+            statement.setInt(1, p.getId());
+            ResultSet res = statement.executeQuery();
+            Aventure av;
+
+            while (res.next()) {
+                av = new Aventure();
+                av.setId(res.getInt("id"));
+                av.setTitre(res.getString("titre"));
+                av.setFinie(res.getBoolean("finie"));
+                
+                avs.add(av);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des aventures "
+                    + "d'un personnage " +  e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+
+        return avs;
+    }
+
+    public ArrayList<Aventure> getParties(Joueur j) throws DAOException {
+        ArrayList<Aventure> avs = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT a.id, titre, finie, "
+                    + "p.id as p_id, p.nom FROM Aventure a JOIN Participe r "
+                    + "on a.id = r.aventure_id JOIN Personnage p "
+                    + "on p.id = r.personnage_id JOIN Joueur j "
+                    + "on p.joueur_id = j.id WHERE j.id = ? ORDER BY titre");
+            
+            statement.setInt(1, j.getId());
+            ResultSet res = statement.executeQuery();
+            Aventure av;
+            Personnage p;
+
+            while (res.next()) {
+                av = new Aventure();
+                av.setId(res.getInt("id"));
+                av.setTitre(res.getString("titre"));
+                av.setFinie(res.getBoolean("finie"));
+                
+                p = new Personnage();
+                p.setId(res.getInt("p_id"));
+                p.setNom(res.getString("nom"));
+                av.addPersonnage(p);
+                
+                avs.add(av);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des aventures "
+                    + "d'un personnage " +  e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+
+        return avs;
     }
     
 }

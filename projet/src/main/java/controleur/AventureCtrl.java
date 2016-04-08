@@ -39,116 +39,119 @@ public class AventureCtrl extends HttpServlet {
         Joueur user = Main.GetJoueurSession(request);
 
         // Force le login et gère les erreurs
-        if (Main.notLogged(request, response)
-            || action == null) {
+        if (Main.notLogged(request, response)) {
             return;
         }
+        else if (action == null) {
+            action = "list";
+        }
+
+        PersonnageDAO persoDAO = PersonnageDAO.Get();
+        AventureDAO avDAO = AventureDAO.Get();
 
         switch(action) {
-            case "create":
-            {
-                page = "creation";
-                UniversDAO universDAO = UniversDAO.Get();
-                Collection<Univers> univers;
-                
-                try {
-                    univers = universDAO.getUnivers();
-                    request.setAttribute("listeUnivers", univers);
-                } catch (DAOException e) {
-                    Main.dbError(request, response, e);
+        case "create":
+        {
+            page = "creation";
+            UniversDAO universDAO = UniversDAO.Get();
+            Collection<Univers> univers;
+
+            try {
+                univers = universDAO.getUnivers();
+                request.setAttribute("listeUnivers", univers);
+            } catch (DAOException e) {
+                Main.dbError(request, response, e);
+            }
+
+            break;
+        }
+
+        case "addMember":
+        {
+
+            break;
+        }
+
+        case "delMember":
+        {
+
+            break;
+        }
+        case "finish":
+        {
+
+            break;
+        }
+        case "delete":
+        {
+            // Vérifier qu'il s'agit bien d'une proposition de partie (la partie n'est pas finie)
+
+            break;
+        }
+        case "show":
+            page = "affichage";
+            Aventure aventure;
+            boolean can_add = false;
+
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                aventure = avDAO.getAventure(id);
+
+                if (aventure.getMj().getId() == user.getId()) {
+                    can_add = true;
                 }
 
-                break;
+                request.setAttribute("can_add", can_add);
+                request.setAttribute("aventure", aventure);
+
+                JoueurDAO joueurDAO = JoueurDAO.Get();
+                List<Joueur> listeJoueurs = joueurDAO.getAutresJoueurs(user.getId());
+
+                // TODO : Filtrer la liste des joueurs pour enlever ceux qui sont
+                //         déja dans l'aventure
+
+                request.setAttribute("listeJoueurs", listeJoueurs);
+
+            } catch (NumberFormatException e) {
+               Main.invalidParameters(request, response);
+
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
             }
-            
-            case "addMember":
-            {
 
-                break;
-            }
-            
-            case "delMember":
-            {
-
-                break;
-            }
-            case "finish":
-            {
-
-                break;
-            }
-            case "delete":
-            {
-                // Vérifier qu'il s'agit bien d'une proposition de partie (la partie n'est pas finie)
-
-                break;
-            }
-            case "show":
-                page = "affichage";
-                AventureDAO aventureDAO = AventureDAO.Get();
-                Aventure aventure;
-                boolean can_add = false;
-
-                try {
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    aventure = aventureDAO.getAventure(id);
-
-                    if (aventure.getMj().getId() == user.getId()) {
-                        can_add = true;
-                    }
-
-                    request.setAttribute("can_add", can_add);
-                    request.setAttribute("aventure", aventure);
-                    
-                    JoueurDAO joueurDAO = JoueurDAO.Get();
-                    List<Joueur> listeJoueurs = joueurDAO.getAutresJoueurs(user.getId());
-                    
-                    // TODO : Filtrer la liste des joueurs pour enlever ceux qui sont
-                    //         déja dans l'aventure
-                    
-                    request.setAttribute("listeJoueurs", listeJoueurs);
-                    
-                } catch (NumberFormatException e) {
-                   Main.invalidParameters(request, response);
-                   
-                } catch (DAOException e) {
-                   Main.dbError(request, response, e);
-                }
-
-                break;
+            break;
 
         default:
             if (action.toLowerCase().endsWith("list")) {
                 page = "liste";
 
-                AventureDAO avDAO = AventureDAO.Get();
                 Collection<Aventure> parties = null;
 
                 try {
-                    String titre = "Liste des aventures";
+                    String titre = "Liste des parties";
 
-                    /*if (action.equals("ownedList")) {
-                        persos = persoDAO.getPersonnagesJoueur(user);
-                        titre = "Personnages possédés";
+                    if (action.equals("characterList")) {
+                        String idParam = request.getParameter("id");
+                        int idPerso = Integer.parseInt(idParam);
+                        
+                        Personnage perso = persoDAO.getPersonnage(idPerso);
+                        parties = avDAO.getParties(perso);
+                        titre = "Parties de " + perso.getNom();
+                    }
+                    else if (action.equals("myList")) {
+                        parties = avDAO.getParties(user);
+                        titre = "Mes parties";
+                        request.setAttribute("hasPerso", true);
                     }
                     else if (action.equals("leaderList")) {
-                        persos = persoDAO.getPersonnagesMenes(user);
-                        titre = "Personnages menés";
+                        parties = avDAO.getPartiesMenees(user);
+                        titre = "Parties menées";
                     }
-                    else if (action.equals("transferList")) {
-                        persos = persoDAO.getTransfertsAValider(user);
-                        titre = "Demandes de transfert";
-                    }
-                    else if (action.equals("validationList")) {
-                        persos = persoDAO.getPersonnagesAValider(user);
-                        titre = "Personnages à valider";
-                    }*/
-                   /* if (null) {
-                        null;
-                    }
-                    else {*/
+                    
+                    // Liste complète par défaut
+                    else {
                         parties = avDAO.getAventures();
-                    //}
+                    }
 
                     request.setAttribute("titre", titre);
                     request.setAttribute("parties", parties);

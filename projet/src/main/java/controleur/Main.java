@@ -43,17 +43,6 @@ public class Main extends HttpServlet {
         ParticipeDAO.Create(ds);
     }
     
-    public static boolean ownerOrMj(int persoID, Joueur actuel)  {
-        PersonnageDAO persoD = PersonnageDAO.Get();
-        try{
-        Personnage p = persoD.getPersonnage(persoID);
-        return p.getJoueur().getId() == actuel.getId() || p.getMj().getId() == actuel.getId();
-        }catch (Exception e){
-            return false;
-        }
-
-    }
-    
     /**
      * Récupère le joueur connecté.
      * 
@@ -72,6 +61,20 @@ public class Main extends HttpServlet {
         }
 
         return joueur;
+    }
+    
+    public static boolean ownerOrMj(int persoID, Joueur actuel) {
+        PersonnageDAO persoD = PersonnageDAO.Get();
+        
+        try {
+            Personnage p = persoD.getPersonnage(persoID);
+            return p.getJoueur().getId() == actuel.getId()
+                    || p.getMj().getId() == actuel.getId();
+            
+        } catch (Exception e) {
+        }
+        
+        return false;
     }
 
     protected static boolean isLogged(HttpServletRequest request,
@@ -107,7 +110,13 @@ public class Main extends HttpServlet {
     static void dbError(HttpServletRequest request,
             HttpServletResponse response, DAOException e)
             throws ServletException, IOException {
-        request.setAttribute("error", e.getMessage());
+        dbError(request, response, e.getMessage());
+    }
+
+    static void dbError(HttpServletRequest request,
+            HttpServletResponse response, String mess)
+            throws ServletException, IOException {
+        request.setAttribute("error", mess);
         request.getRequestDispatcher("/WEB-INF/dbError.jsp").forward(request, response);
     }
 

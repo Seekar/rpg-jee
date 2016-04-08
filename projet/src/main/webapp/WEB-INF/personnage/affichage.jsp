@@ -14,6 +14,7 @@
             <img src="<c:out value="${perso.getPortrait()}"/>" alt="Portrait"/>
             <br/><br/>
         </c:if>
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -32,10 +33,6 @@
                 <tr>
                     <th>Univers</th>
                     <td><c:out value="${perso.getUnivers().getNom()}"/></td>
-                </tr>
-                <tr>
-                    <th>Biographie</th>
-                    <td><a href="biographie?action=afficher&id=${perso.getId()}" class="btn btn-primary">Accès biographie</a></td>
                 </tr>
                 <tr>
                     <th>Meneur</th>
@@ -65,6 +62,13 @@
                         </c:when>
                         <c:otherwise><c:out value="${perso.getProfession()}"/></c:otherwise>
                         </c:choose>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Accès rapide</th>
+                    <td>
+                        <a href="game?action=characterList&id=${perso.getId()}" class="btn btn-danger">Parties</a>
+                        <a href="biographie?action=afficher&id=${perso.getId()}" class="btn btn-primary">Biographie</a>
                     </td>
                 </tr>
                 <tr>

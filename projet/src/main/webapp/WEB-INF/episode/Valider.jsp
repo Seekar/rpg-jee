@@ -11,14 +11,11 @@
         <c:forEach items="${episode.getParagraphes()}" var="parag">
                 <c:choose>
                     <c:when test="${parag.isSecret()}">
-                        (secret) ${parag.getTexte()}  
-           
+                        (secret) ${parag.getTexte()}
                 </c:when>
                 <c:otherwise>
                     ${parag.texte} 
                 </c:otherwise>
-                        
-                            
             </c:choose><br/>
         </c:forEach>
         <form action="episode" method="post">

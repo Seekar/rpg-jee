@@ -57,7 +57,7 @@ public final class UniversDAO extends AbstractUniversDAO {
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT id, nom FROM Univers");
+            statement = link.prepareStatement("SELECT id, nom FROM Univers ORDER BY nom");
             ResultSet res = statement.executeQuery();
 
             while (res.next()) {

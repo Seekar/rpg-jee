@@ -6,7 +6,7 @@
     <jsp:attribute name="title"> - Détails de l'aventure</jsp:attribute>
 
     <jsp:attribute name="header">
-        <h1>Détails de l'aventure</h1>
+        <h1>Détails de la partie</h1>
     </jsp:attribute>
 
     <jsp:body>
@@ -45,7 +45,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Ajout d'un joueur</th>
+                    <th>Accès rapide</th>
+                    <td>
+                    <a href="character?action=gameList&id=${aventure.getId()}" 
+                     class="btn btn-primary">Participants</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ajouter un participant</th>
                     <td>
                     <c:choose>
                     <c:when test='${can_add}'>

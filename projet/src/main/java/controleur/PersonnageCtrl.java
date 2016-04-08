@@ -1,5 +1,6 @@
 package controleur;
 
+import dao.AventureDAO;
 import dao.DAOException;
 import dao.JoueurDAO;
 import dao.PersonnageDAO;
@@ -51,6 +52,7 @@ public class PersonnageCtrl extends HttpServlet {
 
         
         PersonnageDAO persoDAO = PersonnageDAO.Get();
+        AventureDAO avDAO = AventureDAO.Get();
 
         switch (action) {
         case "create":
@@ -154,6 +156,21 @@ public class PersonnageCtrl extends HttpServlet {
                     else if (action.equals("validationList")) {
                         persos = persoDAO.getPersonnagesAValider(user);
                         titre = "Personnages à valider";
+                    }
+                    else if (action.equals("gameList")) {
+                        String idParam = request.getParameter("id");
+                        int idPartie = Integer.parseInt(idParam);
+                        boolean persoKiller = false;
+                        
+                        Aventure partie = avDAO.getAventure(idPartie);
+                        persos = partie.getPersonnages();
+                        titre = "Participants à \"" + partie.getTitre() + "\"";
+  
+                        if (user.getId() == partie.getMj().getId()
+                            && !partie.isFinie())
+                            persoKiller = true;
+                        
+                        request.setAttribute("persoKiller", persoKiller);
                     }
 
                     request.setAttribute("titre", titre);

@@ -1,12 +1,12 @@
 # Liste des fonctions à implémenter avec URL associées
 
 
-/game?action=list
+DONE /game?action=list
 Liste des parties (toutes ou d'un perso précis) : 1 seule vue
 	affichage lien vers chacune avec info en cours ou terminée
 
 
-/character?action=gamesList&id=XXXX	(liste des parties d'un perso)
+DONE /game?action=characterList&id=XXXX	(liste des parties d'un perso)
 DONE /character?action=edit
 DONE /character?action=create
 DONE /character?action=editMJ
@@ -62,13 +62,14 @@ Episode : 1 seule vue
 
 
 
-DONE /game?action=create
-DONE /game?action=show&id=XXXX
-/game?action=edit (+ params id=XXXX ...)
 /game?action=delMember&id=XXXX&idMember=XXXX
-PENDING /game?action=addMember&id=XXXX&idMember=XXXX
 /game?action=finish&id=XXXX
 /game?action=delete&id=XXXX
+/game?action=edit (+ params id=XXXX ...)
+DONE /game?action=create
+DONE /game?action=show&id=XXXX
+DONE /character?action=gameList&id=XXXX
+PENDING /game?action=addMember&id=XXXX&idMember=XXXX (manque secu SQL)
 Page de partie en cours : 1 seule vue
 	affichage univers
 	Edition des infos intégrée via champs modifiables + submit

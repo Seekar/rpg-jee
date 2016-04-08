@@ -110,14 +110,7 @@ public class Aventure
 	 * @ordered
 	 */
 	
-	public List<Personnage> personnages;
-
-	public List<Personnage> getPersonnages() {
-		return personnages;
-	}
-	public void setPersonnages(List<Personnage> parties) {
-		this.personnages = parties;
-	}
+	public List<Personnage> personnages = new LinkedList<>();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -128,7 +121,8 @@ public class Aventure
 		this.id = -1;	
 	}
 
-	public Aventure(int id, String titre, String date, String lieu, Univers univers, String situation, Joueur mj) {
+	public Aventure(int id, String titre, String date, String lieu,
+                Univers univers, String situation, Joueur mj) {
 		this.titre = titre;
 		this.situation = situation;
 		this.aDate = date;
@@ -140,7 +134,8 @@ public class Aventure
 		this.mj = mj;
 	}
 
-	public Aventure(String titre, String date, String lieu, Univers univers, String situation, Joueur mj) {
+	public Aventure(String titre, String date, String lieu,
+                Univers univers, String situation, Joueur mj) {
 		this(-1,titre,date,lieu,univers,situation,mj);
 	}
 
@@ -230,6 +225,29 @@ public class Aventure
 
     public void setMj(Joueur mj) {
         this.mj = mj;
+    }
+
+    public List<Personnage> getPersonnages() {
+        return personnages;
+    }
+
+    public void setPersonnages(List<Personnage> personnages) {
+        this.personnages = personnages;
+    }
+
+    public void addPersonnage(Personnage p) {
+        this.personnages.add(p);
+    }
+
+    public Personnage getPersonnage(int index) {
+        if (personnages == null || personnages.size() <= index)
+            return null;
+        
+        return personnages.get(index);
+    }
+
+    public Personnage getPersonnage() {
+        return getPersonnage(0);
     }
 
 }

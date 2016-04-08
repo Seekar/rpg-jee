@@ -98,19 +98,23 @@ public class EpisodeCtrl extends HttpServlet {
         }
 
         case "validationList": {
-            //requete DAO
             EpisodeDAO ed = EpisodeDAO.Get();
             ParagrapheDAO pad = ParagrapheDAO.Get();
+            
             try {
-                List<Episode> epi = ed.getEpisodesAValider((Joueur) request.getSession().getAttribute("user"));
+                List<Episode> epi = ed.getEpisodesAValider(Main.GetJoueurSession(request));
+                
                 for (Episode e : epi) {
                     e.paragraphes = pad.getParagraphes(e);
                 }
+                
                 request.setAttribute("episodes", epi);
                 request.getRequestDispatcher("/WEB-INF/episode/AValider.jsp").forward(request, response);
+                
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
             }
+            
             break;
         }
         

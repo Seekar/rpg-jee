@@ -41,7 +41,10 @@ public final class BiographieDAO extends AbstractBiographieDAO {
         Connection c=null;
         try {
             c = dataSource.getConnection();
-            PreparedStatement ps =c.prepareStatement("select b.id, b.texte from Biographie b, Personnage p where b.id=p.biographie_id and p.id=?");
+            PreparedStatement ps =c.prepareStatement("select b.id, b.texte "
+                    + "from Biographie b, Personnage p "
+                    + "where b.id=p.biographie_id and p.id=?");
+            
             ps.setInt(1, p.getId());
             ResultSet res = ps.executeQuery();
             res.next();

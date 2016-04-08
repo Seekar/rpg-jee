@@ -40,7 +40,7 @@
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Personnages <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="character?action=create">Créer un personnage</a></li>
-                <li><a href="character?action=ownedList">Liste des personnages</a></li>
+                <li><a href="character?action=ownedList">Personnages possédés</a></li>
                 <!--<li role="separator" class="divider"></li>
                 <li class="dropdown-header">Sous-titre</li>
                 <li><a href="#">Fonction3</a></li>
@@ -53,6 +53,7 @@
               <ul class="dropdown-menu">
                 <li><a href="game?action=create">Proposer une partie</a></li>
                 <li><a href="game?action=list">Liste des parties</a></li>
+                <li><a href="game?action=myList">Mes parties</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -60,6 +61,7 @@
               <span class="glyphicon glyphicon-glass" aria-hidden="true"></span> MJ <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">Gestion</li>
+                <li><a href="game?action=leaderList">Parties menées</a></li>
                 <li><a href="character?action=leaderList">Personnages menés</a></li>
                 <li role="separator" class="divider"></li>
                 <li class="dropdown-header">Validation</li>

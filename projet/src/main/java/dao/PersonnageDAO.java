@@ -53,7 +53,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         try {
             conn = getConnection();
             st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Personnage");
+            ResultSet rs = st.executeQuery("SELECT * FROM Personnage ORDER BY nom");
             while (rs.next()) {
                 Personnage personnage
                         = new Personnage(rs.getString("nom"), rs.getString("naissance"), rs.getString("profession"), rs.getString("portrait"), new Univers(rs.getInt("univers_id")));
@@ -80,7 +80,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         try {
             link = getConnection();
             statement = link.prepareStatement("SELECT id, nom "
-                    + "FROM Personnage where joueur_id = ?");
+                    + "FROM Personnage where joueur_id = ? ORDER BY nom");
             
             statement.setInt(1, j.getId());
             ResultSet res = statement.executeQuery();
@@ -115,7 +115,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         try {
             link = getConnection();
             statement = link.prepareStatement("SELECT id, nom FROM Personnage "
-                    + "where valide = 0 and validateur_id = ?");
+                    + "where valide = 0 and validateur_id = ? ORDER BY nom");
             
             statement.setInt(1, j.getId());
             ResultSet res = statement.executeQuery();
@@ -150,7 +150,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         try {
             link = getConnection();
             statement = link.prepareStatement("SELECT id, nom FROM Personnage "
-                    + "where transfert_id = ? and mj_id != ? and valide = 1");
+                    + "where transfert_id = ? and mj_id != ? and valide = 1 "
+                    + "ORDER BY nom");
             
             statement.setInt(1, j.getId());
             statement.setInt(2, j.getId());
@@ -191,7 +192,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         try {
             link = getConnection();
             statement = link.prepareStatement("SELECT id, nom FROM Personnage "
-                    + "where mj_id = ? and valide = 1");
+                    + "where mj_id = ? and valide = 1 ORDER BY nom");
             
             statement.setInt(1, j.getId());
             ResultSet res = statement.executeQuery();
