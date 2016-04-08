@@ -226,7 +226,7 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
-    public void actionCreate(HttpServletRequest request,
+    private void actionCreate(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
         try {
@@ -257,7 +257,7 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
-    public void actionEditMJ(HttpServletRequest request,
+    private void actionEditMJ(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
         try {
@@ -278,7 +278,7 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
-    public void actionAcceptMJ(HttpServletRequest request,
+    private void actionAcceptMJ(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
         try {
@@ -300,7 +300,7 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
-    public void actionTransfer(HttpServletRequest request,
+    private void actionTransfer(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
         try {
@@ -321,7 +321,7 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
-    public void actionAcceptTransfer(HttpServletRequest request,
+    private void actionAcceptTransfer(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
         try {
@@ -343,7 +343,7 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
-    public void actionEdit(HttpServletRequest request,
+    private void actionEdit(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
         try {
@@ -366,7 +366,7 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
-    public void actionDonate(HttpServletRequest request,
+    private void actionDonate(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
         try {

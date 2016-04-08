@@ -86,7 +86,7 @@ public class ParticipeDAO extends AbstractParticipeDAO {
 
         } catch (Exception e) {
             rollback();
-            throw new DAOException("Erreur à l'ajout d'un participant : "
+            throw new DAOException("Erreur à la suppression d'un participant : "
                     + e.getMessage(), e);
 
         } finally {

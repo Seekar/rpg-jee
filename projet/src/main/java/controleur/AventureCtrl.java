@@ -66,28 +66,6 @@ public class AventureCtrl extends HttpServlet {
             break;
         }
 
-        case "addMember":
-        {
-
-            break;
-        }
-
-        case "delMember":
-        {
-
-            break;
-        }
-        case "finish":
-        {
-
-            break;
-        }
-        case "delete":
-        {
-            // Vérifier qu'il s'agit bien d'une proposition de partie (la partie n'est pas finie)
-
-            break;
-        }
         case "show":
             page = "affichage";
             Aventure aventure;
@@ -196,6 +174,12 @@ public class AventureCtrl extends HttpServlet {
             actionCreate(request, response);
             break;
 
+        case "finish":
+            actionFinish(request, response);
+            break;
+        case "delete":
+            actionDelete(request, response);
+            break;
         case "addMember":
             actionAddMember(request, response);
             break;
@@ -207,7 +191,7 @@ public class AventureCtrl extends HttpServlet {
     }
 
 
-    public void actionCreate(HttpServletRequest request,
+    private void actionCreate(HttpServletRequest request,
            HttpServletResponse response) throws IOException, ServletException {
 
         try {
@@ -234,7 +218,7 @@ public class AventureCtrl extends HttpServlet {
         }
     }
 
-    public void actionAddMember(HttpServletRequest request,
+    private void actionAddMember(HttpServletRequest request,
            HttpServletResponse response) throws IOException, ServletException {
         
         try {
@@ -289,7 +273,7 @@ public class AventureCtrl extends HttpServlet {
     }
     
     
-    public void actionRemoveMember(HttpServletRequest request,
+    private void actionRemoveMember(HttpServletRequest request,
            HttpServletResponse response) throws IOException, ServletException {
         
         try {
@@ -321,6 +305,14 @@ public class AventureCtrl extends HttpServlet {
         } catch (DAOException ex) {
             Main.dbError(request, response, ex);
         }
+    }
+
+    private void actionFinish(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void actionDelete(HttpServletRequest request, HttpServletResponse response) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
         
 }

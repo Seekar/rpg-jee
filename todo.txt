@@ -71,10 +71,10 @@ DONE /game?action=show&id=XXXX
 DONE /character?action=gameList&id=XXXX
 PENDING /game?action=addMember&id=XXXX&idMember=XXXX (manque secu SQL)
 Page de partie en cours : 1 seule vue
-	affichage univers
+	affichage univers => DONE
 	Edition des infos intégrée via champs modifiables + submit
 	Liste des participants intégrée (avec bouton supprimer)
-	Ajouter participant (intégré via liste déroulante + submit)
+	Ajouter participant (intégré via liste déroulante + submit) => DONE
 	Terminer la partie (intégrée à la page avec la rédaction de résumé)
 	Supprimer la partie
 
