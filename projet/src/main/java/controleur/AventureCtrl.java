@@ -10,6 +10,7 @@ import dao.ParticipeDAO;
 import java.io.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -83,12 +84,26 @@ public class AventureCtrl extends HttpServlet {
                 request.setAttribute("aventure", aventure);
 
                 JoueurDAO joueurDAO = JoueurDAO.Get();
-                List<Joueur> listeJoueurs = joueurDAO.getAutresJoueurs(user.getId());
-
-                // TODO : Filtrer la liste des joueurs pour enlever ceux qui sont
-                //         déja dans l'aventure
-
-                request.setAttribute("listeJoueurs", listeJoueurs);
+                List<Joueur> listeAllJoueurs = joueurDAO.getAutresJoueurs(user.getId());
+                List<Personnage> listeAllPersonnages = (ArrayList)PersonnageDAO.Get().getAllPersonnages();
+                   
+                // On filtre la liste des joueurs pour enlever ceux qui sont
+                // déja dans l'aventure
+                List<Personnage> listePersonnages = new ArrayList<>();
+                for (Personnage p : listeAllPersonnages) {
+                    boolean deja_present = false;
+                    for (Personnage p2 : aventure.getPersonnages()) {
+                        if (p.getId() == p2.getId()) {
+                            deja_present = true;
+                            break;
+                        }
+                    }
+                    if (!deja_present) {
+                        listePersonnages.add(p);
+                    }
+                }
+                
+                request.setAttribute("listePersonnages", listePersonnages);
 
             } catch (NumberFormatException e) {
                Main.invalidParameters(request, response);
@@ -220,7 +235,7 @@ public class AventureCtrl extends HttpServlet {
         
         try {
             // Récupérer personnage associé à l'id
-            int persoId = Integer.parseInt(request.getParameter("idJoueur"));
+            int persoId = Integer.parseInt(request.getParameter("idPersonnage"));
             Personnage perso = PersonnageDAO.Get().getPersonnage(persoId);
 
             // Récupérer l'aventure courante
@@ -285,7 +300,6 @@ public class AventureCtrl extends HttpServlet {
                 // Gestion de l'erreur
             }
             
-            
             // Supprime le lien Participe de la base
             ParticipeDAO.Get().supprimerParticipe(aventure,perso);
 
@@ -313,6 +327,12 @@ public class AventureCtrl extends HttpServlet {
                 // TODO
                 // Gestion de l'erreur
             }
+            // Vérifier que la partie n'est pas déjà finie
+            if (aventure.estFinie()) {
+                // TODO
+                // Gestion de l'erreur
+            }
+            
             String events = request.getParameter("events");
             
             AventureDAO.Get().finishPartie(aventure, events);
@@ -338,6 +358,12 @@ public class AventureCtrl extends HttpServlet {
             
             // Vérifier que l'utilisateur est bien le MJ de l'aventure
             if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
+                // TODO
+                // Gestion de l'erreur
+            }            
+            // Vérifier que la partie n'est pas déjà finie 
+            // (car on ne doit plus pouvoir la supprimer)
+            if (aventure.estFinie()) {
                 // TODO
                 // Gestion de l'erreur
             }

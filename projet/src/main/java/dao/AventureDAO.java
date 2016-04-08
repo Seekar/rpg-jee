@@ -352,12 +352,56 @@ public final class AventureDAO extends AbstractAventureDAO {
 
     @Override
     public void finishPartie(Aventure aventure, String events) throws DAOException {
-        // TODO
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("UPDATE Aventure "
+                    + "SET events = ?, finie='1'"
+                    + "WHERE id = ?");
+            
+            statement.setString(1, events);
+            statement.setInt(2, aventure.getId());
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur lors de la finition d'une partie " +  e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+
     }
     
     @Override
     public void deletePartie(Aventure aventure) throws DAOException {
-        // TODO
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("DELETE FROM Aventure "
+                    + "WHERE id = ?");
+            
+            statement.setInt(1, aventure.getId());
+            statement.executeUpdate();
+            
+            
+            statement = link.prepareStatement("DELETE FROM Participe "
+                    + "WHERE aventure_id = ?");
+            statement.setInt(1, aventure.getId());
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur lors de la suppression d'une partie " +  e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+
     }
     
 }

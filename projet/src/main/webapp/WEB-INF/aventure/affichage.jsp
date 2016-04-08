@@ -60,14 +60,14 @@
                             <div class="input-group">
                                 <input type="hidden" name="idAventure" value="${aventure.getId()}">
                                 <div class="form-group">
-                                    <p>Joueur à ajouter (TODO Supprimer les joueurs quand ils sont déjà ajoutés, sinon erreur BD contrainte unique)</p>
+                                    <p>Personnage à ajouter</p>
                                 </div>
                                 <div class="form-group">
-                                    <select name="idJoueur" onchange='if(this.value != -1) { this.form.submit(); }'
+                                    <select name="idPersonnage" onchange='if(this.value != -1) { this.form.submit(); }'
                                             class="form-control col-sm-offset-2">
                                         <option value="-1"></option>
-                                        <c:forEach var="joueur" items="${listeJoueurs}">
-                                            <option value="${joueur.getId()}"><c:out value="${joueur.getPseudo()}"/></option>
+                                        <c:forEach var="perso" items="${listePersonnages}">
+                                            <option value="${perso.getId()}"><c:out value="${perso.getPseudo()}"/></option>
                                         </c:forEach>
                                     </select>
                                 </div>
