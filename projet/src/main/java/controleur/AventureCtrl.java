@@ -67,43 +67,30 @@ public class AventureCtrl extends HttpServlet {
             break;
         }
 
-        case "show":
+        case "show": {
             page = "affichage";
             Aventure aventure;
-            boolean can_add = false;
+            boolean canAdd = false;
+            String titre = "Détails de la partie";
 
             try {
                 int id = Integer.parseInt(request.getParameter("id"));
                 aventure = avDAO.getAventure(id);
 
                 if (aventure.getMj().getId() == user.getId()) {
-                    can_add = true;
+                    canAdd = true;
+                    request.setAttribute("listePersonnages",
+                            persoDAO.getCandidats(user));
+                }
+                
+                if (aventure.isFinie()) {
+                    titre = "Détails de l'aventure";
                 }
 
-                request.setAttribute("can_add", can_add);
+                request.setAttribute("titre", titre);
+                request.setAttribute("canAdd", canAdd);
                 request.setAttribute("aventure", aventure);
-
-                JoueurDAO joueurDAO = JoueurDAO.Get();
-                List<Joueur> listeAllJoueurs = joueurDAO.getAutresJoueurs(user.getId());
-                List<Personnage> listeAllPersonnages = persoDAO.getPersonnagesMenes(user);
                 
-                // On filtre la liste des joueurs pour enlever ceux qui sont
-                // déja dans l'aventure
-                List<Personnage> listePersonnages = new ArrayList<>();
-                for (Personnage p : listeAllPersonnages) {
-                    boolean deja_present = false;
-                    for (Personnage p2 : aventure.getPersonnages()) {
-                        if (p.getId() == p2.getId()) {
-                            deja_present = true;
-                            break;
-                        }
-                    }
-                    if (!deja_present) {
-                        listePersonnages.add(p);
-                    }
-                }
-                
-                request.setAttribute("listePersonnages", listePersonnages);
 
             } catch (NumberFormatException e) {
                Main.invalidParameters(request, response);
@@ -113,8 +100,9 @@ public class AventureCtrl extends HttpServlet {
             }
 
             break;
+        }
 
-        default:
+        default: {
             if (action.toLowerCase().endsWith("list")) {
                 page = "liste";
 
@@ -152,6 +140,7 @@ public class AventureCtrl extends HttpServlet {
                 } catch (DAOException e) {
                    Main.dbError(request, response, e);
                 }
+            }
             }
         }
 
@@ -315,7 +304,8 @@ public class AventureCtrl extends HttpServlet {
     }
 
     private void actionFinish(HttpServletRequest request, HttpServletResponse response) 
-        throws IOException, ServletException {     
+        throws IOException, ServletException {
+
         try {
 
             // Récupérer l'aventure courante

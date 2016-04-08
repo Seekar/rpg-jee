@@ -184,7 +184,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     }
 
     @Override
-    public ArrayList<Personnage> getPersonnagesMenes(Joueur j) throws DAOException {
+    public ArrayList<Personnage> getPersonnagesMenes(Joueur mj) throws DAOException {
         ArrayList<Personnage> persos = new ArrayList<>();
         Connection link = null;
         PreparedStatement statement = null;
@@ -194,7 +194,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             statement = link.prepareStatement("SELECT id, nom FROM Personnage "
                     + "where mj_id = ? and valide = 1 ORDER BY nom");
             
-            statement.setInt(1, j.getId());
+            statement.setInt(1, mj.getId());
             ResultSet res = statement.executeQuery();
             Personnage perso;
 
@@ -209,6 +209,52 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         } catch (Exception e) {
             throw new DAOException("Erreur d'accès à la liste des personnages "
                     + "menés : " + e.getMessage(), e);
+
+        } finally {
+            CloseStatement(statement);
+            closeConnection(link);
+        }
+
+        return persos;
+    }
+
+    /**
+     * Renvoie la liste des personnages menés
+     * qui ne participent à aucune partie en cours.
+     * 
+     * @param mj Le MJ concerné
+     * @return La liste des candidats potentiels
+     * @throws DAOException 
+     */
+    public ArrayList<Personnage> getCandidats(Joueur mj) throws DAOException {
+        ArrayList<Personnage> persos = new ArrayList<>();
+        Connection link = null;
+        PreparedStatement statement = null;
+
+        try {
+            link = getConnection();
+            statement = link.prepareStatement("SELECT id, nom FROM Personnage p "
+                    + "LEFT JOIN Participe r on r.personnage_id = p.id "
+                    + "WHERE mj_id = ? and valide = 1 "
+                    + "and NOT EXISTS (SELECT 1 FROM Aventure a "
+                    + "WHERE r.aventure_id = a.id and finie = 0) "
+                    + "ORDER BY nom ");
+            
+            statement.setInt(1, mj.getId());
+            ResultSet res = statement.executeQuery();
+            Personnage perso;
+
+            while (res.next()) {
+                perso = new Personnage();
+                perso.setId(res.getInt("id"));
+                perso.setNom(res.getString("nom"));
+                
+                persos.add(perso);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("Erreur d'accès à la liste des candidats "
+                    + e.getMessage(), e);
 
         } finally {
             CloseStatement(statement);

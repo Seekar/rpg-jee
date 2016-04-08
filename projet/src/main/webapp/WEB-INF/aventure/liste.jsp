@@ -19,15 +19,16 @@
 
             <tbody style="cursor:pointer">
             <c:forEach var="partie" items="${parties}">
-                <tr onclick="document.location = 'game?action=show&id=${partie.getId()}';"
-                    <c:if test="${partie.isFinie()}"> class="active"</c:if>>
-                    <td><c:out value="${partie.getTitre()}"/></td>
-                    <td>
+                <tr onclick="document.location = 'game?action=show&id=${partie.getId()}';"<%--
                     <c:choose>
+                    <c:when test="${partie.isFinie()}">class="active"></c:when>
+                    <c:otherwise>class="success"></c:otherwise>
+                    </c:choose>--%>>
+                    <td><c:out value="${partie.getTitre()}"/></td>
+                    <td><c:choose>
                     <c:when test="${partie.isFinie()}">Terminée</c:when>
                     <c:otherwise>En cours</c:otherwise>
-                    </c:choose>
-                    </td>
+                    </c:choose></td>
                     <c:set var="perso" value="${partie.getPersonnage()}"/>
                     <c:if test="${hasPerso}">
                     <td>
