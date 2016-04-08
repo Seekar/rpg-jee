@@ -199,6 +199,10 @@ public class AventureCtrl extends HttpServlet {
         case "addMember":
             actionAddMember(request, response);
             break;
+        
+        case "removeMember":
+            actionRemoveMember(request, response);
+            break;
         }
     }
 
@@ -283,6 +287,42 @@ public class AventureCtrl extends HttpServlet {
             Main.dbError(request, response, ex);
         }
     }
+    
+    
+    public void actionRemoveMember(HttpServletRequest request,
+           HttpServletResponse response) throws IOException, ServletException {
+        
+        try {
+            // Récupérer personnage associé à l'id
+            int persoId = Integer.parseInt(request.getParameter("idPerso"));
+            Personnage perso = PersonnageDAO.Get().getPersonnage(persoId);
+
+            // Récupérer l'aventure courante
+            int idPartie = Integer.parseInt(request.getParameter("idPartie"));
+            Aventure aventure = AventureDAO.Get().getAventure(idPartie);
+            
+            // Vérifier que l'utilisateur est bien le MJ de l'aventure
+            if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
+                    // TODO
+                    // Définir une variable erreur_not_mj
+                    // RequestDispatcher vers l'affichage de l'aventure courante
+            }
+            
+            
+            // Supprime le lien Participe de la base
+            ParticipeDAO.Get().supprimerParticipe(aventure,perso);
+
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=show&id=" + idPartie);
+            
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
+        }
+    }
+        
 }
 
 

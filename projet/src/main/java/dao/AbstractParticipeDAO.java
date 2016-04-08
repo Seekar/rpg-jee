@@ -21,7 +21,8 @@ public abstract  class AbstractParticipeDAO extends AbstractDAO {
     }
     
     public abstract void creerParticipe(Participe p) throws DAOException;
-
     
+    public abstract void supprimerParticipe(Aventure aventure, Personnage perso) throws DAOException;
+
     
 }

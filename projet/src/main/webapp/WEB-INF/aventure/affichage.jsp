@@ -60,7 +60,7 @@
                             <div class="input-group">
                                 <input type="hidden" name="idAventure" value="${aventure.getId()}">
                                 <div class="form-group">
-                                    <p>Joueur à ajouter</p>
+                                    <p>Joueur à ajouter (TODO Supprimer les joueurs quand ils sont déjà ajoutés, sinon erreur BD contrainte unique)</p>
                                 </div>
                                 <div class="form-group">
                                     <select name="idJoueur" onchange='if(this.value != -1) { this.form.submit(); }'

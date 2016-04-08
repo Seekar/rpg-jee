@@ -14,20 +14,26 @@
                 <tr>
                     <th>Nom</th>
                     <c:if test="${persoKiller}"><th>Action(s)</th></c:if>
-                </tr>
-            </thead>
+                    </tr>
+                </thead>
 
-            <tbody>
-            <c:forEach var="perso" items="${persos}">
-                <tr onclick="document.location = 'character?action=show&id=${perso.getId()}';" style="cursor:pointer" >
-                    <td><c:out value="${perso.getNom()}"/></td>
-                <c:if test="${persoKiller}">
-                <td><a href="#" class="btn btn-danger"><%-- Lien retirer perso à mettre ICI --%>
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
-                Retirer
-                </a></td></c:if>
-                </tr>
-            </c:forEach>
+                <tbody>
+                <c:forEach var="perso" items="${persos}">
+                    <tr onclick="document.location = 'character?action=show&id=${perso.getId()}';" style="cursor:pointer" >
+                        <td><c:out value="${perso.getNom()}"/></td>
+                        <c:if test="${persoKiller}">
+                            <td>                    
+                                <form action="game" method="POST">
+                                    <button class="btn btn-primary" type="submit" class="btn btn-primary">Retirer</button>
+                                    <input type="hidden" name="idPartie" value="${idPartie}">
+                                    <input type="hidden" name="idPerso" value="${perso.getId()}">
+                                    <input type="hidden" name="action" value="removeMember">
+                                </form>
+                            </td>
+                        </c:if>
+                    </tr>
+
+                </c:forEach>
             </tbody>
         </table>
     </jsp:body>
