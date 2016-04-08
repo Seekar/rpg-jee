@@ -168,12 +168,10 @@ public class AventureCtrl extends HttpServlet {
             return;
         }
 
-
         switch(action) {
         case "create":
             actionCreate(request, response);
             break;
-
         case "finish":
             actionFinish(request, response);
             break;
@@ -183,7 +181,6 @@ public class AventureCtrl extends HttpServlet {
         case "addMember":
             actionAddMember(request, response);
             break;
-        
         case "removeMember":
             actionRemoveMember(request, response);
             break;
@@ -235,24 +232,21 @@ public class AventureCtrl extends HttpServlet {
             int aventureUniversId = aventure.getUnivers().getId();
             if (persoUniversId != aventureUniversId) {
                 // TODO
-                // Définir une variable erreur_univers
-                // RequestDispatcher vers l'affichage de l'aventure courante
+                // Gestion de l'erreur
             }
             
             // Vérifier que le personnage n'est pas déjà dans l'aventure
             for (Personnage p : aventure.getPersonnages()) {
                 if (p.getId() == persoId) {
                     // TODO
-                    // Définir une variable erreur_doublon
-                    // RequestDispatcher vers l'affichage de l'aventure courante
+                    // Gestion de l'erreur
                 }
             }
             
             // Vérifier que l'utilisateur est bien le MJ de l'aventure
             if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
-                    // TODO
-                    // Définir une variable erreur_not_mj
-                    // RequestDispatcher vers l'affichage de l'aventure courante
+                // TODO
+                // Gestion de l'erreur
             }
             
             // A ce stade, on a tout check et géré les erreurs
@@ -287,9 +281,8 @@ public class AventureCtrl extends HttpServlet {
             
             // Vérifier que l'utilisateur est bien le MJ de l'aventure
             if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
-                    // TODO
-                    // Définir une variable erreur_not_mj
-                    // RequestDispatcher vers l'affichage de l'aventure courante
+                // TODO
+                // Gestion de l'erreur
             }
             
             
@@ -307,13 +300,59 @@ public class AventureCtrl extends HttpServlet {
         }
     }
 
-    private void actionFinish(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void actionFinish(HttpServletRequest request, HttpServletResponse response) 
+        throws IOException, ServletException {     
+        try {
+
+            // Récupérer l'aventure courante
+            int aventureId = Integer.parseInt(request.getParameter("idAventure"));
+            Aventure aventure = AventureDAO.Get().getAventure(aventureId);
+            
+            // Vérifier que l'utilisateur est bien le MJ de l'aventure
+            if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
+                // TODO
+                // Gestion de l'erreur
+            }
+            String events = request.getParameter("events");
+            
+            AventureDAO.Get().finishPartie(aventure, events);
+            
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=show&id=" + aventureId);
+            
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
+        }
     }
 
-    private void actionDelete(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    private void actionDelete(HttpServletRequest request, HttpServletResponse response) 
+        throws IOException, ServletException {            
+        
+        try {
+            // Récupérer l'aventure courante
+            int aventureId = Integer.parseInt(request.getParameter("idAventure"));
+            Aventure aventure = AventureDAO.Get().getAventure(aventureId);
+            
+            // Vérifier que l'utilisateur est bien le MJ de l'aventure
+            if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
+                // TODO
+                // Gestion de l'erreur
+            }
+            
+            AventureDAO.Get().deletePartie(aventure);
+            
+            response.sendRedirect(request.getContextPath()
+                    + request.getServletPath() + "?action=list" + aventureId);
+            
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
+        }}
         
 }
 

@@ -349,5 +349,15 @@ public final class AventureDAO extends AbstractAventureDAO {
 
         return avs;
     }
+
+    @Override
+    public void finishPartie(Aventure aventure, String events) throws DAOException {
+        // TODO
+    }
+    
+    @Override
+    public void deletePartie(Aventure aventure) throws DAOException {
+        // TODO
+    }
     
 }

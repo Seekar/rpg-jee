@@ -37,4 +37,7 @@ public abstract class AbstractAventureDAO extends AbstractDAO
  
     public abstract Aventure getAventure(int id) throws DAOException;
     
+    public abstract void finishPartie(Aventure aventure, String events) throws DAOException;
+    public abstract void deletePartie(Aventure aventure) throws DAOException;
+    
 }
