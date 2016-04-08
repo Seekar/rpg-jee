@@ -184,7 +184,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     }
 
     @Override
-    public Collection<Personnage> getPersonnagesMenes(Joueur j) throws DAOException {
+    public ArrayList<Personnage> getPersonnagesMenes(Joueur j) throws DAOException {
         ArrayList<Personnage> persos = new ArrayList<>();
         Connection link = null;
         PreparedStatement statement = null;

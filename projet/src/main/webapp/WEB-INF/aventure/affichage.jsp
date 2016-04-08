@@ -60,16 +60,16 @@
                             <div class="input-group">
                                 <input type="hidden" name="idAventure" value="${aventure.getId()}">
                                 <div class="form-group">
-                                    <p>Personnage à ajouter</p>
+                                <p>Personnage à ajouter </p>
                                 </div>
                                 <div class="form-group">
-                                    <select name="idPersonnage" onchange='if(this.value != -1) { this.form.submit(); }'
-                                            class="form-control col-sm-offset-2">
-                                        <option value="-1"></option>
-                                        <c:forEach var="perso" items="${listePersonnages}">
-                                            <option value="${perso.getId()}"><c:out value="${perso.getPseudo()}"/></option>
-                                        </c:forEach>
-                                    </select>
+                                <select name="idPersonnage" onchange='if(this.value != -1) { this.form.submit(); }'
+                                        class="form-control col-sm-offset-2">
+                                    <option value="-1"></option>
+                                    <c:forEach var="perso" items="${listePersonnages}">
+                                        <option value="${perso.getId()}"><c:out value="${perso.getNom()}"/></option>
+                                    </c:forEach>
+                                </select>
                                 </div>
                             </div>
                         </form>

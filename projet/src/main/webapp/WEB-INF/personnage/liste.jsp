@@ -18,13 +18,17 @@
                 </thead>
 
                 <tbody>
+                <c:set var="idPartie" value="${param.id}"/>
                 <c:forEach var="perso" items="${persos}">
                     <tr onclick="document.location = 'character?action=show&id=${perso.getId()}';" style="cursor:pointer" >
                         <td><c:out value="${perso.getNom()}"/></td>
                         <c:if test="${persoKiller}">
                             <td>                    
                                 <form action="game" method="POST">
-                                    <button class="btn btn-primary" type="submit" class="btn btn-primary">Retirer</button>
+                                    <button class="btn btn-primary" type="submit" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+                                         Retirer
+                                    </button>
                                     <input type="hidden" name="idPartie" value="${idPartie}">
                                     <input type="hidden" name="idPerso" value="${perso.getId()}">
                                     <input type="hidden" name="action" value="removeMember">
