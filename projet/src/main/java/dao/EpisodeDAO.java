@@ -83,7 +83,7 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
             c = dataSource.getConnection();
             PreparedStatement ps = c.prepareStatement("select * "
                     + "from Episode e where e.biographie_id = ? "
-                    + "and e.valide = 1 and e.mj_id = NULL order by e.eDate");
+                    + "and e.valide = 1 and e.mj_id IS NULL order by e.eDate");
             
             ps.setInt(1, b.getID());
             ResultSet rs = ps.executeQuery();
