@@ -11,101 +11,101 @@ import java.util.List;
 
 public class Joueur
 {
-	private int id;
+    private int id;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String pseudo;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String pseudo;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String pwd;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String pwd;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Aventure> aventures;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Aventure> aventures;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Episode> episodes;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Episode> episodes;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Personnage> transferts;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Personnage> transferts;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Personnage> supervisions;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Personnage> supervisions;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Personnage> possessions;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Personnage> possessions;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Personnage> validations;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Personnage> validations;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public Joueur(int id, String pseudo, String pwd) {
-		this.id = id;
-		this.pseudo = pseudo;
-		this.pwd = pwd;
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     */
+    public Joueur(int id, String pseudo, String pwd) {
+        this.id = id;
+        this.pseudo = pseudo;
+        this.pwd = pwd;
+    }
 
-	public Joueur(int id, String pseudo) {
+    public Joueur(int id, String pseudo) {
             this(id, pseudo, null);
-	}
+    }
 
-	public Joueur(int id) {
+    public Joueur(int id) {
             this(id, null, null);
-	}
+    }
 
-	public Joueur() {
-	}
+    public Joueur() {
+    }
         
         
     public int getId() {

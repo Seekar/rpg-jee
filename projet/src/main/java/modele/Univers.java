@@ -11,43 +11,43 @@ import java.util.List;
 
 public class Univers
 {
-	private int id;
+    private int id;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String nom;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String nom;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Aventure> aventures;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Aventure> aventures;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Personnage> personnages;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Personnage> personnages;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public Univers(){
-		super();
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     */
+    public Univers(){
+        super();
+    }
 
     public Univers(int id, String nom) {
         this.id = id;

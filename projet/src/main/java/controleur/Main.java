@@ -102,13 +102,28 @@ public class Main extends HttpServlet {
 
     /* pages d'erreurs */
     protected static void invalidParameters(HttpServletRequest request,
-            HttpServletResponse response, String mess) throws ServletException, IOException {
+            HttpServletResponse response, String mess)
+            throws ServletException, IOException {
         request.setAttribute("error", mess);
         invalidParameters(request, response);
     }
 
+    /* pages d'erreurs */
+    protected static void invalidParameters(HttpServletRequest request,
+            HttpServletResponse response, Exception ex)
+            throws ServletException, IOException {
+        invalidParameters(request, response, ex.getMessage());
+    }
+
     static void dbError(HttpServletRequest request,
-            HttpServletResponse response, DAOException e)
+            HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setStatus(500);
+        request.getRequestDispatcher("/WEB-INF/dbError.jsp").forward(request, response);
+    }
+
+    static void dbError(HttpServletRequest request,
+            HttpServletResponse response, Exception e)
             throws ServletException, IOException {
         dbError(request, response, e.getMessage());
     }
@@ -117,7 +132,7 @@ public class Main extends HttpServlet {
             HttpServletResponse response, String mess)
             throws ServletException, IOException {
         request.setAttribute("error", mess);
-        request.getRequestDispatcher("/WEB-INF/dbError.jsp").forward(request, response);
+        dbError(request, response);
     }
 
     /**

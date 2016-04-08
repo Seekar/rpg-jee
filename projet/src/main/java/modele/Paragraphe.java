@@ -9,43 +9,43 @@ package modele;
 
 public class Paragraphe
 {
-	private int id;
+    private int id;
         
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String texte;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String texte;
         
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private boolean secret;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private boolean secret;
         
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Episode episode;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public Episode episode;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public Paragraphe(){
-		super();
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     */
+    public Paragraphe(){
+        super();
+    }
         
         public Paragraphe(int id, boolean isSecret, String texte){
             this.id = id;

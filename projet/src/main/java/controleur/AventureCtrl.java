@@ -222,8 +222,11 @@ public class AventureCtrl extends HttpServlet {
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=list");
             
-        } catch (Exception ex) {
-            Main.invalidParameters(request, response, ex.getMessage());
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
         }
     }
 
@@ -273,8 +276,11 @@ public class AventureCtrl extends HttpServlet {
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=show&id=" + aventureId);
             
-        } catch (Exception ex) {
-            Main.invalidParameters(request, response, ex.getMessage());
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
         }
     }
 }

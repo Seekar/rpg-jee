@@ -258,9 +258,11 @@ public class PersonnageCtrl extends HttpServlet {
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=ownedList");
             
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            doGet(request, response);
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
         }
     }
 
@@ -276,10 +278,12 @@ public class PersonnageCtrl extends HttpServlet {
 
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=show&id="+idPerso);
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            Main.invalidParameters(request, response, ex.getMessage());
+            
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
         }
     }
 
@@ -296,9 +300,12 @@ public class PersonnageCtrl extends HttpServlet {
                     + request.getServletPath() + "?action=show&id=" + idPerso);
             
             request.setAttribute("done", true);
-
-        } catch (Exception ex) {
-            Main.invalidParameters(request, response, ex.getMessage());
+            
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
         }
     }
 
@@ -314,10 +321,12 @@ public class PersonnageCtrl extends HttpServlet {
 
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=show&id="+idPerso);
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            Main.invalidParameters(request, response, ex.getMessage());
+            
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
         }
     }
 
@@ -334,9 +343,12 @@ public class PersonnageCtrl extends HttpServlet {
                     + request.getServletPath() + "?action=show&id=" + idPerso);
 
             request.setAttribute("done", true);
-
-        } catch (Exception ex) {
-            Main.invalidParameters(request, response, ex.getMessage());
+            
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
         }
     }
 
@@ -354,9 +366,12 @@ public class PersonnageCtrl extends HttpServlet {
 
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=show&id=" + idPerso);
-
-        } catch (Exception ex) {
-            Main.invalidParameters(request, response, ex.getMessage());
+            
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
         }
     }
 
@@ -372,9 +387,12 @@ public class PersonnageCtrl extends HttpServlet {
 
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=ownedList");
-
-        } catch (Exception ex) {
-            Main.invalidParameters(request, response, ex.getMessage());
+            
+        } catch (NumberFormatException | IOException ex) {
+            Main.invalidParameters(request, response, ex);
+            
+        } catch (DAOException ex) {
+            Main.dbError(request, response, ex);
         }
     }
 }

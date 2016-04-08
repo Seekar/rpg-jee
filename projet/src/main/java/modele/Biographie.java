@@ -11,34 +11,34 @@ import java.util.List;
 
 public class Biographie
 {
-	private int id;
+    private int id;
         public int getID() {return id;};
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String texte;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String texte;
         public String getTexte(){return texte;}
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Personnage personnage;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public Personnage personnage;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Episode> episodes= new LinkedList<>();
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Episode> episodes= new LinkedList<>();
            
        public List<Episode> getEpisodes(){return episodes;}
        

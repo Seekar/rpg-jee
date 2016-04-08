@@ -13,131 +13,131 @@ public class Aventure
 {
     public int id;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String titre;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String titre;
         
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String situation;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String situation;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String aDate;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String aDate;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String lieu;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String lieu;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String events;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private String events;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private boolean finie;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    private boolean finie;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Univers univers;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public Univers univers;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	/*public Episode episode; 
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    /*public Episode episode; 
 
-	public Episode getEpisode() {
-		return episode;
-	}
-	public void setEpisode(Episode episode) {
-		this.episode = episode;
-	}*/
+    public Episode getEpisode() {
+        return episode;
+    }
+    public void setEpisode(Episode episode) {
+        this.episode = episode;
+    }*/
 
 
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Joueur mj;
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public Joueur mj;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public List<Personnage> personnages = new LinkedList<>();
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     * @ordered
+     */
+    
+    public List<Personnage> personnages = new LinkedList<>();
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
-	public Aventure() {
-		this.id = -1;	
-	}
+    /**
+     * <!-- begin-user-doc -->
+     * <!--  end-user-doc  -->
+     * @generated
+     */
+    public Aventure() {
+        this.id = -1;   
+    }
 
-	public Aventure(int id, String titre, String date, String lieu,
+    public Aventure(int id, String titre, String date, String lieu,
                 Univers univers, String situation, Joueur mj) {
-		this.titre = titre;
-		this.situation = situation;
-		this.aDate = date;
-		this.lieu = lieu;
-		this.univers = univers;
-		this.finie = false;
-		this.events = "";
-		this.id = id;
-		this.mj = mj;
-	}
+        this.titre = titre;
+        this.situation = situation;
+        this.aDate = date;
+        this.lieu = lieu;
+        this.univers = univers;
+        this.finie = false;
+        this.events = "";
+        this.id = id;
+        this.mj = mj;
+    }
 
-	public Aventure(String titre, String date, String lieu,
+    public Aventure(String titre, String date, String lieu,
                 Univers univers, String situation, Joueur mj) {
-		this(-1,titre,date,lieu,univers,situation,mj);
-	}
+        this(-1,titre,date,lieu,univers,situation,mj);
+    }
 
     public Aventure(int id){
         this.id = id;
