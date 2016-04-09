@@ -14,10 +14,6 @@ Tool UML : https://genmymodel.com
 - Respect du cahier des charges
 - Respect de l’architecture MVC
 
-### question sur le mj
-un persoonage peut il ne pas avoir de MJ, si oui comment fait-on pour valider un épisode??
-
-=> Si un perso n'est pas valide, alors il n'a pas encore de MJ. Dans ce cas précis pas possible de faire valider un épisode je dirais.
 
 ### Protection contre les [failles d'injection XSS](https://fr.wikipedia.org/wiki/Cross-site_scripting)
 
@@ -28,31 +24,20 @@ Pour empêcher l'affichage de champs donnés par l'utilisateur de modifier la pa
 
 Dans le dossier src/main/webapp/META-INF, copier le template context.xml.template vers context.xml et remplacer XXXX par les identifiants Oracle
 
-### Répartition
-
-[Description des fonctionnalités](https://github.com/leogouttefarde/rpg/blob/master/todo.txt)
-
-- Personnages / Joueurs : Terminé
-- Parties : Salim
-- Biographie / Episodes / Paragraphes : Jules-Eugène / Simon
-
-
-### Vues JSP
-
-- Utilisation de template(s) 'tag' JSP pour factoriser les vues
-- Utilisation de JSTL pour conditionner les vues etc
-
 
 ### BDD
 
 [Graphique SVG](https://github.com/leogouttefarde/rpg/blob/master/bdd.svg)
+- Si un perso n'est pas valide, alors il n'a pas encore de MJ, et donc impossible de faire valider un épisode de sa bio
 
 
-### Infos
+## Infos
 
-Dans ma gestion des persos, le seul moyen d'être le meneur d'un de ses propres persos est qu'un autre joueur nous le cède alors qu'on était déjà meneur
+Dans la gestion des persos, le seul moyen d'être le meneur d'un de ses propres persos est qu'un autre joueur nous le cède alors qu'on était déjà meneur
 
 De la même façon, on peut se retrouver à posséder plusieurs persos participant à une même partie etc car l'énoncé est ambigu et que sinon c'est encore plus complexe.
+
+On pourrait restreindre la cession de persos sinon pour corriger ça.
 
 
 ### Bugs
