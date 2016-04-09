@@ -1,7 +1,8 @@
 package modele;
+import controleur.Main;
 import java.util.LinkedList;
 import java.util.List;
-
+import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * <!-- begin-user-doc -->
@@ -171,6 +172,10 @@ public class Aventure
         return situation;
     }
 
+    public String showSituation() {
+        return Main.CustomEscape(situation);
+    }
+
     public void setSituation(String situation) {
         this.situation = situation;
     }
@@ -193,6 +198,10 @@ public class Aventure
 
     public String getEvents() {
         return events;
+    }
+
+    public String showEvents() {
+        return Main.CustomEscape(events);
     }
 
     public void setEvents(String events) {

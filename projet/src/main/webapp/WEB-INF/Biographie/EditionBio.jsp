@@ -19,13 +19,13 @@
                         <c:forEach items="${episode.getParagraphes()}" var="parag">
                             <c:choose>
                                 <c:when test="${parag.isSecret()}">  
-                                    <p><c:out value="${parag.getTexte()}"/> (secret)</p>
-                                    <form action="biographie" method="POST">
-                                        <button class="btn btn-primary" type="submit" class="btn btn-primary">Révéler</button>
-                                        <input type="hidden" name="paragID" value="${parag.getID()}"/>
-                                        <input type="hidden" name="action" value="reveler"/>
-                                        <input type="hidden" name="persoID" value="${perso.getId()}"/>
-                                    </form>
+                                <p><c:out value="${parag.getTexte()}"/> (secret)</p>
+                                <form action="biographie" method="POST">
+                                    <button class="btn btn-primary" type="submit" class="btn btn-primary">Révéler</button>
+                                    <input type="hidden" name="paragID" value="${parag.getID()}"/>
+                                    <input type="hidden" name="action" value="reveler"/>
+                                    <input type="hidden" name="persoID" value="${perso.getId()}"/>
+                                </form>
                                 </c:when>
                                 <c:otherwise>
                                     <p><c:out value="${parag.getTexte()}"/></p>

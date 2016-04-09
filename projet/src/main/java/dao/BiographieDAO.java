@@ -20,31 +20,32 @@ import modele.Personnage;
 public final class BiographieDAO extends AbstractBiographieDAO {
 
     private static BiographieDAO instance;
-    
-    private  BiographieDAO(DataSource ds) {
+
+    private BiographieDAO(DataSource ds) {
         super(ds);
     }
-    
+
     public static BiographieDAO Create(DataSource ds) {
-        if(instance == null)
+        if (instance == null) {
             instance = new BiographieDAO(ds);
-        
+        }
+
         return instance;
     }
-    
+
     public static BiographieDAO Get() {
         return instance;
     }
 
     @Override
     public Biographie getBiographie(Personnage p) throws DAOException {
-        Connection c=null;
+        Connection c = null;
         try {
             c = dataSource.getConnection();
-            PreparedStatement ps =c.prepareStatement("select b.id, b.texte "
+            PreparedStatement ps = c.prepareStatement("select b.id, b.texte "
                     + "from Biographie b, Personnage p "
                     + "where b.id=p.biographie_id and p.id=?");
-            
+
             ps.setInt(1, p.getId());
             ResultSet res = ps.executeQuery();
             res.next();
@@ -52,11 +53,12 @@ public final class BiographieDAO extends AbstractBiographieDAO {
             return b;
         } catch (Exception e) {
             throw new DAOException("", e);
-        }finally{
-            
+        } finally {
+
             closeConnection(c);
         }
     }
+
     @Override
     public Biographie getBiographie(int id) throws DAOException {
         Biographie bio = null;
@@ -68,14 +70,15 @@ public final class BiographieDAO extends AbstractBiographieDAO {
             statement = link.prepareStatement("SELECT * "
                     + "FROM Biographie b "
                     + "where b.id = ?");
-            
+
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
 
-            if (!rs.next())
+            if (!rs.next()) {
                 throw new Exception("Aucun biographie correcpondant à l'ID : " + id);
+            }
 
-            bio = new Biographie(rs.getInt("id"),rs.getString("texte"));
+            bio = new Biographie(rs.getInt("id"), rs.getString("texte"));
 
         } catch (Exception e) {
             throw new DAOException(e.getMessage(), e);
@@ -84,7 +87,8 @@ public final class BiographieDAO extends AbstractBiographieDAO {
             if (statement != null) {
                 try {
                     statement.close();
-                } catch (SQLException ex) {}
+                } catch (SQLException ex) {
+                }
             }
 
             closeConnection(link);

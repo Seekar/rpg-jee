@@ -20,8 +20,7 @@ public abstract  class AbstractBiographieDAO extends AbstractDAO {
     }
     
     public abstract Biographie getBiographie(Personnage p) throws DAOException;
+    
     public abstract Biographie getBiographie(int id) throws DAOException;
 
-    
-    
 }

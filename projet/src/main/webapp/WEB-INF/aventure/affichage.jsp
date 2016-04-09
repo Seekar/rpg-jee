@@ -94,7 +94,7 @@
                 <c:if test="${aventure.isFinie()}">
                 <tr>
                     <th>Résumé des événements</th>
-                    <td><c:out value="${aventure.getEvents()}"/></td>
+                    <td>${aventure.showEvents()}</td>
                 </tr>
                 </c:if>
                 <tr>
@@ -108,7 +108,7 @@
                     <td>
                     <a href="character?action=gameList&id=${aventure.getId()}" 
                      class="btn btn-primary">Participants</a>
-                    <c:if test="${!aventure.isFinie()}">
+                    <c:if test="${!aventure.isFinie() && aventure.getMj().getId() == sessionScope.user.getId()}">
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalFin">
                     Finir la partie</button>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppr">

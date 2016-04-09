@@ -32,14 +32,14 @@ public class ParagrapheCtrl extends HttpServlet {
 
         // Force le login et gère les erreurs
         if (Main.notLogged(request, response)
-            || action == null) {
+                || action == null) {
             return;
         }
 
         if (action.equals("edit")) {
             int paragid = Integer.parseInt(request.getParameter("ID"));
             int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
+            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
             //requete DAO
             try {
                 ParagrapheDAO pad = ParagrapheDAO.Get();
@@ -54,7 +54,7 @@ public class ParagrapheCtrl extends HttpServlet {
         } else if (action.equals("new")) {
             int eid = Integer.parseInt(request.getParameter("eID"));
             int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
+            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
             request.setAttribute("eID", eid);
             request.setAttribute("persoID", persoID);
             request.getRequestDispatcher("/WEB-INF/Paragraphe/NewParagraphe.jsp").forward(request, response);
@@ -78,46 +78,48 @@ public class ParagrapheCtrl extends HttpServlet {
 
         // Force le login et gère les erreurs
         if (Main.notLogged(request, response)
-            || action == null) {
+                || action == null) {
             return;
         }
 
         if (action.equals("reveler")) {
+            int persoID = Integer.parseInt(request.getParameter("persoID"));
             if (request.getParameter("res").equals("oui")) {
                 int pid = Integer.parseInt(request.getParameter("pID"));
-                int persoID = Integer.parseInt(request.getParameter("persoID"));
-                Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
+                Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
                 ParagrapheDAO pad = ParagrapheDAO.Get();
                 try {
                     pad.reveleParagraphe(pid);
-                    response.sendRedirect("biographie?action=afficher&id="+persoID);
-                } catch(DAOException e){
-                Main.dbError(request, response, e);
-            }
+                    response.sendRedirect("biographie?action=afficher&id=" + persoID);
+                } catch (DAOException e) {
+                    Main.dbError(request, response, e);
+                }
+            } else {
+                response.sendRedirect("biographie?action=afficher&id=" + persoID);
             }
         } else if (action.equals("new")) {
-            boolean secret = request.getParameter("secret") !=null ;
+            boolean secret = request.getParameter("secret") != null;
             String texte = request.getParameter("texte");
             int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
+            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
             int episode = Integer.parseInt(request.getParameter("episodeID"));
             ParagrapheDAO pad = ParagrapheDAO.Get();
             try {
                 pad.ajouteParagraphe(secret, texte, episode);
-                response.sendRedirect("biographie?action=afficher&id="+persoID);
-            } catch(DAOException e){
+                response.sendRedirect("biographie?action=afficher&id=" + persoID);
+            } catch (DAOException e) {
                 Main.dbError(request, response, e);
             }
-        } else if(action.equals("edit")){
+        } else if (action.equals("edit")) {
             String texte = request.getParameter("texte");
             int pid = Integer.parseInt(request.getParameter("id"));
             int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
+            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
             ParagrapheDAO pad = ParagrapheDAO.Get();
             try {
                 pad.updateParagraphe(pid, texte);
-                response.sendRedirect("biographie?action=afficher&id="+persoID);
-            } catch(DAOException e){
+                response.sendRedirect("biographie?action=afficher&id=" + persoID);
+            } catch (DAOException e) {
                 Main.dbError(request, response, e);
             }
         }

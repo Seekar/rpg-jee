@@ -192,8 +192,11 @@ public final class AventureDAO extends AbstractAventureDAO {
         Connection c = null;
         try {
             c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("select aventure_id "
-                    + "from participe where personnage_id =?");
+            PreparedStatement ps = c.prepareStatement("SELECT aventure_id "
+                    + "FROM Participe p LEFT JOIN Aventure a "
+                    + "on p.aventure_id = a.id WHERE personnage_id = ? "
+                    + "AND finie = 1");
+
             ps.setInt(1, persoID);
             ResultSet rs = ps.executeQuery();
             LinkedList<Integer> avt = new LinkedList<Integer>();
@@ -206,13 +209,15 @@ public final class AventureDAO extends AbstractAventureDAO {
                 a.add(getAventure(id));
             }
             return a;
+
         } catch (Exception e) {
             throw new DAOException(e.getMessage(), e);
+
         } finally {
             closeConnection(c);
         }
     }
-    
+
     @Override
     public Aventure getAventure(int id) throws DAOException {
         Aventure aventure = null;

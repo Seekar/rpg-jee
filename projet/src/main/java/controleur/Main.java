@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
 import modele.*;
+import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * Le contrôleur d'application.
@@ -257,6 +258,12 @@ public class Main extends HttpServlet {
         
         return null;
     }
+    
+    public static String CustomEscape(String data) {
+        if (data == null)
+            return null;
+        
+        return StringEscapeUtils.escapeHtml(data).replace("\n", "<br/>");
+    }
 }
-
 

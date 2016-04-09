@@ -61,15 +61,13 @@ Episode : 1 seule vue
 
 
 
-
-/game?action=delMember&id=XXXX&idMember=XXXX
-/game?action=finish&id=XXXX
-/game?action=delete&id=XXXX
-/game?action=edit (+ params id=XXXX ...)
+DONE /game?action=removeMember&id=XXXX&idMember=XXXX
+DONE /game?action=finish&id=XXXX
+DONE /game?action=delete&id=XXXX
 DONE /game?action=create
 DONE /game?action=show&id=XXXX
 DONE /character?action=gameList&id=XXXX
-PENDING /game?action=addMember&id=XXXX&idMember=XXXX (manque secu SQL)
+DONE /game?action=addMember&id=XXXX&idMember=XXXX (manque secu SQL)
 Page de partie en cours : 1 seule vue
 	affichage univers => DONE
 	Edition des infos intégrée via champs modifiables + submit

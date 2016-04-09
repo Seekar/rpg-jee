@@ -48,65 +48,63 @@ public class BiographieCtrl extends HttpServlet {
 
         // Force le login et gère les erreurs
         if (Main.notLogged(request, response)
-            || action == null) {
+                || action == null) {
             return;
         }
 
-        if(action.equals("afficher")) {
+        if (action.equals("afficher")) {
             /*//TEST
-            Personnage p = new Personnage("essai",null , null, null, null);
-            Biographie b = new Biographie(0, "");
-            p.setBiographie(b);
-            Episode e;
-            b.episodes.add(e = new Episode(35, true, null, null, b));
-            Paragraphe pa;
-            e.paragraphes.add(pa =new Paragraphe());
-            pa.setTexte("ceci n'est qu'un essai");
-            pa.setSecret(false);*/
+             Personnage p = new Personnage("essai",null , null, null, null);
+             Biographie b = new Biographie(0, "");
+             p.setBiographie(b);
+             Episode e;
+             b.episodes.add(e = new Episode(35, true, null, null, b));
+             Paragraphe pa;
+             e.paragraphes.add(pa =new Paragraphe());
+             pa.setTexte("ceci n'est qu'un essai");
+             pa.setSecret(false);*/
             int persoID = Integer.parseInt(request.getParameter("id"));
             PersonnageDAO persoD = PersonnageDAO.Get();
             BiographieDAO bioD = BiographieDAO.Get();
             EpisodeDAO epiD = EpisodeDAO.Get();
             ParagrapheDAO paD = ParagrapheDAO.Get();
-            try{
-            Personnage p = persoD.getPersonnage(persoID);
-            p.setId(persoID);
-            Joueur j = (Joueur)request.getSession().getAttribute("user");
-            p.setBiographie(bioD.getBiographie(p));
-            p.getBiographie().episodes = epiD.getEpisodes(p.getBiographie());
-            for(Episode e : p.getBiographie().episodes){
-                e.paragraphes = paD.getParagraphes(e);
-            }
-            request.setAttribute("perso", p);
-            request.setAttribute("owner", p.getJoueur().getId() == j.getId() || p.getMj().getId() == j.getId());
-            request.getRequestDispatcher("/WEB-INF/Biographie/consultBio.jsp").forward(request, response);
-            }catch(DAOException e){
+            try {
+                Personnage p = persoD.getPersonnage(persoID);
+                p.setId(persoID);
+                Joueur j = Main.GetJoueurSession(request);
+                p.setBiographie(bioD.getBiographie(p));
+                p.getBiographie().episodes = epiD.getEpisodes(p.getBiographie());
+                for (Episode e : p.getBiographie().episodes) {
+                    e.paragraphes = paD.getParagraphes(e);
+                }
+                request.setAttribute("perso", p);
+                request.setAttribute("owner", p.getJoueur().getId() == j.getId() || p.getMj().getId() == j.getId());
+                request.getRequestDispatcher("/WEB-INF/Biographie/consultBio.jsp").forward(request, response);
+            } catch (DAOException e) {
                 Main.dbError(request, response, e);
             }
-        } else if(action.equals("edition")) {
-           
+        } else if (action.equals("edition")) {
+
             //faire la requete SQL
-            
-            
             int bioID = Integer.parseInt(request.getParameter("biographie"));
             int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
+            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
             PersonnageDAO persoD = PersonnageDAO.Get();
             BiographieDAO bioD = BiographieDAO.Get();
             EpisodeDAO epiD = EpisodeDAO.Get();
             ParagrapheDAO paD = ParagrapheDAO.Get();
-            try{
-            Personnage p = persoD.getPersonnage(persoID);
-            //Joueur j = (Joueur)request.getSession().getAttribute("user");
-            p.setBiographie(bioD.getBiographie(bioID));
-            p.getBiographie().episodes = epiD.getEpisodesEnEdition(p.getBiographie());
-            for(Episode e : p.getBiographie().episodes){
-                e.paragraphes = paD.getParagraphes(e);
-            }
-            //A GARDER
-            request.setAttribute("perso", p);
-            request.getRequestDispatcher("/WEB-INF/Biographie/EditionBio.jsp").forward(request, response);
-            }catch(DAOException e){
+            try {
+                Personnage p = persoD.getPersonnage(persoID);
+                //Joueur j = Main.GetJoueurSession(request);
+                p.setBiographie(bioD.getBiographie(bioID));
+                p.getBiographie().episodes = epiD.getEpisodesEnEdition(p.getBiographie());
+                for (Episode e : p.getBiographie().episodes) {
+                    e.paragraphes = paD.getParagraphes(e);
+                }
+                //A GARDER
+                request.setAttribute("perso", p);
+                request.getRequestDispatcher("/WEB-INF/Biographie/EditionBio.jsp").forward(request, response);
+            } catch (DAOException e) {
                 Main.dbError(request, response, e);
             }
         }
@@ -129,23 +127,23 @@ public class BiographieCtrl extends HttpServlet {
 
         // Force le login et gère les erreurs
         if (Main.notLogged(request, response)
-            || action == null) {
+                || action == null) {
             return;
         }
 
-        if(action.equals("reveler")) {
+        if (action.equals("reveler")) {
             int pid = Integer.parseInt(request.getParameter("paragID"));
             int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, (Joueur)request.getSession().getAttribute("user"));
+            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
             //DAO get paragraphe
             ParagrapheDAO paD = ParagrapheDAO.Get();
-            try{
-            Paragraphe p = paD.getParagraphe(pid);
-            
-            request.setAttribute("parag", p);
-            request.setAttribute("persoID", persoID);
-            request.getRequestDispatcher("/WEB-INF/Paragraphe/Reveler.jsp").forward(request, response);
-            }catch(DAOException e){
+            try {
+                Paragraphe p = paD.getParagraphe(pid);
+
+                request.setAttribute("parag", p);
+                request.setAttribute("persoID", persoID);
+                request.getRequestDispatcher("/WEB-INF/Paragraphe/Reveler.jsp").forward(request, response);
+            } catch (DAOException e) {
                 Main.dbError(request, response, e);
             }
         }
