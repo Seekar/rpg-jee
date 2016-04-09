@@ -31,7 +31,7 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 - Si un perso n'est pas valide, alors il n'a pas encore de MJ, et donc impossible de faire valider un épisode de sa bio
 
 
-## Infos
+#### Infos
 
 Dans la gestion des persos, le seul moyen d'être le meneur d'un de ses propres persos est qu'un autre joueur nous le cède alors qu'on était déjà meneur
 
