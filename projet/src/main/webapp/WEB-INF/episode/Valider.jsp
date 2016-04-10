@@ -23,7 +23,7 @@
               class="btn btn-default">Annuler</a>
            <button class="btn btn-primary" type="submit">Valider</button>
            <input type="hidden" name="pID" value="${episode.getId()}"/>
-           <input type="hidden" name="action" value="validevalid"/>
+           <input type="hidden" name="action" value="validate"/>
            <input type="hidden" name="persoID" value="${persoID}"/>
            <input type="hidden" name="idBio" value="${param.idBio}"/>
         </form>

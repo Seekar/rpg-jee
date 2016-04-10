@@ -38,6 +38,7 @@ public class PersonnageCtrl extends HttpServlet {
         String page = null;
         String action = request.getParameter("action");
         Joueur user = Main.GetJoueurSession(request);
+        int idUser = user.getId();
 
         // Force le login
         if (Main.notLogged(request, response)) {
@@ -88,25 +89,18 @@ public class PersonnageCtrl extends HttpServlet {
                 request.setAttribute("perso", perso);
                 
                 JoueurDAO joueurDAO = JoueurDAO.Get();
-                Collection<Joueur> listeMJ = joueurDAO.getMeneurs();
                 Collection<Joueur> listeTransfert = new ArrayList<>();
+                List<Joueur> listeMJ = joueurDAO.getAutresMeneurs(idUser);
                 List<Joueur> listeJoueurs = joueurDAO.whoCanReceive(id);
                 
                 
-                Joueur toDelete = null;
                 int mj_id = perso.getMj().getId();
                 
                 for (Joueur mj : listeMJ) {
-                    if (mj.getId() == user.getId()) {
-                        toDelete = mj;
-                    }
-                    else if (mj.getId() != mj_id) {
+                    if (mj.getId() != mj_id) {
                         listeTransfert.add(mj);
                     }
                 }
-
-                if (toDelete != null)
-                    listeMJ.remove(toDelete);
                 
                 
                 request.setAttribute("listeJoueurs", listeJoueurs);

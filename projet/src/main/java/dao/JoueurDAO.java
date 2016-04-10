@@ -98,46 +98,6 @@ public final class JoueurDAO extends AbstractJoueurDAO {
         return joueur;
     }
 
-    public ArrayList<Joueur> getListeJoueurs() throws DAOException {
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-        Connection link = null;
-        PreparedStatement statement = null;
-
-        try {
-            link = getConnection();
-            statement = link.prepareStatement("SELECT id, pseudo FROM Joueur ORDER BY pseudo");
-            
-            ResultSet res = statement.executeQuery();
-            Joueur joueur;
-
-            while (res.next()) {
-                joueur = new Joueur();
-                joueur.setId(res.getInt("id"));
-                joueur.setPseudo(res.getString("pseudo"));
-
-                joueurs.add(joueur);
-            }
-
-        } catch (Exception e) {
-            throw new DAOException("Erreur d'accès à la liste des joueurs "
-                    + e.getMessage(), e);
-
-        } finally {
-            CloseStatement(statement);
-            closeConnection(link);
-        }
-
-        return joueurs;
-    }
-
-    /**
-     * Renvoie la liste des personnages qui ont le droit
-     * de recevoir un personnage donné
-     * 
-     * @param idPerso L'id du personnage
-     * @return La liste
-     * @throws DAOException 
-     */
     public ArrayList<Joueur> whoCanReceive(int idPerso) throws DAOException {
         ArrayList<Joueur> joueurs = new ArrayList<>();
         PreparedStatement statement = null;
@@ -145,35 +105,24 @@ public final class JoueurDAO extends AbstractJoueurDAO {
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT distinct j2.id, "
-                    + "j2.pseudo FROM Joueur j2 "
-                    + "LEFT JOIN Personnage p2 on p2.joueur_id = j2.id "
-                    + "LEFT JOIN Participe r2 on r2.personnage_id = p2.id "
-                    + "LEFT JOIN Aventure a2 on r2.aventure_id = a2.id "
-                    + "WHERE NOT EXISTS (SELECT 1 FROM Personnage p "
-                    + "LEFT JOIN Participe r on r.personnage_id = p.id "
-                    + "LEFT JOIN Aventure a on r.aventure_id = a.id "
-                    + "WHERE p.id = ? AND ((a.finie = 0 AND a.id = a2.id) "
-                    + "OR j2.id = p.mj_id OR j2.id = p.joueur_id)) "
-                    + "GROUP BY j2.id, j2.pseudo "
-                    + "HAVING COUNT(p2.id) = (SELECT COUNT(p.id) "
-                    + "FROM Personnage p WHERE p.joueur_id = j2.id)"
-                    + "ORDER BY pseudo");
+            statement = link.prepareStatement("SELECT j.id, pseudo "
+                    + "FROM Joueur j JOIN Personnage p on p.joueur_id != j.id "
+                    + "WHERE p.id = ? AND p.mj_id != j.id ORDER BY pseudo");
             
             statement.setInt(1, idPerso);
-            ResultSet res = statement.executeQuery();
+            ResultSet rs = statement.executeQuery();
             Joueur joueur;
 
-            while (res.next()) {
+            while (rs.next()) {
                 joueur = new Joueur();
-                joueur.setId(res.getInt("id"));
-                joueur.setPseudo(res.getString("pseudo"));
+                joueur.setId(rs.getInt("id"));
+                joueur.setPseudo(rs.getString("pseudo"));
 
                 joueurs.add(joueur);
             }
 
         } catch (Exception e) {
-            throw new DAOException("Erreur d'accès à la liste des autres joueurs "
+            throw new DAOException("Erreur d'accès à la liste des receveurs "
                     + e.getMessage(), e);
 
         } finally {
@@ -185,7 +134,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
     }
     
     @Override
-    public ArrayList<Joueur> getMeneurs() throws DAOException {
+    public ArrayList<Joueur> getAutresMeneurs(int idJoueur) throws DAOException {
         ArrayList<Joueur> meneurs = new ArrayList<>();
         Connection link = null;
         PreparedStatement statement = null;
@@ -193,8 +142,10 @@ public final class JoueurDAO extends AbstractJoueurDAO {
         try {
             link = getConnection();
             statement = link.prepareStatement("SELECT distinct j.id, j.pseudo "
-                    + "FROM Joueur j join Aventure a on j.id = a.mj_id ORDER BY pseudo");
+                    + "FROM Joueur j join Aventure a on j.id = a.mj_id "
+                    + "WHERE j.id != ? ORDER BY pseudo");
             
+            statement.setInt(1, idJoueur);
             ResultSet res = statement.executeQuery();
             Joueur meneur;
 

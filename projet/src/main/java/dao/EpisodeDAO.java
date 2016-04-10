@@ -376,8 +376,8 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
         
         try {
             link = getConnection();
-            ps = link.prepareStatement("SELECT mj_id FROM personnage "
-                                    + "WHERE id = ?");
+            ps = link.prepareStatement("SELECT 1 FROM Personnage "
+                                     + "WHERE id = ? AND mj_id IS NOT NULL");
             ps.setInt(1, persoID);
             
             ResultSet rs = ps.executeQuery();

@@ -179,7 +179,7 @@
                     <th>Céder le personnage</th>
                     <td>
                     <c:choose>
-                    <c:when test='${isOwner}'>
+                    <c:when test='${isOwner && canTransfer}'>
                         <form class="form-inline" action="character?action=donate" method="post">
                             <div class="input-group">
                             <input type="hidden" name="idPerso" value="${perso.getId()}">

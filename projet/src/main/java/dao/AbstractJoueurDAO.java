@@ -24,5 +24,5 @@ public abstract class AbstractJoueurDAO extends AbstractDAO {
 
     public abstract Joueur getJoueur(int id) throws DAOException;
 
-    public abstract Collection<Joueur> getMeneurs() throws DAOException;
+    public abstract Collection<Joueur> getAutresMeneurs(int idJoueur) throws DAOException;
 }

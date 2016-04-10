@@ -608,19 +608,10 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             // On vérifie que le destinataire a le droit de 
             // recevoir ce personnage et que cet utilisateur 
             // en est bien le propriétaire
-            statement = link.prepareStatement("SELECT 1 FROM Joueur j2 "
-                    + "LEFT JOIN Personnage p2 on p2.joueur_id = j2.id "
-                    + "LEFT JOIN Participe r2 on r2.personnage_id = p2.id "
-                    + "LEFT JOIN Aventure a2 on r2.aventure_id = a2.id "
-                    + "WHERE j2.id = ? AND NOT EXISTS ("
-                    + "SELECT 1 FROM Personnage p "
-                    + "LEFT JOIN Participe r on r.personnage_id = p.id "
-                    + "LEFT JOIN Aventure a on r.aventure_id = a.id "
-                    + "WHERE p.id = ? AND ((a.finie = 0 AND a.id = a2.id) "
-                    + "OR j2.id = p.mj_id OR j2.id = p.joueur_id "
-                    + "OR p.joueur_id <> ?)) GROUP BY j2.id, j2.pseudo "
-                    + "HAVING COUNT(p2.id) = (SELECT COUNT(p.id) "
-                    + "FROM Personnage p WHERE p.joueur_id = j2.id)");
+            statement = link.prepareStatement("SELECT 1 "
+                    + "FROM Joueur j JOIN Personnage p on p.joueur_id != j.id "
+                    + "WHERE j.id = ? AND p.id = ? AND p.joueur_id = ? "
+                    + "AND p.mj_id != j.id ORDER BY pseudo");
 
             statement.setInt(1, idDest);
             statement.setInt(2, idPerso);
@@ -629,6 +620,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             if (!rs.next())
                 throw new DAOException("Accès refusé");
+
 
             CloseStatement(statement);
             statement = link.prepareStatement("UPDATE Personnage "

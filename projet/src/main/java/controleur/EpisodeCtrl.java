@@ -202,7 +202,7 @@ public class EpisodeCtrl extends HttpServlet {
             break;
         }
 
-        case "validevalid": {
+        case "validate": {
             try {
                 int eid = Integer.parseInt(request.getParameter("pID"));
                 int idBio = Integer.parseInt(request.getParameter("idBio"));
