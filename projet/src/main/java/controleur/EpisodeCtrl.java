@@ -39,18 +39,18 @@ public class EpisodeCtrl extends HttpServlet {
             return;
         }
 
+        EpisodeDAO ed = EpisodeDAO.Get();
+        ParagrapheDAO pad = ParagrapheDAO.Get();
+
         switch (action) {
         case "edit": {
-            int epID = Integer.parseInt(request.getParameter("id"));
-            int persoID = Integer.parseInt(request.getParameter("persoID"));
-            
-            EpisodeDAO edd = EpisodeDAO.Get();
-            ParagrapheDAO pad = ParagrapheDAO.Get();
-            
             try {
+                int epID = Integer.parseInt(request.getParameter("id"));
+                int persoID = Integer.parseInt(request.getParameter("persoID"));
+
                 Main.CheckOwnerOrMj(persoID, request);
                 
-                Episode e = edd.getEpisode(epID);
+                Episode e = ed.getEpisode(epID);
                 e.paragraphes = pad.getParagraphes(e);
                 request.setAttribute("episode", e);
                 request.setAttribute("persoID", persoID);
@@ -66,16 +66,13 @@ public class EpisodeCtrl extends HttpServlet {
         }
         
         case "suppr": {
-            int epID = Integer.parseInt(request.getParameter("id"));
-            int persoID = Integer.parseInt(request.getParameter("persoID"));
-            
-            EpisodeDAO edd = EpisodeDAO.Get();
-            ParagrapheDAO pad = ParagrapheDAO.Get();
-            
             try {
+                int epID = Integer.parseInt(request.getParameter("id"));
+                int persoID = Integer.parseInt(request.getParameter("persoID"));
+            
                 Main.CheckOwnerOrMj(persoID, request);
                 
-                Episode e = edd.getEpisode(epID);
+                Episode e = ed.getEpisode(epID);
                 e.paragraphes = pad.getParagraphes(e);
                 request.setAttribute("episode", e);
                 request.setAttribute("persoID", persoID);
@@ -91,13 +88,10 @@ public class EpisodeCtrl extends HttpServlet {
         }
         
         case "valider": {
-            int epID = Integer.parseInt(request.getParameter("id"));
-            int persoID = Integer.parseInt(request.getParameter("persoID"));
-            
-            EpisodeDAO ed = EpisodeDAO.Get();
-            ParagrapheDAO pad = ParagrapheDAO.Get();
-            
             try {
+                int epID = Integer.parseInt(request.getParameter("id"));
+                int persoID = Integer.parseInt(request.getParameter("persoID"));
+            
                 Main.CheckOwnerOrMj(persoID, request);
                 
                 Episode e = ed.getEpisode(epID);
@@ -112,13 +106,11 @@ public class EpisodeCtrl extends HttpServlet {
             } catch (Exception e) {
                 Main.invalidParameters(request, response, e);
             }
+            
             break;
         }
 
         case "validationList": {
-            EpisodeDAO ed = EpisodeDAO.Get();
-            ParagrapheDAO pad = ParagrapheDAO.Get();
-
             try {
                 List<Episode> epi = ed.getEpisodesAValider(user);
 
@@ -137,12 +129,12 @@ public class EpisodeCtrl extends HttpServlet {
         }
 
         case "new":
-            int bioID = Integer.parseInt(request.getParameter("bioID"));
-            int pid = Integer.parseInt(request.getParameter("pid"));
-            
-            AventureDAO ad = AventureDAO.Get();
-            
             try {
+                int bioID = Integer.parseInt(request.getParameter("bioID"));
+                int pid = Integer.parseInt(request.getParameter("pid"));
+
+                AventureDAO ad = AventureDAO.Get();
+            
                 Main.CheckOwnerOrMj(pid, request);
                 
                 List<Aventure> l = ad.getAventureAssociee(pid);
@@ -157,6 +149,7 @@ public class EpisodeCtrl extends HttpServlet {
             } catch (Exception e) {
                 Main.invalidParameters(request, response, e);
             }
+            
             break;
         }
     }
@@ -181,6 +174,8 @@ public class EpisodeCtrl extends HttpServlet {
                 || action == null) {
             return;
         }
+        
+        EpisodeDAO ed = EpisodeDAO.Get();
 
         switch (action) {
         case "validesuppr": {
@@ -189,10 +184,10 @@ public class EpisodeCtrl extends HttpServlet {
 
                 if (request.getParameter("res").equals("oui")) {
                     int pid = Integer.parseInt(request.getParameter("pID"));
-                    Main.CheckOwnerOrMj(persoID, request);
                     
-                    EpisodeDAO ed = EpisodeDAO.Get();
+                    Main.CheckOwnerOrMj(persoID, request);
                     ed.suppressEpisode(pid);
+                    
                     response.sendRedirect("biographie?action=afficher&id=" + persoID);
 
                 } else {
@@ -205,6 +200,7 @@ public class EpisodeCtrl extends HttpServlet {
             } catch (Exception e) {
                 Main.invalidParameters(request, response, e);
             }
+            
             break;
         }
 
@@ -216,10 +212,7 @@ public class EpisodeCtrl extends HttpServlet {
                 if (request.getParameter("res").equals("oui")) {
                     int eid = Integer.parseInt(request.getParameter("pID"));
 
-                    int joueurID = user.getId();
-                    EpisodeDAO ed = EpisodeDAO.Get();
-
-                    ed.valideEpisode(eid, persoID, joueurID);
+                    ed.valideEpisode(eid, persoID, user.getId());
                     response.sendRedirect("biographie?action=afficher&id=" + persoID);
 
                 } else {
@@ -232,20 +225,21 @@ public class EpisodeCtrl extends HttpServlet {
             } catch (Exception e) {
                 Main.invalidParameters(request, response, e);
             }
+            
             break;
         }
         
         case "new": {
             try {
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
-                Main.CheckOwnerOrMj(persoID, request);
                 String avt = request.getParameter("aventure");
                 
+                Main.CheckOwnerOrMj(persoID, request);
+                
                 if (avt.equals("__NONE__")) {
-                    EpisodeDAO ed = EpisodeDAO.Get();
-
                     int idbio = Integer.parseInt(request.getParameter("IDbio"));
                     int date = Integer.parseInt(request.getParameter("date"));
+                    
                     ed.nouvelEpisode(false, 0, idbio, date);
                     response.sendRedirect("biographie?action=afficher&id=" + persoID);
 
@@ -253,7 +247,6 @@ public class EpisodeCtrl extends HttpServlet {
                     int avent = Integer.parseInt(avt);
                     int idbio = Integer.parseInt(request.getParameter("IDbio"));
                     int date = Integer.parseInt(request.getParameter("date"));
-                    EpisodeDAO ed = EpisodeDAO.Get();
 
                     ed.nouvelEpisode(true, avent, idbio, date);
                     response.sendRedirect("biographie?action=afficher&id=" + persoID);
@@ -270,7 +263,6 @@ public class EpisodeCtrl extends HttpServlet {
         }
         
         case "validerParMJ":
-            EpisodeDAO ed = EpisodeDAO.Get();
             
             try {
                 int epID = Integer.parseInt(request.getParameter("eID"));

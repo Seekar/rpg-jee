@@ -78,7 +78,7 @@ public class Main extends HttpServlet {
                 throw se;
             }
             
-        } catch (DAOException | SecurityException e) {
+        } catch (Exception e) {
             throw se;
         }
     }
