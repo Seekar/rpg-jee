@@ -355,7 +355,7 @@ public class AventureCtrl extends HttpServlet {
             AventureDAO.Get().deletePartie(aventure);
 
             response.sendRedirect(request.getContextPath()
-                    + request.getServletPath() + "?action=list");
+                    + request.getServletPath() + "?action=leaderList");
 
         } catch (DAOException ex) {
             Main.dbError(request, response, ex);

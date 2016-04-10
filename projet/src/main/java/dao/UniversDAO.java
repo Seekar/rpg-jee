@@ -65,7 +65,7 @@ public final class UniversDAO extends AbstractUniversDAO {
             }
 
         } catch (Exception e) {
-            throw new DAOException("Erreur d'accès à la liste des univers : " + e.getMessage(), e);
+            throw new DAOException("Erreur d'accès à la liste des univers " + e.getMessage(), e);
 
         } finally {
             if (statement != null) {

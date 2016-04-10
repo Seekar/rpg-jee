@@ -387,16 +387,16 @@ public final class AventureDAO extends AbstractAventureDAO {
 
         try {
             link = initConnection();
-            statement = link.prepareStatement("DELETE FROM Aventure "
-                    + "WHERE id = ?");
+            statement = link.prepareStatement("DELETE FROM Participe "
+                    + "WHERE aventure_id = ?");
             
             statement.setInt(1, aventure.getId());
             statement.executeUpdate();
             
             
             statement.close();
-            statement = link.prepareStatement("DELETE FROM Participe "
-                    + "WHERE aventure_id = ?");
+            statement = link.prepareStatement("DELETE FROM Aventure "
+                    + "WHERE id = ?");
             statement.setInt(1, aventure.getId());
             statement.executeUpdate();
             commit();

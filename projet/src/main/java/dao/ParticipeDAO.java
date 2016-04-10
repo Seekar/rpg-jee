@@ -70,8 +70,7 @@ public class ParticipeDAO extends AbstractParticipeDAO {
             
             
             statement = link.prepareStatement("INSERT INTO Participe "
-                    + "(aventure_id, personnage_id) "
-                    + " VALUES (?, ?)");
+                    + "(aventure_id, personnage_id) VALUES (?, ?)");
 
             statement.setInt(1, p.getAventure().getId());
             statement.setInt(2, perso.getId());
@@ -84,7 +83,7 @@ public class ParticipeDAO extends AbstractParticipeDAO {
 
         } catch (Exception e) {
             rollback();
-            throw new DAOException("Erreur à l'ajout d'un participant : "
+            throw new DAOException("Erreur à l'ajout d'un participant "
                     + e.getMessage(), e);
 
         } finally {
@@ -102,7 +101,7 @@ public class ParticipeDAO extends AbstractParticipeDAO {
             link = initConnection();
             
             statement = link.prepareStatement("DELETE FROM Participe p"
-                    + " WHERE p.aventure_id=? AND p.personnage_id=?");
+                    + " WHERE p.aventure_id=? AND p.personnage_id = ?");
 
             statement.setInt(1, aventure.getId());
             statement.setInt(2, perso.getId());
@@ -112,7 +111,7 @@ public class ParticipeDAO extends AbstractParticipeDAO {
 
         } catch (Exception e) {
             rollback();
-            throw new DAOException("Erreur à la suppression d'un participant : "
+            throw new DAOException("Erreur à la suppression d'un participant "
                     + e.getMessage(), e);
 
         } finally {

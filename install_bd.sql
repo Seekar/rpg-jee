@@ -132,17 +132,20 @@ alter table Episode
 alter table Participe 
     add constraint FK2352B5619C649A 
     foreign key (aventure_id) 
-    references Aventure;
+    references Aventure
+    on delete cascade;
 
 alter table Participe
     add constraint FK2352B55F4B841A 
     foreign key (personnage_id) 
-    references Personnage;
+    references Personnage
+    on delete cascade;
 
 alter table Paragraphe
     add constraint FK889B40D767F703BA 
     foreign key (episode_id) 
-    references Episode;
+    references Episode
+    on delete cascade;
 
 alter table Personnage 
     add constraint FK9F513EC65448AEB9 
