@@ -10,10 +10,16 @@
     </jsp:attribute>
 
     <jsp:body>
-        <form class="form-horizontal col-sm-offset-3" action="paragraphe" method="post">
+        <form class="form-horizontal col-sm-offset-2" action="paragraphe" method="post">
             
             <div class="form-group">
-              <div class="col-sm-8">
+              <div class="col-sm-10">
+                <textarea class="form-control" rows="10" id="texte" name="texte" placeholder="Contenu du paragraphe" 
+                 value="${param.texte}" required></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-10">
                 <div class="checkbox">
                   <label>
                     <input type="checkbox" name="secret" value="false">Paragraphe secret
@@ -22,13 +28,7 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="col-sm-8">
-                <textarea class="form-control" rows="7" id="texte" name="texte" placeholder="Contenu du paragraphe" 
-                 value="${param.texte}" required></textarea>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-8">
+              <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">Valider la création</button>
               </div>
             </div>

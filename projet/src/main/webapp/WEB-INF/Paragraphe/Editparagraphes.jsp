@@ -4,15 +4,24 @@
 
 <t:wrapper>
     <jsp:attribute name="header">
-        <h1>Edition d'un paragraphe</h1>
+        <h1>Modifier un paragraphe</h1>
     </jsp:attribute>
 
     <jsp:body>
-        <form action="paragraphe" method="post">
-            <textarea name="texte" ><c:out value="${parag.getTexte()}"/></textarea><br/>
-            <button type="submit" class="btn btn-primary">Ok</button>
-            <input type="hidden" value="${parag.getID()}" name="id"/>
-            <input type="hidden" value="edit" name="action"/>
+        <form class="form-horizontal col-sm-offset-2" action="paragraphe" method="post">
+            <div class="form-group">
+              <div class="col-sm-10">
+                <textarea class="form-control" rows="10" id="texte" name="texte" required
+                 placeholder="Contenu du paragraphe"><c:out value="${parag.getTexte()}"/></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Valider les modifications</button>
+              </div>
+            </div>
+            <input type="hidden" name="id" value="${parag.getID()}"/>
+            <input type="hidden" name="action" value="edit"/>
             <input type="hidden" name="persoID" value="${persoID}"/>
         </form>
     </jsp:body>

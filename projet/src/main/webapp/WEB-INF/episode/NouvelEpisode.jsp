@@ -12,7 +12,7 @@
     <jsp:body>
         <form class="form-horizontal col-sm-offset-3" action="episode" method="post">
             <div class="form-group">
-            <label for="date" class="col-sm-3 control-label">Date en UT</label>
+            <label for="date" class="col-sm-3 control-label">Date en Unités Temporelles</label>
             <div class="col-sm-4">
             <input id="date" class="form-control" type="number" name="date" value="${param.date}" required min="-999999999" max="999999999"/>
             </div>

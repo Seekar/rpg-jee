@@ -67,8 +67,8 @@
                 <tr>
                     <th>Accès rapide</th>
                     <td>
-                        <a href="game?action=characterList&id=${perso.getId()}" class="btn btn-danger">Parties</a>
                         <a href="biographie?action=afficher&id=${perso.getId()}" class="btn btn-primary">Biographie</a>
+                        <a href="game?action=characterList&id=${perso.getId()}" class="btn btn-danger">Parties</a>
                     </td>
                 </tr>
                 <tr>

@@ -4,44 +4,40 @@
 
 <t:wrapper>
     <jsp:attribute name="header">
-        <h1>Edition de la biographie de <c:out value="${perso.nom}"/></h1>
+        <h1>Episodes de <c:out value="${perso.nom}"/> en édition</h1>
     </jsp:attribute>
 
     <jsp:body>
-        <h2>Episodes en cours d'édition</h2>
-
-        <p><a class="btn btn-primary" href="episode?action=new&bioID=${perso.getBiographie().getID()}&pid=${perso.getId()}" >Nouveau</a></p>
+        <div class="text-left">
+        <a href="episode?action=new&bioID=${perso.getBiographie().getID()}&pid=${perso.getId()}"
+              class="btn btn-primary">Nouvel épisode</a>
         
         <c:forEach items="${perso.getBiographie().getEpisodes()}" var="episode">
-            <c:if test="${!episode.getValide()}">
-                <c:choose >                   
-                    <c:when test="${episode.getParagraphes().size() !=0}">
-                        <c:forEach items="${episode.getParagraphes()}" var="parag">
-                            <c:choose>
-                                <c:when test="${parag.isSecret()}">  
-                                <p><c:out value="${parag.getTexte()}"/> (secret)</p>
-                                <form action="biographie" method="POST">
-                                    <button class="btn btn-primary" type="submit" class="btn btn-primary">Révéler</button>
-                                    <input type="hidden" name="paragID" value="${parag.getID()}"/>
-                                    <input type="hidden" name="action" value="reveler"/>
-                                    <input type="hidden" name="persoID" value="${perso.getId()}"/>
-                                </form>
-                                </c:when>
-                                <c:otherwise>
-                                    <p><c:out value="${parag.getTexte()}"/></p>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        (Episode vide)
-                    </c:otherwise>
-                </c:choose>  
-                <a class="btn btn-default btn-sm" href="episode?id=${episode.getId()}&action=edit&persoID=${perso.getId()}" > Editer l'épisode</a>
-                <a class="btn btn-default btn-sm" href="episode?id=${episode.getId()}&action=suppr&persoID=${perso.getId()}" > Supprimer l'épisode</a>
-                <a class="btn btn-default btn-sm" href="episode?id=${episode.getId()}&action=valider&persoID=${perso.getId()}" > Valider l'épisode</a>
-            </c:if><br/>
+        <c:if test="${!episode.getValide()}">
+        <br/>
+        <h3>Episode daté à <c:out value="${episode.getDate()}"/> UT</h3>
+
+        <c:forEach items="${episode.getParagraphes()}" var="parag">
+            <p<c:if test="${parag.isSecret()}"> class="text-info"</c:if>><c:out value="${parag.getTexte()}"/></p>
+            <c:if test="${parag.isSecret()}">
+            <form action="biographie" method="POST">
+                <button type="submit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open" 
+                aria-hidden="true"></span> Révéler ce paragraphe</button>
+                <input type="hidden" name="persoID" value="${perso.getId()}"/>
+                <input type="hidden" name="paragID" value="${parag.getID()}"/>
+                <input type="hidden" name="action" value="reveler"/>
+            </form>
+            <br/>
+            </c:if>
         </c:forEach>
+        </c:if>
+
+        <a class="btn btn-default btn-sm" href="episode?id=${episode.getId()}&action=edit&persoID=${perso.getId()}" > Modifier l'épisode</a>
+        <a class="btn btn-danger btn-sm" href="episode?id=${episode.getId()}&action=suppr&persoID=${perso.getId()}" > Supprimer l'épisode</a>
+        <a class="btn btn-success btn-sm" href="episode?id=${episode.getId()}&action=valider&persoID=${perso.getId()}" > Valider l'épisode</a>
+        
+        </c:forEach>
+        </div>
 
     </jsp:body>
 </t:wrapper>

@@ -11,7 +11,7 @@
         <div class="text-left">
         <p>${perso.getBiographie().showTexte()}</p>
 
-        <br>
+        <br/>
         <c:if test="${owner}">
         <a href="biographie?action=edition&persoID=${perso.getId()}&biographie=${perso.getBiographie().getID()}" 
            class="btn btn-default">Editer les épisodes</a>
@@ -19,7 +19,7 @@
 
         <c:forEach items="${perso.getBiographie().getEpisodes()}" var="episode">
         <c:if test="${episode.getValide()}">
-        <br>
+        <br/>
         <h3>Episode daté à <c:out value="${episode.getDate()}"/> UT<c:if test="${episode.getAventure() != null}">, 
         pendant l'aventure <a href="game?action=show&id=${episode.getAventure().getId()}"
          target="_blank"><c:out value="${episode.getAventure().getTitre()}"/></a></c:if></h3>
@@ -34,7 +34,7 @@
                 <input type="hidden" name="paragID" value="${parag.getID()}"/>
                 <input type="hidden" name="action" value="reveler"/>
             </form>
-            <br>
+            <br/>
             </c:if>
         </c:forEach>
         </c:if>
