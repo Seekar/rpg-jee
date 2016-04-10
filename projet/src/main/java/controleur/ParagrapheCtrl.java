@@ -107,15 +107,13 @@ public class ParagrapheCtrl extends HttpServlet {
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
                 Main.CheckOwnerOrMj(persoID, request);
 
-                if (request.getParameter("res").equals("oui")) {
-                    int pid = Integer.parseInt(request.getParameter("pID"));
+                int pid = Integer.parseInt(request.getParameter("pID"));
 
-                    ParagrapheDAO pad = ParagrapheDAO.Get();
-                    pad.reveleParagraphe(pid);
+                ParagrapheDAO pad = ParagrapheDAO.Get();
+                pad.reveleParagraphe(pid);
 
-                    // Réponse AJAX
-                    response.getWriter().print("done");
-                }
+                // Réponse AJAX
+                response.getWriter().print("done");
 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);

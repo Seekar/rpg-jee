@@ -18,7 +18,6 @@
         <p<c:if test="${parag.isSecret()}"> class="text-info"</c:if>><c:out value="${parag.getTexte()}"/></p>
         </c:forEach>
            <form action="episode" method="post">
-           <input type="hidden" name="res" value='oui' class="btn btn-default"/>
            <button class="btn btn-primary btn-sm" type="submit">Valider l'épisode</button>
            <input type="hidden" name="eID" value="${episode.getId()}"/>
            <input type="hidden" name="action" value="validerParMJ"/>

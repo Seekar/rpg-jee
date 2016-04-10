@@ -554,7 +554,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     }
 
     @Override
-    public void modifierPersonnage(Personnage p, int idUser) throws DAOException {
+    public void modifierPersonnage(Personnage p, int idUser)
+            throws DAOException, SecurityException {
         Connection link = null;
         PreparedStatement statement = null;
 
@@ -571,7 +572,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             ResultSet rs = statement.executeQuery();
 
             if (!rs.next())
-                throw new DAOException("Accès refusé");
+                throw new SecurityException("Accès refusé");
 
             statement.close();
             statement = link.prepareStatement("UPDATE Personnage "
@@ -583,8 +584,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             link.commit();
 
-        } catch (DAOException e) {
-            throw e;
+        } catch (SecurityException se) {
+            throw se;
 
         } catch (SQLException e) {
             rollback();
@@ -661,8 +662,10 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             link = getConnection();
             statement = link.prepareStatement("SELECT 1 FROM Personnage p "
                     + "JOIN Participe r on p.id = r.personnage_id JOIN "
-                    + "Aventure a on a.id = r.aventure_id WHERE finie = 0");
+                    + "Aventure a on a.id = r.aventure_id "
+                    + "WHERE finie = 0 AND p.id = ?");
 
+            statement.setInt(1, idPerso);
             ResultSet rs = statement.executeQuery();
             result = rs.next();
 

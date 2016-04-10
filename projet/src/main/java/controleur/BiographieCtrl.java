@@ -140,27 +140,7 @@ public class BiographieCtrl extends HttpServlet {
                 || action == null) {
             return;
         }
-
-        if (action.equals("reveler")) {
-            try {
-                int pid = Integer.parseInt(request.getParameter("paragID"));
-                int persoID = Integer.parseInt(request.getParameter("persoID"));
-                ParagrapheDAO paD = ParagrapheDAO.Get();
-            
-                Main.CheckOwnerOrMj(persoID, request);
-                
-                Paragraphe p = paD.getParagraphe(pid);
-
-                request.setAttribute("parag", p);
-                request.setAttribute("persoID", persoID);
-                request.getRequestDispatcher("/WEB-INF/Paragraphe/Reveler.jsp").forward(request, response);
-                
-            } catch (DAOException e) {
-                Main.dbError(request, response, e);
-                
-            } catch (Exception e) {
-                Main.invalidParameters(request, response, e);
-            }
-        }
+        
+        
     }
 }

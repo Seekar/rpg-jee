@@ -80,8 +80,7 @@ public class PersonnageCtrl extends HttpServlet {
                 perso = persoDAO.getPersonnage(id);
                 canTransfer = !persoDAO.dansPartieEnCours(id);
 
-                if (perso.getJoueur().getId() == user.getId()
-                    || perso.getMj().getId() == user.getId())
+                if (perso.getJoueur().getId() == user.getId())
                     canEdit = true;
 
                 request.setAttribute("canEdit", canEdit);
@@ -140,36 +139,39 @@ public class PersonnageCtrl extends HttpServlet {
                 try {
                     String titre = null;
 
-                    if (action.equals("ownedList")) {
+                    switch (action) {
+                    case "ownedList":
                         persos = persoDAO.getPersonnagesJoueur(user);
                         titre = "Personnages possédés";
-                    }
-                    else if (action.equals("leaderList")) {
+                        break;
+                        
+                    case "leaderList":
                         persos = persoDAO.getPersonnagesMenes(user);
                         titre = "Personnages menés";
-                    }
-                    else if (action.equals("transferList")) {
+                        break;
+                        
+                    case "transferList":
                         persos = persoDAO.getTransfertsAValider(user);
                         titre = "Demandes de transfert";
-                    }
-                    else if (action.equals("validationList")) {
+                        break;
+                        
+                    case "validationList":
                         persos = persoDAO.getPersonnagesAValider(user);
                         titre = "Personnages à valider";
-                    }
-                    else if (action.equals("gameList")) {
+                        break;
+                        
+                    case "gameList":
                         String idParam = request.getParameter("id");
                         int idPartie = Integer.parseInt(idParam);
                         boolean persoKiller = false;
-                        
                         Aventure partie = avDAO.getAventure(idPartie);
                         persos = partie.getPersonnages();
                         titre = "Participants à \"" + partie.getTitre() + "\"";
-  
                         if (user.getId() == partie.getMj().getId()
-                            && !partie.isFinie())
+                                && !partie.isFinie())
                             persoKiller = true;
-                        
                         request.setAttribute("persoKiller", persoKiller);
+                        break;
                     }
 
                     request.setAttribute("titre", titre);
@@ -177,6 +179,9 @@ public class PersonnageCtrl extends HttpServlet {
 
                 } catch (DAOException e) {
                    Main.dbError(request, response, e);
+
+                } catch (Exception e) {
+                   Main.invalidParameters(request, response, e);
                 }
             }
         }
@@ -366,11 +371,11 @@ public class PersonnageCtrl extends HttpServlet {
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=show&id=" + idPerso);
 
-        } catch (NumberFormatException | IOException ex) {
-            Main.invalidParameters(request, response, ex);
-
         } catch (DAOException ex) {
             Main.dbError(request, response, ex);
+
+        } catch (Exception ex) {
+            Main.invalidParameters(request, response, ex);
         }
     }
 

@@ -34,8 +34,7 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
         <button type="button" class="btn btn-primary" onclick="
         $.post('paragraphe',
-        { res : 'oui',
-        persoID : ${persoID},
+        { persoID : ${persoID},
         pID : ${parag.getID()},
         action : 'reveler' },
         function (data) {

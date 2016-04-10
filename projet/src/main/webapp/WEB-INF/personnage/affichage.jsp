@@ -130,6 +130,7 @@
                 </tr>
                 <tr>
                     <c:set var="noTransfer" value="${perso.getTransfert().getId() == 0}"/>
+                    <c:set var="isTransfer" value="${perso.getTransfert().getId() == sessionScope.user.getId()}"/>
                     <th>Changement de meneur</th>
                     <td>
                     <c:choose>
@@ -154,12 +155,12 @@
                                 </div>
                             </form>
                         </c:when>
-                        <c:when test='${!noTransfer}'>
+                        <c:when test='${!noTransfer && !isTransfer}'>
                         <p>En attente de transfert</p>
                         </c:when>
                         <c:otherwise>
                             <c:choose>
-                            <c:when test='${perso.getTransfert().getId() == sessionScope.user.getId()}'>
+                            <c:when test='${isTransfer}'>
                             <a class="btn btn-default" href="character?action=transfer&id=${perso.getId()}">Accepter le transfert</button>
                             </c:when>
                             <c:otherwise>

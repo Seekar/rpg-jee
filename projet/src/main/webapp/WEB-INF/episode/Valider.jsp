@@ -19,7 +19,6 @@
         <br/>
         </div>
         <form action="episode" method="post">
-           <input type="hidden" name="res" value='oui' class="btn btn-default"/>
            <a href="biographie?action=edition&persoID=${persoID}&biographie=${param.idBio}"
               class="btn btn-default">Annuler</a>
            <button class="btn btn-primary" type="submit">Valider</button>

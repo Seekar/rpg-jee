@@ -371,26 +371,26 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
     @Override
     public boolean hasMJ(int persoID) throws DAOException {
         PreparedStatement ps = null;
-        Connection c = null;
-        Object o  = null;  
+        Connection link = null;
+        boolean result = false;
+        
         try {
-            c = initConnection();
-            ps = c.prepareStatement("select mj_id "
-                    + "from personnage where id = ?");
+            link = getConnection();
+            ps = link.prepareStatement("SELECT mj_id FROM personnage "
+                                    + "WHERE id = ?");
             ps.setInt(1, persoID);
+            
             ResultSet rs = ps.executeQuery();
-            rs.next();
-             o = rs.getObject("mj_id");
-            CloseStatement(ps);
-            closeConnection(c);
-            return o !=null;
-        } catch (Exception e) {
-            rollback();
+            result = rs.next();
+            
+        } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
 
         } finally {
             CloseStatement(ps);
-            closeConnection(c);
+            closeConnection(link);
         }
+        
+        return result;
     }
 }

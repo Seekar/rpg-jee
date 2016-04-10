@@ -6,6 +6,7 @@ import dao.EpisodeDAO;
 import dao.ParagrapheDAO;
 import java.io.*;
 import java.rmi.ServerException;
+import java.rmi.server.ExportException;
 import java.util.List;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -183,12 +184,10 @@ public class EpisodeCtrl extends HttpServlet {
                 int idBio = Integer.parseInt(request.getParameter("idBio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
 
-                if (request.getParameter("res").equals("oui")) {
-                    int pid = Integer.parseInt(request.getParameter("pID"));
-                    
-                    Main.CheckOwnerOrMj(persoID, request);
-                    ed.suppressEpisode(pid);
-                }
+                int pid = Integer.parseInt(request.getParameter("pID"));
+
+                Main.CheckOwnerOrMj(persoID, request);
+                ed.suppressEpisode(pid);
                 
                 response.sendRedirect("biographie?action=edition&persoID="
                         + persoID + "&biographie=" + idBio);
@@ -205,25 +204,24 @@ public class EpisodeCtrl extends HttpServlet {
 
         case "validevalid": {
             try {
+                int eid = Integer.parseInt(request.getParameter("pID"));
                 int idBio = Integer.parseInt(request.getParameter("idBio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
+                
                 Main.CheckOwnerOrMj(persoID, request);
                 
-                if (request.getParameter("res").equals("oui")) {
-                    int eid = Integer.parseInt(request.getParameter("pID"));
-                    boolean hasmj = ed.hasMJ(persoID);
-                    if(hasmj)
-                        ed.valideEpisode(eid, persoID, user.getId());
-                    else{
-                        request.setAttribute("persoID", persoID);
-                        request.setAttribute("biographie", idBio);
-                        request.getRequestDispatcher("/WEB-INF/episode/pasdeMJ.jsp").forward(request, response);
-                        return;
-                    }
-                }
+                boolean hasMJ = ed.hasMJ(persoID);
                 
-                response.sendRedirect("biographie?action=edition&persoID="
-                        + persoID + "&biographie=" + idBio);
+                if (hasMJ) {
+                    ed.valideEpisode(eid, persoID, user.getId());
+                    
+                    response.sendRedirect("biographie?action=edition&persoID="
+                            + persoID + "&biographie=" + idBio);
+                }
+                else {
+                    throw new Exception("Pour faire valider un épisode, "
+                            + "il faut d'abord faire valider le personnage");
+                }
                 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
@@ -269,10 +267,7 @@ public class EpisodeCtrl extends HttpServlet {
             
             try {
                 int epID = Integer.parseInt(request.getParameter("eID"));
-
-                if (request.getParameter("res").equals("oui")) {
-                    ed.valideEpisodeParMj(epID, user.getId());
-                }
+                ed.valideEpisodeParMj(epID, user.getId());
                 
                 response.sendRedirect("episode?action=validationList");
             

@@ -40,6 +40,7 @@
                 </c:forEach>
             </tbody>
         </table>
-        <c:if test="${persoKiller}"><br/><a href="game?action=show&id=${idPartie}" class="btn btn-default">Retour</a></c:if>
+        <c:if test="${persoKiller}"><br/><a href="game?action=show&id=${idPartie}" class="btn btn-default">
+                Retour à la partie</a></c:if>
     </jsp:body>
 </t:wrapper>
