@@ -40,30 +40,35 @@ public final class BiographieDAO extends AbstractBiographieDAO {
     @Override
     public Biographie getBiographie(Personnage p) throws DAOException {
         Connection c = null;
+        Biographie b = null;
+        
         try {
-            c = dataSource.getConnection();
+            c = getConnection();
             PreparedStatement ps = c.prepareStatement("select b.id, b.texte "
                     + "from Biographie b, Personnage p "
                     + "where b.id=p.biographie_id and p.id=?");
 
             ps.setInt(1, p.getId());
             ResultSet res = ps.executeQuery();
+            
             res.next();
-            Biographie b = new Biographie(res.getInt("id"), res.getString("texte"));
-            return b;
+            b = new Biographie(res.getInt("id"), res.getString("texte"));
+            
         } catch (Exception e) {
             throw new DAOException("", e);
+            
         } finally {
-
             closeConnection(c);
         }
+        
+        return b;
     }
 
     @Override
     public Biographie getBiographie(int id) throws DAOException {
-        Biographie bio = null;
-        Connection link = null;
         PreparedStatement statement = null;
+        Connection link = null;
+        Biographie bio = null;
 
         try {
             link = getConnection();
@@ -75,7 +80,8 @@ public final class BiographieDAO extends AbstractBiographieDAO {
             ResultSet rs = statement.executeQuery();
 
             if (!rs.next()) {
-                throw new Exception("Aucun biographie correcpondant à l'ID : " + id);
+                throw new Exception("Aucune biographie "
+                        + "correspondant à l'ID " + id);
             }
 
             bio = new Biographie(rs.getInt("id"), rs.getString("texte"));
@@ -84,13 +90,7 @@ public final class BiographieDAO extends AbstractBiographieDAO {
             throw new DAOException(e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                }
-            }
-
+            CloseStatement(statement);
             closeConnection(link);
         }
 

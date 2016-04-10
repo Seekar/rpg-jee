@@ -47,29 +47,33 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
     public Collection<Personnage> getAllPersonnages() throws DAOException {
         List<Personnage> result = new ArrayList<>();
-        Connection conn = null;
-        Statement st = null;
+        Connection link = null;
+        PreparedStatement ps = null;
         
         try {
-            conn = getConnection();
-            st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Personnage ORDER BY nom");
+            link = getConnection();
+            ps = link.prepareStatement("SELECT * FROM Personnage ORDER BY nom");
+            ResultSet rs = ps.executeQuery();
+            
             while (rs.next()) {
-                Personnage personnage
-                        = new Personnage(rs.getString("nom"), rs.getString("naissance"), rs.getString("profession"), rs.getString("portrait"), new Univers(rs.getInt("univers_id")));
+                Personnage personnage = new Personnage(rs.getString("nom"),
+                        rs.getString("naissance"), rs.getString("profession"),
+                        rs.getString("portrait"),
+                        new Univers(rs.getInt("univers_id")));
+                
                 result.add(personnage);
             }
             
         } catch (SQLException e) {
-            throw new DAOException("Erreur BD " + e.getMessage(), e);
+            throw new DAOException("Erreur d'accès aux personnages " + e.getMessage(), e);
             
         } finally {
-            CloseStatement(st);
-            closeConnection(conn);
+            CloseStatement(ps);
+            closeConnection(link);
         }
+        
         return result;
     }
-
 
     @Override
     public ArrayList<Personnage> getPersonnagesJoueur(Joueur j) throws DAOException {
@@ -375,6 +379,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                 throw new DAOException("Accès refusé");
 
 
+            statement.close();
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET validateur_id = ? WHERE id = ?");
 
@@ -427,7 +432,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             if (!rs.next())
                 throw new DAOException("Accès refusé");
 
-            
+            statement.close();
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET transfert_id = ? WHERE id = ?");
 
@@ -470,6 +475,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             if (!rs.next())
                 throw new DAOException("Accès refusé");
 
+            statement.close();
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET valide = 1, mj_id = validateur_id WHERE id = ?");
 
@@ -516,6 +522,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             if (!rs.next())
                 throw new DAOException("Accès refusé");
 
+            statement.close();
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET mj_id = transfert_id, transfert_id = NULL WHERE id = ?");
 
@@ -557,6 +564,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             if (!rs.next())
                 throw new DAOException("Accès refusé");
 
+            statement.close();
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET profession = ? WHERE id = ?");
 
@@ -599,6 +607,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             if (!rs.next())
                 throw new DAOException("Accès refusé");
 
+            statement.close();
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET joueur_id = ? WHERE id = ?");
 

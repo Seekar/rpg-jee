@@ -39,7 +39,7 @@ public abstract class AbstractDAO {
     /**
      * Fermeture d'une connexion
      *
-     * @param c La connexion à fermer
+     * @param link La connexion à fermer
      * @throws DAOException si problème lors de la fermeture de la connexion
      */
     protected void closeConnection(Connection link) throws DAOException {
@@ -48,7 +48,8 @@ public abstract class AbstractDAO {
                 link.close();
                 
             } catch (SQLException sqle) {
-                throw new DAOException("Erreur fermeture de connexion bd", sqle);
+                throw new DAOException("Erreur à la "
+                        + "fermeture de connexion", sqle);
             }
         }
     }
@@ -65,7 +66,8 @@ public abstract class AbstractDAO {
                 curLink = null;
                 
             } catch (SQLException sqle) {
-                throw new DAOException("Erreur fermeture de connexion bd", sqle);
+                throw new DAOException("Erreur à la "
+                        + "fermeture de connexion", sqle);
             }
         }
     }
@@ -108,6 +110,18 @@ public abstract class AbstractDAO {
             try {
                 statement.close();
             } catch (SQLException ex) {}
+        }
+    }
+    
+    public void commit() throws DAOException {
+        if (curLink != null) {
+            try {
+                curLink.commit();
+                curLink = null;
+                
+            } catch (SQLException sqle) {
+                throw new DAOException("Erreur de commit", sqle);
+            }
         }
     }
 }

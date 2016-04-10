@@ -4,15 +4,16 @@
 
 <t:wrapper>
     <jsp:attribute name="header">
-        <h1>Etes Vous Sur De Vouloir Réveler Ce Paragraphe ?</h1>
+        <h1>Voulez-vous vraiment révéler ce paragraphe ?</h1>
     </jsp:attribute>
 
     <jsp:body>
         <p><c:out value="${parag.getTexte()}"/></p>
+        <br/>
         <form action="paragraphe" method="post">
-           Oui <input type="radio" name="res" value='oui'/><br/>
-           Non <input type="radio" name="res" value="non" checked/><br/>
-           <button class="btn btn-primary" type="submit"> Ok</button>
+           <input type="hidden" name="res" value='oui' class="btn btn-default"/>
+           <a href="biographie?action=afficher&id=${persoID}" class="btn btn-default">Annuler</a>
+           <button class="btn btn-default" type="submit">Révéler</button>
            <input type="hidden" name="pID" value="${parag.getID()}"/>
            <input type="hidden" name="action" value="reveler"/>
            <input type="hidden" name="persoID" value="${persoID}"/>

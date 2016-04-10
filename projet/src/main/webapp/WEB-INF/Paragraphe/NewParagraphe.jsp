@@ -3,15 +3,35 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Créer un paragraphe</jsp:attribute>
+    
     <jsp:attribute name="header">
-        <h1>Nouveau Paragraphe</h1>
+        <h1>Créer un paragraphe</h1>
     </jsp:attribute>
 
     <jsp:body>
-        <form action="paragraphe" method="post">
-            <textarea name="texte" ></textarea><br/>
-            <input type="checkbox" value="false" name="secret"/><label> secret </label><br/>
-            <button class="btn btn-primary" type="submit"> Ok </button>
+        <form class="form-horizontal col-sm-offset-3" action="paragraphe" method="post">
+            
+            <div class="form-group">
+              <div class="col-sm-8">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="secret" value="false">Paragraphe secret
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-8">
+                <textarea class="form-control" rows="7" id="texte" name="texte" placeholder="Contenu du paragraphe" 
+                 value="${param.texte}" required></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary">Valider la création</button>
+              </div>
+            </div>
             <input type="hidden" name="episodeID" value="${eID}"/>
             <input type="hidden" name="action" value="new"/>
             <input type="hidden" name="persoID" value="${persoID}"/>

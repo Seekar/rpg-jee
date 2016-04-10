@@ -167,66 +167,54 @@ public final class AventureDAO extends AbstractAventureDAO {
 
         return avs;
     }
-    
-    /*public Aventure getAventure(int aID) throws DAOException{
-        Connection c = null;
-        try {
-            c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("select * from aventure where  id=?");
-            ps.setInt(1, aID);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            Aventure a = getAventure(aID);
-            a.setTitre(rs.getString("titre"));
-            closeConnection(c);
-            return a;
-        } catch (Exception e) {
-            throw new DAOException(e.getMessage(), e);
-        } finally {
-            closeConnection(c);
-        }
-    }*/
 
     @Override
     public List<Aventure> getAventureAssociee(int persoID) throws DAOException {
+        LinkedList<Integer> avt = null;
+        LinkedList<Aventure> a;
+        PreparedStatement ps = null;
         Connection c = null;
+        
         try {
-            c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("SELECT aventure_id "
+            c = getConnection();
+            ps = c.prepareStatement("SELECT aventure_id "
                     + "FROM Participe p LEFT JOIN Aventure a "
                     + "on p.aventure_id = a.id WHERE personnage_id = ? "
                     + "AND finie = 1");
 
             ps.setInt(1, persoID);
             ResultSet rs = ps.executeQuery();
-            LinkedList<Integer> avt = new LinkedList<Integer>();
+            
+            avt = new LinkedList<>();
             while (rs.next()) {
                 avt.add(rs.getInt("aventure_id"));
             }
-            closeConnection(c);
-            LinkedList<Aventure> a = new LinkedList<>();
-            for(int id :avt){
-                a.add(getAventure(id));
-            }
-            return a;
-
+            
         } catch (Exception e) {
             throw new DAOException(e.getMessage(), e);
 
         } finally {
+            CloseStatement(ps);
             closeConnection(c);
         }
+        
+        a = new LinkedList<>();
+        for(int id : avt){
+            a.add(getAventure(id));
+        }
+        
+        return a;
     }
 
     @Override
     public Aventure getAventure(int id) throws DAOException {
+        List<Integer> listPersoId = new ArrayList<>();
         Aventure aventure = null;
         Connection link = null;
         PreparedStatement statement = null;
 
         try {
-            link = getConnection();    
-
+            link = getConnection();
             statement = link.prepareStatement("SELECT a.id, aDate, events, "
                     + "finie, lieu, situation, titre, mj_id, univers_id, "
                     + "u.id as u_id, u.nom as u_nom, j.pseudo as meneur "
@@ -250,17 +238,19 @@ public final class AventureDAO extends AbstractAventureDAO {
             aventure.setMj(new Joueur(rs.getInt("mj_id"), rs.getString("meneur")));
             aventure.setUnivers(new Univers(rs.getInt("u_id"),rs.getString("u_nom")));
             
+            CloseStatement(statement);
+            
+            
             // Liste des personnages dans l'aventure
-            statement = link.prepareCall("SELECT aventure_id, personnage_id " 
-                    + "FROM Participe WHERE aventure_id = ?");
+            statement = link.prepareStatement("SELECT aventure_id, "
+                    + "personnage_id FROM Participe WHERE aventure_id = ?");
+            
             statement.setInt(1, id);
             rs = statement.executeQuery();
-            List<Personnage> listPerso = new ArrayList<>();
-            while (rs.next()) {
-                listPerso.add(PersonnageDAO.Get().getPersonnage(rs.getInt("personnage_id")));
-            }
-            aventure.setPersonnages(listPerso);
             
+            while (rs.next()) {
+                listPersoId.add(rs.getInt("personnage_id"));
+            }
 
         } catch (Exception e) {
             throw new DAOException("Erreur d'accès à une partie "
@@ -271,6 +261,14 @@ public final class AventureDAO extends AbstractAventureDAO {
             closeConnection(link);
         }
 
+        if (aventure != null) {
+            List<Personnage> listPerso = new ArrayList<>();
+            for (int idPerso : listPersoId) {
+                listPerso.add(PersonnageDAO.Get().getPersonnage(idPerso));
+            }
+            aventure.setPersonnages(listPerso);
+        }
+        
         return aventure;
     }
 
@@ -361,15 +359,17 @@ public final class AventureDAO extends AbstractAventureDAO {
         PreparedStatement statement = null;
 
         try {
-            link = getConnection();
+            link = initConnection();
             statement = link.prepareStatement("UPDATE Aventure "
                     + "SET events = ?, finie=1 WHERE id = ?");
             
             statement.setString(1, events);
             statement.setInt(2, aventure.getId());
             statement.executeUpdate();
+            link.commit();
 
         } catch (Exception e) {
+            rollback();
             throw new DAOException("Erreur lors de la terminaison d'une partie "
                     +  e.getMessage(), e);
 
@@ -385,7 +385,7 @@ public final class AventureDAO extends AbstractAventureDAO {
         PreparedStatement statement = null;
 
         try {
-            link = getConnection();
+            link = initConnection();
             statement = link.prepareStatement("DELETE FROM Aventure "
                     + "WHERE id = ?");
             
@@ -393,13 +393,17 @@ public final class AventureDAO extends AbstractAventureDAO {
             statement.executeUpdate();
             
             
+            statement.close();
             statement = link.prepareStatement("DELETE FROM Participe "
                     + "WHERE aventure_id = ?");
             statement.setInt(1, aventure.getId());
             statement.executeUpdate();
+            commit();
 
         } catch (Exception e) {
-            throw new DAOException("Erreur lors de la suppression d'une partie " +  e.getMessage(), e);
+            rollback();
+            throw new DAOException("Erreur lors de la suppression "
+                    + "d'une partie " + e.getMessage(), e);
 
         } finally {
             CloseStatement(statement);

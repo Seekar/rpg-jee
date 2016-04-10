@@ -8,6 +8,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -48,6 +49,7 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
 
         try {
             c = getConnection();
+            
             ps = c.prepareStatement("select * "
                     + "from Episode e where e.biographie_id = ? "
                     + "and e.valide = 0 order by e.eDate");
@@ -79,62 +81,41 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
 
     @Override
     public List<Episode> getEpisodes(Biographie b) throws DAOException {
+        LinkedList<Episode> epis = new LinkedList<>();
+        PreparedStatement ps = null;
         Connection c = null;
+        
         try {
-            c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("select * "
-                    + "from Episode e where e.biographie_id = ? "
-                    + "and e.valide = 1 and e.mj_id IS NULL order by e.eDate");
+            c = getConnection();
+            
+            ps = c.prepareStatement("select a.id as idAv, titre, "
+                    + "e.id as eid, eDate, e.mj_id as mj "
+                    + "from Episode e left join Aventure a "
+                    + "on a.id = e.aventure_id "
+                    + "where e.biographie_id = ? "
+                    + "and e.valide = 1 and e.mj_id IS NULL "
+                    + "order by e.eDate");
 
             ps.setInt(1, b.getID());
             ResultSet rs = ps.executeQuery();
-            LinkedList<Episode> epi = new LinkedList<Episode>();
+            Aventure av;
+            Episode epi;
+            
             while (rs.next()) {
-                if (rs.getObject("aventure_id") != null) {
-                    epi.add(new Episode(rs.getInt("id"), rs.getInt("eDate"), true, new Aventure(rs.getInt("aventure_id")), new Joueur(rs.getInt("mj_id")), b));
+                
+                if (rs.getObject("idAv") != null) {
+                    av = new Aventure();
+                    av.setId(rs.getInt("idAv"));
+                    av.setTitre(rs.getString("titre"));
+                    
                 } else {
-                    epi.add(new Episode(rs.getInt("id"), rs.getInt("eDate"), true, null, new Joueur(rs.getInt("mj_id")), b));
+                    av = null;
                 }
-            }
-            closeConnection(c);
-            return epi;
-
-        } catch (Exception e) {
-            throw new DAOException(e.getMessage(), e);
-
-        } finally {
-            closeConnection(c);
-        }
-    }
-
-    @Override
-    public List<Episode> getEpisodesAValider(Joueur mj) throws DAOException {
-        LinkedList<Episode> epi = new LinkedList<>();
-        PreparedStatement ps = null;
-        Connection c = null;
-
-        try {
-            c = getConnection();
-            ps = c.prepareStatement("select * from Episode e "
-                    + "where e.mj_id = ? ORDER BY eDate");
-
-            ps.setInt(1, mj.getId());
-            ResultSet rs = ps.executeQuery();
-
-            BiographieDAO bioD = BiographieDAO.Get();
-            while (rs.next()) {
-                if (rs.getObject("aventure_id") != null) {
-                    epi.add(new Episode(rs.getInt("id"), rs.getInt("eDate"),
-                            rs.getBoolean("valide"),
-                            new Aventure(rs.getInt("aventure_id")),
-                            new Joueur(rs.getInt("mj_id")),
-                            bioD.getBiographie(rs.getInt("biographie_id"))));
-                } else {
-                    epi.add(new Episode(rs.getInt("id"), rs.getInt("eDate"),
-                            rs.getBoolean("valide"), null,
-                            new Joueur(rs.getInt("mj_id")),
-                            bioD.getBiographie(rs.getInt("biographie_id"))));
-                }
+                
+                epi = new Episode(rs.getInt("eid"), rs.getInt("eDate"), true,
+                        av, new Joueur(rs.getInt("mj")), b);
+                
+                epis.add(epi);
             }
 
         } catch (Exception e) {
@@ -142,110 +123,192 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
 
         } finally {
             CloseStatement(ps);
-            closeConnection();
+            closeConnection(c);
+        }
+        
+        return epis;
+    }
+
+    @Override
+    public List<Episode> getEpisodesAValider(Joueur mj) throws DAOException {
+        LinkedList<Episode> epis = new LinkedList<>();
+        PreparedStatement ps = null;
+        Connection c = null;
+
+        try {
+            c = getConnection();
+            ps = c.prepareStatement("select a.id as idAv, titre, valide, "
+                    + "e.id as eid, eDate, e.mj_id as mj, biographie_id "
+                    + "from Episode e left join Aventure a "
+                    + "on a.id = e.aventure_id where e.mj_id = ? "
+                    + "and e.valide = 1 order by e.eDate");
+
+            ps.setInt(1, mj.getId());
+            ResultSet rs = ps.executeQuery();
+            
+            BiographieDAO bioD = BiographieDAO.Get();
+            Aventure av;
+            Episode epi;
+            
+            while (rs.next()) {
+                
+                if (rs.getObject("idAv") != null) {
+                    av = new Aventure();
+                    av.setId(rs.getInt("idAv"));
+                    av.setTitre(rs.getString("titre"));
+                    
+                } else {
+                    av = null;
+                }
+                
+                epi = new Episode(rs.getInt("eid"), rs.getInt("eDate"),
+                        rs.getBoolean("valide"), av,
+                        new Joueur(rs.getInt("mj")),
+                        bioD.getBiographie(rs.getInt("biographie_id")));
+                
+                epis.add(epi);
+            }
+
+        } catch (Exception e) {
+            throw new DAOException(e.getMessage(), e);
+
+        } finally {
+            CloseStatement(ps);
+            closeConnection(c);
         }
 
-        return epi;
+        return epis;
     }
 
     @Override
     public Episode getEpisode(int id) throws DAOException {
+        PreparedStatement ps = null;
         Connection c = null;
+        Episode epi = null;
+        
         try {
-            c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("select * "
+            c = getConnection();
+            
+            ps = c.prepareStatement("select * "
                     + "from Episode e where e.id = ?");
 
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
+            
             rs.next();
-            Episode e;
+            
             if (rs.getObject("aventure_id") != null) {
-                e = new Episode(rs.getInt("id"), rs.getInt("eDate"),
+                epi = new Episode(rs.getInt("id"), rs.getInt("eDate"),
                         true, new Aventure(rs.getInt("aventure_id")),
                         new Joueur(rs.getInt("mj_id")), null);
             } else {
-                e = new Episode(rs.getInt("id"), rs.getInt("eDate"),
+                epi = new Episode(rs.getInt("id"), rs.getInt("eDate"),
                         true, null, new Joueur(rs.getInt("mj_id")), null);
             }
-            closeConnection(c);
-            return e;
 
         } catch (Exception e) {
             throw new DAOException(e.getMessage(), e);
 
         } finally {
+            CloseStatement(ps);
             closeConnection(c);
         }
+            
+        return epi;
     }
 
     @Override
     public void suppressEpisode(int pid) throws DAOException {
+        PreparedStatement ps = null;
         Connection c = null;
+        
         try {
-            c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("delete from paragraphe where episode_id =?");
+            c = initConnection();
+            
+            ps = c.prepareStatement("delete from paragraphe where episode_id =?");
             ps.setInt(1, pid);
             ps.executeUpdate();
+            
+            ps.close();
             ps = c.prepareStatement("delete from episode where id = ?");
             ps.setInt(1, pid);
             ps.executeUpdate();
+            
+            c.commit();
 
         } catch (Exception e) {
+            rollback();
             throw new DAOException(e.getMessage(), e);
 
         } finally {
+            CloseStatement(ps);
             closeConnection(c);
         }
     }
 
     @Override
     public void valideEpisode(int pid, int persoID, int joueurID) throws DAOException {
+        PreparedStatement ps = null;
         Connection c = null;
 
         try {
-            c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("select mj_id "
+            c = initConnection();
+            ps = c.prepareStatement("select mj_id "
                     + "from personnage where id = ?");
             ps.setInt(1, persoID);
+            
             ResultSet rs = ps.executeQuery();
             rs.next();
 
             int mj = rs.getInt("mj_id");
+            ps.close();
 
             if (mj == joueurID) {
-                ps = c.prepareStatement("update episode set valide = 1 "
-                        + "where id = ?");
+                ps = c.prepareStatement("update episode set valide = 1, "
+                        + " mj_id = NULL where id = ?");
                 ps.setInt(1, pid);
-                ps.executeUpdate();
 
             } else {
-                ps = c.prepareStatement("update episode set mj_id = ? "
-                        + "where id = ?");
+                ps = c.prepareStatement("update episode set valide = 1, "
+                        + "mj_id = ? where id = ?");
                 ps.setInt(1, mj);
                 ps.setInt(2, pid);
-                ps.executeUpdate();
             }
 
+            ps.executeUpdate();
+            c.commit();
+            
         } catch (Exception e) {
+            rollback();
             throw new DAOException(e.getMessage(), e);
 
         } finally {
+            CloseStatement(ps);
             closeConnection(c);
         }
     }
 
     @Override
     public void valideEpisodeParMj(int epID) throws DAOException {
+        PreparedStatement ps = null;
         Connection c = null;
+        
         try {
-            c = dataSource.getConnection();
-            PreparedStatement ps = c.prepareStatement("update Episode e set e.mj_id=NULL where e.id=?");
+            c = initConnection();
+            
+            ps = c.prepareStatement("update Episode "
+                    + "set mj_id = NULL where id = ?");
+            
             ps.setInt(1, epID);
             ps.executeUpdate();
+            c.commit();
+            
         } catch (Exception e) {
+            rollback();
             throw new DAOException(e.getMessage(), e);
+
         } finally {
+            CloseStatement(ps);
             closeConnection(c);
         }
     }
@@ -253,10 +316,12 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
     @Override
     public void nouvelEpisode(boolean avtValide, int aventureID,
             int bioID, int date) throws DAOException {
+        PreparedStatement ps = null;
         Connection c = null;
+        
         try {
-            c = dataSource.getConnection();
-            PreparedStatement ps;
+            c = initConnection();
+            
             if (avtValide) {
                 ps = c.prepareStatement("insert into episode values (default, "
                         + "?, default, ?,? , NULL )");
@@ -271,13 +336,15 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
             }
 
             ps.executeUpdate();
+            commit();
 
-        } catch (Exception e) {
+        } catch (SQLException | DAOException e) {
+            rollback();
             throw new DAOException(e.getMessage(), e);
 
         } finally {
+            CloseStatement(ps);
             closeConnection(c);
         }
     }
-
 }

@@ -63,12 +63,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
             throw new DAOException("Erreur bdd " + e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-            
+            CloseStatement(statement);
             closeConnection(link);
         }
 
@@ -96,12 +91,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
             throw new DAOException("Erreur bdd " + e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-            
+            CloseStatement(statement);
             closeConnection(link);
         }
 
@@ -201,12 +191,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
                     + e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-            
+            CloseStatement(statement);
             closeConnection(link);
         }
 

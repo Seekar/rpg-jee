@@ -9,27 +9,23 @@
 
     <jsp:body>
         <c:forEach items="${episodes}" var="episode">
+        <div class="text-left">
+        <h3>Episode daté à <c:out value="${episode.getDate()}"/> UT<c:if test="${episode.getAventure() != null}">, 
+        pendant l'aventure <a href="game?action=show&id=${episode.getAventure().getId()}"
+        target="_blank"><c:out value="${episode.getAventure().getTitre()}"/></a></c:if></h3>
+
         <c:forEach items="${episode.getParagraphes()}" var="parag">
-                <c:choose>
-                    <c:when test="${parag.isSecret()}">
-                        (secret) ${parag.getTexte()}  
-           
-                </c:when>
-                <c:otherwise>
-                    ${parag.texte} 
-                </c:otherwise>
-                        
-                            
-            </c:choose><br/>
-            
+        <p<c:if test="${parag.isSecret()}"> class="text-info"</c:if>><c:out value="${parag.getTexte()}"/></p>
         </c:forEach>
-               <form action="episode" method="post">
-           oui <input type="radio" name="res" value='oui'/><br/>
-           non <input type="radio" name="res" value="non" checked/><br/>
-           <button class="btn btn-primary" type="submit"> Ok</button>
+           <form action="episode" method="post">
+           <input type="hidden" name="res" value='oui' class="btn btn-default"/>
+           <button class="btn btn-primary btn-sm" type="submit">Valider l'épisode</button>
            <input type="hidden" name="eID" value="${episode.getId()}"/>
            <input type="hidden" name="action" value="validerParMJ"/>
-           <input type="hidden" name="mjID" value="${episode.getMJ().getId()}"/><br/>
+           <input type="hidden" name="mjID" value="${episode.getMJ().getId()}"/>
+           </form>
+           <br/>
+        </div>
         </c:forEach>
     </jsp:body>
 </t:wrapper>

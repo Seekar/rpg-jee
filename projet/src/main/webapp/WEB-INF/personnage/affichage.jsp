@@ -141,7 +141,7 @@
                                 <div class="form-group">
                                 <select name="idMJ" onchange='if(this.value != -1) { this.form.submit(); }'
                                         class="form-control col-sm-offset-2">
-                                    <option value="-1"></option>
+                                    <option value="-1" selected="selected"></option>
                                     <c:forEach var="mj" items="${listeTransfert}">
                                     <option value="${mj.getId()}"><c:out value="${mj.getPseudo()}"/></option>
                                     </c:forEach>
@@ -184,7 +184,7 @@
                             <div class="form-group">
                             <select name="idDest" onchange='if (this.value != -1) { this.form.submit(); }'
                                     class="form-control col-sm-offset-2">
-                                <option value="-1"></option>
+                                <option value="-1" selected="selected"></option>
                                 <c:forEach var="joueur" items="${listeJoueurs}">
                                 <option value="${joueur.getId()}"><c:out value="${joueur.getPseudo()}"/></option>
                                 </c:forEach>

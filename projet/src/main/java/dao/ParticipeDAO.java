@@ -39,7 +39,6 @@ public class ParticipeDAO extends AbstractParticipeDAO {
     
     @Override
     public void creerParticipe(Participe p) throws DAOException {
-    
         Connection link = null;
         PreparedStatement statement = null;
 
