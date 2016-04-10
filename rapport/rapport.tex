@@ -62,6 +62,11 @@
 \tableofcontents
 \newpage
 
+% \begin{center}
+% \section* {Introduction }
+% \end{center}
+
+
 % (a) Document d’analyse :
 % — acteurs, diagramme de cas d’utilisations et description de ces cas d’utilisations, illustrées par
 % des diagrammes de séquence système pertinents.
@@ -82,6 +87,13 @@
 
 \section {Conception}
 
+
+
+\section {Détails techniques}
+
+L'application est normalement protégée contre tout type de faille XSS (via JSTL) et également des attaques par injection SQL.
+
+De plus la vérification des droits d'accès pour chaque type d'action a bien été implémentée, ainsi que la gestion des différentes erreurs dont le message reste intégré au design de l'application.
 
 
 \section {Manuel d'utilisation}

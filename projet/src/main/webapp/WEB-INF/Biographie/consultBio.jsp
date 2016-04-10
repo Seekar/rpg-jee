@@ -14,7 +14,7 @@
         <br>
         <c:if test="${owner}">
         <a href="biographie?action=edition&persoID=${perso.getId()}&biographie=${perso.getBiographie().getID()}" 
-           class="btn btn-default">Accéder à l'éditeur</a>
+           class="btn btn-default">Editer les épisodes</a>
         </c:if>
 
         <c:forEach items="${perso.getBiographie().getEpisodes()}" var="episode">
