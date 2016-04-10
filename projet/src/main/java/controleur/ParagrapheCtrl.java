@@ -36,28 +36,47 @@ public class ParagrapheCtrl extends HttpServlet {
             return;
         }
 
-        if (action.equals("edit")) {
-            int paragid = Integer.parseInt(request.getParameter("ID"));
-            int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
-            //requete DAO
+        switch (action) {
+        case "edit": {
             try {
+                int paragid = Integer.parseInt(request.getParameter("ID"));
+                int persoID = Integer.parseInt(request.getParameter("persoID"));
+                
+                Main.CheckOwnerOrMj(persoID, request);
+
                 ParagrapheDAO pad = ParagrapheDAO.Get();
                 Paragraphe p = pad.getParagraphe(paragid);
 
                 request.setAttribute("parag", p);
                 request.setAttribute("persoID", persoID);
                 request.getRequestDispatcher("/WEB-INF/Paragraphe/Editparagraphes.jsp").forward(request, response);
+
+            } catch (DAOException e) {
+                Main.dbError(request, response, e);
+
             } catch (Exception e) {
-                throw new ServerException(null, e);
+                Main.invalidParameters(request, response, e);
             }
-        } else if (action.equals("new")) {
-            int eid = Integer.parseInt(request.getParameter("eID"));
-            int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
-            request.setAttribute("eID", eid);
-            request.setAttribute("persoID", persoID);
-            request.getRequestDispatcher("/WEB-INF/Paragraphe/NewParagraphe.jsp").forward(request, response);
+            
+            break;
+        }
+
+        case "new": {
+            try {
+                int eid = Integer.parseInt(request.getParameter("eID"));
+                int persoID = Integer.parseInt(request.getParameter("persoID"));
+
+                Main.CheckOwnerOrMj(persoID, request);
+                request.setAttribute("eID", eid);
+                request.setAttribute("persoID", persoID);
+                request.getRequestDispatcher("/WEB-INF/Paragraphe/NewParagraphe.jsp").forward(request, response);
+
+            } catch (Exception e) {
+                Main.invalidParameters(request, response, e);
+            }
+            
+            break;
+        }
         }
     }
 
@@ -82,46 +101,79 @@ public class ParagrapheCtrl extends HttpServlet {
             return;
         }
 
-        if (action.equals("reveler")) {
-            int persoID = Integer.parseInt(request.getParameter("persoID"));
-            if (request.getParameter("res").equals("oui")) {
-                int pid = Integer.parseInt(request.getParameter("pID"));
-                Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
-                ParagrapheDAO pad = ParagrapheDAO.Get();
-                try {
+        switch (action) {
+        case "reveler": {
+            try {
+                int persoID = Integer.parseInt(request.getParameter("persoID"));
+
+                if (request.getParameter("res").equals("oui")) {
+                    int pid = Integer.parseInt(request.getParameter("pID"));
+                    Main.CheckOwnerOrMj(persoID, request);
+
+                    ParagrapheDAO pad = ParagrapheDAO.Get();
                     pad.reveleParagraphe(pid);
-                    response.sendRedirect("biographie?action=afficher&id=" + persoID);
-                } catch (DAOException e) {
-                    Main.dbError(request, response, e);
                 }
-            } else {
+
                 response.sendRedirect("biographie?action=afficher&id=" + persoID);
+
+            } catch (DAOException e) {
+                Main.dbError(request, response, e);
+
+            } catch (Exception e) {
+                Main.invalidParameters(request, response, e);
             }
-        } else if (action.equals("new")) {
+            
+            break;
+        }
+        
+        case "new": {
             boolean secret = request.getParameter("secret") != null;
             String texte = request.getParameter("texte");
-            int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
-            int episode = Integer.parseInt(request.getParameter("episodeID"));
-            ParagrapheDAO pad = ParagrapheDAO.Get();
+            
             try {
+                int persoID = Integer.parseInt(request.getParameter("persoID"));
+                int episode = Integer.parseInt(request.getParameter("episodeID"));
+
+                Main.CheckOwnerOrMj(persoID, request);
+
+                ParagrapheDAO pad = ParagrapheDAO.Get();
                 pad.ajouteParagraphe(secret, texte, episode);
+
                 response.sendRedirect("biographie?action=afficher&id=" + persoID);
+
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
+
+            } catch (Exception e) {
+                Main.invalidParameters(request, response, e);
             }
-        } else if (action.equals("edit")) {
+            
+            break;
+        }
+        
+        case "edit": {
             String texte = request.getParameter("texte");
-            int pid = Integer.parseInt(request.getParameter("id"));
-            int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
-            ParagrapheDAO pad = ParagrapheDAO.Get();
+            
             try {
+                int pid = Integer.parseInt(request.getParameter("id"));
+                int persoID = Integer.parseInt(request.getParameter("persoID"));
+
+                Main.CheckOwnerOrMj(persoID, request);
+
+                ParagrapheDAO pad = ParagrapheDAO.Get();
                 pad.updateParagraphe(pid, texte);
+
                 response.sendRedirect("biographie?action=afficher&id=" + persoID);
+
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
+
+            } catch (Exception e) {
+                Main.invalidParameters(request, response, e);
             }
+            
+            break;
+        }
         }
     }
 }

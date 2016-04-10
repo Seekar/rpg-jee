@@ -240,13 +240,13 @@ public class AventureCtrl extends HttpServlet {
             // Vérifier que le personnage n'est pas déjà dans l'aventure
             for (Personnage p : aventure.getPersonnages()) {
                 if (p.getId() == persoId) {
-                    throw new Exception("Accès refusé");
+                    throw new SecurityException("Accès refusé");
                 }
             }
 
             // Vérifier que l'utilisateur est bien le MJ de l'aventure
             if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
-                throw new Exception("Accès refusé");
+                throw new SecurityException("Accès refusé");
             }
 
             // A ce stade, on a tout check et géré les erreurs
@@ -281,7 +281,7 @@ public class AventureCtrl extends HttpServlet {
 
             // Vérifier que l'utilisateur est bien le MJ de l'aventure
             if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
-                throw new Exception("Accès refusé");
+                throw new SecurityException("Accès refusé");
             }
 
             // Supprime le lien Participe de la base
@@ -309,12 +309,12 @@ public class AventureCtrl extends HttpServlet {
 
             // Vérifier que l'utilisateur est bien le MJ de l'aventure
             if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
-                throw new Exception("Accès refusé");
+                throw new SecurityException("Accès refusé");
             }
 
             // Vérifier que la partie n'est pas déjà finie
             if (aventure.estFinie()) {
-                throw new Exception("Accès refusé");
+                throw new SecurityException("Accès refusé");
             }
 
             String events = request.getParameter("events");
@@ -342,13 +342,13 @@ public class AventureCtrl extends HttpServlet {
             
             // Vérifier que l'utilisateur est bien le MJ de l'aventure
             if (aventure.getMj().getId() != Main.GetJoueurSession(request).getId()) {
-                throw new Exception("Accès refusé");
+                throw new SecurityException("Accès refusé");
             }
 
             // Vérifier que la partie n'est pas déjà finie 
             // (car on ne doit plus pouvoir la supprimer)
             if (aventure.estFinie()) {
-                throw new Exception("Accès refusé");
+                throw new SecurityException("Accès refusé");
             }
 
             AventureDAO.Get().deletePartie(aventure);

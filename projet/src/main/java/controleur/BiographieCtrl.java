@@ -53,16 +53,6 @@ public class BiographieCtrl extends HttpServlet {
         }
 
         if (action.equals("afficher")) {
-            /*//TEST
-             Personnage p = new Personnage("essai",null , null, null, null);
-             Biographie b = new Biographie(0, "");
-             p.setBiographie(b);
-             Episode e;
-             b.episodes.add(e = new Episode(35, true, null, null, b));
-             Paragraphe pa;
-             e.paragraphes.add(pa =new Paragraphe());
-             pa.setTexte("ceci n'est qu'un essai");
-             pa.setSecret(false);*/
             int persoID = Integer.parseInt(request.getParameter("id"));
             PersonnageDAO persoD = PersonnageDAO.Get();
             BiographieDAO bioD = BiographieDAO.Get();
@@ -88,12 +78,15 @@ public class BiographieCtrl extends HttpServlet {
             //faire la requete SQL
             int bioID = Integer.parseInt(request.getParameter("biographie"));
             int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
+            
             PersonnageDAO persoD = PersonnageDAO.Get();
             BiographieDAO bioD = BiographieDAO.Get();
             EpisodeDAO epiD = EpisodeDAO.Get();
             ParagrapheDAO paD = ParagrapheDAO.Get();
+            
             try {
+                Main.CheckOwnerOrMj(persoID, request);
+                
                 Personnage p = persoD.getPersonnage(persoID);
                 //Joueur j = Main.GetJoueurSession(request);
                 p.setBiographie(bioD.getBiographie(bioID));
@@ -101,11 +94,15 @@ public class BiographieCtrl extends HttpServlet {
                 for (Episode e : p.getBiographie().episodes) {
                     e.paragraphes = paD.getParagraphes(e);
                 }
-                //A GARDER
+                
                 request.setAttribute("perso", p);
                 request.getRequestDispatcher("/WEB-INF/Biographie/EditionBio.jsp").forward(request, response);
+                
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
+                
+            } catch (SecurityException e) {
+                Main.invalidParameters(request, response, e);
             }
         }
     }
@@ -134,17 +131,23 @@ public class BiographieCtrl extends HttpServlet {
         if (action.equals("reveler")) {
             int pid = Integer.parseInt(request.getParameter("paragID"));
             int persoID = Integer.parseInt(request.getParameter("persoID"));
-            Main.ownerOrMj(persoID, Main.GetJoueurSession(request));
-            //DAO get paragraphe
+            
             ParagrapheDAO paD = ParagrapheDAO.Get();
+            
             try {
+                Main.CheckOwnerOrMj(persoID, request);
+                
                 Paragraphe p = paD.getParagraphe(pid);
 
                 request.setAttribute("parag", p);
                 request.setAttribute("persoID", persoID);
                 request.getRequestDispatcher("/WEB-INF/Paragraphe/Reveler.jsp").forward(request, response);
+                
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
+                
+            } catch (SecurityException e) {
+                Main.invalidParameters(request, response, e);
             }
         }
     }

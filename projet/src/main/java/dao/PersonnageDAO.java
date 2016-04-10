@@ -316,9 +316,12 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             statement = link.prepareStatement("SELECT p.id, p.nom, naissance, "
                     + "profession, portrait, valide, biographie_id, mj_id, "
                     + "transfert_id, validateur_id, joueur_id, u.id as u_id, "
-                    + "u.nom as u_nom, j.pseudo as meneur FROM Personnage p "
+                    + "u.nom as u_nom, j.pseudo as meneur, "
+                    + "o.pseudo as owner FROM Personnage p "
                     + "JOIN Univers u on p.univers_id = u.id "
-                    + "LEFT JOIN Joueur j on j.id = mj_id WHERE p.id = ?");
+                    + "LEFT JOIN Joueur j on j.id = mj_id "
+                    + "LEFT JOIN Joueur o on o.id = joueur_id "
+                    + "WHERE p.id = ?");
             
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
@@ -335,7 +338,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             perso.setValide(rs.getBoolean("valide"));
             perso.setBiographie(new Biographie(rs.getInt("biographie_id")));
             perso.setMj(new Joueur(rs.getInt("mj_id"), rs.getString("meneur")));
-            perso.setJoueur(new Joueur(rs.getInt("joueur_id")));
+            perso.setJoueur(new Joueur(rs.getInt("joueur_id"), rs.getString("owner")));
             perso.setTransfert(new Joueur(rs.getInt("transfert_id")));
             perso.setValidateur(new Joueur(rs.getInt("validateur_id")));
 

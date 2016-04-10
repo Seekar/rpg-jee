@@ -64,18 +64,23 @@ public class Main extends HttpServlet {
         return joueur;
     }
     
-    public static boolean ownerOrMj(int persoID, Joueur actuel) {
+    public static void CheckOwnerOrMj(int persoID,
+            HttpServletRequest request) throws SecurityException {
+        Joueur user = Main.GetJoueurSession(request);
         PersonnageDAO persoD = PersonnageDAO.Get();
+        SecurityException se = new SecurityException("Accès refusé");
         
         try {
             Personnage p = persoD.getPersonnage(persoID);
-            return p.getJoueur().getId() == actuel.getId()
-                    || p.getMj().getId() == actuel.getId();
             
-        } catch (Exception e) {
+            if (p.getJoueur().getId() != user.getId()
+                && p.getMj().getId() != user.getId()) {
+                throw se;
+            }
+            
+        } catch (DAOException | SecurityException e) {
+            throw se;
         }
-        
-        return false;
     }
 
     protected static boolean isLogged(HttpServletRequest request,

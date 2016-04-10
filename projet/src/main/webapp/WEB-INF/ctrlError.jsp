@@ -9,7 +9,7 @@
     </jsp:attribute>
 
     <jsp:body>
-    <p>Une erreur interne s'est produite.</p>
+    <p>Une erreur interne est survenue.</p>
     <c:if test="${error != null}">
     <div class="alert alert-danger alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

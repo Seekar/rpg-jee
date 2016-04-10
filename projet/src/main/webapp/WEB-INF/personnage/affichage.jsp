@@ -31,23 +31,6 @@
                     <td><c:out value="${perso.getNaissance()}"/></td>
                 </tr>
                 <tr>
-                    <th>Univers</th>
-                    <td><c:out value="${perso.getUnivers().getNom()}"/></td>
-                </tr>
-                <tr>
-                    <th>Meneur</th>
-                    <td>
-                        <c:choose>
-                        <c:when test='${perso.getMj().getId() != 0}'>
-                            <c:out value="${perso.getMj().getPseudo()}"/>
-                        </c:when>
-                        <c:otherwise>
-                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                        </c:otherwise>
-                        </c:choose>
-                    </td>
-                </tr>
-                <tr>
                     <th>Profession</th>
                     <td>
                         <c:choose>
@@ -61,6 +44,27 @@
                       </form>
                         </c:when>
                         <c:otherwise><c:out value="${perso.getProfession()}"/></c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Univers</th>
+                    <td><c:out value="${perso.getUnivers().getNom()}"/></td>
+                </tr>
+                <tr>
+                    <th>Propriétaire</th>
+                    <td><c:out value="${perso.getJoueur().getPseudo()}"/></td>
+                </tr>
+                <tr>
+                    <th>Meneur</th>
+                    <td>
+                        <c:choose>
+                        <c:when test='${perso.getMj().getId() != 0}'>
+                            <c:out value="${perso.getMj().getPseudo()}"/>
+                        </c:when>
+                        <c:otherwise>
+                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </c:otherwise>
                         </c:choose>
                     </td>
                 </tr>
@@ -159,7 +163,7 @@
                             <a class="btn btn-default" href="character?action=transfer&id=${perso.getId()}">Accepter le transfert</button>
                             </c:when>
                             <c:otherwise>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </c:otherwise>
                             </c:choose>
                         </c:otherwise>

@@ -289,27 +289,46 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
     }
 
     @Override
-    public void valideEpisodeParMj(int epID) throws DAOException {
+    public void valideEpisodeParMj(int idEpi, int idUser) throws DAOException {
+        Connection link = null;
         PreparedStatement ps = null;
-        Connection c = null;
-        
+
         try {
-            c = initConnection();
+            link = initConnection();
+
+            // On vérifie que l'utilisateur est bien MJ de l'épisode
+            ps = link.prepareStatement("SELECT 1 FROM Episode e "
+                    + "JOIN Biographie b on e.biographie_id = b.id "
+                    + "JOIN Personnage p on p.biographie_id = b.id "
+                    + "JOIN Joueur j on p.mj_id = j.id "
+                    + "WHERE e.id = ? and j.id = ?");
+
+            ps.setInt(1, idEpi);
+            ps.setInt(2, idUser);
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next())
+                throw new DAOException("Accès refusé");
+
+            ps.close();
+            ps = link.prepareStatement("UPDATE Episode "
+                    + "SET mj_id = NULL WHERE id = ?");
             
-            ps = c.prepareStatement("update Episode "
-                    + "set mj_id = NULL where id = ?");
-            
-            ps.setInt(1, epID);
+            ps.setInt(1, idEpi);
             ps.executeUpdate();
-            c.commit();
-            
-        } catch (Exception e) {
+
+            link.commit();
+
+        } catch (DAOException e) {
+            throw e;
+
+        } catch (SQLException e) {
             rollback();
             throw new DAOException(e.getMessage(), e);
 
         } finally {
             CloseStatement(ps);
-            closeConnection(c);
+            closeConnection(link);
         }
     }
 
@@ -324,13 +343,14 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
             
             if (avtValide) {
                 ps = c.prepareStatement("insert into episode values (default, "
-                        + "?, default, ?,? , NULL )");
+                        + "?, default, ?, ?, NULL )");
                 ps.setInt(1, date);
                 ps.setInt(2, aventureID);
                 ps.setInt(3, bioID);
+                
             } else {
                 ps = c.prepareStatement("insert into episode values (default, "
-                        + "?, default, NULL,? , NULL )");
+                        + "?, default, NULL, ?, NULL )");
                 ps.setInt(1, date);
                 ps.setInt(2, bioID);
             }
