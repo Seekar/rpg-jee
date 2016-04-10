@@ -17,6 +17,8 @@
         <a href="biographie?action=edition&persoID=${perso.getId()}&biographie=${perso.getBiographie().getID()}" 
            class="btn btn-default">Editer les épisodes</a>
         </c:if>
+        <a href="character?action=show&id=${perso.getId()}" class="btn btn-default">Quitter la biographie</a>
+        <br/>
 
         <c:forEach items="${perso.getBiographie().getEpisodes()}" var="episode">
         <c:if test="${episode.getValide()}">

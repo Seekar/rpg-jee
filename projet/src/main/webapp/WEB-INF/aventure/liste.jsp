@@ -39,5 +39,6 @@
             </c:forEach>
             </tbody>
         </table>
+        <c:if test="${isPerso}"><br/><a href="character?action=show&id=${param.id}" class="btn btn-default">Retour</a></c:if>
     </jsp:body>
 </t:wrapper>

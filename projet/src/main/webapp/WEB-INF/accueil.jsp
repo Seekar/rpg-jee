@@ -8,4 +8,7 @@
     	<h1>Bienvenue</h1>
     </jsp:attribute>
 
+    <jsp:body>
+        <p>Bienvenue sur votre application de gestion de jeux de rôles !</p>
+    </jsp:body>
 </t:wrapper>

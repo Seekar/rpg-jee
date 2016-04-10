@@ -117,6 +117,7 @@ public class AventureCtrl extends HttpServlet {
                         Personnage perso = persoDAO.getPersonnage(idPerso);
                         parties = avDAO.getParties(perso);
                         titre = "Parties de " + perso.getNom();
+                        request.setAttribute("isPerso", true);
                     }
                     else if (action.equals("myList")) {
                         parties = avDAO.getParties(user);
@@ -251,7 +252,7 @@ public class AventureCtrl extends HttpServlet {
 
             // A ce stade, on a tout check et géré les erreurs
 
-            // Créer un objet Participe et l'ajoute à la base
+            // Créer un objet Participe et l'ajouter à la base
             Participe participe = new Participe(aventure, perso);
             ParticipeDAO.Get().creerParticipe(participe);
 
