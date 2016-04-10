@@ -41,5 +41,5 @@ public abstract class AbstractEpisodeDAO extends AbstractDAO{
 
     public abstract void nouvelEpisode(boolean avtValide, int aventureID, int bioID, int date) throws DAOException;
     
-    
+    public abstract boolean hasMJ(int persoID) throws DAOException;
 }

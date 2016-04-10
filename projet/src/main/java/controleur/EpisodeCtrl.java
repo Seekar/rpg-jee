@@ -211,8 +211,15 @@ public class EpisodeCtrl extends HttpServlet {
                 
                 if (request.getParameter("res").equals("oui")) {
                     int eid = Integer.parseInt(request.getParameter("pID"));
-
-                    ed.valideEpisode(eid, persoID, user.getId());
+                    boolean hasmj = ed.hasMJ(persoID);
+                    if(hasmj)
+                        ed.valideEpisode(eid, persoID, user.getId());
+                    else{
+                        request.setAttribute("persoID", persoID);
+                        request.setAttribute("biographie", idBio);
+                        request.getRequestDispatcher("/WEB-INF/episode/pasdeMJ.jsp").forward(request, response);
+                        return;
+                    }
                 }
                 
                 response.sendRedirect("biographie?action=edition&persoID="
