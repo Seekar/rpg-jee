@@ -4,7 +4,6 @@
 
 <t:wrapper>
     <jsp:attribute name="title"> - Créer un paragraphe</jsp:attribute>
-    
     <jsp:attribute name="header">
         <h1>Créer un paragraphe</h1>
     </jsp:attribute>

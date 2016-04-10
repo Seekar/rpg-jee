@@ -35,8 +35,7 @@ public class EpisodeCtrl extends HttpServlet {
         Joueur user = Main.GetJoueurSession(request);
 
         // Force le login et gère les erreurs
-        if (Main.notLogged(request, response)
-                || action == null) {
+        if (Main.badRequest(request, response)) {
             return;
         }
 
@@ -171,8 +170,7 @@ public class EpisodeCtrl extends HttpServlet {
         Joueur user = Main.GetJoueurSession(request);
 
         // Force le login et gère les erreurs
-        if (Main.notLogged(request, response)
-                || action == null) {
+        if (Main.badRequest(request, response)) {
             return;
         }
         

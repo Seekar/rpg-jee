@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Episodes de <c:out value="${perso.nom}"/> en édition</jsp:attribute>
     <jsp:attribute name="header">
         <h1>Episodes de <c:out value="${perso.nom}"/> en édition</h1>
     </jsp:attribute>

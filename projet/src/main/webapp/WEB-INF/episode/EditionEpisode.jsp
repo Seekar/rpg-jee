@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Edition de l'épisode daté à ${episode.getDate()} UT</jsp:attribute>
     <jsp:attribute name="header">
         <h1>Edition de l'épisode daté à ${episode.getDate()} UT</h1>
     </jsp:attribute>

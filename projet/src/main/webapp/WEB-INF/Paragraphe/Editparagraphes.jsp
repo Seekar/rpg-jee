@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Modifier un paragraphe</jsp:attribute>
     <jsp:attribute name="header">
         <h1>Modifier un paragraphe</h1>
     </jsp:attribute>

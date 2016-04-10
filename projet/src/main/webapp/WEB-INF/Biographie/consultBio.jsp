@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Biographie de <c:out value="${perso.nom}"/></jsp:attribute>
     <jsp:attribute name="header">
         <h1>Biographie de <c:out value="${perso.nom}"/></h1>
     </jsp:attribute>

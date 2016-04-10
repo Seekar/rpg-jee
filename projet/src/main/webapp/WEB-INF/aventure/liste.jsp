@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - <c:out value="${titre}"/></jsp:attribute>
     <jsp:attribute name="header">
         <h1><c:out value="${titre}"/></h1>
     </jsp:attribute>

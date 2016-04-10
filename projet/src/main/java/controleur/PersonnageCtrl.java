@@ -205,8 +205,7 @@ public class PersonnageCtrl extends HttpServlet {
         String action = request.getParameter("action");
 
         // Force le login et gère les erreurs
-        if (Main.notLogged(request, response)
-                || action == null) {
+        if (Main.badRequest(request, response)) {
             return;
         }
 

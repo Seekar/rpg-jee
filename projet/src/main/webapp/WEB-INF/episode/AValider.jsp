@@ -3,6 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:wrapper>
+    <jsp:attribute name="title"> - Episodes à valider</jsp:attribute>
     <jsp:attribute name="header">
         <h1>Episodes à valider</h1>
     </jsp:attribute>

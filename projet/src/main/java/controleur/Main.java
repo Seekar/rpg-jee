@@ -83,6 +83,23 @@ public class Main extends HttpServlet {
         }
     }
 
+    protected static boolean badRequest(HttpServletRequest request,
+           HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        // Force le login et gère les erreurs
+        if (Main.notLogged(request, response)) {
+            return true;
+        }
+        
+        if (action == null) {
+            invalidParameters(request, response);
+            return true;
+        }
+        
+        return false;
+    }
+
     protected static boolean isLogged(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         return !notLogged(request, response);
@@ -175,17 +192,6 @@ public class Main extends HttpServlet {
     }
 
     /**
-     *
-     * Affiche la page d’accueil avec la liste de tous les ouvrages.
-     */
-    private void actionAfficher(HttpServletRequest request,
-            HttpServletResponse response) throws DAOException, ServletException, IOException {
-
-
-    }
-
-
-    /**
      * Actions possibles en POST : ajouter, supprimer, modifier. Une fois
      * l’action demandée effectuée, on retourne à la page d’accueil avec
      * actionAfficher(...)
@@ -206,20 +212,26 @@ public class Main extends HttpServlet {
         String page = "login";
         Joueur joueur;
 
-        if ((joueur = isLoginValid(login, pass)) != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", joueur);
+        try {
+            if ((joueur = isLoginValid(login, pass)) != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("user", joueur);
 
-            page = "accueil";
-        }
-        else {
-            request.setAttribute("error", "Login incorrect");
+                page = "accueil";
+            }
+            else {
+                request.setAttribute("error", "Login incorrect");
+            }
+            
+        } catch (Exception e) {
+            invalidParameters(request, response);
         }
 
         request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
 
-    private Joueur isLoginValid(String login, String pwd) {
+    private Joueur isLoginValid(String login, String pwd)
+            throws SecurityException {
 
         try {
             byte[] digest;
@@ -257,8 +269,8 @@ public class Main extends HttpServlet {
                 }
             }
         }
-        catch (DAOException | NoSuchAlgorithmException e) {
-            System.out.println("Error : " + e.getMessage());
+        catch (Exception e) {
+            throw new SecurityException();
         }
         
         return null;

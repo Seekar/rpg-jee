@@ -4,7 +4,6 @@
 
 <t:wrapper>
     <jsp:attribute name="title"> - Détails du personnage</jsp:attribute>
-
     <jsp:attribute name="header">
         <h1>Détails du personnage</h1>
     </jsp:attribute>

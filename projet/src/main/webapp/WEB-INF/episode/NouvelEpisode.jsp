@@ -4,7 +4,6 @@
 
 <t:wrapper>
     <jsp:attribute name="title"> - Créer un épisode</jsp:attribute>
-
     <jsp:attribute name="header">
         <h1>Créer un épisode</h1>
     </jsp:attribute>
