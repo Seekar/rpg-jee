@@ -130,17 +130,37 @@ public final class JoueurDAO extends AbstractJoueurDAO {
         return joueurs;
     }
 
-    public ArrayList<Joueur> getAutresJoueurs(int idUser) throws DAOException {
+    /**
+     * Renvoie la liste des personnages qui ont le droit
+     * de recevoir un personnage donné
+     * 
+     * @param idPerso L'id du personnage
+     * @return La liste
+     * @throws DAOException 
+     */
+    public ArrayList<Joueur> whoCanReceive(int idPerso) throws DAOException {
         ArrayList<Joueur> joueurs = new ArrayList<>();
-        Connection link = null;
         PreparedStatement statement = null;
+        Connection link = null;
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT id, pseudo FROM Joueur "
-                    + "WHERE id != ? ORDER BY pseudo");
+            statement = link.prepareStatement("SELECT distinct j2.id, "
+                    + "j2.pseudo FROM Joueur j2 "
+                    + "LEFT JOIN Personnage p2 on p2.joueur_id = j2.id "
+                    + "LEFT JOIN Participe r2 on r2.personnage_id = p2.id "
+                    + "LEFT JOIN Aventure a2 on r2.aventure_id = a2.id "
+                    + "WHERE NOT EXISTS (SELECT 1 FROM Personnage p "
+                    + "LEFT JOIN Participe r on r.personnage_id = p.id "
+                    + "LEFT JOIN Aventure a on r.aventure_id = a.id "
+                    + "WHERE p.id = ? AND ((a.finie = 0 AND a.id = a2.id) "
+                    + "OR j2.id = p.mj_id OR j2.id = p.joueur_id)) "
+                    + "GROUP BY j2.id, j2.pseudo "
+                    + "HAVING COUNT(p2.id) = (SELECT COUNT(p.id) "
+                    + "FROM Personnage p WHERE p.joueur_id = j2.id)"
+                    + "ORDER BY pseudo");
             
-            statement.setInt(1, idUser);
+            statement.setInt(1, idPerso);
             ResultSet res = statement.executeQuery();
             Joueur joueur;
 

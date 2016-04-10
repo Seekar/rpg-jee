@@ -223,28 +223,34 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
     }
 
     /**
-     * Renvoie la liste des personnages menés
+     * Renvoie la liste des personnages menés dans l'univers donné
      * qui ne participent à aucune partie en cours.
      * 
      * @param mj Le MJ concerné
+     * @param u L'univers
      * @return La liste des candidats potentiels
      * @throws DAOException 
      */
-    public ArrayList<Personnage> getCandidats(Joueur mj) throws DAOException {
+    public ArrayList<Personnage> getCandidats(Joueur mj, Univers u) throws DAOException {
         ArrayList<Personnage> persos = new ArrayList<>();
         Connection link = null;
         PreparedStatement statement = null;
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT id, nom FROM Personnage p "
+            statement = link.prepareStatement("SELECT p.id, p.nom FROM Personnage p "
+                    + "JOIN Univers u on p.univers_id = u.id "
                     + "LEFT JOIN Participe r on r.personnage_id = p.id "
-                    + "WHERE mj_id = ? and valide = 1 "
-                    + "and NOT EXISTS (SELECT 1 FROM Aventure a "
+                    + "WHERE mj_id = ? AND u.id = ? AND valide = 1 "
+                    + "AND NOT EXISTS (SELECT 1 FROM Aventure a "
                     + "WHERE r.aventure_id = a.id and finie = 0) "
-                    + "ORDER BY nom ");
+                    + "GROUP BY p.id, p.nom "
+                    + "HAVING COUNT(p.id) = (SELECT COUNT(p2.id) FROM Personnage p2 "
+                    + "LEFT JOIN Participe s on s.personnage_id = p2.id "
+                    + "WHERE p2.id = p.id) ORDER BY p.nom ");
             
             statement.setInt(1, mj.getId());
+            statement.setInt(2, u.getId());
             ResultSet res = statement.executeQuery();
             Personnage perso;
 
@@ -598,19 +604,32 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         try {
             link = initConnection();
 
-            // On vérifie que l'utilisateur est bien propriétaire du personnage
-            statement = link.prepareStatement("SELECT 1 FROM Joueur j "
-                    + "JOIN Personnage p on p.joueur_id = j.id "
-                    + "WHERE p.id = ? and j.id = ?");
+            // On vérifie que le destinataire a le droit de 
+            // recevoir ce personnage et que cet utilisateur 
+            // en est bien le propriétaire
+            statement = link.prepareStatement("SELECT 1 FROM Joueur j2 "
+                    + "LEFT JOIN Personnage p2 on p2.joueur_id = j2.id "
+                    + "LEFT JOIN Participe r2 on r2.personnage_id = p2.id "
+                    + "LEFT JOIN Aventure a2 on r2.aventure_id = a2.id "
+                    + "WHERE j2.id = ? AND NOT EXISTS ("
+                    + "SELECT 1 FROM Personnage p "
+                    + "LEFT JOIN Participe r on r.personnage_id = p.id "
+                    + "LEFT JOIN Aventure a on r.aventure_id = a.id "
+                    + "WHERE p.id = ? AND ((a.finie = 0 AND a.id = a2.id) "
+                    + "OR j2.id = p.mj_id OR j2.id = p.joueur_id "
+                    + "OR p.joueur_id <> ?)) GROUP BY j2.id, j2.pseudo "
+                    + "HAVING COUNT(p2.id) = (SELECT COUNT(p.id) "
+                    + "FROM Personnage p WHERE p.joueur_id = j2.id)");
 
-            statement.setInt(1, idPerso);
-            statement.setInt(2, idUser);
+            statement.setInt(1, idDest);
+            statement.setInt(2, idPerso);
+            statement.setInt(3, idUser);
             ResultSet rs = statement.executeQuery();
 
             if (!rs.next())
                 throw new DAOException("Accès refusé");
 
-            statement.close();
+            CloseStatement(statement);
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET joueur_id = ? WHERE id = ?");
 

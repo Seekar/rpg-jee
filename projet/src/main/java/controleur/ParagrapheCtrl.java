@@ -39,7 +39,7 @@ public class ParagrapheCtrl extends HttpServlet {
         switch (action) {
         case "edit": {
             try {
-                int paragid = Integer.parseInt(request.getParameter("ID"));
+                int paragid = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
                 
                 Main.CheckOwnerOrMj(persoID, request);
@@ -105,16 +105,17 @@ public class ParagrapheCtrl extends HttpServlet {
         case "reveler": {
             try {
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
+                Main.CheckOwnerOrMj(persoID, request);
 
                 if (request.getParameter("res").equals("oui")) {
                     int pid = Integer.parseInt(request.getParameter("pID"));
-                    Main.CheckOwnerOrMj(persoID, request);
 
                     ParagrapheDAO pad = ParagrapheDAO.Get();
                     pad.reveleParagraphe(pid);
-                }
 
-                response.sendRedirect("biographie?action=afficher&id=" + persoID);
+                    // Réponse AJAX
+                    response.getWriter().print("done");
+                }
 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
@@ -131,15 +132,17 @@ public class ParagrapheCtrl extends HttpServlet {
             String texte = request.getParameter("texte");
             
             try {
+                int idBio = Integer.parseInt(request.getParameter("idBio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
-                int episode = Integer.parseInt(request.getParameter("episodeID"));
+                int idEpi = Integer.parseInt(request.getParameter("episodeID"));
 
                 Main.CheckOwnerOrMj(persoID, request);
 
                 ParagrapheDAO pad = ParagrapheDAO.Get();
-                pad.ajouteParagraphe(secret, texte, episode);
+                pad.ajouteParagraphe(secret, texte, idEpi);
 
-                response.sendRedirect("biographie?action=afficher&id=" + persoID);
+                response.sendRedirect("episode?action=edit&id="
+                        + idEpi + "&persoID=" + persoID + "&idBio=" + idBio);
 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
@@ -156,6 +159,8 @@ public class ParagrapheCtrl extends HttpServlet {
             
             try {
                 int pid = Integer.parseInt(request.getParameter("id"));
+                int idBio = Integer.parseInt(request.getParameter("idBio"));
+                int idEpi = Integer.parseInt(request.getParameter("idEpi"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
 
                 Main.CheckOwnerOrMj(persoID, request);
@@ -163,7 +168,8 @@ public class ParagrapheCtrl extends HttpServlet {
                 ParagrapheDAO pad = ParagrapheDAO.Get();
                 pad.updateParagraphe(pid, texte);
 
-                response.sendRedirect("biographie?action=afficher&id=" + persoID);
+                response.sendRedirect("episode?action=edit&id="
+                        + idEpi + "&persoID=" + persoID + "&idBio=" + idBio);
 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);

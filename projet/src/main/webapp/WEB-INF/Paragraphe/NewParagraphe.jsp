@@ -32,6 +32,7 @@
                 <button type="submit" class="btn btn-primary">Valider la création</button>
               </div>
             </div>
+            <input type="hidden" name="idBio" value="${param.idBio}"/>
             <input type="hidden" name="episodeID" value="${eID}"/>
             <input type="hidden" name="action" value="new"/>
             <input type="hidden" name="persoID" value="${persoID}"/>

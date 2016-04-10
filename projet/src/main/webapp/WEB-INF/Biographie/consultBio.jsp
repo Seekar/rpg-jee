@@ -8,6 +8,7 @@
     </jsp:attribute>
 
     <jsp:body>
+
         <div class="text-left">
         <p>${perso.getBiographie().showTexte()}</p>
 
@@ -27,14 +28,35 @@
         <c:forEach items="${episode.getParagraphes()}" var="parag">
             <p<c:if test="${parag.isSecret()}"> class="text-info"</c:if>><c:out value="${parag.getTexte()}"/></p>
             <c:if test="${owner && parag.isSecret()}">
-            <form action="biographie" method="POST">
-                <button type="submit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open" 
-                aria-hidden="true"></span> Révéler ce paragraphe</button>
-                <input type="hidden" name="persoID" value="${perso.getId()}"/>
-                <input type="hidden" name="paragID" value="${parag.getID()}"/>
-                <input type="hidden" name="action" value="reveler"/>
-            </form>
-            <br/>
+<div class="modal fade" id="modalReveal${parag.getID()}" tabindex="-1" role="dialog" aria-labelledby="modalRevealLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalRevealLabel">Révéler un paragraphe</h4>
+      </div>
+      <div class="modal-body">
+      <p class="text-info"><c:out value="${parag.getTexte()}"/></p>
+      <p>Voulez vous vraiment révéler ce paragraphe ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" onclick="
+        $.post('paragraphe',
+        { res : 'oui',
+        persoID : ${perso.getId()},
+        pID : ${parag.getID()},
+        action : 'reveler' },
+        function (data) {
+        /*if (data == 'done') { alert('success'); };*/
+        location.reload(); }); ">Révéler</button>
+      </div>
+    </div>
+  </div>
+</div>
+            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalReveal${parag.getID()}">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Révéler ce paragraphe</button>
+            <br/><br/>
             </c:if>
         </c:forEach>
         </c:if>

@@ -20,9 +20,11 @@
                 <button type="submit" class="btn btn-primary">Valider les modifications</button>
               </div>
             </div>
+            <input type="hidden" name="idBio" value="${param.idBio}"/>
             <input type="hidden" name="id" value="${parag.getID()}"/>
             <input type="hidden" name="action" value="edit"/>
             <input type="hidden" name="persoID" value="${persoID}"/>
+            <input type="hidden" name="idEpi" value="${param.idEpi}"/>
         </form>
     </jsp:body>
 </t:wrapper>

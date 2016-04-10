@@ -83,7 +83,7 @@ public class AventureCtrl extends HttpServlet {
                 else if (aventure.getMj().getId() == user.getId()) {
                     canAdd = true;
                     request.setAttribute("listePersonnages",
-                            persoDAO.getCandidats(user));
+                            persoDAO.getCandidats(user, aventure.getUnivers()));
                 }
 
                 request.setAttribute("titre", titre);

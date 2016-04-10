@@ -91,7 +91,7 @@ public class PersonnageCtrl extends HttpServlet {
                 JoueurDAO joueurDAO = JoueurDAO.Get();
                 Collection<Joueur> listeMJ = joueurDAO.getMeneurs();
                 Collection<Joueur> listeTransfert = new ArrayList<>();
-                List<Joueur> listeJoueurs = joueurDAO.getAutresJoueurs(user.getId());
+                List<Joueur> listeJoueurs = joueurDAO.whoCanReceive(id);
                 
                 
                 Joueur toDelete = null;

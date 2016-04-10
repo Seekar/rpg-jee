@@ -91,7 +91,7 @@ public class EpisodeCtrl extends HttpServlet {
             try {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
-            
+
                 Main.CheckOwnerOrMj(persoID, request);
                 
                 Episode e = ed.getEpisode(epID);
@@ -180,6 +180,7 @@ public class EpisodeCtrl extends HttpServlet {
         switch (action) {
         case "validesuppr": {
             try {
+                int idBio = Integer.parseInt(request.getParameter("idBio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
 
                 if (request.getParameter("res").equals("oui")) {
@@ -187,12 +188,10 @@ public class EpisodeCtrl extends HttpServlet {
                     
                     Main.CheckOwnerOrMj(persoID, request);
                     ed.suppressEpisode(pid);
-                    
-                    response.sendRedirect("biographie?action=afficher&id=" + persoID);
-
-                } else {
-                    response.sendRedirect("biographie?action=afficher&id=" + persoID);
                 }
+                
+                response.sendRedirect("biographie?action=edition&persoID="
+                        + persoID + "&biographie=" + idBio);
 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
@@ -206,6 +205,7 @@ public class EpisodeCtrl extends HttpServlet {
 
         case "validevalid": {
             try {
+                int idBio = Integer.parseInt(request.getParameter("idBio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
                 Main.CheckOwnerOrMj(persoID, request);
                 
@@ -213,11 +213,10 @@ public class EpisodeCtrl extends HttpServlet {
                     int eid = Integer.parseInt(request.getParameter("pID"));
 
                     ed.valideEpisode(eid, persoID, user.getId());
-                    response.sendRedirect("biographie?action=afficher&id=" + persoID);
-
-                } else {
-                    response.sendRedirect("biographie?action=afficher&id=" + persoID);
                 }
+                
+                response.sendRedirect("biographie?action=edition&persoID="
+                        + persoID + "&biographie=" + idBio);
                 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
@@ -231,26 +230,23 @@ public class EpisodeCtrl extends HttpServlet {
         
         case "new": {
             try {
+                int date = Integer.parseInt(request.getParameter("date"));
+                int idBio = Integer.parseInt(request.getParameter("IDbio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
                 String avt = request.getParameter("aventure");
                 
                 Main.CheckOwnerOrMj(persoID, request);
                 
                 if (avt.equals("__NONE__")) {
-                    int idbio = Integer.parseInt(request.getParameter("IDbio"));
-                    int date = Integer.parseInt(request.getParameter("date"));
-                    
-                    ed.nouvelEpisode(false, 0, idbio, date);
-                    response.sendRedirect("biographie?action=afficher&id=" + persoID);
+                    ed.nouvelEpisode(false, 0, idBio, date);
 
                 } else {
                     int avent = Integer.parseInt(avt);
-                    int idbio = Integer.parseInt(request.getParameter("IDbio"));
-                    int date = Integer.parseInt(request.getParameter("date"));
-
-                    ed.nouvelEpisode(true, avent, idbio, date);
-                    response.sendRedirect("biographie?action=afficher&id=" + persoID);
+                    ed.nouvelEpisode(true, avent, idBio, date);
                 }
+                
+                response.sendRedirect("biographie?action=edition&persoID="
+                        + persoID + "&biographie=" + idBio);
                 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
