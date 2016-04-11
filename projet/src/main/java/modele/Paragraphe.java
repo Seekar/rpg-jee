@@ -2,56 +2,27 @@ package modele;
 
 
 /**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
+ * Classe de modélisation des paragraphes
+ *
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-
 public class Paragraphe
 {
     private int id;
-        
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     private String texte;
-        
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     private boolean secret;
-        
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     public Episode episode;
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     */
     public Paragraphe(){
         super();
     }
-        
-        public Paragraphe(int id, boolean isSecret, String texte){
-            this.id = id;
-            secret = isSecret;
-            this.texte = texte;
-        }
+
+    public Paragraphe(int id, boolean isSecret, String texte){
+        this.id = id;
+        secret = isSecret;
+        this.texte = texte;
+    }
+
 
     public int getId() {
         return id;
@@ -92,6 +63,5 @@ public class Paragraphe
     public void setEpisode(Episode episode) {
         this.episode = episode;
     }
-
 }
 

@@ -4,47 +4,17 @@ import java.util.List;
 
 
 /**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
+ * Classe de modélisation des univers
+ *
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-
 public class Univers
 {
     private int id;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     private String nom;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     public List<Aventure> aventures;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     public List<Personnage> personnages;
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     */
     public Univers(){
         super();
     }
@@ -74,7 +44,5 @@ public class Univers
     public void setNom(String nom) {
         this.nom = nom;
     }
-
-    
 }
 

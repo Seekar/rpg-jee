@@ -4,30 +4,18 @@ import java.util.List;
 
 
 /**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
+ * Classe de modélisation des épisodes
+ *
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-
 public class Episode
 {
     private int id;
-    
     private int eDate;
-
     private boolean valide;
-        public boolean getValide(){return valide;}
-    
     public Aventure aventure;
-    
     public Joueur mj;
-        public Joueur getMJ(){
-            return mj;
-        }
-    
     public Biographie biographie;
-
-    
     public List<Paragraphe> paragraphes = new LinkedList<>();
 
     public Episode(int id, int eDate, boolean valide, Aventure aventure, Joueur mj, Biographie biographie) {
@@ -41,6 +29,15 @@ public class Episode
     
     public Episode(int eDate, boolean valide, Aventure aventure, Joueur mj, Biographie biographie) {
         this(-1, eDate, valide, aventure, mj, biographie);
+    }
+
+
+    public boolean getValide() {
+        return valide;
+    }
+
+    public Joueur getMJ() {
+        return mj;
     }
 
     public int getDate() {
@@ -106,6 +103,5 @@ public class Episode
     public void setParagraphes(List<Paragraphe> paragraphes) {
         this.paragraphes = paragraphes;
     }
-
 }
 

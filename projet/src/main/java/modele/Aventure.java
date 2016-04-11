@@ -5,119 +5,23 @@ import java.util.List;
 import org.apache.commons.lang.StringEscapeUtils;
 
 /**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
+ * Classe de modélisation des aventures
+ *
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-
 public class Aventure
 {
     public int id;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     private String titre;
-        
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     private String situation;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     private String aDate;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     private String lieu;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     private String events;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     private boolean finie;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     public Univers univers;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
-    /*public Episode episode; 
-
-    public Episode getEpisode() {
-        return episode;
-    }
-    public void setEpisode(Episode episode) {
-        this.episode = episode;
-    }*/
-
-
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     public Joueur mj;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     public List<Personnage> personnages = new LinkedList<>();
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     */
     public Aventure() {
         this.id = -1;   
     }
@@ -142,6 +46,27 @@ public class Aventure
 
     public Aventure(int id){
         this.id = id;
+    }
+
+
+    /**
+     * Renvoie le texte descriptif des événements avec protection XSS
+     * + affichage html des sauts de lignes
+     *
+     * @return Le texte des événements à afficher
+     */
+    public String showEvents() {
+        return Main.CustomEscape(events);
+    }
+
+    /**
+     * Renvoie la situation initiale avec protection XSS
+     * + affichage html des sauts de lignes
+     *
+     * @return La situation à afficher
+     */
+    public String showSituation() {
+        return Main.CustomEscape(situation);
     }
 
     public String getDate() {
@@ -172,10 +97,6 @@ public class Aventure
         return situation;
     }
 
-    public String showSituation() {
-        return Main.CustomEscape(situation);
-    }
-
     public void setSituation(String situation) {
         this.situation = situation;
     }
@@ -198,10 +119,6 @@ public class Aventure
 
     public String getEvents() {
         return events;
-    }
-
-    public String showEvents() {
-        return Main.CustomEscape(events);
     }
 
     public void setEvents(String events) {
@@ -258,6 +175,5 @@ public class Aventure
     public Personnage getPersonnage() {
         return getPersonnage(0);
     }
-
 }
 

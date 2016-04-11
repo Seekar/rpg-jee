@@ -2,52 +2,15 @@ package modele;
 
 
 /**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
+ * Classe de modélisation des participations
+ * de personnages à des parties
+ *
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-
 public class Participe
 {
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     public Aventure aventure;
-        
-        public Aventure getAventure() {
-            return aventure;
-        }
-        public void setAventure(Aventure aventure) {
-            this.aventure = aventure;
-        }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
     public Personnage personnage;
-        
-        public Personnage getPersonnage() {
-            return personnage;
-        }
-        public void setPersonnage(Personnage personnage) {
-            this.personnage = personnage;
-        }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!--  end-user-doc  -->
-     * @generated
-     * @ordered
-     */
-    
         
     public Participe(Aventure aventure, Personnage personnage) {
         this.aventure = aventure;
@@ -55,5 +18,20 @@ public class Participe
     }
 
 
+    public Aventure getAventure() {
+        return aventure;
+    }
+
+    public void setAventure(Aventure aventure) {
+        this.aventure = aventure;
+    }
+    
+    public Personnage getPersonnage() {
+        return personnage;
+    }
+
+    public void setPersonnage(Personnage personnage) {
+        this.personnage = personnage;
+    }
 }
 

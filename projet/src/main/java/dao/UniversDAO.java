@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.Connection;
@@ -16,17 +11,30 @@ import modele.Personnage;
 import modele.Univers;
 
 /**
+ * Singleton du DAO d'accès aux Univers
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class UniversDAO extends AbstractUniversDAO {
 
+    /**
+     * Le singleton
+     */
     private static UniversDAO instance;
-    
+
+    /**
+     * Constructeur privé du singleton
+     */
     private UniversDAO(DataSource ds) {
         super(ds);
     }
-    
+
+    /**
+     * Crée le singleton
+     *
+     * @param ds Le datasource d'accès bdd
+     * @return Le singleton
+     */
     public static UniversDAO Create(DataSource ds) {
         if (instance == null) {
             instance = new UniversDAO(ds);
@@ -35,25 +43,25 @@ public final class UniversDAO extends AbstractUniversDAO {
         return instance;
     }
 
+    /**
+     * Getter du singleton
+     *
+     * @return Le singleton
+     */
     public static UniversDAO Get() {
         return instance;
     }
-    
-    @Override
-    public Univers getUnivers(Aventure a) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public Univers getUnivers(Personnage p) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * Récupère la liste des univers ordonnés par nom
+     *
+     * @return La liste des univers
+     */
     @Override
     public ArrayList<Univers> getUnivers() throws DAOException {
         ArrayList<Univers> univers = new ArrayList<>();
-        Connection link = null;
         PreparedStatement statement = null;
+        Connection link = null;
 
         try {
             link = getConnection();
@@ -68,16 +76,10 @@ public final class UniversDAO extends AbstractUniversDAO {
             throw new DAOException("Erreur d'accès à la liste des univers " + e.getMessage(), e);
 
         } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {}
-            }
-
+            CloseStatement(statement);
             closeConnection(link);
         }
 
         return univers;
     }
-    
 }

@@ -5,16 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Classe Biographie
+ * Classe de modélisation des biographies
+ *
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-public class Biographie {
-
+public class Biographie
+{
     private int id;
-
     private String texte;
-    
     public Personnage personnage;
-
     public List<Episode> episodes = new LinkedList<>();
     
     public Biographie(int id, String texte) {
@@ -29,7 +28,17 @@ public class Biographie {
     public Biographie(int id) {
         this(id, null);
     }
-    
+
+
+    /**
+     * Renvoie le texte de biographie avec protection XSS
+     * + affichage html des sauts de lignes
+     *
+     * @return Le texte à afficher
+     */
+    public String showTexte() {
+        return Main.CustomEscape(texte);
+    }
     
     public int getID() {
         return id;
@@ -37,10 +46,6 @@ public class Biographie {
     
     public String getTexte() {
         return texte;
-    }
-
-    public String showTexte() {
-        return Main.CustomEscape(texte);
     }
     
     public List<Episode> getEpisodes() {
