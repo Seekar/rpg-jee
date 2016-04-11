@@ -37,8 +37,6 @@ public class PersonnageCtrl extends HttpServlet {
 
         String page = null;
         String action = request.getParameter("action");
-        Joueur user = Main.GetJoueurSession(request);
-        int idUser = user.getId();
 
         // Force le login
         if (Main.notLogged(request, response)) {
@@ -53,6 +51,8 @@ public class PersonnageCtrl extends HttpServlet {
 
         PersonnageDAO persoDAO = PersonnageDAO.Get();
         AventureDAO avDAO = AventureDAO.Get();
+        Joueur user = Main.GetJoueurSession(request);
+        int idUser = user.getId();
 
         switch (action) {
         case "create":
