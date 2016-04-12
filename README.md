@@ -5,17 +5,22 @@ Code / Design amplement suffisant cette fois, faudrait arrêter de coder et fini
 
 ### TODO
 
-- acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents
+Partie 1 : Analyse
+- acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents : Jules
+
+Partie 2 : Conception
+- doc conception : Simon
+
+Partie 3
+- manuel utilisateur : ?
+
+Partie 4
+- rédaction bilan : ?
+
+
+- rédaction readme.txt : Léo
+
 - commentaires + javadoc
-- doc conception
-
-- rédaction readme.txt
-- rédaction manuel utilisateur
-- rédaction bilan
-
-
-### Répartition du travail restant
-?
 
 
 ### Identifiants Oracle
