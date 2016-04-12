@@ -21,7 +21,7 @@ Partie 4
 - finir le script SQL pour préremplir la bdd : Léo
 - rédaction readme.txt : Léo
 
-- commentaires + javadoc : Salim
+- commentaires pertinents (parties non explicites) + Javadoc : Salim
 
 
 ### Identifiants Oracle
