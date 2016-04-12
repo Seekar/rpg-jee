@@ -1,7 +1,7 @@
 Tool UML : https://genmymodel.com
 
 
-Code / Design amplement suffisant cette fois, faudrait arrêter de coder et finir la suite maintenant (sauf si trouvaille d'un bug important)
+Code / Design amplement suffisant cette fois, faudrait arrêter de coder et finir la suite maintenant (sauf si trouvaille d'un bug important) => pas sur : comment consulter tous les personnages (meme ceux que l'on a pas) et notemment leur bio (la page bio est ok mais de lien dans le cas ou pas possesseur ou MJ)
 
 ### TODO
 
