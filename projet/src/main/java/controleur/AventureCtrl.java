@@ -44,16 +44,12 @@ public class AventureCtrl extends HttpServlet {
         if (Main.notLogged(request, response)) {
             return;
         }
-        else if (action == null) {
-            action = "list";
-        }
 
         PersonnageDAO persoDAO = PersonnageDAO.Get();
         AventureDAO avDAO = AventureDAO.Get();
 
         switch(action) {
-        case "create":
-        {
+        case "create": {
             page = "creation";
             UniversDAO universDAO = UniversDAO.Get();
             Collection<Univers> univers;
@@ -103,50 +99,52 @@ public class AventureCtrl extends HttpServlet {
         }
 
         default: {
-            if (action.toLowerCase().endsWith("list")) {
-                page = "liste";
+            page = "liste";
 
-                Collection<Aventure> parties = null;
+            Collection<Aventure> parties = null;
 
-                try {
-                    String titre = "Liste des parties";
+            try {
+                String titre = "Liste des parties";
 
-                    if (action.equals("characterList")) {
-                        String idParam = request.getParameter("id");
-                        int idPerso = Integer.parseInt(idParam);
-                        
-                        Personnage perso = persoDAO.getPersonnage(idPerso);
-                        parties = avDAO.getParties(perso);
-                        titre = "Parties de " + perso.getNom();
-                        request.setAttribute("isPerso", true);
-                    }
-                    else if (action.equals("myList")) {
-                        parties = avDAO.getParties(user);
-                        titre = "Mes parties";
-                        request.setAttribute("hasPerso", true);
-                    }
-                    else if (action.equals("leaderList")) {
-                        parties = avDAO.getPartiesMenees(user);
-                        titre = "Parties menées";
-                    }
+                switch (action) {
+                case "characterList":
+                    String idParam = request.getParameter("id");
+                    int idPerso = Integer.parseInt(idParam);
+                    Personnage perso = persoDAO.getPersonnage(idPerso);
+                    parties = avDAO.getParties(perso);
+                    titre = "Parties de " + perso.getNom();
+                    request.setAttribute("isPerso", true);
+                    break;
                     
-                    // Liste complète par défaut
-                    else {
-                        parties = avDAO.getAventures();
-                    }
+                case "myList":
+                    parties = avDAO.getParties(user);
+                    titre = "Mes parties";
+                    request.setAttribute("hasPerso", true);
+                    break;
+                    
+                case "leaderList":
+                    parties = avDAO.getPartiesMenees(user);
+                    titre = "Parties menées";
+                    break;
 
-                    request.setAttribute("titre", titre);
-                    request.setAttribute("parties", parties);
-
-                } catch (DAOException e) {
-                   Main.dbError(request, response, e);
+                // Par défaut on affiche la liste des aventures
+                default:
+                    parties = avDAO.getAventures();
+                    break;
                 }
+
+                request.setAttribute("titre", titre);
+                request.setAttribute("parties", parties);
+
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
             }
-            }
+        }
         }
 
         if (page != null) {
             request.getRequestDispatcher("/WEB-INF/aventure/" + page + ".jsp").forward(request, response);
+            
         } else if (request.getAttribute("done") == null) {
             Main.invalidParameters(request, response);
         }
@@ -177,15 +175,19 @@ public class AventureCtrl extends HttpServlet {
         case "create":
             actionCreate(request, response);
             break;
+            
         case "finish":
             actionFinish(request, response);
             break;
+            
         case "delete":
             actionDelete(request, response);
             break;
+            
         case "addMember":
             actionAddMember(request, response);
             break;
+            
         case "removeMember":
             actionRemoveMember(request, response);
             break;
@@ -206,7 +208,9 @@ public class AventureCtrl extends HttpServlet {
             Univers univers = new Univers(idUnivers);
 
             // On crée l'objet aventure
-            Aventure aventure = new Aventure(titre, date, lieu, univers, resume, Main.GetJoueurSession(request));
+            Aventure aventure = new Aventure(titre, date, lieu, univers,
+                    resume, Main.GetJoueurSession(request));
+            
             AventureDAO.Get().creerPartie(aventure);
 
             response.sendRedirect(request.getContextPath()

@@ -62,29 +62,33 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
      * Récupère la liste de tous les personnages classés par nom
      *
      * @return La liste de tous les personnages
+     * @throws DAOException
      */
     @Override
-    public Collection<Personnage> getAllPersonnages() throws DAOException {
+    public Collection<Personnage> getPersonnages() throws DAOException {
         List<Personnage> result = new ArrayList<>();
-        Connection link = null;
         PreparedStatement ps = null;
+        Connection link = null;
         
         try {
             link = getConnection();
-            ps = link.prepareStatement("SELECT * FROM Personnage ORDER BY nom");
+            ps = link.prepareStatement("SELECT id, nom, profession "
+                                     + "FROM Personnage ORDER BY nom");
             ResultSet rs = ps.executeQuery();
+            Personnage perso;
             
             while (rs.next()) {
-                Personnage personnage = new Personnage(rs.getString("nom"),
-                        rs.getString("naissance"), rs.getString("profession"),
-                        rs.getString("portrait"),
-                        new Univers(rs.getInt("univers_id")));
+                perso = new Personnage();
+                perso.setId(rs.getInt("id"));
+                perso.setNom(rs.getString("nom"));
+                perso.setProfession(rs.getString("profession"));
                 
-                result.add(personnage);
+                result.add(perso);
             }
             
         } catch (SQLException e) {
-            throw new DAOException("Erreur d'accès aux personnages " + e.getMessage(), e);
+            throw new DAOException("Erreur d'accès aux personnages "
+                    + e.getMessage(), e);
             
         } finally {
             CloseStatement(ps);
@@ -100,6 +104,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
      *
      * @param  j Le joueur
      * @return La liste des personnages
+     * @throws DAOException
      */
     @Override
     public ArrayList<Personnage> getPersonnagesJoueur(Joueur j) throws DAOException {
@@ -109,17 +114,18 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT id, nom "
+            statement = link.prepareStatement("SELECT id, nom, profession "
                     + "FROM Personnage where joueur_id = ? ORDER BY nom");
             
             statement.setInt(1, j.getId());
-            ResultSet res = statement.executeQuery();
+            ResultSet rs = statement.executeQuery();
             Personnage perso;
 
-            while (res.next()) {
+            while (rs.next()) {
                 perso = new Personnage();
-                perso.setId(res.getInt("id"));
-                perso.setNom(res.getString("nom"));
+                perso.setId(rs.getInt("id"));
+                perso.setNom(rs.getString("nom"));
+                perso.setProfession(rs.getString("profession"));
                 
                 persos.add(perso);
             }
@@ -143,6 +149,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
      *
      * @param  j Le joueur
      * @return La liste des personnages
+     * @throws DAOException
      */
     @Override
     public Collection<Personnage> getPersonnagesAValider(Joueur j) throws DAOException {
@@ -152,8 +159,9 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT id, nom FROM Personnage "
-                    + "where valide = 0 and validateur_id = ? ORDER BY nom");
+            statement = link.prepareStatement("SELECT id, nom, profession "
+                    + "FROM Personnage where valide = 0 and validateur_id = ? "
+                    + "ORDER BY nom");
             
             statement.setInt(1, j.getId());
             ResultSet res = statement.executeQuery();
@@ -163,6 +171,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                 perso = new Personnage();
                 perso.setId(res.getInt("id"));
                 perso.setNom(res.getString("nom"));
+                perso.setProfession(res.getString("profession"));
                 
                 persos.add(perso);
             }
@@ -187,19 +196,20 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT id, nom FROM Personnage "
-                    + "where transfert_id = ? and mj_id != ? and valide = 1 "
-                    + "ORDER BY nom");
+            statement = link.prepareStatement("SELECT id, nom, profession "
+                    + "FROM Personnage WHERE transfert_id = ? and mj_id != ? "
+                    + "and valide = 1 ORDER BY nom");
             
             statement.setInt(1, j.getId());
             statement.setInt(2, j.getId());
-            ResultSet res = statement.executeQuery();
+            ResultSet rs = statement.executeQuery();
             Personnage perso;
 
-            while (res.next()) {
+            while (rs.next()) {
                 perso = new Personnage();
-                perso.setId(res.getInt("id"));
-                perso.setNom(res.getString("nom"));
+                perso.setId(rs.getInt("id"));
+                perso.setNom(rs.getString("nom"));
+                perso.setProfession(rs.getString("profession"));
                 
                 persos.add(perso);
             }
@@ -224,8 +234,9 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT id, nom FROM Personnage "
-                    + "where mj_id = ? and valide = 1 ORDER BY nom");
+            statement = link.prepareStatement("SELECT id, nom, profession "
+                    + "FROM Personnage WHERE mj_id = ? and valide = 1 "
+                    + "ORDER BY nom");
             
             statement.setInt(1, mj.getId());
             ResultSet res = statement.executeQuery();
@@ -235,6 +246,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                 perso = new Personnage();
                 perso.setId(res.getInt("id"));
                 perso.setNom(res.getString("nom"));
+                perso.setProfession(res.getString("profession"));
                 
                 persos.add(perso);
             }
@@ -260,6 +272,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
      * @return La liste des candidats potentiels
      * @throws DAOException 
      */
+    @Override
     public ArrayList<Personnage> getCandidats(Joueur mj, Univers u) throws DAOException {
         ArrayList<Personnage> persos = new ArrayList<>();
         Connection link = null;
@@ -267,13 +280,13 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
         try {
             link = getConnection();
-            statement = link.prepareStatement("SELECT p.id, p.nom FROM Personnage p "
-                    + "JOIN Univers u on p.univers_id = u.id "
+            statement = link.prepareStatement("SELECT p.id, p.nom, profession "
+                    + "FROM Personnage p JOIN Univers u on p.univers_id = u.id "
                     + "LEFT JOIN Participe r on r.personnage_id = p.id "
                     + "WHERE mj_id = ? AND u.id = ? AND valide = 1 "
                     + "AND NOT EXISTS (SELECT 1 FROM Aventure a "
                     + "WHERE r.aventure_id = a.id and finie = 0) "
-                    + "GROUP BY p.id, p.nom "
+                    + "GROUP BY p.id, p.nom, p.profession "
                     + "HAVING COUNT(p.id) = (SELECT COUNT(p2.id) FROM Personnage p2 "
                     + "LEFT JOIN Participe s on s.personnage_id = p2.id "
                     + "WHERE p2.id = p.id) ORDER BY p.nom ");
@@ -287,6 +300,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                 perso = new Personnage();
                 perso.setId(res.getInt("id"));
                 perso.setNom(res.getString("nom"));
+                perso.setProfession(res.getString("profession"));
                 
                 persos.add(perso);
             }
@@ -689,6 +703,7 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         }
     }
 
+    @Override
     public boolean dansPartieEnCours(int idPerso) throws DAOException {
         boolean result = true;
         Connection link = null;

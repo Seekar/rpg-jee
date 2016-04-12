@@ -13,6 +13,7 @@
             <thead>
                 <tr>
                     <th>Nom</th>
+                    <th>Profession</th>
                     <c:if test="${persoKiller}"><th>Action(s)</th></c:if>
                     </tr>
                 </thead>
@@ -22,6 +23,7 @@
                 <c:forEach var="perso" items="${persos}">
                     <tr onclick="document.location = 'character?action=show&id=${perso.getId()}';" style="cursor:pointer" >
                         <td><c:out value="${perso.getNom()}"/></td>
+                        <td><c:out value="${perso.getProfession()}"/></td>
                         <c:if test="${persoKiller}">
                             <td>                    
                                 <form action="game" method="POST">

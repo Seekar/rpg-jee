@@ -1,10 +1,12 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.sql.DataSource;
 import modele.Aventure;
 import modele.Joueur;
 import modele.Personnage;
+import modele.Univers;
 
 /**
  * Classe abstraite du DAO d'accès aux personnages
@@ -22,8 +24,9 @@ public abstract class AbstractPersonnageDAO extends AbstractDAO {
      * Récupère la liste de tous les personnages classés par nom
      *
      * @return La liste de tous les personnages
+     * @throws DAOException
      */
-    public abstract Collection<Personnage> getAllPersonnages()
+    public abstract Collection<Personnage> getPersonnages()
             throws DAOException;
 
     /**
@@ -32,6 +35,7 @@ public abstract class AbstractPersonnageDAO extends AbstractDAO {
      *
      * @param  j Le joueur
      * @return La liste des personnages
+     * @throws DAOException
      */    
     public abstract Collection<Personnage> getPersonnagesJoueur(Joueur j)
             throws DAOException;
@@ -43,6 +47,7 @@ public abstract class AbstractPersonnageDAO extends AbstractDAO {
      *
      * @param  j Le joueur
      * @return La liste des personnages
+     * @throws DAOException
      */
     public abstract Collection<Personnage> getPersonnagesAValider(Joueur j)
             throws DAOException;
@@ -62,14 +67,24 @@ public abstract class AbstractPersonnageDAO extends AbstractDAO {
     public abstract void requestValidation(int idPerso, int idMJ, int idUser)
             throws DAOException;
 
-    public abstract void requestTransfer(int idPerso, int idMJ, int idUser) throws DAOException;
+    public abstract void requestTransfer(int idPerso, int idMJ, int idUser)
+            throws DAOException;
 
-    public abstract void acceptValidation(int idPerso, int idUser) throws DAOException;
+    public abstract void acceptValidation(int idPerso, int idUser)
+            throws DAOException;
 
-    public abstract void acceptTransfer(int idPerso, int idUser) throws DAOException;
+    public abstract void acceptTransfer(int idPerso, int idUser)
+            throws DAOException;
     
-    public abstract void modifierPersonnage(Personnage p, int idUser) throws DAOException;
+    public abstract void modifierPersonnage(Personnage p, int idUser)
+            throws DAOException;
     
-    public abstract void donnerPersonnage(int idPerso, int idDest, int idUser) throws DAOException;
+    public abstract void donnerPersonnage(int idPerso, int idDest, int idUser)
+            throws DAOException;
 
+    public abstract boolean dansPartieEnCours(int idPerso)
+            throws DAOException;
+    
+    public abstract Collection<Personnage> getCandidats(Joueur mj, Univers u)
+            throws DAOException;
 }

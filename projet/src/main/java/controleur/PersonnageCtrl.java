@@ -44,11 +44,6 @@ public class PersonnageCtrl extends HttpServlet {
             return;
         }
 
-        // Affiche les personnages possédés par défaut
-        else if (action == null) {
-            action = "ownedList";
-        }
-
 
         PersonnageDAO persoDAO = PersonnageDAO.Get();
         AventureDAO avDAO = AventureDAO.Get();
@@ -126,58 +121,62 @@ public class PersonnageCtrl extends HttpServlet {
             break;
 
         default:
-            if (action.endsWith("List")) {
-                page = "liste";
+            page = "liste";
 
-                Collection<Personnage> persos = null;
+            try {
+                Collection<Personnage> persos;
+                String titre;
 
-                try {
-                    String titre = null;
+                switch (action) {
+                case "ownedList":
+                    persos = persoDAO.getPersonnagesJoueur(user);
+                    titre = "Mes personnages";
+                    break;
 
-                    switch (action) {
-                    case "ownedList":
-                        persos = persoDAO.getPersonnagesJoueur(user);
-                        titre = "Personnages possédés";
-                        break;
-                        
-                    case "leaderList":
-                        persos = persoDAO.getPersonnagesMenes(user);
-                        titre = "Personnages menés";
-                        break;
-                        
-                    case "transferList":
-                        persos = persoDAO.getTransfertsAValider(user);
-                        titre = "Demandes de transfert";
-                        break;
-                        
-                    case "validationList":
-                        persos = persoDAO.getPersonnagesAValider(user);
-                        titre = "Personnages à valider";
-                        break;
-                        
-                    case "gameList":
-                        String idParam = request.getParameter("id");
-                        int idPartie = Integer.parseInt(idParam);
-                        boolean persoKiller = false;
-                        Aventure partie = avDAO.getAventure(idPartie);
-                        persos = partie.getPersonnages();
-                        titre = "Participants à \"" + partie.getTitre() + "\"";
-                        if (user.getId() == partie.getMj().getId()
-                                && !partie.isFinie())
-                            persoKiller = true;
-                        request.setAttribute("persoKiller", persoKiller);
-                        break;
-                    }
+                case "leaderList":
+                    persos = persoDAO.getPersonnagesMenes(user);
+                    titre = "Personnages menés";
+                    break;
 
-                    request.setAttribute("titre", titre);
-                    request.setAttribute("persos", persos);
+                case "transferList":
+                    persos = persoDAO.getTransfertsAValider(user);
+                    titre = "Demandes de transfert";
+                    break;
 
-                } catch (DAOException e) {
-                   Main.dbError(request, response, e);
+                case "validationList":
+                    persos = persoDAO.getPersonnagesAValider(user);
+                    titre = "Personnages à valider";
+                    break;
 
-                } catch (Exception e) {
-                   Main.invalidParameters(request, response, e);
+                case "gameList":
+                    String idParam = request.getParameter("id");
+                    int idPartie = Integer.parseInt(idParam);
+                    boolean persoKiller = false;
+                    Aventure partie = avDAO.getAventure(idPartie);
+                    persos = partie.getPersonnages();
+                    titre = "Participants à \"" + partie.getTitre() + "\"";
+                    if (user.getId() == partie.getMj().getId()
+                            && !partie.isFinie())
+                        persoKiller = true;
+                    request.setAttribute("persoKiller", persoKiller);
+                    break;
+
+                // Par défaut on affiche la liste des personnages
+                case "list":
+                default:
+                    persos = persoDAO.getPersonnages();
+                    titre = "Liste des personnages";
+                    break;
                 }
+
+                request.setAttribute("titre", titre);
+                request.setAttribute("persos", persos);
+
+            } catch (DAOException e) {
+               Main.dbError(request, response, e);
+
+            } catch (Exception e) {
+               Main.invalidParameters(request, response, e);
             }
         }
 

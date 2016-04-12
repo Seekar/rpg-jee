@@ -25,7 +25,8 @@ public class Personnage {
     private Biographie biographie;
        
 
-    public Personnage(int id, String nom, String naissance, String profession, String portrait, Univers univers, Joueur joueur) {
+    public Personnage(int id, String nom, String naissance, String profession,
+            String portrait, Univers univers, Joueur joueur) {
         this.id = id;
         this.nom = nom;
         this.naissance = naissance;
@@ -35,12 +36,26 @@ public class Personnage {
         this.joueur = joueur;
     }
 
-    public Personnage(String nom, String naissance, String profession, String portrait, Univers univers, Joueur joueur) {
+    public Personnage(String nom, String naissance, String profession,
+            String portrait, Univers univers, Joueur joueur) {
         this(-1, nom, naissance, profession, portrait, univers, joueur);
     }
 
-    public Personnage(String nom, String naissance, String profession, String portrait, Univers univers) {
+    public Personnage(String nom, String naissance, String profession,
+            String portrait, Univers univers) {
         this(-1, nom, naissance, profession, portrait, univers, null);
+    }
+
+    public Personnage(int id, String nom, String naissance, String profession) {
+        this(id, nom, naissance, profession, null, null, null);
+    }
+
+    public Personnage(int id, String nom, String naissance) {
+        this(id, nom, naissance, null, null, null, null);
+    }
+
+    public Personnage(int id, String nom) {
+        this(id, nom, null, null, null, null, null);
     }
 
     public Personnage(int id) {

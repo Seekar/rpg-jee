@@ -70,7 +70,6 @@ public class Main extends HttpServlet {
      * 
      * @param persoID L'id du personnage
      * @param request La requete
-     * @return null si non connecté, le joueur sinon
      * @throws SecurityException
      */
     public static void CheckOwnerOrMj(int persoID,

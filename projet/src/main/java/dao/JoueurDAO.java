@@ -73,7 +73,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
             joueur = new Joueur(id, res.getString("pseudo"), res.getString("pwd"));
 
         } catch (Exception e) {
-            throw new DAOException("Erreur bdd " + e.getMessage(), e);
+            throw new DAOException("Erreur d'accès au joueur spécifié " + e.getMessage(), e);
 
         } finally {
             CloseStatement(statement);
@@ -101,7 +101,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
             joueur = new Joueur(rs.getInt("id"), pseudo, rs.getString("pwd"));
 
         } catch (Exception e) {
-            throw new DAOException("Erreur bdd " + e.getMessage(), e);
+            throw new DAOException("Erreur d'accès au joueur spécifié " + e.getMessage(), e);
 
         } finally {
             CloseStatement(statement);
