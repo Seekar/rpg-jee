@@ -48,7 +48,7 @@ public class BiographieCtrl extends HttpServlet {
         }
 
         switch (action) {
-        case "afficher": {
+        case "afficher": { //affichage de la biographie d'un personnage
             try {
                 int persoID = Integer.parseInt(request.getParameter("id"));
                 PersonnageDAO persoD = PersonnageDAO.Get();
@@ -80,7 +80,7 @@ public class BiographieCtrl extends HttpServlet {
             break;
         }
         
-        case "edition": {
+        case "edition": { //afichage de la vue édition d'une biographie
             
             try {
                 int bioID = Integer.parseInt(request.getParameter("biographie"));

@@ -1,7 +1,7 @@
 Tool UML : https://genmymodel.com
 
 
-Code / Design amplement suffisant cette fois, faudrait arrêter de coder et finir la suite maintenant (sauf si trouvaille d'un bug important)
+Code / Design amplement suffisant cette fois, faudrait arrêter de coder et finir la suite maintenant (sauf si trouvaille d'un bug important) => pas sur : comment consulter tous les personnages (meme ceux que l'on a pas) et notemment leur bio (la page bio est ok mais de lien dans le cas ou pas possesseur ou MJ)
 
 ### TODO
 
@@ -21,7 +21,7 @@ Partie 4
 - finir le script SQL pour préremplir la bdd : Léo
 - rédaction readme.txt : Léo
 
-- commentaires pertinents (parties non explicites) + Javadoc : Salim
+- commentaires pertinents (parties non explicites) + Javadoc : chacun ses parties
 
 
 ### Identifiants Oracle
@@ -32,7 +32,6 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 ### BDD
 
 [Graphique SVG](https://github.com/leogouttefarde/rpg/blob/master/bdd.svg)
-- Si un perso n'est pas valide, alors il n'a pas encore de MJ, et donc impossible de faire valider un épisode de sa bio
 
 
 ### Bugs

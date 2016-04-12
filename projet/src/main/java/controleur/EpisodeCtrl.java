@@ -45,7 +45,7 @@ public class EpisodeCtrl extends HttpServlet {
         ParagrapheDAO pad = ParagrapheDAO.Get();
 
         switch (action) {
-        case "edit": {
+        case "edit": { //affichage de l'édition d'un épisode
             try {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
@@ -67,7 +67,7 @@ public class EpisodeCtrl extends HttpServlet {
             break;
         }
         
-        case "suppr": {
+        case "suppr": { //afichage de la page suppression d'un épisode
             try {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
@@ -89,7 +89,7 @@ public class EpisodeCtrl extends HttpServlet {
             break;
         }
         
-        case "valider": {
+        case "valider": { //afichage page validation d'un épisode
             try {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
@@ -130,7 +130,7 @@ public class EpisodeCtrl extends HttpServlet {
             break;
         }
 
-        case "new":
+        case "new": //afichage du formulaire de creation d'un épsiode
             try {
                 int bioID = Integer.parseInt(request.getParameter("bioID"));
                 int pid = Integer.parseInt(request.getParameter("pid"));
@@ -181,7 +181,7 @@ public class EpisodeCtrl extends HttpServlet {
         EpisodeDAO ed = EpisodeDAO.Get();
 
         switch (action) {
-        case "validesuppr": {
+        case "validesuppr": { //validation de la suppression d'un épisode
             try {
                 int idBio = Integer.parseInt(request.getParameter("idBio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
