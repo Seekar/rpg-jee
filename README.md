@@ -18,6 +18,7 @@ Partie 4
 - rédaction bilan : ?
 
 
+- finir le script SQL pour préremplir la bdd : Léo
 - rédaction readme.txt : Léo
 
 - commentaires + javadoc
