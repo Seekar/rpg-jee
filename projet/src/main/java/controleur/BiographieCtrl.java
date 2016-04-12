@@ -38,6 +38,7 @@ public class BiographieCtrl extends HttpServlet {
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
 
@@ -126,8 +127,9 @@ public class BiographieCtrl extends HttpServlet {
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        
+        request.setCharacterEncoding("UTF-8");
+
+        // Aucune action POST sur les biographies
         Main.invalidParameters(request, response);
-        
     }
 }

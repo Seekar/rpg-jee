@@ -20,11 +20,8 @@
 
             <tbody style="cursor:pointer">
             <c:forEach var="partie" items="${parties}">
-                <tr onclick="document.location = 'game?action=show&id=${partie.getId()}';"<%--
-                    <c:choose>
-                    <c:when test="${partie.isFinie()}">class="active"></c:when>
-                    <c:otherwise>class="success"></c:otherwise>
-                    </c:choose>--%>>
+                <tr onclick="document.location = 'game?action=show&id=${partie.getId()}';"
+                    <c:if test="${partie.isFinie()}">class="text-muted"</c:if>>
                     <td><c:out value="${partie.getTitre()}"/></td>
                     <td><c:choose>
                     <c:when test="${partie.isFinie()}">Terminée</c:when>
