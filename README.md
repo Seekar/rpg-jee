@@ -21,7 +21,7 @@ Partie 4
 - finir le script SQL pour préremplir la bdd : Léo
 - rédaction readme.txt : Léo
 
-- commentaires pertinents (parties non explicites) + Javadoc : Salim
+- commentaires pertinents (parties non explicites) + Javadoc : chacun ses parties
 
 
 ### Identifiants Oracle
@@ -32,7 +32,6 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 ### BDD
 
 [Graphique SVG](https://github.com/leogouttefarde/rpg/blob/master/bdd.svg)
-- Si un perso n'est pas valide, alors il n'a pas encore de MJ, et donc impossible de faire valider un épisode de sa bio
 
 
 ### Bugs

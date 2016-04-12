@@ -34,6 +34,7 @@ public class AventureCtrl extends HttpServlet {
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
         String page = null;
@@ -163,6 +164,7 @@ public class AventureCtrl extends HttpServlet {
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
 
