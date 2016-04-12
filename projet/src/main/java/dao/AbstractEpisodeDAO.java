@@ -20,7 +20,9 @@ public abstract class AbstractEpisodeDAO extends AbstractDAO{
     
     public abstract Collection<Episode> getEpisodesEnEdition(Biographie b) 
             throws DAOException;
-    
+    /*
+    retourne les épisodes valide d'une biographie
+    */
     public abstract List<Episode> getEpisodes(Biographie b) 
             throws DAOException; 
     

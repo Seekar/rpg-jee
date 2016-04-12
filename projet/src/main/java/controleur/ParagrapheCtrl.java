@@ -36,7 +36,7 @@ public class ParagrapheCtrl extends HttpServlet {
         }
 
         switch (action) {
-        case "edit": {
+        case "edit": { //edition d'un paragraphe
             try {
                 int paragid = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
@@ -60,7 +60,7 @@ public class ParagrapheCtrl extends HttpServlet {
             break;
         }
 
-        case "new": {
+        case "new": {//ajout d'un paragraphe (formulaire)
             try {
                 int eid = Integer.parseInt(request.getParameter("eID"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
@@ -101,7 +101,7 @@ public class ParagrapheCtrl extends HttpServlet {
         }
 
         switch (action) {
-        case "reveler": {
+        case "reveler": { 
             try {
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
                 Main.CheckOwnerOrMj(persoID, request);
@@ -124,7 +124,7 @@ public class ParagrapheCtrl extends HttpServlet {
             break;
         }
         
-        case "new": {
+        case "new": { //creation du paragraphe dans la BDD
             boolean secret = request.getParameter("secret") != null;
             String texte = request.getParameter("texte");
             
@@ -151,7 +151,7 @@ public class ParagrapheCtrl extends HttpServlet {
             break;
         }
         
-        case "edit": {
+        case "edit": { //mise à jour du paragraphe dans la BDD
             String texte = request.getParameter("texte");
             
             try {
