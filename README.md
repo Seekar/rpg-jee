@@ -12,10 +12,10 @@ Partie 2 : Conception
 - doc conception : Simon
 
 Partie 3
-- manuel utilisateur : ?
+- manuel utilisateur : Léo / Salim
 
 Partie 4
-- rédaction bilan : ?
+- rédaction bilan : Tout le monde
 
 
 - finir le script SQL pour préremplir la bdd : Léo
@@ -49,15 +49,10 @@ Dans le dossier src/main/webapp/META-INF, copier le template context.xml.templat
 - Respect de l’architecture MVC
 
 
-### Protection contre les [failles d'injection XSS](https://fr.wikipedia.org/wiki/Cross-site_scripting)
-
-Pour empêcher l'affichage de champs donnés par l'utilisateur de modifier la page HTML, il suffit d'afficher ce genre de champs avec JSTL, exemple : ```<c:out value="${monChamp}"/>``` au lieu de ```${monChamp}```
-
-
 Tutos JSTL (pour les vues JSP) : http://www.tutorialspoint.com/jsp/jsp_standard_tag_library.htm
 
 Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 
 
-[Appli en ligne](http://rpg-723.rhcloud.com)
+[Appli en ligne (sans accès bdd](http://rpg-723.rhcloud.com)
