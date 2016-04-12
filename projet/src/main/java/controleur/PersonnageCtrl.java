@@ -15,17 +15,18 @@ import javax.servlet.http.*;
 import modele.*;
 
 /**
- * Contrôleur de personnages.
+ * Contrôleur de personnages
+ *
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 @WebServlet(name = "PersonnageCtrl", urlPatterns = {"/character"})
 public class PersonnageCtrl extends HttpServlet {
 
-    // Actions possibles en GET : 
     /**
      * Requetes GET
      *
-     * @param request
-     * @param response
+     * @param request  La requete
+     * @param response La réponse
      * @throws java.io.IOException
      * @throws javax.servlet.ServletException
      */
@@ -192,8 +193,8 @@ public class PersonnageCtrl extends HttpServlet {
     /**
      * Requetes POST
      *
-     * @param request
-     * @param response
+     * @param request  La requete
+     * @param response La réponse
      * @throws java.io.IOException
      * @throws javax.servlet.ServletException
      */

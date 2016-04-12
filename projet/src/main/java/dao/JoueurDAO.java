@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.Connection;
@@ -19,17 +14,30 @@ import javax.sql.DataSource;
 import modele.*;
 
 /**
+ * Singleton du DAO d'accès aux joueurs
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class JoueurDAO extends AbstractJoueurDAO {
 
+    /**
+     * Le singleton
+     */
     static private JoueurDAO instance;
 
+    /**
+     * Constructeur privé du singleton
+     */
     private JoueurDAO(DataSource ds) {
         super(ds);
     }
 
+    /**
+     * Crée le singleton
+     *
+     * @param ds Le datasource d'accès bdd
+     * @return Le singleton
+     */
     public static JoueurDAO Create(DataSource ds) {
         if (instance == null) {
             instance = new JoueurDAO(ds);
@@ -38,6 +46,11 @@ public final class JoueurDAO extends AbstractJoueurDAO {
         return instance;
     }
 
+    /**
+     * Getter du singleton
+     *
+     * @return Le singleton
+     */
     public static JoueurDAO Get() {
         return instance;
     }

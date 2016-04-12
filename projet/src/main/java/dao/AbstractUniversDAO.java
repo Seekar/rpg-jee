@@ -7,6 +7,7 @@ import modele.Personnage;
 import modele.Univers;
 
 /**
+ * Classe abstraite du DAO d'accès aux univers
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */

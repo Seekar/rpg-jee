@@ -6,8 +6,8 @@ package modele;
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-public class Paragraphe
-{
+public class Paragraphe {
+
     private int id;
     private String texte;
     private boolean secret;

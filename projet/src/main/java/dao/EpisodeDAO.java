@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.Connection;
@@ -18,17 +13,30 @@ import modele.Episode;
 import modele.Joueur;
 
 /**
+ * Singleton du DAO d'accès aux épisodes
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class EpisodeDAO extends AbstractEpisodeDAO {
 
+    /**
+     * Le singleton
+     */
     static private EpisodeDAO instance;
 
+    /**
+     * Constructeur privé du singleton
+     */
     private EpisodeDAO(DataSource ds) {
         super(ds);
     }
 
+    /**
+     * Crée le singleton
+     *
+     * @param ds Le datasource d'accès bdd
+     * @return Le singleton
+     */
     public static EpisodeDAO Create(DataSource ds) {
         if (instance == null) {
             instance = new EpisodeDAO(ds);
@@ -37,6 +45,11 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
         return instance;
     }
 
+    /**
+     * Getter du singleton
+     *
+     * @return Le singleton
+     */
     public static EpisodeDAO Get() {
         return instance;
     }

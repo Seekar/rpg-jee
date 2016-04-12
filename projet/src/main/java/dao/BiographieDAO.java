@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.Connection;
@@ -14,17 +9,30 @@ import modele.Biographie;
 import modele.Personnage;
 
 /**
+ * Singleton du DAO d'accès aux biographies
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class BiographieDAO extends AbstractBiographieDAO {
 
+    /**
+     * Le singleton
+     */
     private static BiographieDAO instance;
 
+    /**
+     * Constructeur privé du singleton
+     */
     private BiographieDAO(DataSource ds) {
         super(ds);
     }
 
+    /**
+     * Crée le singleton
+     *
+     * @param ds Le datasource d'accès bdd
+     * @return Le singleton
+     */
     public static BiographieDAO Create(DataSource ds) {
         if (instance == null) {
             instance = new BiographieDAO(ds);
@@ -33,6 +41,11 @@ public final class BiographieDAO extends AbstractBiographieDAO {
         return instance;
     }
 
+    /**
+     * Getter du singleton
+     *
+     * @return Le singleton
+     */
     public static BiographieDAO Get() {
         return instance;
     }

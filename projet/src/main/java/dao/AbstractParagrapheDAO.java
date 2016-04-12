@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.util.Collection;
@@ -11,6 +6,7 @@ import modele.Episode;
 import modele.Paragraphe;
 
 /**
+ * Classe abstraite du DAO d'accès aux paragraphes
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */

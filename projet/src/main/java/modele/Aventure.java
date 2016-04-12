@@ -9,8 +9,8 @@ import org.apache.commons.lang.StringEscapeUtils;
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-public class Aventure
-{
+public class Aventure {
+
     public int id;
     private String titre;
     private String situation;

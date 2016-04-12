@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import static dao.AbstractDAO.CloseStatement;
@@ -25,17 +20,30 @@ import modele.Biographie;
 import modele.Univers;
 
 /**
+ * Singleton du DAO d'accès aux aventures
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class AventureDAO extends AbstractAventureDAO {
     
+    /**
+     * Le singleton
+     */
     static private AventureDAO instance;
     
+    /**
+     * Constructeur privé du singleton
+     */
     private AventureDAO(DataSource ds) {
         super(ds);
     }
     
+    /**
+     * Crée le singleton
+     *
+     * @param ds Le datasource d'accès bdd
+     * @return Le singleton
+     */
     public static AventureDAO Create(DataSource ds) {
         if (instance == null) {
             instance = new AventureDAO(ds);
@@ -44,13 +52,13 @@ public final class AventureDAO extends AbstractAventureDAO {
         return instance;
     }
 
+    /**
+     * Getter du singleton
+     *
+     * @return Le singleton
+     */
     public static AventureDAO Get() {
         return instance;
-    }
-
-    @Override
-    public void editPartie(Aventure a) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -118,16 +126,6 @@ public final class AventureDAO extends AbstractAventureDAO {
         }
 
         return avs;
-    }
-
-    @Override
-    public List<Aventure> getPartiesEnCours(Joueur j) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Aventure getAventureAssociee(Episode e) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

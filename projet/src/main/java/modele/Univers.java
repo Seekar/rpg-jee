@@ -8,8 +8,8 @@ import java.util.List;
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-public class Univers
-{
+public class Univers {
+
     private int id;
     private String nom;
     public List<Aventure> aventures;

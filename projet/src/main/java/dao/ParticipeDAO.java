@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import static dao.AbstractDAO.CloseStatement;
@@ -15,17 +10,30 @@ import modele.Participe;
 import modele.Personnage;
 
 /**
+ * Singleton du DAO d'accès aux Personnages
  *
- * @author faellan
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public class ParticipeDAO extends AbstractParticipeDAO {
 
+    /**
+     * Le singleton
+     */
     private static ParticipeDAO instance;
-        
+
+    /**
+     * Constructeur privé du singleton
+     */
     private ParticipeDAO(DataSource ds) {
         super(ds);
     }
     
+    /**
+     * Crée le singleton
+     *
+     * @param ds Le datasource d'accès bdd
+     * @return Le singleton
+     */
     public static ParticipeDAO Create(DataSource ds) {
         if(instance == null)
             instance = new ParticipeDAO(ds);
@@ -33,6 +41,11 @@ public class ParticipeDAO extends AbstractParticipeDAO {
         return instance;
     }
     
+    /**
+     * Getter du singleton
+     *
+     * @return Le singleton
+     */
     public static ParticipeDAO Get() {
         return instance;
     }

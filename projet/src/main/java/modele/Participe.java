@@ -7,8 +7,8 @@ package modele;
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-public class Participe
-{
+public class Participe {
+
     public Aventure aventure;
     public Personnage personnage;
         

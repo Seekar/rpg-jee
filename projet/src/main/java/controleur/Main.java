@@ -22,7 +22,7 @@ import modele.*;
 import org.apache.commons.lang.StringEscapeUtils;
 
 /**
- * Le contrôleur d'application.
+ * Le contrôleur d'application
  */
 @WebServlet(name = "Main", urlPatterns = {"/main"})
 public class Main extends HttpServlet {
@@ -64,6 +64,15 @@ public class Main extends HttpServlet {
         return joueur;
     }
     
+    /**
+     * Lance une exception de sécurité si l'utilisateur
+     * n'est ni propriétaire ni meneur du personnage indiqué.
+     * 
+     * @param persoID L'id du personnage
+     * @param request La requete
+     * @return null si non connecté, le joueur sinon
+     * @throws SecurityException
+     */
     public static void CheckOwnerOrMj(int persoID,
             HttpServletRequest request) throws SecurityException {
         Joueur user = Main.GetJoueurSession(request);
@@ -83,6 +92,17 @@ public class Main extends HttpServlet {
         }
     }
 
+    /**
+     * Vérifie la validité d'une requete.
+     * Pour être valide il faut d'abord que l'utilisateur soit connecté,
+     * mais également que la paramètre action soit défini.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @return true si la requete est valide, false sinon
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
+     */
     protected static boolean badRequest(HttpServletRequest request,
            HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -158,11 +178,12 @@ public class Main extends HttpServlet {
         dbError(request, response);
     }
 
+
     /**
-     * Actions possibles en GET : afficher (correspond à l’absence du param),
-     * getOuvrage.
-     * @param request
-     * @param response
+     * Requetes GET
+     *
+     * @param request  La requete
+     * @param response La réponse
      * @throws java.io.IOException
      * @throws javax.servlet.ServletException
      */
@@ -192,11 +213,10 @@ public class Main extends HttpServlet {
     }
 
     /**
-     * Actions possibles en POST : ajouter, supprimer, modifier. Une fois
-     * l’action demandée effectuée, on retourne à la page d’accueil avec
-     * actionAfficher(...)
-     * @param request
-     * @param response
+     * Requetes POST
+     *
+     * @param request  La requete
+     * @param response La réponse
      * @throws java.io.IOException
      * @throws javax.servlet.ServletException
      */
@@ -224,7 +244,7 @@ public class Main extends HttpServlet {
             }
             
         } catch (Exception e) {
-            invalidParameters(request, response);
+            invalidParameters(request, response, e);
         }
 
         request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
@@ -260,9 +280,6 @@ public class Main extends HttpServlet {
 
                 hash = hashBuilder.toString();
 
-                //System.out.println("md5(" + pwd + ") == " + hash);
-                //System.out.println("joueur.getPwd() == " + joueur.getPwd());
-
 
                 if (joueur.getPwd().equals(hash)) {
                     return joueur;
@@ -270,7 +287,7 @@ public class Main extends HttpServlet {
             }
         }
         catch (Exception e) {
-            throw new SecurityException();
+            throw new SecurityException(e.getMessage(), e);
         }
         
         return null;

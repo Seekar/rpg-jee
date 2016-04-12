@@ -1,7 +1,7 @@
-
 package dao;
 
 /**
+ * Exception DAO
  *
  * @author Philippe.Genoud@imag.fr
  */
@@ -17,5 +17,4 @@ public class DAOException extends Exception {
     public DAOException(String message,Throwable cause) {
         super(message,cause);
     }
-
 }

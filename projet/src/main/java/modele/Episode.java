@@ -8,8 +8,8 @@ import java.util.List;
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-public class Episode
-{
+public class Episode {
+
     private int id;
     private int eDate;
     private boolean valide;

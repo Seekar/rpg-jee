@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.Connection;
@@ -21,17 +16,30 @@ import modele.Personnage;
 import modele.Univers;
 
 /**
+ * Singleton du DAO d'accès aux Personnages
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class PersonnageDAO extends AbstractPersonnageDAO {
     
+    /**
+     * Le singleton
+     */
     private static PersonnageDAO instance;
     
+    /**
+     * Constructeur privé du singleton
+     */
     private PersonnageDAO(DataSource ds) {
         super(ds);
     }
     
+    /**
+     * Crée le singleton
+     *
+     * @param ds Le datasource d'accès bdd
+     * @return Le singleton
+     */
     public static PersonnageDAO Create(DataSource ds) {
         if (instance == null) {
             instance = new PersonnageDAO(ds);
@@ -40,11 +48,22 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         return instance;
     }
     
+    /**
+     * Getter du singleton
+     *
+     * @return Le singleton
+     */
     public static PersonnageDAO Get() {
         return instance;
     }
 
 
+    /**
+     * Récupère la liste de tous les personnages classés par nom
+     *
+     * @return La liste de tous les personnages
+     */
+    @Override
     public Collection<Personnage> getAllPersonnages() throws DAOException {
         List<Personnage> result = new ArrayList<>();
         Connection link = null;
@@ -75,6 +94,13 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         return result;
     }
 
+    /**
+     * Récupère la liste de tous les personnages
+     * du joueur demandé classés par nom
+     *
+     * @param  j Le joueur
+     * @return La liste des personnages
+     */
     @Override
     public ArrayList<Personnage> getPersonnagesJoueur(Joueur j) throws DAOException {
         ArrayList<Personnage> persos = new ArrayList<>();
@@ -110,6 +136,14 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         return persos;
     }
 
+    /**
+     * Récupère la liste des personnages à valider
+     * classés par nom pour le joueur demandé
+     * 
+     *
+     * @param  j Le joueur
+     * @return La liste des personnages
+     */
     @Override
     public Collection<Personnage> getPersonnagesAValider(Joueur j) throws DAOException {
         ArrayList<Personnage> persos = new ArrayList<>();
@@ -180,11 +214,6 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         }
 
         return persos;
-    }
-
-    @Override
-    public Personnage getPersonnageAssocie(Joueur j, Aventure a) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -532,6 +561,21 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                 throw new DAOException("Accès refusé");
 
             statement.close();
+
+            // On modifie l'id du meneur qui doit valider
+            // les épisodes demandés du personnage
+            statement = link.prepareStatement("UPDATE Episode "
+                    + "SET mj_id = ? WHERE id IN (SELECT e.id FROM Episode e "
+                    + "JOIN Biographie b on e.biographie_id = b.id JOIN "
+                    + "Personnage p on b.id = p.biographie_id WHERE p.id = ? "
+                    + "AND e.mj_id IS NOT NULL)");
+
+            statement.setInt(1, idUser);
+            statement.setInt(2, idPerso);
+            statement.executeUpdate();
+            statement.close();
+
+            // On change le MJ du personnage
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET mj_id = transfert_id, transfert_id = NULL WHERE id = ?");
 

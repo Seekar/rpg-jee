@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.Connection;
@@ -16,17 +11,30 @@ import modele.Episode;
 import modele.Paragraphe;
 
 /**
+ * Singleton du DAO d'accès aux paragraphes
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 public final class ParagrapheDAO extends AbstractParagrapheDAO {
 
+    /**
+     * Le singleton
+     */
     static private ParagrapheDAO instance;
 
+    /**
+     * Constructeur privé du singleton
+     */
     private ParagrapheDAO(DataSource ds) {
         super(ds);
     }
 
+    /**
+     * Crée le singleton
+     *
+     * @param ds Le datasource d'accès bdd
+     * @return Le singleton
+     */
     public static ParagrapheDAO Create(DataSource ds) {
         if (instance == null) {
             instance = new ParagrapheDAO(ds);
@@ -35,6 +43,11 @@ public final class ParagrapheDAO extends AbstractParagrapheDAO {
         return instance;
     }
 
+    /**
+     * Getter du singleton
+     *
+     * @return Le singleton
+     */
     public static ParagrapheDAO Get() {
         return instance;
     }

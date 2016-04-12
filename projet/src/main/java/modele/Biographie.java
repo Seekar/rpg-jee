@@ -9,8 +9,8 @@ import java.util.List;
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-public class Biographie
-{
+public class Biographie {
+
     private int id;
     private String texte;
     public Personnage personnage;

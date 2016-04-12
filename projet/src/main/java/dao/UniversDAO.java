@@ -11,7 +11,7 @@ import modele.Personnage;
 import modele.Univers;
 
 /**
- * Singleton du DAO d'accès aux Univers
+ * Singleton du DAO d'accès aux univers
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */

@@ -10,7 +10,7 @@ import javax.servlet.http.*;
 import modele.*;
 
 /**
- * Contrôleur de paragraphes.
+ * Contrôleur de paragraphes
  */
 @WebServlet(name = "ParagrapheCtrl", urlPatterns = {"/paragraphe"})
 public class ParagrapheCtrl extends HttpServlet {
@@ -18,8 +18,8 @@ public class ParagrapheCtrl extends HttpServlet {
     /**
      * Requetes GET
      *
-     * @param request
-     * @param response
+     * @param request  La requete
+     * @param response La réponse
      * @throws java.io.IOException
      * @throws javax.servlet.ServletException
      */
@@ -82,8 +82,8 @@ public class ParagrapheCtrl extends HttpServlet {
     /**
      * Requetes POST
      *
-     * @param request
-     * @param response
+     * @param request  La requete
+     * @param response La réponse
      * @throws java.io.IOException
      * @throws javax.servlet.ServletException
      */

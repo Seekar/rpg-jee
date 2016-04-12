@@ -8,8 +8,8 @@ import java.util.List;
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
-public class Personnage
-{
+public class Personnage {
+
     private int id;
     private String nom;
     private String naissance;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import javax.sql.DataSource;
@@ -11,6 +6,7 @@ import modele.Personnage;
 import modele.Aventure;
 
 /**
+ * Classe abstraite du DAO d'accès aux participations
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
