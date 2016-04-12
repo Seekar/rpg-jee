@@ -55,4 +55,4 @@ Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 
 
-[Appli en ligne (sans accès bdd](http://rpg-723.rhcloud.com)
+[Appli en ligne (sans accès bdd)](http://rpg-723.rhcloud.com)
