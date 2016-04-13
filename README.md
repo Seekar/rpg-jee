@@ -12,7 +12,7 @@ Partie 2 : Conception
 - doc conception : Simon
 
 Partie 3
-- manuel utilisateur : DONE
+- manuel utilisateur : Léo / Salim
 
 Partie 4
 - rédaction bilan : J'ai écrit 2-3 trucs
