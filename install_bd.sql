@@ -1,6 +1,9 @@
 
 
 
+-- Pour que sqlplus gère les accents correctement, il faut le lancer ainsi :
+-- NLS_LANG=FRENCH_FRANCE.UTF8 sqlplus login@ensioracle1
+
 -- Drop everything
 drop table Paragraphe;
 drop table Episode;
@@ -104,85 +107,87 @@ create table Univers (
     primary key (id)
 );
 
-alter table Aventure 
-    add constraint FK74E9C5328ACB2B0F 
-    foreign key (mj_id) 
+alter table Aventure
+    add constraint FK_Aventure_Joueur
+    foreign key (mj_id)
     references Joueur;
 
 alter table Aventure 
-    add constraint FK74E9C5325D6E559A 
+    add constraint FK_Aventure_Univers 
     foreign key (univers_id) 
     references Univers;
 
 alter table Episode 
-    add constraint FK72A55DB8ACB2B0F 
+    add constraint FK_Episode_Joueur 
     foreign key (mj_id) 
     references Joueur;
 
 alter table Episode 
-    add constraint FK72A55DB74088A9A 
+    add constraint FK_Episode_Biographie 
     foreign key (biographie_id) 
     references Biographie;
 
 alter table Episode 
-    add constraint FK72A55DB619C649A 
+    add constraint FK_Episode_Aventure 
     foreign key (aventure_id) 
     references Aventure;
 
 alter table Participe 
-    add constraint FK2352B5619C649A 
+    add constraint FK_Participe_Aventure 
     foreign key (aventure_id) 
     references Aventure
     on delete cascade;
 
 alter table Participe
-    add constraint FK2352B55F4B841A 
+    add constraint FK_Participe_Personnage 
     foreign key (personnage_id) 
     references Personnage
     on delete cascade;
 
 alter table Paragraphe
-    add constraint FK889B40D767F703BA 
+    add constraint FK_Paragraphe_Episode 
     foreign key (episode_id) 
     references Episode
     on delete cascade;
 
 alter table Personnage 
-    add constraint FK9F513EC65448AEB9 
+    add constraint FK_Personnage_Validation
     foreign key (validateur_id) 
     references Joueur;
 
 alter table Personnage 
-    add constraint FK9F513EC64E47F43 
+    add constraint FK_Personnage_Transfert
     foreign key (transfert_id) 
     references Joueur;
 
 alter table Personnage 
-    add constraint FK9F513EC68ACB2B0F 
+    add constraint FK_Personnage_Meneur 
     foreign key (mj_id) 
     references Joueur;
 
 alter table Personnage 
-    add constraint FK9F513EC65D6E559A 
+    add constraint FK_Personnage_Univers 
     foreign key (univers_id) 
     references Univers;
 
 alter table Personnage 
-    add constraint FK9F513EC674088A9A 
+    add constraint FK_Personnage_Biographie 
     foreign key (biographie_id) 
     references Biographie 
     on delete cascade;
 
 alter table Personnage 
-    add constraint FK9F513EC6D3CA809A 
+    add constraint FK_Personnage_Joueur 
     foreign key (joueur_id) 
     references Joueur;
 
 
 
--- problèmes avec les caractères spéciaux sur sqlplus
-insert into Univers (nom) values ('La Guerre des etoiles');
-insert into Univers (nom) values ('Les Caraibes au temps des pirates');
+
+insert into Univers (nom) values ('Final Fantasy');
+insert into Univers (nom) values ('PokeLand');
+insert into Univers (nom) values ('Ghost Rider');
+insert into Univers (nom) values ('X-Men');
 
 
 -- hash générable avec la commande suivante :
@@ -196,41 +201,14 @@ insert into Joueur (pseudo, pwd)
 insert into Joueur (pseudo, pwd)
     values ('Clara', '436bc2b3b94cdc207e8a08763aa07e6f');
 
-insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
-
-
 -- pass : admin17Lord (hash md5)
 insert into Joueur (pseudo, pwd)
     values ('admin', 'd61ff73ffc50cec9c63180fdb7af0b7e');
-
-insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
-
 
 -- pass : james007tb (hash md5)
 insert into Joueur (pseudo, pwd)
     values ('James', 'ea262e6e612acd24c49c050f66f04607');
 
-
-insert into aventure values (DEFAULT, 'date', NULL, DEFAULT, 'paris', 'situation', 'Aventure', joueur_seq.currval, univers_seq.currval);
-
-
-insert into BIOGRAPHIE (ID, TEXTE) 
-    values (DEFAULT,
-'Pikachu est un petit Pokemon potele qui ressemble a un rongeur. Il est couvert de fourrure jaune. Ses oreilles sont pointues et leurs bouts sont noirs. Il a une petite bouche, des yeux marron et deux cercles rouges sur les joues. Il y a des poches sous ses joues qui generent de l''electricite. Ses bras sont courts, avec cinq doigts chacun, et ses pieds possedent trois orteils. Il a deux stries marron sur le dos, et sa queue est en forme d''eclair avec un peu de fourrure marron a la base.. Il est classe comme un quadrupede, mais il est connu pour se tenir et meme marcher sur ses pattes arrieres.' || chr(13) || '' || chr(13) || 'Le dessin anime montre que Pikachu voyage parfois en groupes. Il leve sa queue pour verifier les environs, qui lorsqu''elle trouve quelque chose, se charge l''electricite. Comme il vit dans les regions boisees, Pikachu est connu pour griller les Baies qu''il mange avec de l''electricite pour les rendre plus tendres. On voit dans Electric Tale of Pikachu que Pikachu est capable de manger voire de detruire des cabines telephoniques, des cables ou autres installations electriques.' || chr(13) || '' || chr(13) || 'Pikachu est capable de lacher des decharges d''electricite a la puissance variante. Pikachu est connu pour generer l''energie dans les glandes situees sous ses joues, et doit la faire sortir pour eviter des complications. Il est aussi capable de relacher de l''energie de sa queue, de la recharger en la plantant dans la terre, ou encore meme d''aider a recharger un camarade avec des coups d''electricite. Pikachu peut aussi s''electriser lui-meme pour utiliser son attaque signature, Electacle. Quand il est menace, il relache l''energie de ses joues pour creer de l''electricite, et un groupe de Pikachu peut creer de veritables orages. Il est le plus souvent trouve dans les forets, et le signe qu''un Pikachu est passe par la est une tache d''herbe brulee.'
-);
-
-insert into PERSONNAGE (ID, NAISSANCE, NOM, PORTRAIT, PROFESSION, VALIDE, BIOGRAPHIE_ID, JOUEUR_ID, MJ_ID, TRANSFERT_ID, UNIVERS_ID, VALIDATEUR_ID) 
-    values (DEFAULT, '27 fevrier 1996', 'Pikachu',
-    'http://gamegeex.blogomancer.com/files/gamegeex/images/headerimages/1443_new-pikachu-game-is-in-the-works.png',
-    'Pokemon', DEFAULT, bio_seq.currval, joueur_seq.currval, NULL, NULL, univers_seq.currval, NULL);
-
-insert into episode values (DEFAULT, 2, 1, null, bio_seq.currval, NULL);
-
-insert into PARAGRAPHE (ID, SECRET, TEXTE, EPISODE_ID) 
-    values (DEFAULT, 0, 'Paragraphe d''episode', epi_seq.currval);
-
-INSERT INTO EPISODE (ID, EDATE, VALIDE, AVENTURE_ID, BIOGRAPHIE_ID, MJ_ID) 
-    VALUES (DEFAULT, 2, DEFAULT, NULL, bio_seq.currval, NULL);
 
 
 commit;

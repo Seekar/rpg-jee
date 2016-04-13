@@ -25,12 +25,14 @@ public abstract class AbstractDAO {
     }
 
     protected Connection getConnection() throws SQLException {
-        return (curLink = dataSource.getConnection());
+        curLink = dataSource.getConnection();
+        curLink.setAutoCommit(false);
+
+        return curLink;
     }
 
     public Connection initConnection() throws SQLException {
         getConnection();
-        curLink.setAutoCommit(false);
         curLink.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
         
         return curLink;

@@ -45,7 +45,9 @@ public class EpisodeCtrl extends HttpServlet {
         ParagrapheDAO pad = ParagrapheDAO.Get();
 
         switch (action) {
-        case "edit": { //affichage de l'édition d'un épisode
+
+        // Affichage de l'édition d'un épisode
+        case "edit": {
             try {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
@@ -66,8 +68,9 @@ public class EpisodeCtrl extends HttpServlet {
             }
             break;
         }
-        
-        case "suppr": { //afichage de la page suppression d'un épisode
+
+        // Affichage de la page de suppression d'un épisode
+        case "suppr": {
             try {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
@@ -89,7 +92,8 @@ public class EpisodeCtrl extends HttpServlet {
             break;
         }
         
-        case "valider": { //afichage page validation d'un épisode
+        // Affichage de la page de validation d'un épisode
+        case "valider": {
             try {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
@@ -130,7 +134,8 @@ public class EpisodeCtrl extends HttpServlet {
             break;
         }
 
-        case "new": //afichage du formulaire de creation d'un épsiode
+        // Affichage du formulaire de creation d'un épisode
+        case "new":
             try {
                 int bioID = Integer.parseInt(request.getParameter("bioID"));
                 int pid = Integer.parseInt(request.getParameter("pid"));
@@ -181,7 +186,9 @@ public class EpisodeCtrl extends HttpServlet {
         EpisodeDAO ed = EpisodeDAO.Get();
 
         switch (action) {
-        case "validesuppr": { //validation de la suppression d'un épisode
+
+        // Validation de la suppression d'un épisode
+        case "validesuppr": {
             try {
                 int idBio = Integer.parseInt(request.getParameter("idBio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));

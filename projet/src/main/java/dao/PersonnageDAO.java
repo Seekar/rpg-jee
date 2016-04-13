@@ -591,7 +591,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             // On change le MJ du personnage
             statement = link.prepareStatement("UPDATE Personnage "
-                    + "SET mj_id = transfert_id, transfert_id = NULL WHERE id = ?");
+                    + "SET mj_id = transfert_id, transfert_id = NULL "
+                    + "WHERE id = ?");
 
             statement.setInt(1, idPerso);
             statement.executeUpdate();
@@ -667,9 +668,11 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
             // recevoir ce personnage et que cet utilisateur 
             // en est bien le propriétaire
             statement = link.prepareStatement("SELECT 1 "
-                    + "FROM Joueur j JOIN Personnage p on p.joueur_id != j.id "
-                    + "WHERE j.id = ? AND p.id = ? AND p.joueur_id = ? "
-                    + "AND p.mj_id != j.id ORDER BY pseudo");
+                    + "FROM Joueur j, Personnage p "
+                    + "WHERE j.id = ? AND p.id = ? AND joueur_id = ? "
+                    + "AND (p.joueur_id != j.id "
+                    + "OR p.joueur_id IS NULL) AND (p.mj_id != j.id "
+                    + "OR p.mj_id IS NULL)");
 
             statement.setInt(1, idDest);
             statement.setInt(2, idPerso);
@@ -682,7 +685,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
             CloseStatement(statement);
             statement = link.prepareStatement("UPDATE Personnage "
-                    + "SET joueur_id = ? WHERE id = ?");
+                    + "SET joueur_id = ?, transfert_id = NULL, "
+                    + "validateur_id = NULL WHERE id = ?");
 
             statement.setInt(1, idDest);
             statement.setInt(2, idPerso);

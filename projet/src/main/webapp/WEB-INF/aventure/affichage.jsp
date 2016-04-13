@@ -67,7 +67,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Informations</th>
+                    <th class="col-sm-2">Informations</th>
                 </tr>
             </thead>
             <tbody>
@@ -89,12 +89,12 @@
                 </tr>
                 <tr>
                     <th>Situation initiale</th>
-                    <td><c:out value="${aventure.getSituation()}"/></td>
+                    <td class="text-left"><c:out value="${aventure.getSituation()}"/></td>
                 </tr>
                 <c:if test="${aventure.isFinie()}">
                 <tr>
                     <th>Résumé des événements</th>
-                    <td>${aventure.showEvents()}</td>
+                    <td class="text-left">${aventure.showEvents()}</td>
                 </tr>
                 </c:if>
                 <tr>

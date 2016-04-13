@@ -119,9 +119,11 @@ public final class JoueurDAO extends AbstractJoueurDAO {
         try {
             link = getConnection();
             statement = link.prepareStatement("SELECT j.id, pseudo "
-                    + "FROM Joueur j JOIN Personnage p on p.joueur_id != j.id "
-                    + "WHERE p.id = ? AND p.mj_id != j.id ORDER BY pseudo");
-            
+                    + "FROM Joueur j, Personnage p "
+                    + "WHERE p.id = ? AND (p.joueur_id != j.id "
+                    + "OR p.joueur_id IS NULL) AND (p.mj_id != j.id "
+                    + "OR p.mj_id IS NULL) ORDER BY pseudo");
+
             statement.setInt(1, idPerso);
             ResultSet rs = statement.executeQuery();
             Joueur joueur;
@@ -155,7 +157,7 @@ public final class JoueurDAO extends AbstractJoueurDAO {
         try {
             link = getConnection();
             statement = link.prepareStatement("SELECT distinct j.id, j.pseudo "
-                    + "FROM Joueur j join Aventure a on j.id = a.mj_id "
+                    + "FROM Joueur j JOIN Aventure a on j.id = a.mj_id "
                     + "WHERE j.id != ? ORDER BY pseudo");
             
             statement.setInt(1, idJoueur);
