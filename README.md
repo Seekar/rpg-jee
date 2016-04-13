@@ -1,6 +1,6 @@
 Tool UML : https://genmymodel.com
 
-Code / design suffisant, faudrait arrêter de coder et finir la suite maintenant (sauf si trouvaille d'un bug important)
+Code / design suffisant, faudrait arrêter de coder et finir la suite (sauf si trouvaille d'un bug important)
 
 
 ### TODO
@@ -12,26 +12,21 @@ Partie 2 : Conception
 - doc conception : Simon
 
 Partie 3
-- manuel utilisateur : Léo / Salim
+- manuel utilisateur : DONE
 
 Partie 4
-- rédaction bilan : Tout le monde
+- rédaction bilan : J'ai écrit 2-3 trucs
 
 
-- finir le script SQL pour préremplir la bdd : Léo DONE
-- rédaction readme.txt : Léo
+- finir le script SQL pour préremplir la bdd : DONE
+- rédaction readme.txt : DONE
 
-- commentaires pertinents (parties non explicites) + Javadoc : chacun ses parties
+- commentaires pertinents (parties non explicites) + Javadoc : (reste un peu de DAO peut-être)
 
 
 ### Identifiants Oracle
 
 Dans le dossier src/main/webapp/META-INF, copier le template context.xml.template vers context.xml et remplacer XXXX par les identifiants Oracle
-
-
-### BDD
-
-[Graphique SVG](https://github.com/leogouttefarde/rpg/blob/master/bdd.svg)
 
 
 ### Bugs
