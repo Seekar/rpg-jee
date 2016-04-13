@@ -68,11 +68,93 @@
 
 
 % (a) Document d’analyse :
-% — acteurs, diagramme de cas d’utilisations et description de ces cas d’utilisations, illustrées par
-% des diagrammes de séquence système pertinents.
+% — acteurs, diagramme de cas d’utilisations et description de ces cas d’utilisations, illustrées par des diagrammes de séquence système pertinents.
 % — diagramme de classes d’analyse.
 
 \section {Analyse}
+
+
+Le sujet présente une application pour une association de jeux de rôle. 
+
+\subsection{Acteurs}
+
+Seuls deux types d'acteur peuvent intervenir dans cette application : les joueurs eux mêmes (c'est-à-dire les rôlistes) ainsi que les meneurs de jeu, qui dirigent les parties.
+
+\subsection{Cas d'utilisation}
+
+\subsubsection{Description des différents cas d'utilisation}
+
+Voici les différents cas d'utilisation de l'application issus du cahier des charges, ils sont résumés dans un diagramme à la fin de cette section.
+
+\begin{enumerate}
+    \item Un joueur peut consulter la biographie d'un personnage 
+        \begin{enumerate}
+            \item  S'il possède le personnage il peut voir les paragraphes privés de la biographie.
+            \item De même le meneur de jeu d'un personnage peut voir les paragraphes privés du dit personnage.
+        \end{enumerate}
+    \item Un joueur peut révéler des paragraphes secrets des biographies des personnage qu'il possède 
+    \begin{enumerate}
+        \item  L'application doit demander une validation pour cette action.            
+    \end{enumerate}
+        \includegraphics[scale=0.5]{sequence/RevelerParagAnalyse.png}
+      \item Un joueur peut créer un personnage 
+      \begin{enumerate}
+        \item  Le joueur doit alors indiquer : nom, date de naissance, profession ainsi qu'une biographie initiale
+        \item Le joueur peut soumettre le personnage ainsi créé à un meneur de jeu
+        \item Le meneur de jeu peut accepter le personnage, il peut lire la biographie (y compris les parties secrètes).
+      \end{enumerate}
+      \item Le meneur de jeu, ou un joueur, peut ajouter des épisodes à la biographie d'un de ses personnages 
+      \begin{enumerate}
+        \item Il en spécifie la date
+        \item Il peut spécifier une aventure à laquelle est rattaché cet épisode. 
+        \item  Il peut sauvegarder l'épisode en cours de rédaction.
+        \item Il peut reprendre l'édition.
+        \item Il peut supprimer l'épisode en cours d'édition
+        \item Il peut le valider
+        \item Une fois validé par le joueur et le meneur de jeu l'épisode devient définitif : il ne peut plus être modifier.
+      \end{enumerate}
+      \textit{De ce fait il est impossible de valider un épisode si le personnage n'a pas de meneur de jeu associé.}
+      \begin{center}\includegraphics[scale=0.5]{sequence/AjouterEpisodeBiographie.png} \end{center}
+    \item Un joueur peut proposer d'organiser une partie
+    \begin{enumerate}
+        \item  Il indique alors : titre, univers dans lequel se déroule la partie, situation initiale date et lieu
+        \item La proposition est alors visible par tous.
+        \item Le meneur de jeu peut ajouter ou enlever des personnages, ceux-ci doivent être du même univers que la partie et il doit être le meneur de jeu des personnages
+        \item La proposition peut être supprimée
+    \end{enumerate}
+    \item Le meneur de jeu peut saisir un résumé des événements et indiquer la fin de la partie
+    \begin{enumerate}
+        \item Les éléments relatifs à la partie ne sont dés lors plus modifiables.
+        \item La partie devient une aventure pouvant apparaitre dans la biographie des personnages.
+    \end{enumerate}
+    \item Un joueur peut céder son personnage
+    \begin{enumerate}
+        \item Il indique le joueur bénéficiaire
+    \end{enumerate}
+    \item Un joueur peut changer le meneur de jeu d'un de ses personnages
+    \begin{enumerate}
+        \item Le nouveau meneur de jeu doit accepter.
+        \item Ce transfert ne peut avoir lieu que si le personnage n'est pas impliqué dans une partie en cours.
+    \end{enumerate}
+    \includegraphics[scale=0.5]{sequence/ChangerleMJ.png}
+    \end{enumerate}
+
+\subsubsection{Diagramme des cas d'utilisation}
+
+\begin{center}
+    \includegraphics[scale=0.7,angle=90]{analyse/usecases}
+\end{center}
+
+\subsection{Diagramme de classes d'analyse}
+Le sujet fournit une description des différents "objets" de l'application : partie, aventure, personnage, univers, biographie, épisode, paragraphe ... 
+Voici le diagramme de classe d'analyse que nous en avons tiré.\\
+\textit{Nous avons considéré qu'une partie était simplement une aventure en cours (nous aurions pu faire de l'héritage mais l'avantage semblait mince par rapport aux inconvénients de la conversion d'une partie en aventure ). \\
+    De même nous n'avons pas distingués les classes joueur et meneur de jeu : un joueur est meneur de jeu s'il est engagé dans les relations qui caractérisent un meneur de jeu (parties menés, personnages dont il est le meneur ...) Cela se justifie par le caractère dynamique de ce  statut : un joueur peut facilement devenir meneur de jeu ou arrêter de l'être, être un meneur de jeu semblait donc être plutôt une propriété dynamique des joueurs. }
+\begin{center}\includegraphics[scale=0.7]{analyse/classes.pdf} \end{center}
+
+
+
+
 
 
 
