@@ -17,7 +17,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Informations</th>
+                    <th class="col-sm-2">Informations</th>
                 </tr>
             </thead>
             <tbody>

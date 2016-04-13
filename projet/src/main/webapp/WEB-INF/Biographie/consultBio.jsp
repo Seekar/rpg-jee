@@ -29,7 +29,8 @@
          target="_blank"><c:out value="${episode.getAventure().getTitre()}"/></a></c:if></h3>
 
         <c:forEach items="${episode.getParagraphes()}" var="parag">
-            <p<c:if test="${parag.isSecret()}"> class="text-info"</c:if>><c:out value="${parag.getTexte()}"/></p>
+            <c:if test="${!parag.isSecret() || owner}">
+            <p<c:if test="${parag.isSecret()}"> class="text-info"</c:if>><c:out value="${parag.getTexte()}"/></p></c:if>
             <c:if test="${owner && parag.isSecret()}">
 <div class="modal fade" id="modalReveal${parag.getID()}" tabindex="-1" role="dialog" aria-labelledby="modalRevealLabel">
   <div class="modal-dialog" role="document">

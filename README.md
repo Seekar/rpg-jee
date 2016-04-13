@@ -1,7 +1,7 @@
 Tool UML : https://genmymodel.com
 
+Code / design suffisant, faudrait arrêter de coder et finir la suite maintenant (sauf si trouvaille d'un bug important)
 
-Code / Design amplement suffisant cette fois, faudrait arrêter de coder et finir la suite maintenant (sauf si trouvaille d'un bug important) => pas sur : comment consulter tous les personnages (meme ceux que l'on a pas) et notemment leur bio (la page bio est ok mais de lien dans le cas ou pas possesseur ou MJ)
 
 ### TODO
 
@@ -18,7 +18,7 @@ Partie 4
 - rédaction bilan : Tout le monde
 
 
-- finir le script SQL pour préremplir la bdd : Léo
+- finir le script SQL pour préremplir la bdd : Léo DONE
 - rédaction readme.txt : Léo
 
 - commentaires pertinents (parties non explicites) + Javadoc : chacun ses parties
