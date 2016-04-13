@@ -1,7 +1,8 @@
 
 
 
--- Pour que sqlplus gère les accents correctement, il faut le lancer ainsi :
+-- Pour que sqlplus gère les accents correctement,
+-- il faut le lancer avec la commande suivante :
 -- NLS_LANG=FRENCH_FRANCE.UTF8 sqlplus login@ensioracle1
 
 -- D'abord on paramètre sqlplus
@@ -234,8 +235,8 @@ Bhunivelze est un dieu ayant confié à Lightning la mission de sauver le plus d
 insert into AVENTURE (ID,ADATE,EVENTS,FINIE,LIEU,SITUATION,TITRE,MJ_ID,UNIVERS_ID) values ('4','24 mars 2008',null,'0','Nibelheim','Crisis Core se déroule sept ans avant le commencement de Final Fantasy VII, et englobe les événements qui ont eu lieu juste avant le début. Son héros est Zack Fair, qui est un personnage secondaire de Final Fantasy VII et le précédent propriétaire de l''Épée Broyeuse avant Cloud Strife. Il est membre du SOLDAT, travaillant pour la Shinra sous les ordres de Lazard Deusericus. Le jeu raconte l''histoire de la bataille de Zack contre le vil première classe du SOLDAT, Génésis Rhapsodos, et les autres produits pervers du Projet Jenova.','Crisis Core','2','1');
 insert into AVENTURE (ID,ADATE,EVENTS,FINIE,LIEU,SITUATION,TITRE,MJ_ID,UNIVERS_ID) values ('5','Il y a 1000 ans','Sin (Jecht) est vaincu par Tidus \& co, suivi de l''ensemble des chimères tour à tour possédées par Yu Yevon jusqu''à finalement son extinction à lui aussi.','1','Zanarkand','Il y a mille ans, une terrible guerre faisait rage entre deux puissantes villes-machine, Zanarkand et Bevelle. Au paroxysme de ce conflit, une entité dévastatrice du nom de Sin fit son apparition et réduisit Zanarkand à néant pour punir les hommes de leur vanité. Effrayés par cette menace inattendue, les habitants du reste de Spira se réunirent autour de la religion. Ainsi naquit Yevon, le culte de la culpabilité. Depuis mille ans, des Invokeurs se succèdent pour effectuer un pèlerinage ayant pour but d''anéantir Sin... mais seulement pour une courte durée : la Félicité. Jusqu''à présent, seules cinq Félicités ont eu été apportées. La dernière en date est celle de Braska, il y a dix ans. Mais déjà Sin est de retour. Et c''est sa fille, Yuna, qui se décide à offrir au reste de Spira cet période de calme, espérant que cette fois-ci sera la dernière : l''éternelle Félicité. Mais Sin disparaîtra-t-il un jour ? Et surtout, d''où vient ce mystérieux jeune homme nommé Tidus ?','Final Fantasy X','2','1');
 
-alter sequence seq_cache nocache;
-alter sequence av_seq increment by 11;
+drop sequence av_seq;
+create sequence av_seq start with 11;
 
 
 insert into BIOGRAPHIE (ID,TEXTE) values ('8','On sait très peu de choses sur Mew. Il est dit qu''autrefois, ils étaient nombreux, mais ils auraient tous disparus sauf 1. Ce Pokémon mythique peut apprendre toutes les capacités, c''est pour cela que certains pensent qu''il est l''ancêtre de tous les Pokémon. Pacifique, il passe son temps à jouer et à s''amuser.');
@@ -271,8 +272,8 @@ Pikachu est capable de lâcher des décharges d''électricité à la puissance v
 insert into BIOGRAPHIE (ID,TEXTE) values ('6','L''extraordinaire puissance de Sin précipite Tidus, champion de l''équipe de blitzball des "Zanarkand Abes", dans ce qui restera la plus grande aventure de sa vie. Sin l''emmène dans une contrée éloignée, une contrée tellement lointaine qu''aucun retour ne semble possible. Loin de chez lui et des siens, Tidus s''éprend de la magnifique Yuna tout en entretenant une haine féroce envers son père Jecht (lui aussi une star de blitzball).');
 insert into BIOGRAPHIE (ID,TEXTE) values ('7','Le nom de Yuna vient du japonais signifiant "hibiscus". Cette même fleur se retrouve sur la robe du personnage. Yuna est une jeune femme honnête et emplie de compassion. Voulant faire le bien autour d''elle, elle est consciente qu''elle seule peut arrêter Sin. Elle considère qu''il est donc de sa responsabilité de l''arrêter à n''importe quel prix, y compris sa propre vie. Elle en vient à négliger son propre bonheur pour sauver et aider autrui. Elle suit les préceptes de Yevon mais sa rencontre avec Tidus la rend plus ouverte et plus critique.');
 
-alter sequence seq_cache nocache;
-alter sequence bio_seq increment by 13;
+drop sequence bio_seq;
+create sequence bio_seq start with 13;
 
 
 insert into EPISODE (ID,EDATE,VALIDE,AVENTURE_ID,BIOGRAPHIE_ID,MJ_ID) values ('2','77','1','6','5',null);
@@ -286,8 +287,8 @@ insert into EPISODE (ID,EDATE,VALIDE,AVENTURE_ID,BIOGRAPHIE_ID,MJ_ID) values ('1
 insert into EPISODE (ID,EDATE,VALIDE,AVENTURE_ID,BIOGRAPHIE_ID,MJ_ID) values ('6','0','1',null,'2',null);
 insert into EPISODE (ID,EDATE,VALIDE,AVENTURE_ID,BIOGRAPHIE_ID,MJ_ID) values ('8','0','1',null,'9',null);
 
-alter sequence seq_cache nocache;
-alter sequence epi_seq increment by 12;
+drop sequence epi_seq;
+create sequence epi_seq start with 12;
 
 
 insert into PARAGRAPHE (ID,SECRET,TEXTE,EPISODE_ID) values ('2','0','Sacha gagne les 8 badges de la région et s''inscrit à la ligue. Malencontreusement, il échoue face à Richie, car Dracaufeu ne veut pas combattre Sparky, le Pikachu de Richie.','2');
@@ -311,24 +312,24 @@ insert into PARAGRAPHE (ID,SECRET,TEXTE,EPISODE_ID) values ('10','1','« Le tout
 insert into PARAGRAPHE (ID,SECRET,TEXTE,EPISODE_ID) values ('13','0','Création de Mewtwo par clonage : il détruit le laboratoire de ses créateurs ...','8');
 insert into PARAGRAPHE (ID,SECRET,TEXTE,EPISODE_ID) values ('14','1','Mewtwo est furieux, mais Giovanni parvient à le faire travailler pour lui.','8');
 
-alter sequence seq_cache nocache;
-alter sequence para_seq increment by 20;
+drop sequence para_seq;
+create sequence para_seq start with 20;
 
 
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('8','Origine de l''univers','Mew','http://vignette3.wikia.nocookie.net/pokemon/images/b/b7/151Mew_OS_anime_6.png/revision/20150101100555','Pokémon légendaire','1','8','4','3',null,'2',null);
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('9','666','Mewtwo','http://2.bp.blogspot.com/_ceAOK0k7QiY/TKXhWptYU7I/AAAAAAAAAAM/XMkxC9FHH9Q/s1600/Mewtwo_is_Epic_by_lord_phillock.jpg','Menace planétaire','1','9','1','3',null,'2','3');
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('10','777','Dracolosse','http://www.pokepedia.fr/images/8/87/Dracolosse-RFVF.png','Pokémon Dragon','1','10','3','1',null,'2','1');
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('11','1980','Wolverine','http://screenrant.com/wp-content/uploads/Wolverine-3-Starring-Hugh-Jackman-Production-Start-Date.jpg','Immortel','1','11','2','3',null,'4','3');
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('12','1926','Magneto','http://screenrant.com/wp-content/uploads/Michael-Fassbender-Magneto-X-Men-Days-of-Future-Past.jpg','Terroriste','1','12','4','3',null,'4','3');
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('2','1991','Lightning','http://www.dsogaming.com/wp-content/uploads/2014/09/Final-Fantasy-XIII-feature-672x372.jpg','Garde civile de Cocoon','1','2','1','2',null,'1','2');
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('3','7 Janvier 1964','Johnny Blaze','http://www.critique-film.fr/wp-content/uploads/2012/01/nicolas-cage-ghost-rider-spirit-of-vengeance-banni%C3%A8re.jpg','Rider','1','3','4','1',null,'3',null);
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('4','666','Ghost Rider','http://cdn.collider.com/wp-content/uploads/Ghost-Roder-2image-ghost-rider-spirit-of-vengeance-31.jpg','Rider','1','4','3','1',null,'3','1');
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('5','27 février 1996','Pikachu','http://gamegeex.blogomancer.com/files/gamegeex/images/headerimages/1443_new-pikachu-game-is-in-the-works.png','Pokémon de type Électrique','1','5','2','3',null,'2',null);
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('6','Il y a 17 ans','Tidus','http://static.giantbomb.com/uploads/original/0/1872/232985-final_fantasy_x_tidus.jpg','Joueur de Blitzball','1','6','4','2',null,'1',null);
-insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('7','Il y a 17 ans','Yuna','http://www.finalfantasy.net/wp-content/uploads/2013/08/310.jpg','Invokeur','1','7','3','2',null,'1',null);
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('8','Origine de l''univers','Mew','img/mew.png','Pokémon légendaire','1','8','4','3',null,'2',null);
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('9','666','Mewtwo','img/mewtwo.jpg','Menace planétaire','1','9','1','3',null,'2','3');
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('10','777','Dracolosse','img/dracolosse.png','Pokémon Dragon','1','10','3','1',null,'2','1');
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('11','1980','Wolverine','img/wolverine.jpg','Immortel','1','11','2','3',null,'4','3');
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('12','1926','Magneto','img/magneto.jpg','Terroriste','1','12','4','3',null,'4','3');
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('2','1991','Lightning','img/lightning.jpg','Garde civile de Cocoon','1','2','1','2',null,'1','2');
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('3','7 Janvier 1964','Johnny Blaze','img/johnny.jpg','Rider','1','3','4','1',null,'3',null);
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('4','666','Ghost Rider','img/rider.jpg','Rider','1','4','3','1',null,'3','1');
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('5','27 février 1996','Pikachu','img/pikachu.png','Pokémon de type Électrique','1','5','2','3',null,'2',null);
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('6','Il y a 17 ans','Tidus','img/tidus.jpg','Joueur de Blitzball','1','6','4','2',null,'1',null);
+insert into PERSONNAGE (ID,NAISSANCE,NOM,PORTRAIT,PROFESSION,VALIDE,BIOGRAPHIE_ID,JOUEUR_ID,MJ_ID,TRANSFERT_ID,UNIVERS_ID,VALIDATEUR_ID) values ('7','Il y a 17 ans','Yuna','img/yuna.jpg','Invokeur','1','7','3','2',null,'1',null);
 
-alter sequence seq_cache nocache;
-alter sequence pers_seq increment by 13;
+drop sequence pers_seq;
+create sequence pers_seq start with 13;
 
 
 insert into PARTICIPE (AVENTURE_ID,PERSONNAGE_ID) values ('2','3');
