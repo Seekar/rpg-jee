@@ -13,10 +13,9 @@ set define off;
 -- Tout effacer
 drop table Paragraphe;
 drop table Episode;
-drop table Joue;
 drop table Participe;
-drop table Aventure cascade constraints;
-drop table Personnage cascade constraints;
+drop table Aventure;
+drop table Personnage;
 drop table Biographie;
 drop table Joueur;
 drop table Univers;

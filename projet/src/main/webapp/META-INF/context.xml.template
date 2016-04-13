@@ -9,7 +9,7 @@
    maxIdle="1"
    maxWaitMillis="20000"
    name="jdbc/rpg"
-   password="XXXX"
    username="XXXX"
+   password="XXXX"
 />
 </Context>
