@@ -5,8 +5,6 @@ import dao.DAOException;
 import dao.EpisodeDAO;
 import dao.ParagrapheDAO;
 import java.io.*;
-import java.rmi.ServerException;
-import java.rmi.server.ExportException;
 import java.util.List;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +12,9 @@ import javax.servlet.http.*;
 import modele.*;
 
 /**
- * Contrôleur d'episodes.
+ * Contrôleur d'episodes
+ * 
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 @WebServlet(name = "EpisodeCtrl", urlPatterns = {"/episode"})
 public class EpisodeCtrl extends HttpServlet {
@@ -52,10 +52,13 @@ public class EpisodeCtrl extends HttpServlet {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
 
+                // Check sécurité
                 Main.CheckOwnerOrMj(persoID, request);
                 
+                // Récupération de l'épisode
                 Episode e = ed.getEpisode(epID);
                 e.paragraphes = pad.getParagraphes(e);
+                
                 request.setAttribute("episode", e);
                 request.setAttribute("persoID", persoID);
                 request.getRequestDispatcher("/WEB-INF/episode/EditionEpisode.jsp").forward(request, response);
@@ -75,10 +78,13 @@ public class EpisodeCtrl extends HttpServlet {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
             
+                // Check sécurité
                 Main.CheckOwnerOrMj(persoID, request);
                 
+                // Récupération de l'épisode
                 Episode e = ed.getEpisode(epID);
                 e.paragraphes = pad.getParagraphes(e);
+                
                 request.setAttribute("episode", e);
                 request.setAttribute("persoID", persoID);
                 request.getRequestDispatcher("/WEB-INF/episode/Supprimer.jsp").forward(request, response);
@@ -98,10 +104,13 @@ public class EpisodeCtrl extends HttpServlet {
                 int epID = Integer.parseInt(request.getParameter("id"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
 
+                // Check sécurité
                 Main.CheckOwnerOrMj(persoID, request);
                 
+                // Récupération de l'épisode
                 Episode e = ed.getEpisode(epID);
                 e.paragraphes = pad.getParagraphes(e);
+                
                 request.setAttribute("episode", e);
                 request.setAttribute("persoID", persoID);
                 request.getRequestDispatcher("/WEB-INF/episode/Valider.jsp").forward(request, response);
@@ -120,6 +129,7 @@ public class EpisodeCtrl extends HttpServlet {
             try {
                 List<Episode> epi = ed.getEpisodesAValider(user);
 
+                // Récupératon des paragraphes d'épisodes à valider
                 for (Episode e : epi) {
                     e.paragraphes = pad.getParagraphes(e);
                 }
@@ -140,11 +150,13 @@ public class EpisodeCtrl extends HttpServlet {
                 int bioID = Integer.parseInt(request.getParameter("bioID"));
                 int pid = Integer.parseInt(request.getParameter("pid"));
 
-                AventureDAO ad = AventureDAO.Get();
-            
+                // Check sécurité
                 Main.CheckOwnerOrMj(pid, request);
-                
+
+                // Récupératon de l'aventure associée
+                AventureDAO ad = AventureDAO.Get();
                 List<Aventure> l = ad.getAventureAssociee(pid);
+                
                 request.setAttribute("aventures", l);
                 request.setAttribute("bioID", bioID);
                 request.setAttribute("persoID", pid);
@@ -192,10 +204,12 @@ public class EpisodeCtrl extends HttpServlet {
             try {
                 int idBio = Integer.parseInt(request.getParameter("idBio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
-
                 int pid = Integer.parseInt(request.getParameter("pID"));
 
+                // Check sécurité
                 Main.CheckOwnerOrMj(persoID, request);
+                
+                // Requete SQL
                 ed.suppressEpisode(pid);
                 
                 response.sendRedirect("biographie?action=edition&persoID="
@@ -211,17 +225,20 @@ public class EpisodeCtrl extends HttpServlet {
             break;
         }
 
+        // Demande de validation d'un épisode
         case "validate": {
             try {
                 int eid = Integer.parseInt(request.getParameter("pID"));
                 int idBio = Integer.parseInt(request.getParameter("idBio"));
                 int persoID = Integer.parseInt(request.getParameter("persoID"));
                 
+                // Check sécurité
                 Main.CheckOwnerOrMj(persoID, request);
                 
-                boolean hasMJ = ed.hasMJ(persoID);
-                
-                if (hasMJ) {
+                // Si pas de MJ, impossible de demander validation
+                if (ed.hasMJ(persoID)) {
+                    
+                    // Requete SQL
                     ed.valideEpisode(eid, persoID, user.getId());
                     
                     response.sendRedirect("biographie?action=edition&persoID="
@@ -242,6 +259,7 @@ public class EpisodeCtrl extends HttpServlet {
             break;
         }
         
+        // Création d'un épisode
         case "new": {
             try {
                 int date = Integer.parseInt(request.getParameter("date"));
@@ -272,10 +290,13 @@ public class EpisodeCtrl extends HttpServlet {
             break;
         }
         
+        // Validation d'un épisode par un MJ
         case "validerParMJ":
             
             try {
                 int epID = Integer.parseInt(request.getParameter("eID"));
+                
+                // Requete SQL avec vérifications de sécurité intégrées
                 ed.valideEpisodeParMj(epID, user.getId());
                 
                 response.sendRedirect("episode?action=validationList");

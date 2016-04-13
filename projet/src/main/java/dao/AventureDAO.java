@@ -1,14 +1,10 @@
 package dao;
 
 import static dao.AbstractDAO.CloseStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
 import modele.Aventure;
-import modele.Episode;
 import modele.Joueur;
 import modele.Personnage;
 import java.sql.Connection;
@@ -16,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import modele.Biographie;
 import modele.Univers;
 
 /**
@@ -183,6 +178,7 @@ public final class AventureDAO extends AbstractAventureDAO {
             ps.setInt(1, persoID);
             ResultSet rs = ps.executeQuery();
             
+            // On récupère tous les ids d'aventures
             avt = new LinkedList<>();
             while (rs.next()) {
                 avt.add(rs.getInt("aventure_id"));
@@ -196,6 +192,7 @@ public final class AventureDAO extends AbstractAventureDAO {
             closeConnection(c);
         }
         
+        // On récupère toutes les aventures
         a = new LinkedList<>();
         for(int id : avt){
             a.add(getAventure(id));
@@ -240,13 +237,14 @@ public final class AventureDAO extends AbstractAventureDAO {
             CloseStatement(statement);
             
             
-            // Liste des personnages dans l'aventure
+            // Liste des participants de l'aventure
             statement = link.prepareStatement("SELECT aventure_id, "
                     + "personnage_id FROM Participe WHERE aventure_id = ?");
             
             statement.setInt(1, id);
             rs = statement.executeQuery();
             
+            // On récupère les ids de tous les participants
             while (rs.next()) {
                 listPersoId.add(rs.getInt("personnage_id"));
             }
@@ -260,6 +258,7 @@ public final class AventureDAO extends AbstractAventureDAO {
             closeConnection(link);
         }
 
+        // On récupère tous les participants
         if (aventure != null) {
             List<Personnage> listPerso = new ArrayList<>();
             for (int idPerso : listPersoId) {

@@ -28,6 +28,18 @@
 \setlength{\topmargin}{-.5in}
 
 
+\lstset{
+  sensitive=f,
+  morestring=[d]",
+  showstringspaces=false,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bf\small,
+  commentstyle=\itshape,
+  stringstyle=\sf,
+  extendedchars=true,
+  columns=[c]fixed
+}
+
 
 
 \predate{
@@ -40,7 +52,7 @@
 \end{center}}
 
 
-\title {{ {\huge Compte rendu de projet }} }
+\title {{ {\huge Compte rendu du projet ACVL / Web }} }
 
 \author{\Large Equipe 14 \\
 \\
@@ -169,6 +181,59 @@ Voici le diagramme de classe d'analyse que nous en avons tiré.\\
 
 \section {Conception}
 
+\subsection {Architecture}
+
+\subsubsection {Contrôleurs, Servlets}
+
+Nous avons segmenté la gestion de l'application en différents Servlets contrôleurs :
+\begin{itemize}
+\item
+\lstinline!AventureCtrl! : Servlet de gestion des différentes aventures
+
+\item
+\lstinline!BiographieCtrl! : Servlet de gestion des différentes biographies
+
+\item
+\lstinline!EpisodeCtrl! : Servlet de gestion des différents épisodes
+
+\item
+\lstinline!Main! : Contrôleur principal de l'application
+
+\item
+\lstinline!ParagrapheCtrl! : Servlet de gestion des différents paragraphes
+
+\item
+\lstinline!PersonnageCtrl! : Servlet de gestion des différents personnages
+\end{itemize}
+
+
+\subsubsection {Vue}
+
+Les vues sont organisées en dossiers correspondant aux différents contrôleurs. Nous avons également tiré parti de l'héritage de vues JSP à l'aide de fichiers tag JSP (squelette principal contenu dans le fichier \lstinline!src/main/webapp/WEB-INF/tags/wrapper.tag!), et utilisé la librairie JSTL au sein des différentes vues.
+
+
+\subsubsection {Modèle}
+
+Nous avons modélisé chaque table relationnelle par une classe Java correspondante pour facilement gérer l'encapsulation en objets des différents éléments.
+
+
+\subsubsection {DAO}
+
+Pour les accès à la base de données, nous avons utilisé des DAO correspondant aux différentes classes du modèle ainsi que des classes abstraites correspondantes pour aider à la spécification originelle des différentes méthodes et faciliter la collaboration.
+
+
+
+\subsection {Détail de la conception}
+
+\subsection {Diagramme de classes UML}
+
+\includegraphics[scale=0.7]{conception/classes}
+
+
+\subsection {Diagramme de classes logicielles}
+
+% TODO
+
 
 
 \section {Détails techniques}
@@ -177,16 +242,143 @@ L'application est normalement protégée contre tout type de faille XSS (via JST
 
 De plus la vérification des droits d'accès pour chaque type d'action a bien été implémentée, ainsi que la gestion des différentes erreurs dont le message reste intégré au design de l'application.
 
+La gestion unicode des caractère a également été correctement gérée dans l'ensemble de l'application.
+
+Pour finir, les requêtes ont été écrites de manière à pouvoir assurer les accès concurrents (sérialisation des requêtes qui modifient la base de données), à l'aide de transactions (pas d'autocommit) et avec annulation des transactions en cas d'erreur.
+
+
+
 
 \section {Manuel d'utilisation}
+
+\subsection {Mise en route}
+
+Différents joueurs sont installés dans la base d'origine.
+Pour commencer, il suffit de se connecter avec les identifiants ci-dessous.
+
+\subsubsection {Meneur admin}
+
+Login : \lstinline!admin!, Mot de passe : \lstinline!admin17Lord!
+
+
+\subsubsection {Meneur Clara}
+
+Login : \lstinline!Clara!, Mot de passe : \lstinline!Vasto42!
+
+
+\subsubsection {Joueur James}
+
+Login : \lstinline!James!, Mot de passe : \lstinline!james007tb!
+
+
+\subsubsection {Meneur Max}
+
+Login : \lstinline!Max!, Mot de passe : \lstinline!max71Lord!
+
+
+
+
+\subsection {Utilisation}
+
+L'application est composée d'une barre horizontale de navigation composée de différents sous-menus : Personnages, Parties et MJ.
+
+Chacun d'entre-eux permet d'accéder à plusieurs liens correspondant, permettant l'accès aux différentes fonctionnalités de l'application.
+
+
+\subsubsection {Menu Personnages}
+
+Ce menu permet d'accéder aux fonctionnalités suivantes :
+
+\begin{itemize}
+\item
+Créer un personnage : Permet de créer un personnage
+
+\item
+Liste des personnages : Affiche la liste des personnages de l'application
+
+\item
+Mes personnages : Affiche la liste des personnages possédés
+
+\end{itemize}
+
+
+\subsubsection {Menu Parties}
+
+Ce menu permet d'accéder aux fonctionnalités suivantes :
+
+\begin{itemize}
+\item
+Proposer une partie : Permet de créer une nouvelle partie
+
+\item
+Liste des parties : Affiche la liste des parties de l'application
+
+\item
+Mes parties : Affiche la liste des parties auxquelles a participé l'utilisateur, ainsi que le personnage utilisé
+
+\end{itemize}
+
+
+\subsubsection {Menu MJ}
+
+\begin{itemize}
+\item
+Parties menées : Affiche la liste des parties menées
+
+\item
+Personnages menés : Affiche la liste des personnages menées
+
+\item
+Personnages à valider : Affiche la liste des personnages à valider
+
+\item
+Transferts à valider : Affiche la liste des personnages à transférer
+
+\item
+Episodes à valider : Affiche la liste des épisodes à valider
+
+\end{itemize}
+
+
+
+
+\subsubsection {Gestion d'un personnage}
+
+En cliquant sur l'un des personnages d'une liste, on arrive à sa page personnalle. Celle-ci permet de visualiser les différentes informations du personnage, de modifier sa profession, et contient des liens vers sa biographie et les parties auxquelles il a participé.
+
+De plus, il possible de faire valider / transférer le personnage s'il est invalide ou ne participe pas à une partie en cours, de même il possible de céder le personnage via une liste déroulante (sauf s'il participe à une partie en cours, car sinon des joueurs pourraient se retrouver avec plusieurs personnages dans une seule partie en cours).
+
+C'est notamment sur cette même page que les meneurs de jeu peuvent accepter une demande de transfert ou de validation.
+
+
+\subsubsection {Gestion de la biographie}
+
+La biographie est éditable si l'on est meneur ou propriétaire du personnage concerné.
+
+Il suffit alors de cliquer sur les boutons "Nouvel épisode", "Nouveau paragraphe", et autres pour compléter, modifier ou valider des parties de la biographie.
+
+Un bouton révéler permet notamment de rendre les paragraphes secrets publics, avec une demande de confirmation dynamique et une implémentation {\sc ajax} de la fonctionnalité révéler.
+
+
+\subsubsection {Gestion d'une partie}
+
+En cliquant sur les parties d'une liste, on arrive à leur page personnalisée. Celle-ci permet de visualiser les différentes informations de la partie (ou aventure si elle s'est terminée), et aussi d'accéder à la liste des participants (avec des boutons pour retirer des personnages si l'on en est le meneur).
+
+Le meneur peut également ajouter des participants à l'aide d'une liste déroulante, terminer la partie en inscrivant un résumé des événements dans la fenêtre dynamique qui apparaît, ou encore la supprimer si elle n'est pas encore finie (avec demande de confirmation dynamique).
+
 
 
 
 % (d) Bilan sur les outils de modélisation utilisés, en particulier les problèmes rencontrés, ainsi que
 % les solutions trouvées. Il vous est demandé dans cette partie de bien préciser les logiciels, en particulier les modeleurs UML que vous avez utilisés.
 
-\section {Bilan}
+\section {Bilan sur les outils de modélisation utilisés}
 
+Au cours de ce projet nous avons utilisé différents outils de modélisation.
+
+Au niveau des modeleurs UML, il n'est pas évident de trouver des outils gratuits de bonne qualité, et nous avons finalement choisi d'utiliser l'outil GenMyModel qui permet une modélisation simple et collaborative. Un autre outil de relativement bonne qualité aurait pu être PlantUML, mais il a le désavantage de ne pas être entièrement graphique. Nous avons également testé ArgoUML, mais ce logiciel n'était pas de très bonne qualité.
+
+Certains diagrammes ont également été réalisés à l'aide de Visual Studio (diagramme des cas d'utilisation), ou encore de Web Sequence Diagrams (diagrammes de séquence).
 
 
 

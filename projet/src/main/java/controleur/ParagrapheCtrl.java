@@ -11,6 +11,8 @@ import modele.*;
 
 /**
  * Contrôleur de paragraphes
+ * 
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 @WebServlet(name = "ParagrapheCtrl", urlPatterns = {"/paragraphe"})
 public class ParagrapheCtrl extends HttpServlet {

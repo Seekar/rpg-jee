@@ -2,7 +2,6 @@ package controleur;
 
 import dao.AventureDAO;
 import dao.BiographieDAO;
-import dao.DAOException;
 import dao.EpisodeDAO;
 import dao.JoueurDAO;
 import dao.ParagrapheDAO;
@@ -12,7 +11,6 @@ import dao.UniversDAO;
 
 import java.io.*;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +21,8 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * Le contrôleur d'application
+ * 
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 @WebServlet(name = "Main", urlPatterns = {"/main"})
 public class Main extends HttpServlet {
@@ -119,11 +119,31 @@ public class Main extends HttpServlet {
         return false;
     }
 
+    /**
+     * Indique si l'utilisateur est connecté et le redirige
+     * vers la page de connection si besoin.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @return true s'il est connecté, false sinon
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
+     */
     protected static boolean isLogged(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         return !notLogged(request, response);
     }
 
+    /**
+     * Indique si l'utilisateur n'est pas connecté et le redirige
+     * vers la page de connection si besoin.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @return true s'il n'est pas connecté, false sinon
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
+     */
     protected static boolean notLogged(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         boolean fail = GetJoueurSession(request) == null;
@@ -135,14 +155,29 @@ public class Main extends HttpServlet {
         return fail;
     }
 
-    /* pages d'erreurs */
+    /**
+     * Affiche la page d'erreur interne.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
+     */
     protected static void invalidParameters(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         response.setStatus(500);
         request.getRequestDispatcher("/WEB-INF/ctrlError.jsp").forward(request, response);
     }
 
-    /* pages d'erreurs */
+    /**
+     * Affiche la page d'erreur interne.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @param mess     Le message d'erreur
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
+     */
     protected static void invalidParameters(HttpServletRequest request,
             HttpServletResponse response, String mess)
             throws ServletException, IOException {
@@ -150,26 +185,59 @@ public class Main extends HttpServlet {
         invalidParameters(request, response);
     }
 
-    /* pages d'erreurs */
+    /**
+     * Affiche la page d'erreur interne.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @param ex       L'exception d'origine
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
+     */
     protected static void invalidParameters(HttpServletRequest request,
             HttpServletResponse response, Exception ex)
             throws ServletException, IOException {
         invalidParameters(request, response, ex.getMessage());
     }
 
+    /**
+     * Affiche la page d'erreur bdd.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
+     */
     static void dbError(HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
+           HttpServletResponse response) throws ServletException, IOException {
         response.setStatus(500);
         request.getRequestDispatcher("/WEB-INF/dbError.jsp").forward(request, response);
     }
 
+    /**
+     * Affiche la page d'erreur bdd.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @param e        L'exception d'origine
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
+     */
     static void dbError(HttpServletRequest request,
             HttpServletResponse response, Exception e)
             throws ServletException, IOException {
         dbError(request, response, e.getMessage());
     }
 
+    /**
+     * Affiche la page d'erreur bdd.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @param mess     Le message d'erreur
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
+     */
     static void dbError(HttpServletRequest request,
             HttpServletResponse response, String mess)
             throws ServletException, IOException {
@@ -197,6 +265,9 @@ public class Main extends HttpServlet {
         if (request.getParameter("login") != null) {
             page = "login";
         }
+        
+        // Déconnexion : on invalide la session puis
+        // on redirige vers la page de login
         else if (request.getParameter("logout") != null) {
             HttpSession session = request.getSession();
             session.invalidate();
@@ -230,12 +301,15 @@ public class Main extends HttpServlet {
         Joueur joueur;
 
         try {
+            // Si le login est valide, on définit le joueur en session
             if ((joueur = isLoginValid(login, pass)) != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", joueur);
 
                 page = "accueil";
             }
+            
+            // Sinon, on renvoie une erreur
             else {
                 request.setAttribute("error", "Login incorrect");
             }
@@ -247,6 +321,14 @@ public class Main extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(request, response);
     }
 
+    /**
+     * Vérifie la validité du mot de passe fourni pour se connecter (hash md5).
+     * 
+     * @param login Le login
+     * @param pwd   Le mot de passe
+     * @return Le joueur connecté si valide, null sinon
+     * @throws SecurityException 
+     */
     private Joueur isLoginValid(String login, String pwd)
             throws SecurityException {
 
@@ -256,8 +338,10 @@ public class Main extends HttpServlet {
             String data, hash;
             MessageDigest mdAlg;
             
+            // On récupère le joueur lié à ce login
             joueur = JoueurDAO.Get().getJoueur(login);
 
+            // Si le joueur existe, calcul du hash md5 de son mot de passe
             if (joueur != null) {
                 mdAlg = MessageDigest.getInstance("MD5");
                 mdAlg.update(pwd.getBytes());
@@ -265,6 +349,7 @@ public class Main extends HttpServlet {
                 digest = mdAlg.digest();
                 StringBuilder hashBuilder = new StringBuilder();
 
+                // Construction du hash md5
                 for (int i = 0; i < digest.length; i++) {
                     data = Integer.toHexString(0xFF & digest[i]);
 
@@ -275,9 +360,10 @@ public class Main extends HttpServlet {
                     hashBuilder.append(data);
                 }
 
+                // Hash md5 obtenu
                 hash = hashBuilder.toString();
 
-
+                // Test de la conformité du mot de passe hashé
                 if (joueur.getPwd().equals(hash)) {
                     return joueur;
                 }
@@ -290,10 +376,19 @@ public class Main extends HttpServlet {
         return null;
     }
     
+    /**
+     * Assure la protection XSS + l'affichage html des sauts de lignes
+     * au sein des données fournies.
+     * 
+     * @param data Les données
+     * @return Les données affichables en html
+     */
     public static String CustomEscape(String data) {
         if (data == null)
             return null;
         
+        // On encode les balises html puis on convertit
+        // les sauts de ligne en html
         return StringEscapeUtils.escapeHtml(data).replace("\n", "<br/>");
     }
 }

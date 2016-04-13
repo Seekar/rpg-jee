@@ -14,13 +14,23 @@ public abstract  class AbstractBiographieDAO extends AbstractDAO {
     public AbstractBiographieDAO(DataSource ds) {
         super(ds);
     }
-    /*
-    retourne la biographie associé à un personnage
-    */
+
+    /**
+     * Retourne la biographie associée à un personnage.
+     * 
+     * @param p Le personnage
+     * @return Sa biographie
+     * @throws DAOException
+     */
     public abstract Biographie getBiographie(Personnage p) throws DAOException;
-    /*
-    retourne la biographie à partir de son identifiant
-    */
+
+    /**
+     * Retourne la biographie à partir de son identifiant.
+     * 
+     * @param id
+     * @return
+     * @throws DAOException
+     */
     public abstract Biographie getBiographie(int id) throws DAOException;
 
 }
