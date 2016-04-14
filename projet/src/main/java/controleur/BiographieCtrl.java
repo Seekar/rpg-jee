@@ -6,20 +6,17 @@ import dao.EpisodeDAO;
 import dao.ParagrapheDAO;
 import dao.PersonnageDAO;
 import java.io.IOException;
-import java.rmi.ServerError;
-import java.rmi.ServerException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.Biographie;
 import modele.Episode;
 import modele.Joueur;
-import modele.Paragraphe;
 import modele.Personnage;
 
 /**
+ * Contrôleur de biographies
  *
  * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
@@ -61,10 +58,12 @@ public class BiographieCtrl extends HttpServlet {
                 Personnage p = persoD.getPersonnage(persoID);
                 p.setId(persoID);
                 
+                // Récupération de la biographie
                 Joueur j = Main.GetJoueurSession(request);
                 p.setBiographie(bioD.getBiographie(p));
                 p.getBiographie().episodes = epiD.getEpisodes(p.getBiographie());
                 
+                // Récupération des paragraphes de chaque épisode
                 for (Episode e : p.getBiographie().episodes) {
                     e.paragraphes = paD.getParagraphes(e);
                 }
@@ -93,13 +92,16 @@ public class BiographieCtrl extends HttpServlet {
                 BiographieDAO bioD = BiographieDAO.Get();
                 EpisodeDAO epiD = EpisodeDAO.Get();
                 ParagrapheDAO paD = ParagrapheDAO.Get();
-            
+
+                // Check sécurité
                 Main.CheckOwnerOrMj(persoID, request);
 
+                // Récupération de la biographie
                 Personnage p = persoD.getPersonnage(persoID);
                 p.setBiographie(bioD.getBiographie(bioID));
                 p.getBiographie().episodes = epiD.getEpisodesEnEdition(p.getBiographie());
                 
+                // Récupération des paragraphes de chaque épisode
                 for (Episode e : p.getBiographie().episodes) {
                     e.paragraphes = paD.getParagraphes(e);
                 }

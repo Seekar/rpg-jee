@@ -432,6 +432,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
 
 
             statement.close();
+            
+            // On demande la validation
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET validateur_id = ? WHERE id = ?");
 
@@ -485,6 +487,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                 throw new DAOException("Accès refusé");
 
             statement.close();
+            
+            // On demande le transfert
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET transfert_id = ? WHERE id = ?");
 
@@ -528,6 +532,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                 throw new DAOException("Accès refusé");
 
             statement.close();
+            
+            // On valide le personnage
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET valide = 1, mj_id = validateur_id WHERE id = ?");
 
@@ -634,6 +640,8 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
                 throw new SecurityException("Accès refusé");
 
             statement.close();
+            
+            // On modifie le personnage
             statement = link.prepareStatement("UPDATE Personnage "
                     + "SET profession = ? WHERE id = ?");
 

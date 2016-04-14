@@ -24,6 +24,12 @@ public abstract class AbstractDAO {
         this.dataSource = ds;
     }
 
+    /**
+     * Méthode permettant de récupérer la connection sans autocommit.
+     * 
+     * @return La connection
+     * @throws SQLException
+     */
     protected Connection getConnection() throws SQLException {
         curLink = dataSource.getConnection();
         curLink.setAutoCommit(false);
@@ -31,6 +37,12 @@ public abstract class AbstractDAO {
         return curLink;
     }
 
+    /**
+     * Méthode permettant d'initialiser une transaction avec SERIALIZABLE.
+     * 
+     * @return La connection
+     * @throws SQLException
+     */
     public Connection initConnection() throws SQLException {
         getConnection();
         curLink.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
@@ -107,6 +119,11 @@ public abstract class AbstractDAO {
         }
     }
     
+    /**
+     * Permet de fermer une requete facilement.
+     * 
+     * @param statement La requete
+     */
     public static void CloseStatement(Statement statement) {
         if (statement != null) {
             try {
@@ -115,6 +132,11 @@ public abstract class AbstractDAO {
         }
     }
     
+    /**
+     * Effectue un commit sur la connection courante.
+     *
+     * @throws DAOException
+     */
     public void commit() throws DAOException {
         if (curLink != null) {
             try {

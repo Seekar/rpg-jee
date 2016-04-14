@@ -92,6 +92,13 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
         return epi;
     }
 
+    /**
+     * Retourne les épisodes valide d'une biographie.
+     * 
+     * @param b La biographie
+     * @return Ses épisodes valides
+     * @throws DAOException
+     */
     @Override
     public List<Episode> getEpisodes(Biographie b) throws DAOException {
         LinkedList<Episode> epis = new LinkedList<>();

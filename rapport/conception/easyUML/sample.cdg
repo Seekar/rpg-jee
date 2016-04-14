@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="projet">
+  <ClassDiagramComponents>
+    <Class name="AbstractDAO" package="dao" visibility="public" isAbstract="true" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="dataSource" type="DataSource" visibility="protected" isFinal="true"/>
+        <Field name="curLink" type="Connection" visibility="protected"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="protected">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getConnection" returnType="Connection" visibility="protected"/>
+        <Method name="initConnection" returnType="Connection" visibility="public"/>
+        <Method name="closeConnection" returnType="void" visibility="protected">
+          <Argument type="Connection" name="link"/>
+        </Method>
+        <Method name="closeConnection" returnType="void" visibility="protected"/>
+        <Method name="rollback" returnType="void" visibility="protected">
+          <Argument type="Connection" name="link"/>
+        </Method>
+        <Method name="rollback" returnType="void" visibility="protected"/>
+        <Method name="CloseStatement" returnType="void" visibility="public" isStatic="true">
+          <Argument type="Statement" name="statement"/>
+        </Method>
+        <Method name="commit" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="JoueurDAO" package="dao" visibility="public" isFinal="true" xPosition="320.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="JoueurDAO" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Create" returnType="JoueurDAO" visibility="public" isStatic="true">
+          <Argument type="DataSource" name="ds"/>
+        </Method>
+        <Method name="Get" returnType="JoueurDAO" visibility="public" isStatic="true"/>
+        <Method name="getJoueur" returnType="Joueur" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getJoueur" returnType="Joueur" visibility="public">
+          <Argument type="String" name="pseudo"/>
+        </Method>
+        <Method name="whoCanReceive" returnType="ArrayList&lt;Joueur&gt;" visibility="public">
+          <Argument type="int" name="idPerso"/>
+        </Method>
+        <Method name="getAutresMeneurs" returnType="ArrayList&lt;Joueur&gt;" visibility="public">
+          <Argument type="int" name="idJoueur"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DAOException" package="dao" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="message"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="message"/>
+          <Argument type="Throwable" name="cause"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="UniversDAO" package="dao" visibility="public" isFinal="true" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="UniversDAO" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Create" returnType="UniversDAO" visibility="public" isStatic="true">
+          <Argument type="DataSource" name="ds"/>
+        </Method>
+        <Method name="Get" returnType="UniversDAO" visibility="public" isStatic="true"/>
+        <Method name="getUnivers" returnType="ArrayList&lt;Univers&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="EpisodeDAO" package="dao" visibility="public" isFinal="true" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="EpisodeDAO" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Create" returnType="EpisodeDAO" visibility="public" isStatic="true">
+          <Argument type="DataSource" name="ds"/>
+        </Method>
+        <Method name="Get" returnType="EpisodeDAO" visibility="public" isStatic="true"/>
+        <Method name="getEpisodesEnEdition" returnType="List&lt;Episode&gt;" visibility="public">
+          <Argument type="Biographie" name="b"/>
+        </Method>
+        <Method name="getEpisodes" returnType="List&lt;Episode&gt;" visibility="public">
+          <Argument type="Biographie" name="b"/>
+        </Method>
+        <Method name="getEpisodesAValider" returnType="List&lt;Episode&gt;" visibility="public">
+          <Argument type="Joueur" name="mj"/>
+        </Method>
+        <Method name="getEpisode" returnType="Episode" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="suppressEpisode" returnType="void" visibility="public">
+          <Argument type="int" name="pid"/>
+        </Method>
+        <Method name="valideEpisode" returnType="void" visibility="public">
+          <Argument type="int" name="pid"/>
+          <Argument type="int" name="persoID"/>
+          <Argument type="int" name="joueurID"/>
+        </Method>
+        <Method name="valideEpisodeParMj" returnType="void" visibility="public">
+          <Argument type="int" name="idEpi"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="nouvelEpisode" returnType="void" visibility="public">
+          <Argument type="boolean" name="avtValide"/>
+          <Argument type="int" name="aventureID"/>
+          <Argument type="int" name="bioID"/>
+          <Argument type="int" name="date"/>
+        </Method>
+        <Method name="hasMJ" returnType="boolean" visibility="public">
+          <Argument type="int" name="persoID"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AbstractUniversDAO" package="dao" visibility="public" isAbstract="true" xPosition="1520.0" yPosition="20.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getUnivers" returnType="Collection&lt;Univers&gt;" visibility="public" isAbstract="true"/>
+      </Methods>
+    </Class>
+    <Class name="PersonnageDAO" package="dao" visibility="public" isFinal="true" xPosition="1820.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="PersonnageDAO" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Create" returnType="PersonnageDAO" visibility="public" isStatic="true">
+          <Argument type="DataSource" name="ds"/>
+        </Method>
+        <Method name="Get" returnType="PersonnageDAO" visibility="public" isStatic="true"/>
+        <Method name="getPersonnages" returnType="Collection&lt;Personnage&gt;" visibility="public"/>
+        <Method name="getPersonnagesJoueur" returnType="ArrayList&lt;Personnage&gt;" visibility="public">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="getPersonnagesAValider" returnType="Collection&lt;Personnage&gt;" visibility="public">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="getTransfertsAValider" returnType="Collection&lt;Personnage&gt;" visibility="public">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="getPersonnagesMenes" returnType="ArrayList&lt;Personnage&gt;" visibility="public">
+          <Argument type="Joueur" name="mj"/>
+        </Method>
+        <Method name="getCandidats" returnType="ArrayList&lt;Personnage&gt;" visibility="public">
+          <Argument type="Joueur" name="mj"/>
+          <Argument type="Univers" name="u"/>
+        </Method>
+        <Method name="creer" returnType="void" visibility="public">
+          <Argument type="Personnage" name="p"/>
+          <Argument type="String" name="bio"/>
+        </Method>
+        <Method name="getPersonnage" returnType="Personnage" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="requestValidation" returnType="void" visibility="public">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idMJ"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="requestTransfer" returnType="void" visibility="public">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idMJ"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="acceptValidation" returnType="void" visibility="public">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="acceptTransfer" returnType="void" visibility="public">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="modifierPersonnage" returnType="void" visibility="public">
+          <Argument type="Personnage" name="p"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="donnerPersonnage" returnType="void" visibility="public">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idDest"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="dansPartieEnCours" returnType="boolean" visibility="public">
+          <Argument type="int" name="idPerso"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AventureDAO" package="dao" visibility="public" isFinal="true" xPosition="2120.0" yPosition="20.0">
+      <Fields>
+        <Field name="instance" type="AventureDAO" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Create" returnType="AventureDAO" visibility="public" isStatic="true">
+          <Argument type="DataSource" name="ds"/>
+        </Method>
+        <Method name="Get" returnType="AventureDAO" visibility="public" isStatic="true"/>
+        <Method name="creerPartie" returnType="void" visibility="public">
+          <Argument type="Aventure" name="a"/>
+        </Method>
+        <Method name="getAventures" returnType="ArrayList&lt;Aventure&gt;" visibility="public"/>
+        <Method name="getPartiesMenees" returnType="List&lt;Aventure&gt;" visibility="public">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="getAventureAssociee" returnType="List&lt;Aventure&gt;" visibility="public">
+          <Argument type="int" name="persoID"/>
+        </Method>
+        <Method name="getAventure" returnType="Aventure" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getParties" returnType="ArrayList&lt;Aventure&gt;" visibility="public">
+          <Argument type="Personnage" name="p"/>
+        </Method>
+        <Method name="getParties" returnType="ArrayList&lt;Aventure&gt;" visibility="public">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="finishPartie" returnType="void" visibility="public">
+          <Argument type="Aventure" name="aventure"/>
+          <Argument type="String" name="events"/>
+        </Method>
+        <Method name="deletePartie" returnType="void" visibility="public">
+          <Argument type="Aventure" name="aventure"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ParticipeDAO" package="dao" visibility="public" xPosition="20.0" yPosition="420.0">
+      <Fields>
+        <Field name="instance" type="ParticipeDAO" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Create" returnType="ParticipeDAO" visibility="public" isStatic="true">
+          <Argument type="DataSource" name="ds"/>
+        </Method>
+        <Method name="Get" returnType="ParticipeDAO" visibility="public" isStatic="true"/>
+        <Method name="creerParticipe" returnType="void" visibility="public">
+          <Argument type="Participe" name="p"/>
+        </Method>
+        <Method name="supprimerParticipe" returnType="void" visibility="public">
+          <Argument type="Aventure" name="aventure"/>
+          <Argument type="Personnage" name="perso"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AbstractBiographieDAO" package="dao" visibility="public" isAbstract="true" xPosition="320.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getBiographie" returnType="Biographie" visibility="public" isAbstract="true">
+          <Argument type="Personnage" name="p"/>
+        </Method>
+        <Method name="getBiographie" returnType="Biographie" visibility="public" isAbstract="true">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AbstractParticipeDAO" package="dao" visibility="public" isAbstract="true" xPosition="620.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="creerParticipe" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Participe" name="p"/>
+        </Method>
+        <Method name="supprimerParticipe" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Aventure" name="aventure"/>
+          <Argument type="Personnage" name="perso"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="BiographieDAO" package="dao" visibility="public" isFinal="true" xPosition="920.0" yPosition="420.0">
+      <Fields>
+        <Field name="instance" type="BiographieDAO" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Create" returnType="BiographieDAO" visibility="public" isStatic="true">
+          <Argument type="DataSource" name="ds"/>
+        </Method>
+        <Method name="Get" returnType="BiographieDAO" visibility="public" isStatic="true"/>
+        <Method name="getBiographie" returnType="Biographie" visibility="public">
+          <Argument type="Personnage" name="p"/>
+        </Method>
+        <Method name="getBiographie" returnType="Biographie" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AbstractPersonnageDAO" package="dao" visibility="public" isAbstract="true" xPosition="1220.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getPersonnages" returnType="Collection&lt;Personnage&gt;" visibility="public" isAbstract="true"/>
+        <Method name="getPersonnagesJoueur" returnType="Collection&lt;Personnage&gt;" visibility="public" isAbstract="true">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="getPersonnagesAValider" returnType="Collection&lt;Personnage&gt;" visibility="public" isAbstract="true">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="getPersonnagesMenes" returnType="Collection&lt;Personnage&gt;" visibility="public" isAbstract="true">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="getTransfertsAValider" returnType="Collection&lt;Personnage&gt;" visibility="public" isAbstract="true">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="getPersonnage" returnType="Personnage" visibility="public" isAbstract="true">
+          <Argument type="int" name="personnageID"/>
+        </Method>
+        <Method name="creer" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Personnage" name="p"/>
+          <Argument type="String" name="bio"/>
+        </Method>
+        <Method name="requestValidation" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idMJ"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="requestTransfer" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idMJ"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="acceptValidation" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="acceptTransfer" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="modifierPersonnage" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Personnage" name="p"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="donnerPersonnage" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="idPerso"/>
+          <Argument type="int" name="idDest"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="dansPartieEnCours" returnType="boolean" visibility="public" isAbstract="true">
+          <Argument type="int" name="idPerso"/>
+        </Method>
+        <Method name="getCandidats" returnType="Collection&lt;Personnage&gt;" visibility="public" isAbstract="true">
+          <Argument type="Joueur" name="mj"/>
+          <Argument type="Univers" name="u"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AbstractEpisodeDAO" package="dao" visibility="public" isAbstract="true" xPosition="1520.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getEpisodesEnEdition" returnType="Collection&lt;Episode&gt;" visibility="public" isAbstract="true">
+          <Argument type="Biographie" name="b"/>
+        </Method>
+        <Method name="getEpisodes" returnType="List&lt;Episode&gt;" visibility="public" isAbstract="true">
+          <Argument type="Biographie" name="b"/>
+        </Method>
+        <Method name="getEpisodesAValider" returnType="Collection&lt;Episode&gt;" visibility="public" isAbstract="true">
+          <Argument type="Joueur" name="mj"/>
+        </Method>
+        <Method name="getEpisode" returnType="Episode" visibility="public" isAbstract="true">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="suppressEpisode" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="pid"/>
+        </Method>
+        <Method name="valideEpisode" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="pid"/>
+          <Argument type="int" name="persoID"/>
+          <Argument type="int" name="joueurID"/>
+        </Method>
+        <Method name="valideEpisodeParMj" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="idEpi"/>
+          <Argument type="int" name="idUser"/>
+        </Method>
+        <Method name="nouvelEpisode" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="boolean" name="avtValide"/>
+          <Argument type="int" name="aventureID"/>
+          <Argument type="int" name="bioID"/>
+          <Argument type="int" name="date"/>
+        </Method>
+        <Method name="hasMJ" returnType="boolean" visibility="public" isAbstract="true">
+          <Argument type="int" name="persoID"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AbstractParagrapheDAO" package="dao" visibility="public" isAbstract="true" xPosition="1820.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getParagraphes" returnType="Collection&lt;Paragraphe&gt;" visibility="public" isAbstract="true">
+          <Argument type="Episode" name="e"/>
+        </Method>
+        <Method name="getParagraphe" returnType="Paragraphe" visibility="public" isAbstract="true">
+          <Argument type="int" name="pid"/>
+        </Method>
+        <Method name="reveleParagraphe" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="pid"/>
+        </Method>
+        <Method name="ajouteParagraphe" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="boolean" name="secret"/>
+          <Argument type="String" name="texte"/>
+          <Argument type="int" name="episode"/>
+        </Method>
+        <Method name="updateParagraphe" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="int" name="paragid"/>
+          <Argument type="String" name="texte"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AbstractAventureDAO" package="dao" visibility="public" isAbstract="true" xPosition="2120.0" yPosition="420.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getPartiesMenees" returnType="List&lt;Aventure&gt;" visibility="public" isAbstract="true">
+          <Argument type="Joueur" name="j"/>
+        </Method>
+        <Method name="creerPartie" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Aventure" name="a"/>
+        </Method>
+        <Method name="getAventureAssociee" returnType="List&lt;Aventure&gt;" visibility="public" isAbstract="true">
+          <Argument type="int" name="persoID"/>
+        </Method>
+        <Method name="getAventure" returnType="Aventure" visibility="public" isAbstract="true">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="finishPartie" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Aventure" name="aventure"/>
+          <Argument type="String" name="events"/>
+        </Method>
+        <Method name="deletePartie" returnType="void" visibility="public" isAbstract="true">
+          <Argument type="Aventure" name="aventure"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AbstractJoueurDAO" package="dao" visibility="public" isAbstract="true" xPosition="20.0" yPosition="820.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getJoueur" returnType="Joueur" visibility="public" isAbstract="true">
+          <Argument type="String" name="pseudo"/>
+        </Method>
+        <Method name="getJoueur" returnType="Joueur" visibility="public" isAbstract="true">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getAutresMeneurs" returnType="Collection&lt;Joueur&gt;" visibility="public" isAbstract="true">
+          <Argument type="int" name="idJoueur"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ParagrapheDAO" package="dao" visibility="public" isFinal="true" xPosition="320.0" yPosition="820.0">
+      <Fields>
+        <Field name="instance" type="ParagrapheDAO" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private">
+          <Argument type="DataSource" name="ds"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="Create" returnType="ParagrapheDAO" visibility="public" isStatic="true">
+          <Argument type="DataSource" name="ds"/>
+        </Method>
+        <Method name="Get" returnType="ParagrapheDAO" visibility="public" isStatic="true"/>
+        <Method name="getParagraphes" returnType="List&lt;Paragraphe&gt;" visibility="public">
+          <Argument type="Episode" name="e"/>
+        </Method>
+        <Method name="getParagraphe" returnType="Paragraphe" visibility="public">
+          <Argument type="int" name="pid"/>
+        </Method>
+        <Method name="reveleParagraphe" returnType="void" visibility="public">
+          <Argument type="int" name="pid"/>
+        </Method>
+        <Method name="ajouteParagraphe" returnType="void" visibility="public">
+          <Argument type="boolean" name="secret"/>
+          <Argument type="String" name="texte"/>
+          <Argument type="int" name="episode"/>
+        </Method>
+        <Method name="updateParagraphe" returnType="void" visibility="public">
+          <Argument type="int" name="paragid"/>
+          <Argument type="String" name="texte"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Main" package="controleur" visibility="public" xPosition="620.0" yPosition="820.0">
+      <Fields>
+        <Field name="ds" type="DataSource" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="init" returnType="void" visibility="public"/>
+        <Method name="GetJoueurSession" returnType="Joueur" visibility="public" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+        </Method>
+        <Method name="CheckOwnerOrMj" returnType="void" visibility="public" isStatic="true">
+          <Argument type="int" name="persoID"/>
+          <Argument type="HttpServletRequest" name="request"/>
+        </Method>
+        <Method name="badRequest" returnType="boolean" visibility="protected" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="isLogged" returnType="boolean" visibility="protected" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="notLogged" returnType="boolean" visibility="protected" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="invalidParameters" returnType="void" visibility="protected" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="invalidParameters" returnType="void" visibility="protected" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+          <Argument type="String" name="mess"/>
+        </Method>
+        <Method name="invalidParameters" returnType="void" visibility="protected" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+          <Argument type="Exception" name="ex"/>
+        </Method>
+        <Method name="dbError" returnType="void" visibility="package" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="dbError" returnType="void" visibility="package" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+          <Argument type="Exception" name="e"/>
+        </Method>
+        <Method name="dbError" returnType="void" visibility="package" isStatic="true">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+          <Argument type="String" name="mess"/>
+        </Method>
+        <Method name="doGet" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doPost" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="isLoginValid" returnType="Joueur" visibility="private">
+          <Argument type="String" name="login"/>
+          <Argument type="String" name="pwd"/>
+        </Method>
+        <Method name="CustomEscape" returnType="String" visibility="public" isStatic="true">
+          <Argument type="String" name="data"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EpisodeCtrl" package="controleur" visibility="public" xPosition="920.0" yPosition="820.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="doGet" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doPost" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ParagrapheCtrl" package="controleur" visibility="public" xPosition="1220.0" yPosition="820.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="doGet" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doPost" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PersonnageCtrl" package="controleur" visibility="public" xPosition="1520.0" yPosition="820.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="doGet" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doPost" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionCreate" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionEditMJ" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionAcceptMJ" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionTransfer" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionAcceptTransfer" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionEdit" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionDonate" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AventureCtrl" package="controleur" visibility="public" xPosition="1820.0" yPosition="820.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="doGet" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doPost" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionCreate" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionAddMember" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionRemoveMember" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionFinish" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="actionDelete" returnType="void" visibility="private">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="BiographieCtrl" package="controleur" visibility="public" xPosition="2120.0" yPosition="820.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="doGet" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+        <Method name="doPost" returnType="void" visibility="public">
+          <Argument type="HttpServletRequest" name="request"/>
+          <Argument type="HttpServletResponse" name="response"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Paragraphe" package="modele" visibility="public" xPosition="20.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="texte" type="String" visibility="private"/>
+        <Field name="secret" type="boolean" visibility="private"/>
+        <Field name="episode" type="Episode" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="boolean" name="isSecret"/>
+          <Argument type="String" name="texte"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="getID" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getTexte" returnType="String" visibility="public"/>
+        <Method name="setTexte" returnType="void" visibility="public">
+          <Argument type="String" name="texte"/>
+        </Method>
+        <Method name="isSecret" returnType="boolean" visibility="public"/>
+        <Method name="getSecret" returnType="boolean" visibility="public"/>
+        <Method name="setSecret" returnType="void" visibility="public">
+          <Argument type="boolean" name="secret"/>
+        </Method>
+        <Method name="getEpisode" returnType="Episode" visibility="public"/>
+        <Method name="setEpisode" returnType="void" visibility="public">
+          <Argument type="Episode" name="episode"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Participe" package="modele" visibility="public" xPosition="320.0" yPosition="1220.0">
+      <Fields>
+        <Field name="aventure" type="Aventure" visibility="public"/>
+        <Field name="personnage" type="Personnage" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Aventure" name="aventure"/>
+          <Argument type="Personnage" name="personnage"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getAventure" returnType="Aventure" visibility="public"/>
+        <Method name="setAventure" returnType="void" visibility="public">
+          <Argument type="Aventure" name="aventure"/>
+        </Method>
+        <Method name="getPersonnage" returnType="Personnage" visibility="public"/>
+        <Method name="setPersonnage" returnType="void" visibility="public">
+          <Argument type="Personnage" name="personnage"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Univers" package="modele" visibility="public" xPosition="620.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nom" type="String" visibility="private"/>
+        <Field name="aventures" type="List&lt;Aventure&gt;" visibility="public"/>
+        <Field name="personnages" type="List&lt;Personnage&gt;" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getNom" returnType="String" visibility="public"/>
+        <Method name="setNom" returnType="void" visibility="public">
+          <Argument type="String" name="nom"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Biographie" package="modele" visibility="public" xPosition="920.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="texte" type="String" visibility="private"/>
+        <Field name="personnage" type="Personnage" visibility="public"/>
+        <Field name="episodes" type="List&lt;Episode&gt;" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="texte"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="texte"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="showTexte" returnType="String" visibility="public"/>
+        <Method name="getID" returnType="int" visibility="public"/>
+        <Method name="getTexte" returnType="String" visibility="public"/>
+        <Method name="getEpisodes" returnType="List&lt;Episode&gt;" visibility="public"/>
+        <Method name="addEpisodes" returnType="void" visibility="public">
+          <Argument type="List&lt;Episode&gt;" name="l"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Joueur" package="modele" visibility="public" xPosition="1220.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="pseudo" type="String" visibility="private"/>
+        <Field name="pwd" type="String" visibility="private"/>
+        <Field name="aventures" type="List&lt;Aventure&gt;" visibility="public"/>
+        <Field name="episodes" type="List&lt;Episode&gt;" visibility="public"/>
+        <Field name="transferts" type="List&lt;Personnage&gt;" visibility="public"/>
+        <Field name="supervisions" type="List&lt;Personnage&gt;" visibility="public"/>
+        <Field name="possessions" type="List&lt;Personnage&gt;" visibility="public"/>
+        <Field name="validations" type="List&lt;Personnage&gt;" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="pseudo"/>
+          <Argument type="String" name="pwd"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="pseudo"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getPseudo" returnType="String" visibility="public"/>
+        <Method name="setPseudo" returnType="void" visibility="public">
+          <Argument type="String" name="pseudo"/>
+        </Method>
+        <Method name="getPwd" returnType="String" visibility="public"/>
+        <Method name="setPwd" returnType="void" visibility="public">
+          <Argument type="String" name="pwd"/>
+        </Method>
+        <Method name="getAventures" returnType="List&lt;Aventure&gt;" visibility="public"/>
+        <Method name="setAventures" returnType="void" visibility="public">
+          <Argument type="List&lt;Aventure&gt;" name="aventures"/>
+        </Method>
+        <Method name="getEpisodes" returnType="List&lt;Episode&gt;" visibility="public"/>
+        <Method name="setEpisodes" returnType="void" visibility="public">
+          <Argument type="List&lt;Episode&gt;" name="episodes"/>
+        </Method>
+        <Method name="getTransferts" returnType="List&lt;Personnage&gt;" visibility="public"/>
+        <Method name="setTransferts" returnType="void" visibility="public">
+          <Argument type="List&lt;Personnage&gt;" name="transferts"/>
+        </Method>
+        <Method name="getSupervisions" returnType="List&lt;Personnage&gt;" visibility="public"/>
+        <Method name="setSupervisions" returnType="void" visibility="public">
+          <Argument type="List&lt;Personnage&gt;" name="supervisions"/>
+        </Method>
+        <Method name="getPossessions" returnType="List&lt;Personnage&gt;" visibility="public"/>
+        <Method name="setPossessions" returnType="void" visibility="public">
+          <Argument type="List&lt;Personnage&gt;" name="possessions"/>
+        </Method>
+        <Method name="getValidations" returnType="List&lt;Personnage&gt;" visibility="public"/>
+        <Method name="setValidations" returnType="void" visibility="public">
+          <Argument type="List&lt;Personnage&gt;" name="validations"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Aventure" package="modele" visibility="public" xPosition="1520.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="public"/>
+        <Field name="titre" type="String" visibility="private"/>
+        <Field name="situation" type="String" visibility="private"/>
+        <Field name="aDate" type="String" visibility="private"/>
+        <Field name="lieu" type="String" visibility="private"/>
+        <Field name="events" type="String" visibility="private"/>
+        <Field name="finie" type="boolean" visibility="private"/>
+        <Field name="univers" type="Univers" visibility="public"/>
+        <Field name="mj" type="Joueur" visibility="public"/>
+        <Field name="personnages" type="List&lt;Personnage&gt;" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="titre"/>
+          <Argument type="String" name="date"/>
+          <Argument type="String" name="lieu"/>
+          <Argument type="Univers" name="univers"/>
+          <Argument type="String" name="situation"/>
+          <Argument type="Joueur" name="mj"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="titre"/>
+          <Argument type="String" name="date"/>
+          <Argument type="String" name="lieu"/>
+          <Argument type="Univers" name="univers"/>
+          <Argument type="String" name="situation"/>
+          <Argument type="Joueur" name="mj"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="showEvents" returnType="String" visibility="public"/>
+        <Method name="showSituation" returnType="String" visibility="public"/>
+        <Method name="getDate" returnType="String" visibility="public"/>
+        <Method name="setDate" returnType="void" visibility="public">
+          <Argument type="String" name="aDate"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getTitre" returnType="String" visibility="public"/>
+        <Method name="setTitre" returnType="void" visibility="public">
+          <Argument type="String" name="titre"/>
+        </Method>
+        <Method name="getSituation" returnType="String" visibility="public"/>
+        <Method name="setSituation" returnType="void" visibility="public">
+          <Argument type="String" name="situation"/>
+        </Method>
+        <Method name="getaDate" returnType="String" visibility="public"/>
+        <Method name="setaDate" returnType="void" visibility="public">
+          <Argument type="String" name="aDate"/>
+        </Method>
+        <Method name="getLieu" returnType="String" visibility="public"/>
+        <Method name="setLieu" returnType="void" visibility="public">
+          <Argument type="String" name="lieu"/>
+        </Method>
+        <Method name="getEvents" returnType="String" visibility="public"/>
+        <Method name="setEvents" returnType="void" visibility="public">
+          <Argument type="String" name="events"/>
+        </Method>
+        <Method name="isFinie" returnType="boolean" visibility="public"/>
+        <Method name="estFinie" returnType="boolean" visibility="public"/>
+        <Method name="setFinie" returnType="void" visibility="public">
+          <Argument type="boolean" name="finie"/>
+        </Method>
+        <Method name="getUnivers" returnType="Univers" visibility="public"/>
+        <Method name="setUnivers" returnType="void" visibility="public">
+          <Argument type="Univers" name="univers"/>
+        </Method>
+        <Method name="getMj" returnType="Joueur" visibility="public"/>
+        <Method name="setMj" returnType="void" visibility="public">
+          <Argument type="Joueur" name="mj"/>
+        </Method>
+        <Method name="getPersonnages" returnType="List&lt;Personnage&gt;" visibility="public"/>
+        <Method name="setPersonnages" returnType="void" visibility="public">
+          <Argument type="List&lt;Personnage&gt;" name="personnages"/>
+        </Method>
+        <Method name="addPersonnage" returnType="void" visibility="public">
+          <Argument type="Personnage" name="p"/>
+        </Method>
+        <Method name="getPersonnage" returnType="Personnage" visibility="public">
+          <Argument type="int" name="index"/>
+        </Method>
+        <Method name="getPersonnage" returnType="Personnage" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Personnage" package="modele" visibility="public" xPosition="1820.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="nom" type="String" visibility="private"/>
+        <Field name="naissance" type="String" visibility="private"/>
+        <Field name="profession" type="String" visibility="private"/>
+        <Field name="portrait" type="String" visibility="private"/>
+        <Field name="valide" type="boolean" visibility="private"/>
+        <Field name="univers" type="Univers" visibility="private"/>
+        <Field name="transfert" type="Joueur" visibility="private"/>
+        <Field name="mj" type="Joueur" visibility="private"/>
+        <Field name="joueur" type="Joueur" visibility="private"/>
+        <Field name="validateur" type="Joueur" visibility="private"/>
+        <Field name="parties" type="List&lt;Aventure&gt;" visibility="private"/>
+        <Field name="biographie" type="Biographie" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+          <Argument type="String" name="naissance"/>
+          <Argument type="String" name="profession"/>
+          <Argument type="String" name="portrait"/>
+          <Argument type="Univers" name="univers"/>
+          <Argument type="Joueur" name="joueur"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="nom"/>
+          <Argument type="String" name="naissance"/>
+          <Argument type="String" name="profession"/>
+          <Argument type="String" name="portrait"/>
+          <Argument type="Univers" name="univers"/>
+          <Argument type="Joueur" name="joueur"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="nom"/>
+          <Argument type="String" name="naissance"/>
+          <Argument type="String" name="profession"/>
+          <Argument type="String" name="portrait"/>
+          <Argument type="Univers" name="univers"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+          <Argument type="String" name="naissance"/>
+          <Argument type="String" name="profession"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+          <Argument type="String" name="naissance"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="String" name="nom"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getNom" returnType="String" visibility="public"/>
+        <Method name="setNom" returnType="void" visibility="public">
+          <Argument type="String" name="nom"/>
+        </Method>
+        <Method name="getNaissance" returnType="String" visibility="public"/>
+        <Method name="setNaissance" returnType="void" visibility="public">
+          <Argument type="String" name="naissance"/>
+        </Method>
+        <Method name="getProfession" returnType="String" visibility="public"/>
+        <Method name="setProfession" returnType="void" visibility="public">
+          <Argument type="String" name="profession"/>
+        </Method>
+        <Method name="getPortrait" returnType="String" visibility="public"/>
+        <Method name="setPortrait" returnType="void" visibility="public">
+          <Argument type="String" name="portrait"/>
+        </Method>
+        <Method name="isValide" returnType="boolean" visibility="public"/>
+        <Method name="setValide" returnType="void" visibility="public">
+          <Argument type="boolean" name="valide"/>
+        </Method>
+        <Method name="getUnivers" returnType="Univers" visibility="public"/>
+        <Method name="setUnivers" returnType="void" visibility="public">
+          <Argument type="Univers" name="univers"/>
+        </Method>
+        <Method name="getTransfert" returnType="Joueur" visibility="public"/>
+        <Method name="setTransfert" returnType="void" visibility="public">
+          <Argument type="Joueur" name="transfert"/>
+        </Method>
+        <Method name="getMj" returnType="Joueur" visibility="public"/>
+        <Method name="setMj" returnType="void" visibility="public">
+          <Argument type="Joueur" name="mj"/>
+        </Method>
+        <Method name="getJoueur" returnType="Joueur" visibility="public"/>
+        <Method name="setJoueur" returnType="void" visibility="public">
+          <Argument type="Joueur" name="joueur"/>
+        </Method>
+        <Method name="getValidateur" returnType="Joueur" visibility="public"/>
+        <Method name="setValidateur" returnType="void" visibility="public">
+          <Argument type="Joueur" name="validateur"/>
+        </Method>
+        <Method name="getParties" returnType="List&lt;Aventure&gt;" visibility="public"/>
+        <Method name="setParties" returnType="void" visibility="public">
+          <Argument type="List&lt;Aventure&gt;" name="parties"/>
+        </Method>
+        <Method name="getBiographie" returnType="Biographie" visibility="public"/>
+        <Method name="setBiographie" returnType="void" visibility="public">
+          <Argument type="Biographie" name="biographie"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Episode" package="modele" visibility="public" xPosition="2120.0" yPosition="1220.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="eDate" type="int" visibility="private"/>
+        <Field name="valide" type="boolean" visibility="private"/>
+        <Field name="aventure" type="Aventure" visibility="public"/>
+        <Field name="mj" type="Joueur" visibility="public"/>
+        <Field name="biographie" type="Biographie" visibility="public"/>
+        <Field name="paragraphes" type="List&lt;Paragraphe&gt;" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="id"/>
+          <Argument type="int" name="eDate"/>
+          <Argument type="boolean" name="valide"/>
+          <Argument type="Aventure" name="aventure"/>
+          <Argument type="Joueur" name="mj"/>
+          <Argument type="Biographie" name="biographie"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="eDate"/>
+          <Argument type="boolean" name="valide"/>
+          <Argument type="Aventure" name="aventure"/>
+          <Argument type="Joueur" name="mj"/>
+          <Argument type="Biographie" name="biographie"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getValide" returnType="boolean" visibility="public"/>
+        <Method name="getMJ" returnType="Joueur" visibility="public"/>
+        <Method name="getDate" returnType="int" visibility="public"/>
+        <Method name="setDate" returnType="void" visibility="public">
+          <Argument type="int" name="eDate"/>
+        </Method>
+        <Method name="isValide" returnType="boolean" visibility="public"/>
+        <Method name="setValide" returnType="void" visibility="public">
+          <Argument type="boolean" name="valide"/>
+        </Method>
+        <Method name="getMj" returnType="Joueur" visibility="public"/>
+        <Method name="setMj" returnType="void" visibility="public">
+          <Argument type="Joueur" name="mj"/>
+        </Method>
+        <Method name="getBiographie" returnType="Biographie" visibility="public"/>
+        <Method name="setBiographie" returnType="void" visibility="public">
+          <Argument type="Biographie" name="biographie"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="geteDate" returnType="int" visibility="public"/>
+        <Method name="seteDate" returnType="void" visibility="public">
+          <Argument type="int" name="eDate"/>
+        </Method>
+        <Method name="getAventure" returnType="Aventure" visibility="public"/>
+        <Method name="setAventure" returnType="void" visibility="public">
+          <Argument type="Aventure" name="aventure"/>
+        </Method>
+        <Method name="getParagraphes" returnType="List&lt;Paragraphe&gt;" visibility="public"/>
+        <Method name="setParagraphes" returnType="void" visibility="public">
+          <Argument type="List&lt;Paragraphe&gt;" name="paragraphes"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="dao.AbstractParagrapheDAO" target="modele.Paragraphe" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.ParagrapheDAO" target="dao.AbstractParagrapheDAO"/>
+    <IsRelation name="is" source="dao.UniversDAO" target="dao.AbstractUniversDAO"/>
+    <HasRelation name="validateur" source="modele.Personnage" target="modele.Joueur" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="univers" source="modele.Personnage" target="modele.Univers" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="aventures" source="modele.Joueur" target="modele.Aventure" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Aventure&gt;"/>
+    <UseRelation source="modele.Episode" target="modele.Paragraphe" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.ParagrapheDAO" target="modele.Episode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.BiographieDAO" target="modele.Biographie" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Episode" target="modele.Aventure" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.ParticipeDAO" target="dao.AbstractParticipeDAO"/>
+    <UseRelation source="modele.Joueur" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.EpisodeDAO" target="modele.Episode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.AbstractBiographieDAO" target="dao.AbstractDAO"/>
+    <HasRelation name="personnage" source="modele.Participe" target="modele.Personnage" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.AbstractParagrapheDAO" target="dao.AbstractDAO"/>
+    <IsRelation name="is" source="dao.AbstractParticipeDAO" target="dao.AbstractDAO"/>
+    <IsRelation name="is" source="dao.AbstractAventureDAO" target="dao.AbstractDAO"/>
+    <UseRelation source="dao.AbstractAventureDAO" target="modele.Aventure" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="possessions" source="modele.Joueur" target="modele.Personnage" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Personnage&gt;"/>
+    <HasRelation name="episodes" source="modele.Joueur" target="modele.Episode" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Episode&gt;"/>
+    <HasRelation name="validations" source="modele.Joueur" target="modele.Personnage" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Personnage&gt;"/>
+    <HasRelation name="episodes" source="modele.Biographie" target="modele.Episode" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Episode&gt;"/>
+    <UseRelation source="dao.AbstractJoueurDAO" target="modele.Joueur" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.JoueurDAO" target="dao.AbstractJoueurDAO"/>
+    <IsRelation name="is" source="dao.BiographieDAO" target="dao.AbstractBiographieDAO"/>
+    <UseRelation source="modele.Episode" target="modele.Joueur" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.AventureDAO" target="modele.Aventure" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="biographie" source="modele.Personnage" target="modele.Biographie" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.PersonnageDAO" target="dao.AbstractPersonnageDAO"/>
+    <HasRelation name="instance" source="dao.ParagrapheDAO" target="dao.ParagrapheDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="dao.EpisodeDAO" target="dao.EpisodeDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.JoueurDAO" target="modele.Joueur" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="personnages" source="modele.Univers" target="modele.Personnage" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Personnage&gt;"/>
+    <UseRelation source="dao.UniversDAO" target="modele.Univers" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.AbstractEpisodeDAO" target="dao.AbstractDAO"/>
+    <UseRelation source="dao.ParagrapheDAO" target="modele.Paragraphe" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="dao.PersonnageDAO" target="dao.PersonnageDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.AventureDAO" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="aventure" source="modele.Episode" target="modele.Aventure" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="episode" source="modele.Paragraphe" target="modele.Episode" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mj" source="modele.Episode" target="modele.Joueur" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Episode" target="modele.Biographie" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.AbstractPersonnageDAO" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="univers" source="modele.Aventure" target="modele.Univers" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.AbstractPersonnageDAO" target="dao.AbstractDAO"/>
+    <UseRelation source="modele.Participe" target="modele.Aventure" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.ParticipeDAO" target="modele.Participe" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Biographie" target="modele.Episode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="personnages" source="modele.Aventure" target="modele.Personnage" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Personnage&gt;"/>
+    <UseRelation source="dao.ParticipeDAO" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="dao.ParticipeDAO" target="dao.ParticipeDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Personnage" target="modele.Joueur" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mj" source="modele.Aventure" target="modele.Joueur" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.AbstractParticipeDAO" target="modele.Participe" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.AbstractJoueurDAO" target="dao.AbstractDAO"/>
+    <UseRelation source="modele.Aventure" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.AbstractBiographieDAO" target="modele.Biographie" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.PersonnageDAO" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="dao.UniversDAO" target="dao.UniversDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.EpisodeDAO" target="dao.AbstractEpisodeDAO"/>
+    <UseRelation source="dao.AbstractBiographieDAO" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Paragraphe" target="modele.Episode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="controleur.Main" target="modele.Joueur" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="dao.AventureDAO" target="dao.AventureDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Personnage" target="modele.Aventure" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Aventure" target="modele.Joueur" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="aventure" source="modele.Participe" target="modele.Aventure" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="biographie" source="modele.Episode" target="modele.Biographie" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="dao.JoueurDAO" target="dao.JoueurDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.AbstractUniversDAO" target="modele.Univers" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.AventureDAO" target="dao.AbstractAventureDAO"/>
+    <UseRelation source="dao.BiographieDAO" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Participe" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="dao.BiographieDAO" target="dao.BiographieDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Joueur" target="modele.Episode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="dao.AbstractUniversDAO" target="dao.AbstractDAO"/>
+    <HasRelation name="personnage" source="modele.Biographie" target="modele.Personnage" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="paragraphes" source="modele.Episode" target="modele.Paragraphe" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Paragraphe&gt;"/>
+    <HasRelation name="supervisions" source="modele.Joueur" target="modele.Personnage" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Personnage&gt;"/>
+    <UseRelation source="dao.AbstractParticipeDAO" target="modele.Personnage" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="dao.AbstractEpisodeDAO" target="modele.Episode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="transferts" source="modele.Joueur" target="modele.Personnage" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Personnage&gt;"/>
+    <UseRelation source="modele.Personnage" target="modele.Biographie" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="aventures" source="modele.Univers" target="modele.Aventure" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Aventure&gt;"/>
+    <HasRelation name="transfert" source="modele.Personnage" target="modele.Joueur" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Personnage" target="modele.Univers" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Joueur" target="modele.Aventure" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="mj" source="modele.Personnage" target="modele.Joueur" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modele.Aventure" target="modele.Univers" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="joueur" source="modele.Personnage" target="modele.Joueur" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="parties" source="modele.Personnage" target="modele.Aventure" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Aventure&gt;"/>
+    <UseRelation source="dao.AbstractParagrapheDAO" target="modele.Episode" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

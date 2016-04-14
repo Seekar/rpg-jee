@@ -51,6 +51,8 @@ public class PersonnageCtrl extends HttpServlet {
         int idUser = user.getId();
 
         switch (action) {
+        
+        // Crée un personnage
         case "create":
             page = "creation";
 
@@ -65,6 +67,7 @@ public class PersonnageCtrl extends HttpServlet {
             }
             break;
         
+        // Affiche un personnage
         case "show":
             page = "affichage";
 
@@ -112,10 +115,12 @@ public class PersonnageCtrl extends HttpServlet {
             
             break;
 
+        // Valide un personnage
         case "editMJ":
             actionAcceptMJ(request, response);
             break;
 
+        // Accepte le transfert d'un personnage
         case "transfer":
             actionAcceptTransfer(request, response);
             break;
@@ -128,36 +133,47 @@ public class PersonnageCtrl extends HttpServlet {
                 String titre;
 
                 switch (action) {
+                
+                // Liste des personnages possédés
                 case "ownedList":
                     persos = persoDAO.getPersonnagesJoueur(user);
                     titre = "Mes personnages";
                     break;
 
+                // Liste des personnages menés
                 case "leaderList":
                     persos = persoDAO.getPersonnagesMenes(user);
                     titre = "Personnages menés";
                     break;
 
+                // Liste des transferts à valider
                 case "transferList":
                     persos = persoDAO.getTransfertsAValider(user);
                     titre = "Demandes de transfert";
                     break;
 
+                // Liste des personnages à valider
                 case "validationList":
                     persos = persoDAO.getPersonnagesAValider(user);
                     titre = "Personnages à valider";
                     break;
 
+                // Liste des participants d'une partie
                 case "gameList":
+                    boolean persoKiller = false;
                     String idParam = request.getParameter("id");
                     int idPartie = Integer.parseInt(idParam);
-                    boolean persoKiller = false;
                     Aventure partie = avDAO.getAventure(idPartie);
+                    
                     persos = partie.getPersonnages();
-                    titre = "Participants à \"" + partie.getTitre() + "\"";
+                    
+                    // Si la partie est en cours on autorise le MJ
+                    // à retirer des personnages
                     if (user.getId() == partie.getMj().getId()
                             && !partie.isFinie())
                         persoKiller = true;
+                    
+                    titre = "Participants à \"" + partie.getTitre() + "\"";
                     request.setAttribute("persoKiller", persoKiller);
                     break;
 
@@ -184,6 +200,7 @@ public class PersonnageCtrl extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/personnage/" + page + ".jsp").forward(request, response);
         }
 
+        // Si une redirection a été effectuée, on ne fait rien
         else if (request.getAttribute("done") == null) {
             Main.invalidParameters(request, response);
         }
@@ -232,6 +249,14 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Crée un personnage.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionCreate(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
@@ -242,6 +267,7 @@ public class PersonnageCtrl extends HttpServlet {
             String portrait = request.getParameter("portrait");
             String profession = request.getParameter("profession");
 
+            // Encapsulation des différents paramètres
             int idUnivers = Integer.parseInt(request.getParameter("univers"));
             Univers univers = new Univers(idUnivers);
 
@@ -249,6 +275,8 @@ public class PersonnageCtrl extends HttpServlet {
                     profession, portrait, univers);
 
             perso.setJoueur(Main.GetJoueurSession(request));
+            
+            // Requete SQL
             PersonnageDAO.Get().creer(perso, bio);
 
             // Afficher les personnages possédés si la création a réussi
@@ -263,6 +291,14 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Demande la validation d'un personnage.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionEditMJ(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
@@ -271,6 +307,7 @@ public class PersonnageCtrl extends HttpServlet {
             int idPerso = Integer.parseInt(request.getParameter("idPerso"));
             int idMJ = Integer.parseInt(request.getParameter("idMJ"));
 
+            // Requete SQL
             PersonnageDAO.Get().requestValidation(idPerso, idMJ, user.getId());
 
             response.sendRedirect(request.getContextPath()
@@ -284,6 +321,14 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Valide un personnage.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionAcceptMJ(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
@@ -291,11 +336,13 @@ public class PersonnageCtrl extends HttpServlet {
             Joueur user = Main.GetJoueurSession(request);
             int idPerso = Integer.parseInt(request.getParameter("id"));
 
+            // Requete SQL
             PersonnageDAO.Get().acceptValidation(idPerso, user.getId());
 
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=show&id=" + idPerso);
 
+            // Indique qu'une réponse a déjà été donnée
             request.setAttribute("done", true);
 
         } catch (NumberFormatException | IOException ex) {
@@ -306,6 +353,14 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Demande le transfert d'un personnage.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionTransfer(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
@@ -314,6 +369,7 @@ public class PersonnageCtrl extends HttpServlet {
             int idPerso = Integer.parseInt(request.getParameter("idPerso"));
             int idMJ = Integer.parseInt(request.getParameter("idMJ"));
 
+            // Requete SQL
             PersonnageDAO.Get().requestTransfer(idPerso, idMJ, user.getId());
 
             response.sendRedirect(request.getContextPath()
@@ -327,6 +383,14 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Accepte le transfert d'un personnage.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionAcceptTransfer(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
@@ -334,11 +398,13 @@ public class PersonnageCtrl extends HttpServlet {
             Joueur user = Main.GetJoueurSession(request);
             int idPerso = Integer.parseInt(request.getParameter("id"));
 
+            // Requete SQL
             PersonnageDAO.Get().acceptTransfer(idPerso, user.getId());
 
             response.sendRedirect(request.getContextPath()
                     + request.getServletPath() + "?action=show&id=" + idPerso);
 
+            // Indique qu'une réponse a déjà été donnée
             request.setAttribute("done", true);
 
         } catch (NumberFormatException | IOException ex) {
@@ -349,6 +415,14 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Edite un personnage.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionEdit(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
@@ -359,6 +433,7 @@ public class PersonnageCtrl extends HttpServlet {
             Personnage perso = new Personnage(idPerso);
             perso.setProfession(request.getParameter("newWork"));
 
+            // Requete SQL
             PersonnageDAO.Get().modifierPersonnage(perso, user.getId());
 
             response.sendRedirect(request.getContextPath()
@@ -372,6 +447,14 @@ public class PersonnageCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Cède un personnage à un autre joueur.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionDonate(HttpServletRequest request,
             HttpServletResponse response) throws IOException, ServletException {
 
@@ -380,6 +463,7 @@ public class PersonnageCtrl extends HttpServlet {
             int idPerso = Integer.parseInt(request.getParameter("idPerso"));
             int idDest = Integer.parseInt(request.getParameter("idDest"));
 
+            // Requete SQL
             PersonnageDAO.Get().donnerPersonnage(idPerso, idDest, user.getId());
 
             response.sendRedirect(request.getContextPath()

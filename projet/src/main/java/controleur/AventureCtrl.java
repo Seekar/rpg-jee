@@ -2,22 +2,21 @@ package controleur;
 
 
 import dao.DAOException;
-import dao.JoueurDAO;
 import dao.PersonnageDAO;
 import dao.AventureDAO;
 import dao.UniversDAO;
 import dao.ParticipeDAO;
 import java.io.*;
 import java.util.Collection;
-import java.util.List;
-import java.util.ArrayList;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import modele.*;
 
 /**
- * Contrôleur d'aventures.
+ * Contrôleur d'aventures
+ * 
+ * @author Jules-Eugène Demets, Léo Gouttefarde, Salim Aboubacar, Simon Rey
  */
 @WebServlet(name = "AventureCtrl", urlPatterns = {"/game"})
 public class AventureCtrl extends HttpServlet {
@@ -37,8 +36,8 @@ public class AventureCtrl extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
-        String page = null;
         Joueur user = Main.GetJoueurSession(request);
+        String page = null;
 
         // Force le login et gère les erreurs
         if (Main.notLogged(request, response)) {
@@ -49,6 +48,8 @@ public class AventureCtrl extends HttpServlet {
         AventureDAO avDAO = AventureDAO.Get();
 
         switch(action) {
+
+        // Création d'une partie
         case "create": {
             page = "creation";
             UniversDAO universDAO = UniversDAO.Get();
@@ -64,6 +65,7 @@ public class AventureCtrl extends HttpServlet {
             break;
         }
 
+        // Affichage d'une partie
         case "show": {
             page = "affichage";
             Aventure aventure;
@@ -77,10 +79,13 @@ public class AventureCtrl extends HttpServlet {
                 if (aventure.isFinie()) {
                     titre = "Détails de l'aventure";
                 }
+                
+                // Si c'est le MJ de l'aventure,
+                // on prépare la liste des personnages à ajouter
                 else if (aventure.getMj().getId() == user.getId()) {
                     canAdd = true;
                     request.setAttribute("listePersonnages",
-                            persoDAO.getCandidats(user, aventure.getUnivers()));
+                           persoDAO.getCandidats(user, aventure.getUnivers()));
                 }
 
                 request.setAttribute("titre", titre);
@@ -107,21 +112,26 @@ public class AventureCtrl extends HttpServlet {
                 String titre = "Liste des parties";
 
                 switch (action) {
+                
+                // Liste des parties d'un personnage
                 case "characterList":
                     String idParam = request.getParameter("id");
                     int idPerso = Integer.parseInt(idParam);
                     Personnage perso = persoDAO.getPersonnage(idPerso);
+                    
                     parties = avDAO.getParties(perso);
                     titre = "Parties de " + perso.getNom();
                     request.setAttribute("isPerso", true);
                     break;
-                    
+                
+                // Liste des aventures personnelles
                 case "myList":
                     parties = avDAO.getParties(user);
                     titre = "Mes parties";
                     request.setAttribute("hasPerso", true);
                     break;
-                    
+                
+                // Liste des aventures menées
                 case "leaderList":
                     parties = avDAO.getPartiesMenees(user);
                     titre = "Parties menées";
@@ -144,9 +154,6 @@ public class AventureCtrl extends HttpServlet {
 
         if (page != null) {
             request.getRequestDispatcher("/WEB-INF/aventure/" + page + ".jsp").forward(request, response);
-            
-        } else if (request.getAttribute("done") == null) {
-            Main.invalidParameters(request, response);
         }
     }
 
@@ -194,7 +201,14 @@ public class AventureCtrl extends HttpServlet {
         }
     }
 
-
+    /**
+     * Crée une partie.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionCreate(HttpServletRequest request,
            HttpServletResponse response) throws IOException, ServletException {
 
@@ -224,6 +238,14 @@ public class AventureCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Ajoute un participant à une partie.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionAddMember(HttpServletRequest request,
            HttpServletResponse response) throws IOException, ServletException {
         
@@ -244,6 +266,7 @@ public class AventureCtrl extends HttpServlet {
             }
 
             // Vérifier que le personnage n'est pas déjà dans l'aventure
+            // (vérifié pour toutes les aventures en SQL plus tard)
             for (Personnage p : aventure.getPersonnages()) {
                 if (p.getId() == persoId) {
                     throw new SecurityException("Accès refusé");
@@ -272,6 +295,14 @@ public class AventureCtrl extends HttpServlet {
         }
     }
     
+    /**
+     * Retire un participant d'une partie.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionRemoveMember(HttpServletRequest request,
            HttpServletResponse response) throws IOException, ServletException {
 
@@ -304,6 +335,14 @@ public class AventureCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Termine une partie.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionFinish(HttpServletRequest request, HttpServletResponse response) 
         throws IOException, ServletException {
 
@@ -338,6 +377,14 @@ public class AventureCtrl extends HttpServlet {
         }
     }
 
+    /**
+     * Supprime une partie.
+     * 
+     * @param request  La requete
+     * @param response La réponse
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void actionDelete(HttpServletRequest request, HttpServletResponse response) 
         throws IOException, ServletException {            
         
