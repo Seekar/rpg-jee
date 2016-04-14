@@ -1,0 +1,1431 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   font-size="12"
+   width="830"
+   height="640"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="CreationEpisodesPersoParties.svg"
+   style="font-size:12px;font-family:Arial">
+  <metadata
+     id="metadata440">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs438">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#StartShapeWidget"
+       id="linearGradient3876"
+       spreadMethod="pad"
+       x1="-0.5"
+       y1="-0.5"
+       x2="-0.5"
+       y2="40.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#StartShapeWidget"
+       id="linearGradient3878"
+       spreadMethod="pad"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3880"
+       spreadMethod="pad"
+       x1="-0.5"
+       y1="-0.5"
+       x2="-0.5"
+       y2="40.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3882"
+       spreadMethod="pad"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3884"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3886"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3888"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3890"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3892"
+       spreadMethod="pad"
+       x1="-0.5"
+       y1="-0.5"
+       x2="-0.5"
+       y2="40.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3894"
+       spreadMethod="pad"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#StartShapeWidget"
+       id="linearGradient3896"
+       spreadMethod="pad"
+       x1="-0.5"
+       y1="-0.5"
+       x2="-0.5"
+       y2="40.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#StartShapeWidget"
+       id="linearGradient3898"
+       spreadMethod="pad"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3900"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3902"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3904"
+       spreadMethod="pad"
+       x1="-0.5"
+       y1="-0.5"
+       x2="-0.5"
+       y2="40.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3906"
+       spreadMethod="pad"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3908"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3910"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3912"
+       spreadMethod="pad"
+       x1="-0.5"
+       y1="-0.5"
+       x2="-0.5"
+       y2="40.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3914"
+       spreadMethod="pad"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#StartShapeWidget"
+       id="linearGradient3916"
+       spreadMethod="pad"
+       x1="-0.5"
+       y1="-0.5"
+       x2="-0.5"
+       y2="40.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#StartShapeWidget"
+       id="linearGradient3918"
+       spreadMethod="pad"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3920"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3922"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#ActionShapeWidget"
+       id="linearGradient3924"
+       spreadMethod="pad"
+       x1="-0.31856734"
+       y1="-0.78476346"
+       x2="-0.31856734"
+       y2="63.565838"
+       gradientTransform="scale(1.5695269,0.63713467)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3926"
+       spreadMethod="pad"
+       x1="-0.5"
+       y1="-0.5"
+       x2="-0.5"
+       y2="40.5"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#EndShapeWidget"
+       id="linearGradient3928"
+       spreadMethod="pad"
+       x1="0"
+       y1="0"
+       x2="0"
+       y2="1"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="719"
+     id="namedview436"
+     showgrid="false"
+     units="mm"
+     inkscape:zoom="0.34705882"
+     inkscape:cx="540"
+     inkscape:cy="340"
+     inkscape:window-x="-4"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <desc
+     id="desc4">Flowchart diagram model</desc>
+  <g
+     id="_qZl-4v14EeW9zv77lynsJg"
+     transform="translate(-218.98305,-11.186441)">
+    <defs
+       id="defs7">
+      <linearGradient
+         id="greyGradient"
+         x1="0"
+         y1="0"
+         x2="0"
+         y2="1"
+         spreadMethod="pad">
+        <stop
+           offset="0%"
+           stop-color="#FFF"
+           stop-opacity="1"
+           id="stop10" />
+        <stop
+           offset="100%"
+           stop-color="#E5E5E5"
+           stop-opacity="1"
+           id="stop12" />
+      </linearGradient>
+      <linearGradient
+         id="packageGradient"
+         x1="0"
+         y1="0"
+         x2="0"
+         y2="1"
+         spreadMethod="pad">
+        <stop
+           offset="0%"
+           stop-color="#FFF"
+           stop-opacity="1"
+           id="stop15" />
+        <stop
+           offset="100%"
+           stop-color="#EFE9DE"
+           stop-opacity="1"
+           id="stop17" />
+      </linearGradient>
+      <linearGradient
+         id="EndShapeWidget"
+         x1="0"
+         y1="0"
+         x2="0"
+         y2="1"
+         spreadMethod="pad">
+        <stop
+           offset="0%"
+           stop-color="#FF0000"
+           stop-opacity="1"
+           id="stop20" />
+        <stop
+           offset="100%"
+           stop-color="#900000"
+           stop-opacity="1"
+           id="stop22" />
+      </linearGradient>
+      <linearGradient
+         id="ActionShapeWidget"
+         x1="0"
+         y1="0"
+         x2="0"
+         y2="1"
+         spreadMethod="pad">
+        <stop
+           offset="0%"
+           stop-color="#FFF"
+           stop-opacity="1"
+           id="stop25" />
+        <stop
+           offset="100%"
+           stop-color="#B3E0FF"
+           stop-opacity="1"
+           id="stop27" />
+      </linearGradient>
+      <linearGradient
+         id="StartShapeWidget"
+         x1="0"
+         y1="0"
+         x2="0"
+         y2="1"
+         spreadMethod="pad">
+        <stop
+           offset="0%"
+           stop-color="#c2e08f"
+           stop-opacity="1"
+           id="stop30" />
+        <stop
+           offset="100%"
+           stop-color="#7ec601"
+           stop-opacity="1"
+           id="stop32" />
+      </linearGradient>
+    </defs>
+    <g
+       id="_njD_4N-mEDOrBNIldAmP2w"
+       transform="translate(250,80)">
+      <rect
+         x="0"
+         y="0"
+         width="40"
+         height="40"
+         rx="20"
+         ry="20"
+         id="rect35"
+         style="fill:url(#linearGradient3876);stroke:#888888;stroke-width:1" />
+      <path
+         id="path37"
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient3878);stroke:#888888;stroke-width:1" />
+      <text
+         y="19"
+         id="text39"
+         style="text-anchor:middle;fill:#000000" />
+    </g>
+    <g
+       id="_oJu-UN-mEDOrBNIldAmP2w"
+       transform="translate(980,160)">
+      <rect
+         x="0"
+         y="0"
+         width="40"
+         height="40"
+         rx="20"
+         ry="20"
+         id="rect42"
+         style="fill:url(#linearGradient3880);stroke:#888888;stroke-width:1" />
+      <path
+         id="path44"
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient3882);stroke:#888888;stroke-width:1" />
+      <text
+         y="19"
+         id="text46"
+         style="text-anchor:middle;fill:#ffffff" />
+    </g>
+    <g
+       id="_wuPWAN-mEDOrBNIldAmP2w"
+       transform="translate(410,80)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect49"
+         style="fill:url(#linearGradient3884);stroke:#888888;stroke-width:1" />
+      <text
+         y="7"
+         id="text51"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan53">Episode en</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan55">édition</tspan>
+      </text>
+    </g>
+    <g
+       id="_zXFnkN-mEDOrBNIldAmP2w"
+       transform="translate(850,50)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect58"
+         style="fill:url(#linearGradient3886);stroke:#888888;stroke-width:1" />
+      <text
+         y="7"
+         id="text60"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan62">Episode</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan64">supprimé</tspan>
+      </text>
+    </g>
+    <g
+       id="_1GmdYN-mEDOrBNIldAmP2w"
+       transform="translate(830,160)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect67"
+         style="fill:url(#linearGradient3888);stroke:#888888;stroke-width:1" />
+      <text
+         y="1"
+         id="text69"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan71">Episode affiché</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan73">dans la</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan75">biographie</tspan>
+      </text>
+    </g>
+    <g
+       id="_8wzpoOSAEDOhC7c0XdUYnQ"
+       transform="translate(570,160)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect78"
+         style="fill:url(#linearGradient3890);stroke:#888888;stroke-width:1" />
+      <text
+         y="1"
+         id="text80"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan82">Episode à</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan84">valider par le</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan86">meneur</tspan>
+      </text>
+    </g>
+    <g
+       id="_JOzbYOSBEDOhC7c0XdUYnQ"
+       transform="translate(1000,50)">
+      <rect
+         x="0"
+         y="0"
+         width="40"
+         height="40"
+         rx="20"
+         ry="20"
+         id="rect89"
+         style="fill:url(#linearGradient3892);stroke:#888888;stroke-width:1" />
+      <path
+         id="path91"
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient3894);stroke:#888888;stroke-width:1" />
+      <text
+         y="19"
+         id="text93"
+         style="text-anchor:middle;fill:#ffffff" />
+    </g>
+    <g
+       id="_Yn2pAOSBEDOhC7c0XdUYnQ"
+       transform="translate(230,500)">
+      <rect
+         x="0"
+         y="0"
+         width="40"
+         height="40"
+         rx="20"
+         ry="20"
+         id="rect96"
+         style="fill:url(#linearGradient3896);stroke:#888888;stroke-width:1" />
+      <path
+         id="path98"
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient3898);stroke:#888888;stroke-width:1" />
+      <text
+         y="19"
+         id="text100"
+         style="text-anchor:middle;fill:#000000" />
+    </g>
+    <g
+       id="_ZItTUOSBEDOhC7c0XdUYnQ"
+       transform="translate(440,500)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect103"
+         style="fill:url(#linearGradient3900);stroke:#888888;stroke-width:1" />
+      <text
+         y="7"
+         id="text105"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan107">Partie créée et</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan109">menée</tspan>
+      </text>
+    </g>
+    <g
+       id="_oGeTIOSBEDOhC7c0XdUYnQ"
+       transform="translate(830,500)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect112"
+         style="fill:url(#linearGradient3902);stroke:#888888;stroke-width:1" />
+      <text
+         y="7"
+         id="text114"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan116">Partie</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan118">supprimée</tspan>
+      </text>
+    </g>
+    <g
+       id="_pyESQOSBEDOhC7c0XdUYnQ"
+       transform="translate(980,500)">
+      <rect
+         x="0"
+         y="0"
+         width="40"
+         height="40"
+         rx="20"
+         ry="20"
+         id="rect121"
+         style="fill:url(#linearGradient3904);stroke:#888888;stroke-width:1" />
+      <path
+         id="path123"
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient3906);stroke:#888888;stroke-width:1" />
+      <text
+         y="19"
+         id="text125"
+         style="text-anchor:middle;fill:#ffffff" />
+    </g>
+    <g
+       id="_vAPAQOSBEDOhC7c0XdUYnQ"
+       transform="translate(630,600)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect128"
+         style="fill:url(#linearGradient3908);stroke:#888888;stroke-width:1" />
+      <text
+         y="1"
+         id="text130"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan132">Partie en</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan134">attente de</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan136">résumé</tspan>
+      </text>
+    </g>
+    <g
+       id="_5JJJ8OSBEDOhC7c0XdUYnQ"
+       transform="translate(850,600)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect139"
+         style="fill:url(#linearGradient3910);stroke:#888888;stroke-width:1" />
+      <text
+         y="13"
+         id="text141"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan143">Aventure</tspan>
+      </text>
+    </g>
+    <g
+       id="_6IXyUOSBEDOhC7c0XdUYnQ"
+       transform="translate(980,600)">
+      <rect
+         x="0"
+         y="0"
+         width="40"
+         height="40"
+         rx="20"
+         ry="20"
+         id="rect146"
+         style="fill:url(#linearGradient3912);stroke:#888888;stroke-width:1" />
+      <path
+         id="path148"
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient3914);stroke:#888888;stroke-width:1" />
+      <text
+         y="19"
+         id="text150"
+         style="text-anchor:middle;fill:#ffffff" />
+    </g>
+    <g
+       id="_BHKJYOSCEDOhC7c0XdUYnQ"
+       transform="translate(230,320)">
+      <rect
+         x="0"
+         y="0"
+         width="40"
+         height="40"
+         rx="20"
+         ry="20"
+         id="rect153"
+         style="fill:url(#linearGradient3916);stroke:#888888;stroke-width:1" />
+      <path
+         id="path155"
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient3918);stroke:#888888;stroke-width:1" />
+      <text
+         y="19"
+         id="text157"
+         style="text-anchor:middle;fill:#000000" />
+    </g>
+    <g
+       id="_ClGHAOSCEDOhC7c0XdUYnQ"
+       transform="translate(390,320)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect160"
+         style="fill:url(#linearGradient3920);stroke:#888888;stroke-width:1" />
+      <text
+         y="7"
+         id="text162"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan164">Personnage</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan166">sans meneur</tspan>
+      </text>
+    </g>
+    <g
+       id="_Hl6VgOSCEDOhC7c0XdUYnQ"
+       transform="translate(570,320)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect169"
+         style="fill:url(#linearGradient3922);stroke:#888888;stroke-width:1" />
+      <text
+         y="1"
+         id="text171"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan173">Personnage à</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan175">valider par le</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan177">meneur</tspan>
+      </text>
+    </g>
+    <g
+       id="_JTPaAOSCEDOhC7c0XdUYnQ"
+       transform="translate(840,320)">
+      <rect
+         x="0"
+         y="0"
+         width="100"
+         height="40"
+         rx="0"
+         ry="0"
+         id="rect180"
+         style="fill:url(#linearGradient3924);stroke:#888888;stroke-width:1" />
+      <text
+         y="7"
+         id="text182"
+         style="text-anchor:middle;fill:#000000">
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan184">Personnage</tspan>
+        <tspan
+           x="51"
+           dy="12"
+           id="tspan186">avec meneur</tspan>
+      </text>
+    </g>
+    <g
+       id="_MHcnAOSCEDOhC7c0XdUYnQ"
+       transform="translate(980,320)">
+      <rect
+         x="0"
+         y="0"
+         width="40"
+         height="40"
+         rx="20"
+         ry="20"
+         id="rect189"
+         style="fill:url(#linearGradient3926);stroke:#888888;stroke-width:1" />
+      <path
+         id="path191"
+         inkscape:connector-curvature="0"
+         style="fill:url(#linearGradient3928);stroke:#888888;stroke-width:1" />
+      <text
+         y="19"
+         id="text193"
+         style="text-anchor:middle;fill:#ffffff" />
+    </g>
+    <g
+       id="_5bn84N-mEDOrBNIldAmP2w">
+      <polyline
+         points="290.5,100.5 410.5,100.5"
+         id="polyline196"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(410.5,100.5)"
+         id="g198">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g200">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline202"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_7J4OcN-mEDOrBNIldAmP2w">
+      <polyline
+         points="510.5,96.5 850.5,73.5"
+         id="polyline205"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(850.5,73.5)"
+         id="g207">
+        <g
+           transform="matrix(0.06975647,0.99756405,-0.99756405,0.06975647,0,0)"
+           id="g209">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline211"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_7d7L0N-mEDOrBNIldAmP2w">
+      <polyline
+         points="930.5,180.5 980.5,180.5"
+         id="polyline214"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(980.5,180.5)"
+         id="g216">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g218">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline220"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_vxprkOSAEDOhC7c0XdUYnQ">
+      <polyline
+         points="410.5,90.5 380,90"
+         id="polyline223"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+    </g>
+    <g
+       id="g225">
+      <polyline
+         points="380,90 380,50"
+         id="polyline227"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+    </g>
+    <g
+       id="g229">
+      <polyline
+         points="380,50 420,50"
+         id="polyline231"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+    </g>
+    <g
+       id="g233">
+      <polyline
+         points="420,50 420.5,80.5"
+         id="polyline235"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(420.5,80.5)"
+         id="g237">
+        <g
+           transform="scale(-1,-1)"
+           id="g239">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline241"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="__QHksOSAEDOhC7c0XdUYnQ">
+      <polyline
+         points="500.5,120.5 580.5,160.5"
+         id="polyline244"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(580.5,160.5)"
+         id="g246">
+        <g
+           transform="matrix(-0.4539905,0.89100652,-0.89100652,-0.4539905,0,0)"
+           id="g248">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline250"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_LVZUcOSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="950.5,70.5 1000.5,70.5"
+         id="polyline253"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(1000.5,70.5)"
+         id="g255">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g257">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline259"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_MC1pQOSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="670.5,180.5 830.5,180.5"
+         id="polyline262"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(830.5,180.5)"
+         id="g264">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g266">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline268"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_ZIt6YOSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="440.5,510.5 410,510"
+         id="polyline271"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+    </g>
+    <g
+       id="g273">
+      <polyline
+         points="410,510 410,470"
+         id="polyline275"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+    </g>
+    <g
+       id="g277">
+      <polyline
+         points="410,470 450,470"
+         id="polyline279"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+    </g>
+    <g
+       id="g281">
+      <polyline
+         points="450,470 450.5,500.5"
+         id="polyline283"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(450.5,500.5)"
+         id="g285">
+        <g
+           transform="scale(-1,-1)"
+           id="g287">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline289"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_ccjCoOSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="270.5,520.5 440.5,520.5"
+         id="polyline292"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(440.5,520.5)"
+         id="g294">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g296">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline298"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_wOlCsOSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="540.5,520.5 830.5,520.5"
+         id="polyline301"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(830.5,520.5)"
+         id="g303">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g305">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline307"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_yFlnoOSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="528.5,540.5 642.5,600.5"
+         id="polyline310"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(642.5,600.5)"
+         id="g312">
+        <g
+           transform="matrix(-0.46947156,0.88294759,-0.88294759,-0.46947156,0,0)"
+           id="g314">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline316"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_zhryMOSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="630.5,620.5 520,620"
+         id="polyline319"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+    </g>
+    <g
+       id="g321">
+      <polyline
+         points="520,620 490,620"
+         id="polyline323"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+    </g>
+    <g
+       id="_61PfYOSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="730.5,620.5 850.5,620.5"
+         id="polyline326"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(850.5,620.5)"
+         id="g328">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g330">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline332"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_7SNvQOSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="950.5,620.5 980.5,620.5"
+         id="polyline335"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(980.5,620.5)"
+         id="g337">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g339">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline341"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="__-db8OSBEDOhC7c0XdUYnQ">
+      <polyline
+         points="930.5,520.5 980.5,520.5"
+         id="polyline344"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(980.5,520.5)"
+         id="g346">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g348">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline350"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_D900gOSCEDOhC7c0XdUYnQ">
+      <polyline
+         points="270.5,340.5 390.5,340.5"
+         id="polyline353"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(390.5,340.5)"
+         id="g355">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g357">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline359"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_KwOVYOSCEDOhC7c0XdUYnQ">
+      <polyline
+         points="490.5,340.5 570.5,340.5"
+         id="polyline362"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(570.5,340.5)"
+         id="g364">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g366">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline368"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_LBqqsOSCEDOhC7c0XdUYnQ">
+      <polyline
+         points="670.5,340.5 840.5,340.5"
+         id="polyline371"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(840.5,340.5)"
+         id="g373">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g375">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline377"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="_MHcnAuSCEDOhC7c0XdUYnQ">
+      <polyline
+         points="940.5,340.5 980.5,340.5"
+         id="polyline380"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(980.5,340.5)"
+         id="g382">
+        <g
+           transform="matrix(0,1,-1,0,0,0)"
+           id="g384">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline386"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g388">
+      <polyline
+         points="490,620 490.5,540.5"
+         id="polyline390"
+         style="fill:none;stroke:#000000;stroke-width:1" />
+      <g
+         transform="translate(490.5,540.5)"
+         id="g392">
+        <g
+           id="g394">
+          <polyline
+             points="-5,10 0,0 5,10"
+             id="polyline396"
+             style="fill:none;stroke:#000000;stroke-width:1" />
+        </g>
+      </g>
+    </g>
+    <text
+       x="292"
+       y="135"
+       font-size="13"
+       id="text398"
+       style="font-size:13px;fill:#000000">soumission épisode</text>
+    <text
+       x="592"
+       y="70"
+       font-size="13"
+       id="text400"
+       style="font-size:13px;fill:#000000">supprimer l'épisode</text>
+    <text
+       x="57"
+       y="175"
+       font-size="13"
+       id="text402"
+       style="font-size:13px;fill:#000000" />
+    <text
+       x="357"
+       y="35"
+       font-size="13"
+       id="text404"
+       style="font-size:13px;fill:#000000">éditer l'épisode</text>
+    <text
+       x="407"
+       y="165"
+       font-size="13"
+       id="text406"
+       style="font-size:13px;fill:#000000">le joueur valide l'épisode</text>
+    <text
+       x="262"
+       y="65"
+       font-size="13"
+       id="text408"
+       style="font-size:13px;fill:#000000" />
+    <text
+       x="677"
+       y="205"
+       font-size="13"
+       id="text410"
+       style="font-size:13px;fill:#000000">validation par le meneur</text>
+    <text
+       x="387"
+       y="455"
+       font-size="13"
+       id="text412"
+       style="font-size:13px;fill:#000000">ajouter des personnages</text>
+    <text
+       x="287"
+       y="545"
+       font-size="13"
+       id="text414"
+       style="font-size:13px;fill:#000000">proposer une partie</text>
+    <text
+       x="637"
+       y="490"
+       font-size="13"
+       id="text416"
+       style="font-size:13px;fill:#000000">effacer la partie</text>
+    <text
+       x="592"
+       y="565"
+       font-size="13"
+       id="text418"
+       style="font-size:13px;fill:#000000">finir la partie</text>
+    <text
+       x="537"
+       y="605"
+       font-size="13"
+       id="text420"
+       style="font-size:13px;fill:#000000">annuler</text>
+    <text
+       x="737"
+       y="605"
+       font-size="13"
+       id="text422"
+       style="font-size:13px;fill:#000000">valider un résumé</text>
+    <text
+       x="972"
+       y="615"
+       font-size="13"
+       id="text424"
+       style="font-size:13px;fill:#000000" />
+    <text
+       x="962"
+       y="515"
+       font-size="13"
+       id="text426"
+       style="font-size:13px;fill:#000000" />
+    <text
+       x="257"
+       y="305"
+       font-size="13"
+       id="text428"
+       style="font-size:13px;fill:#000000">création d'un personnage</text>
+    <text
+       x="477"
+       y="305"
+       font-size="13"
+       id="text430"
+       style="font-size:13px;fill:#000000">sélectioner meneur</text>
+    <text
+       x="687"
+       y="305"
+       font-size="13"
+       id="text432"
+       style="font-size:13px;fill:#000000">validation par le meneur</text>
+    <text
+       x="967"
+       y="335"
+       font-size="13"
+       id="text434"
+       style="font-size:13px;fill:#000000" />
+  </g>
+</svg>

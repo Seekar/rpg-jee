@@ -18,6 +18,7 @@
 \usepackage{hyperref}
 \usepackage{makecell}
 \usepackage{tikz}
+\usepackage{float}
 
 %\setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex}
@@ -71,6 +72,8 @@
 \pagestyle{fancy}
 \maketitle
 
+\setcounter{tocdepth}{2}
+
 \tableofcontents
 \newpage
 
@@ -85,12 +88,11 @@
 
 \section {Analyse}
 
-
-Le sujet présente une application pour une association de jeux de rôle. 
+Le sujet présente une application de gestion de jeux de rôle pour une association.
 
 \subsection{Acteurs}
 
-Seuls deux types d'acteur peuvent intervenir dans cette application : les joueurs eux mêmes (c'est-à-dire les rôlistes) ainsi que les meneurs de jeu, qui dirigent les parties.
+Seuls deux types d'acteurs peuvent intervenir dans cette application : les joueurs eux mêmes (c'est-à-dire les rôlistes) ainsi que les meneurs de jeu, qui dirigent les parties.
 
 \subsection{Cas d'utilisation}
 
@@ -138,6 +140,11 @@ Voici les différents cas d'utilisation de l'application issus du cahier des cha
     \begin{enumerate}
         \item Les éléments relatifs à la partie ne sont dés lors plus modifiables.
         \item La partie devient une aventure pouvant apparaitre dans la biographie des personnages.
+
+    \end{enumerate}
+    \item Un joueur peut modifier la profession de son personnage
+    \begin{enumerate}
+        \item Il indique la nouvelle profession du personnage
     \end{enumerate}
     \item Un joueur peut céder son personnage
     \begin{enumerate}
@@ -154,15 +161,26 @@ Voici les différents cas d'utilisation de l'application issus du cahier des cha
 \subsubsection{Diagramme des cas d'utilisation}
 
 \begin{center}
+% \begin{figure}[ht!]
     \includegraphics[scale=0.7,angle=90]{analyse/usecases}
+% \caption{Diagramme des cas d'utilisation}
+% \end{figure}
 \end{center}
 
 \subsection{Diagramme de classes d'analyse}
-Le sujet fournit une description des différents "objets" de l'application : partie, aventure, personnage, univers, biographie, épisode, paragraphe ... 
-Voici le diagramme de classe d'analyse que nous en avons tiré.\\
-\textit{Nous avons considéré qu'une partie était simplement une aventure en cours (nous aurions pu faire de l'héritage mais l'avantage semblait mince par rapport aux inconvénients de la conversion d'une partie en aventure ). \\
-    De même nous n'avons pas distingués les classes joueur et meneur de jeu : un joueur est meneur de jeu s'il est engagé dans les relations qui caractérisent un meneur de jeu (parties menés, personnages dont il est le meneur ...) Cela se justifie par le caractère dynamique de ce  statut : un joueur peut facilement devenir meneur de jeu ou arrêter de l'être, être un meneur de jeu semblait donc être plutôt une propriété dynamique des joueurs. }
-\begin{center}\includegraphics[scale=0.7]{analyse/classes.pdf} \end{center}
+Le sujet fournit une description des différents "objets" de l'application : partie, aventure, personnage, univers, biographie, épisode, paragraphe ...
+
+Voici le diagramme de classes d'analyse que nous en avons tiré.
+
+\textit{Nous avons considéré qu'une partie était simplement une aventure en cours (nous aurions pu faire de l'héritage mais l'avantage semblait mince par rapport aux inconvénients de la conversion d'une partie en aventure).\\
+De même nous n'avons pas distingué les classes joueur et meneur de jeu : un joueur est meneur de jeu s'il est engagé dans les relations qui caractérisent un meneur de jeu (parties menés, personnages dont il est le meneur ...) Cela se justifie par le caractère dynamique de ce  statut : un joueur peut facilement devenir meneur de jeu ou arrêter de l'être, être un meneur de jeu semblait donc être plutôt une propriété dynamique des joueurs. }
+
+% \begin{center}
+\begin{figure}[ht!]
+\includegraphics[scale=0.7]{analyse/classes.pdf}
+\caption{Diagramme de classes d'analyse}
+\end{figure}
+% \end{center}
 
 
 
@@ -178,6 +196,8 @@ Voici le diagramme de classe d'analyse que nous en avons tiré.\\
 % avec l’implémentation. Il est inutile de fournir des diagrammes illisibles ou qui n’apportent
 % aucune information ; il peut être en revanche utile d’ajouter un minimum de texte explicatif
 % le cas échéant.
+
+\newpage
 
 \section {Conception}
 
@@ -225,30 +245,66 @@ Pour les accès à la base de données, nous avons utilisé des DAO correspondan
 
 \subsection {Détail de la conception}
 
-\subsection {Diagramme de classes UML}
+\subsubsection {Diagramme de classes final du modèle}
 
-\includegraphics[scale=0.7]{conception/classes}
+\begin{center}
+% \begin{figure}[ht!]
+\includegraphics[scale=0.7]{conception/classes.pdf}
+% \caption{Diagramme de classes du modèle}
+% \end{figure}
+\end{center}
 
-\subsection {Diagramme d'état transition pour la création d'épisodes, de personnages, ou de parties}
+L'implémentation Java correspondante comporte bien entendu des assesseurs pour permettre l'accès aux différents attributs privés.
 
-\includegraphics[scale=0.6]{conception/creation-episodes-perso-parties.jpg}
 
-\subsection {Diagramme de classes logicielles}
+\subsubsection {Diagramme de classes des DAO}
 
-% TODO
+\begin{center}
+% \begin{figure}[ht!]
+\includegraphics[scale=0.55]{conception/dao.pdf}
+% \caption{Diagramme de classes du modèle}
+% \end{figure}
+\end{center}
 
+Les différentes classes abstraites dont hérite chacun des singletons DAO ne sont pas représentées içi pour simplifier le diagramme. Elles héritent cependant bien toutes de \lstinline!AbstractDAO!.
+
+
+\subsubsection {Diagramme de classes des contrôleurs}
+
+\begin{center}
+% \begin{figure}[ht!]
+\includegraphics[scale=0.55]{conception/ctrl.pdf}
+% \caption{Diagramme de classes du modèle}
+% \end{figure}
+\end{center}
+
+On peut remarquer que les contrôleurs de biographies, d'épisodes et de paragraphes gèrent les différentes actions au sein de blocs switch et n'utilisent donc pas de méthodes secondaires spécifiques.
+
+
+\subsubsection {Fonctionnement général de l'application}
+
+L'application traite les requêtes au sein des contrôleurs correspondants, qui effectuent ensuite les appels DAO appropriés pour communiquer avec la base de données. La vue correspondante est alors affichée dans le cas d'une consultation de page, tandis qu'une redirection HTTP appropriée est effectuée lors de requêtes POST spécifiques (sauf en cas d'erreur, ou une page d'erreur descriptive est affichée).
+
+
+\subsubsection {Diagrammes d'états-transitions pour la création d'épisodes, de personnages, ou de parties}
+
+\begin{center}
+% \begin{figure}[ht!]
+\includegraphics[scale=0.7]{conception/CreationEpisodesPersoParties.pdf}
+% \caption{Diagrammes d'états-transitions pour la création d'épisodes, de personnages, ou de parties}
+% \end{figure}
+\end{center}
 
 
 \section {Détails techniques}
 
-L'application est normalement protégée contre tout type de faille XSS (via JSTL) et également des attaques par injection SQL.
+L'application est normalement protégée contre tout type de faille XSS (via JSTL) et également des attaques par injection SQL. Les différents utilisateurs ne peuvent donc pas injecter de code HTML ou SQL lorsqu'ils ajoutent ou modifient des éléments au sein de l'application.
 
 De plus la vérification des droits d'accès pour chaque type d'action a bien été implémentée, ainsi que la gestion des différentes erreurs dont le message reste intégré au design de l'application.
 
 La gestion unicode des caractère a également été correctement gérée dans l'ensemble de l'application.
 
 Pour finir, les requêtes ont été écrites de manière à pouvoir assurer les accès concurrents (sérialisation des requêtes qui modifient la base de données), à l'aide de transactions (pas d'autocommit) et avec annulation des transactions en cas d'erreur.
-
 
 
 
