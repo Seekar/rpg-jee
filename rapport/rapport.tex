@@ -383,14 +383,24 @@ Login : \lstinline!Max!, mot de passe : \lstinline!max71Lord!
 
 
 
-\subsection {Utilisation}
+\subsection {Présentation générale}
 
 L'application est composée d'une barre horizontale de navigation munie de différents sous-menus : Personnages, Parties et MJ.
 
 Chacun d'entre-eux permet d'accéder à plusieurs liens correspondant, permettant l'accès aux différentes fonctionnalités de l'application.
 
+Pour finir, chaque page est dotée d'un titre précis dans le navigateur, ce qui permet de bien distinguer chaque page dans son historique par exemple.
 
-\subsubsection {Menu Personnages}
+\subsection {Connexion / déconnexion}
+
+Pour se connecter, il suffit de cliquer sur le bouton Login en haut à droite de la page d'accueil.
+
+Une fois connecté, les différents sous-menus apparaissent. Un nouveau clic sur le bouton en haut à droite indiquant le nom d'utilisateur fait apparaitre un bouton Logout, qu'il suffit ensuite de cliquer pour se déconnecter.
+
+
+\subsection {Les différents sous-menus}
+
+\subsubsection {Personnages}
 
 Ce menu permet d'accéder aux fonctionnalités suivantes :
 
@@ -407,7 +417,7 @@ Mes personnages : Affiche la liste des personnages possédés
 \end{itemize}
 
 
-\subsubsection {Menu Parties}
+\subsubsection {Parties}
 
 Ce menu permet d'accéder aux fonctionnalités suivantes :
 
@@ -423,8 +433,10 @@ Mes parties : Affiche la liste des parties auxquelles a participé l'utilisateur
 
 \end{itemize}
 
+Le statut en cours ou terminée de chaque partie est également indiqué dans les différentes listes, d'ailleurs les aventures terminées sont même grisées.
 
-\subsubsection {Menu MJ}
+
+\subsubsection {MJ}
 
 \begin{itemize}
 \item
@@ -445,36 +457,83 @@ Episodes à valider : Affiche la liste des épisodes à valider
 \end{itemize}
 
 
+\subsection {Gestion des personnages}
 
+\subsubsection {Créer un personnage}
 
-\subsubsection {Gestion d'un personnage}
+Tout joueur a également la possibilité de créer un nouveau personnage, via le menu “Personnages” puis “Créer un personnage”. Il doit indiquer son univers, son nom, sa date de naissance, sa profession, et sa biographie initiale. Il a également la possibilité de donner un portrait au personnage via une url référencant une image.
 
-En cliquant sur l'un des personnages d'une liste, on arrive à sa page personnalle. Celle-ci permet de visualiser les différentes informations du personnage, de modifier sa profession, et contient des liens vers sa biographie et les parties auxquelles il a participé.
+Le joueur accède alors à la fiche du personnage. Il peut en demander la validation par un MJ en particulier.
 
-De plus, il possible de faire valider / transférer le personnage s'il est invalide ou ne participe pas à une partie en cours, de même il possible de céder le personnage via une liste déroulante (sauf s'il participe à une partie en cours, car sinon des joueurs pourraient se retrouver avec plusieurs personnages dans une seule partie en cours).
+\subsubsection {Consulter le détail d'un de ses personnages}
+
+En cliquant sur l'un des personnages d'une liste, on arrive à sa page personnalle. Celle-ci permet de visualiser les différentes informations du personnage, en particulier : son nom, sa date de naissance, sa profession, son univers, son propriétaire, son meneur.
+Il est également possible de modifier la profession, d'accéder à la biographie du personnage et à la liste des parties auxquelles il a participé.
+
+Pour le propriétaire, il est aussi possible de faire valider / transférer le personnage s'il est invalide ou ne participe pas à une partie en cours, de même il possible de céder le personnage via une liste déroulante (sauf s'il participe à une partie en cours, car sinon des joueurs pourraient se retrouver avec plusieurs personnages dans une seule partie en cours).
 
 C'est notamment sur cette même page que les meneurs de jeu peuvent accepter une demande de transfert ou de validation.
 
 
-\subsubsection {Gestion de la biographie}
+\subsubsection {Consulter et éditer la biographie d'un personnage}
 
 La biographie est éditable si l'on est meneur ou propriétaire du personnage concerné.
 
-Il suffit alors de cliquer sur les boutons "Nouvel épisode", "Nouveau paragraphe", et autres pour compléter, modifier ou valider des parties de la biographie.
+Il suffit de cliquer sur les boutons "Nouvel épisode", "Nouveau paragraphe", et autres pour compléter, modifier ou valider des parties de la biographie.
+
+Les différentes fonctionnalités suivantes sont disponibles :
+\begin{itemize}
+\item
+Ajouter un nouvel épisode
+\item
+Supprimer un épisode non validé
+\item
+Demander la validation d'un épisode non validé
+\item
+Modifier un épisode non validé
+\item
+Ajouter un nouveau paragraphe à un épisode (choix de paragraphe secret ou non)
+\item
+Modifier un paragraphe existant
+\end{itemize}
 
 Un bouton révéler permet notamment de rendre les paragraphes secrets publics, avec une demande de confirmation dynamique et une implémentation {\sc ajax} de la fonctionnalité révéler.
 
 
-\subsubsection {Gestion d'une partie}
+\subsection {Gestion des parties}
 
-En cliquant sur les parties d'une liste, on arrive à leur page personnalisée. Celle-ci permet de visualiser les différentes informations de la partie (ou aventure si elle s'est terminée), et aussi d'accéder à la liste des participants (avec des boutons pour retirer des personnages si l'on en est le meneur).
+\subsubsection {Proposer une partie}
+
+Tout joueur a la possibilité de proposer une partie. Il doit indiquer : son univers, son titre, sa date, son lieu, ainsi que sa situation initiale. Il accède alors à la liste de ses parties menées, peut éditer sa nouvelle partie dont il devient le MJ, comme décrit dans la section précédente.
+
+\subsubsection {Consulter le détail d'une partie}
+
+En cliquant sur les parties d'une liste, on arrive à leur page personnalisée. Celle-ci permet de visualiser les différentes informations de la partie (nommée aventure si elle s'est terminée), en particulier : son nom, sa date, son lieu, son univers, sa situation initlale, son meneur. Il y est aussi possible d'accéder à la liste des participants (avec des boutons pour retirer des personnages si l'on en est le meneur).
 
 Le meneur peut également ajouter des participants à l'aide d'une liste déroulante, terminer la partie en inscrivant un résumé des événements dans la fenêtre dynamique qui apparaît, ou encore la supprimer si elle n'est pas encore finie (avec demande de confirmation dynamique).
 
 
-% Parler des titres dynamiques (composition avec le titre de chaque page)
-% et de la déconnexion
+\subsection {Tâches de MJ}
 
+\subsubsection {Accéder à la liste de ses parties menées}
+
+Via le menu “MJ”, puis “Parties menées”. Le joueur obtient alors la liste des parties dans lesquelles il est meneur de jeu. Les fonctionnalités d’une telle liste sont décrites ci-dessus.
+
+\subsubsection {Accéder à la liste de ses personnages menés}
+
+Via le menu “MJ”, puis “Personnages menés”. Le joueur obtient alors la liste des personnages dont il est le meneur. Les fonctionnalités d’une telle liste sont décrites ci-dessus.
+
+\subsubsection {Accéder à la liste de ses personnages à valider}
+
+Via le menu “MJ”, puis “Personnages à valider”. Le joueur obtient alors la liste des personnages pour lesquels un autre joueur à demandé une validation. Le MJ peut alors consulter la fiche descriptive du personnage puis s’il le désire, le valider.
+
+\subsubsection {Accéder à la liste de ses transferts à valider}
+
+Via le menu “MJ”, puis “Transferts à valider”. Le joueur obtient alors la liste des transferts pour lesquels un autre joueur à demandé à ce que le MJ d’un de ses personnages soit le joueur courant. Ce dernier peut alors consulter la fiche descriptive du personnage puis s’il le désire, valider le transfert. Il n’est pas MJ du personnage tant qu’il n’a pas fait cette validation.
+
+\subsubsection {Accéder à la liste de ses épisodes à valider}
+
+Via le menu “MJ”, puis “Episodes à valider”. Lorsqu'un joueur veut ajouter un épisode à la biographie de son personnage, l’épisode doit être validé par le MJ. C’est le but de cette section de permettre au MJ de consulter la liste des épisodes ajoutés dont la validation a été demandée par le joueur, puis s’il le souhaite d’effectuer cette validation.
 
 
 
