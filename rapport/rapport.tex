@@ -63,7 +63,7 @@
     {\sc Rey}~Simon
 }
 
-\date{Jeudi 14 Avril 2016}
+\date{Vendredi 15 Avril 2016}
 
 \lhead{Projet ACVL / Web}
 \rhead{Compte rendu}
@@ -302,7 +302,7 @@ On peut remarquer que les contrôleurs de biographies, d'épisodes et de paragra
 
 \subsubsection {Fonctionnement général de l'application}
 
-L'application traite les requêtes au sein des contrôleurs correspondants, qui effectuent ensuite les appels DAO appropriés pour communiquer avec la base de données. La vue correspondante est alors affichée dans le cas d'une consultation de page, tandis qu'une redirection HTTP appropriée est effectuée lors de requêtes POST spécifiques (sauf en cas d'erreur, ou une page d'erreur descriptive est affichée).
+L'application traite les requêtes au sein des contrôleurs correspondants, qui effectuent ensuite les appels DAO appropriés pour communiquer avec la base de données. La vue correspondante est alors affichée dans le cas d'une consultation de page, tandis qu'une redirection HTTP appropriée est effectuée lors de requêtes POST spécifiques (sauf en cas d'erreur, o\`u une page d'erreur descriptive est affichée).
 
 
 \subsubsection {Diagrammes d'états-transitions pour la création d'épisodes, de personnages, ou de parties}
@@ -406,7 +406,7 @@ Une fois connecté, les différents sous-menus apparaissent. Un nouveau clic sur
 
 \subsubsection {Personnages}
 
-Ce menu permet d'accéder aux fonctionnalités suivantes :
+Ce sous-menu permet d'accéder aux fonctionnalités suivantes :
 
 \begin{itemize}
 \item
@@ -423,7 +423,7 @@ Mes personnages : Affiche la liste des personnages possédés
 
 \subsubsection {Parties}
 
-Ce menu permet d'accéder aux fonctionnalités suivantes :
+Ce sous-menu permet d'accéder aux fonctionnalités suivantes :
 
 \begin{itemize}
 \item
@@ -441,6 +441,8 @@ Le statut en cours ou terminée de chaque partie est également indiqué dans le
 
 
 \subsubsection {MJ}
+
+Ce sous-menu permet d'accéder aux fonctionnalités suivantes :
 
 \begin{itemize}
 \item
@@ -471,7 +473,7 @@ Le joueur accède alors à la fiche du personnage. Il peut en demander la valida
 
 \subsubsection {Consulter le détail d'un de ses personnages}
 
-En cliquant sur l'un des personnages d'une liste, on arrive à sa page personnalle. Celle-ci permet de visualiser les différentes informations du personnage, en particulier : son nom, sa date de naissance, sa profession, son univers, son propriétaire, son meneur.
+En cliquant sur l'un des personnages d'une liste, on arrive à sa page personnelle. Celle-ci permet de visualiser les différentes informations du personnage, en particulier : son nom, sa date de naissance, sa profession, son univers, son propriétaire, son meneur.
 Il est également possible de modifier la profession, d'accéder à la biographie du personnage et à la liste des parties auxquelles il a participé.
 
 Pour le propriétaire, il est aussi possible de faire valider / transférer le personnage s'il est invalide ou ne participe pas à une partie en cours, de même il possible de céder le personnage via une liste déroulante (sauf s'il participe à une partie en cours, car sinon des joueurs pourraient se retrouver avec plusieurs personnages dans une seule partie en cours).
@@ -482,7 +484,6 @@ C'est notamment sur cette même page que les meneurs de jeu peuvent accepter une
 \subsubsection {Consulter et éditer la biographie d'un personnage}
 
 La biographie est éditable si l'on est meneur ou propriétaire du personnage concerné.
-
 Il suffit de cliquer sur les boutons "Nouvel épisode", "Nouveau paragraphe", et autres pour compléter, modifier ou valider des parties de la biographie.
 
 Les différentes fonctionnalités suivantes sont disponibles :
@@ -498,10 +499,10 @@ Modifier un épisode non validé
 \item
 Ajouter un nouveau paragraphe à un épisode (choix de paragraphe secret ou non)
 \item
-Modifier un paragraphe existant
+Modifier un paragraphe existant\\
 \end{itemize}
 
-Un bouton révéler permet notamment de rendre les paragraphes secrets publics, avec une demande de confirmation dynamique et une implémentation {\sc ajax} de la fonctionnalité révéler.
+Un bouton révéler permet notamment de rendre les paragraphes secrets publics, avec une demande de confirmation dynamique et une implémentation {\sc ajax} de la fonctionnalité.
 
 
 \subsection {Gestion des parties}
@@ -512,7 +513,7 @@ Tout joueur a la possibilité de proposer une partie. Il doit indiquer : son uni
 
 \subsubsection {Consulter le détail d'une partie}
 
-En cliquant sur les parties d'une liste, on arrive à leur page personnalisée. Celle-ci permet de visualiser les différentes informations de la partie (nommée aventure si elle s'est terminée), en particulier : son nom, sa date, son lieu, son univers, sa situation initlale, son meneur. Il y est aussi possible d'accéder à la liste des participants (avec des boutons pour retirer des personnages si l'on en est le meneur).
+En cliquant sur les parties d'une liste, on arrive à leur page personnalisée. Celle-ci permet de visualiser les différentes informations de la partie (nommée aventure si elle s'est terminée), en particulier : son nom, sa date, son lieu, son univers, sa situation initlale, son meneur. Il est aussi possible d'accéder à la liste des participants (avec des boutons pour retirer des personnages si l'on en est le meneur).
 
 Le meneur peut également ajouter des participants à l'aide d'une liste déroulante, terminer la partie en inscrivant un résumé des événements dans la fenêtre dynamique qui apparaît, ou encore la supprimer si elle n'est pas encore finie (avec demande de confirmation dynamique).
 
@@ -521,11 +522,11 @@ Le meneur peut également ajouter des participants à l'aide d'une liste déroul
 
 \subsubsection {Accéder à la liste de ses parties menées}
 
-Via le menu “MJ”, puis “Parties menées”. Le joueur obtient alors la liste des parties dans lesquelles il est meneur de jeu. Les fonctionnalités d’une telle liste sont décrites ci-dessus.
+Via le menu “MJ”, puis “Parties menées”. Le joueur obtient alors la liste des parties dans lesquelles il est meneur de jeu.
 
 \subsubsection {Accéder à la liste de ses personnages menés}
 
-Via le menu “MJ”, puis “Personnages menés”. Le joueur obtient alors la liste des personnages dont il est le meneur. Les fonctionnalités d’une telle liste sont décrites ci-dessus.
+Via le menu “MJ”, puis “Personnages menés”. Le joueur obtient alors la liste des personnages dont il est le meneur.
 
 \subsubsection {Accéder à la liste de ses personnages à valider}
 
@@ -550,7 +551,7 @@ Au cours de ce projet nous avons utilisé différents outils de modélisation.
 
 Au niveau des modeleurs UML, il n'est pas évident de trouver des outils gratuits de bonne qualité, et nous avons finalement choisi d'utiliser l'outil GenMyModel qui permet une modélisation simple et collaborative. Un autre outil de relativement bonne qualité aurait pu être PlantUML, mais il a le désavantage de ne pas être entièrement graphique (moins facile à utiliser). Nous avons également testé ArgoUML, mais ce logiciel n'était pas de très bonne qualité.
 
-Certains diagrammes ont également été réalisés à l'aide de Visual Studio (diagramme des cas d'utilisation), ou encore de Web Sequence Diagrams (diagrammes de séquence, pas d'export vectoriel sans premium).
+Certains diagrammes ont également été réalisés à l'aide de Visual Studio (diagramme des cas d'utilisation), ou encore de Web Sequence Diagrams (diagrammes de séquence, pas d'export vectoriel sans accès premium).
 
 
 \end{document}

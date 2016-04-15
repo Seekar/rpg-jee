@@ -89,7 +89,7 @@
                 </tr>
                 <tr>
                     <th>Situation initiale</th>
-                    <td class="text-left"><c:out value="${aventure.getSituation()}"/></td>
+                    <td class="text-left">${aventure.showSituation()}</td>
                 </tr>
                 <c:if test="${aventure.isFinie()}">
                 <tr>
