@@ -21,6 +21,7 @@ public abstract class AbstractUniversDAO extends AbstractDAO {
      * Récupère la liste des univers ordonnés par nom
      *
      * @return La liste des univers
+     * @throws dao.DAOException
      */
     public abstract Collection<Univers> getUnivers() throws DAOException;
 }

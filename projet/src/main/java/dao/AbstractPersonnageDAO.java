@@ -79,12 +79,29 @@ public abstract class AbstractPersonnageDAO extends AbstractDAO {
     public abstract void modifierPersonnage(Personnage p, int idUser)
             throws DAOException;
     
+    /**
+     * Donne un personnage à un autre joueur avec vérification des droits.
+     * 
+     * @param idPerso Le personnage à donner
+     * @param idDest  Le joueur destinataire
+     * @param idUser  L'utilisateur courant
+     * @throws DAOException
+     */
     public abstract void donnerPersonnage(int idPerso, int idDest, int idUser)
             throws DAOException;
 
     public abstract boolean dansPartieEnCours(int idPerso)
             throws DAOException;
     
+    /**
+     * Renvoie la liste des personnages menés dans l'univers donné
+     * qui ne participent à aucune partie en cours.
+     * 
+     * @param mj Le MJ concerné
+     * @param u L'univers
+     * @return La liste des candidats potentiels
+     * @throws DAOException 
+     */
     public abstract Collection<Personnage> getCandidats(Joueur mj, Univers u)
             throws DAOException;
 }

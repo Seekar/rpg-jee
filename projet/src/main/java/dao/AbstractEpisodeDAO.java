@@ -17,9 +17,6 @@ public abstract class AbstractEpisodeDAO extends AbstractDAO{
     public AbstractEpisodeDAO(DataSource ds) {
         super(ds);
     }
-    
-    public abstract Collection<Episode> getEpisodesEnEdition(Biographie b) 
-            throws DAOException;
 
     /**
      * Retourne les épisodes valides d'une biographie.
@@ -29,7 +26,10 @@ public abstract class AbstractEpisodeDAO extends AbstractDAO{
      * @throws DAOException
      */
     public abstract List<Episode> getEpisodes(Biographie b) 
-            throws DAOException; 
+            throws DAOException;
+    
+    public abstract Collection<Episode> getEpisodesEnEdition(Biographie b) 
+            throws DAOException;
     
     public abstract Collection<Episode> getEpisodesAValider(Joueur mj) 
             throws DAOException; 

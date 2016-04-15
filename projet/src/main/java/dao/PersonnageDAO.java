@@ -664,6 +664,14 @@ public final class PersonnageDAO extends AbstractPersonnageDAO {
         }
     }
 
+    /**
+     * Donne un personnage à un autre joueur avec vérification des droits.
+     * 
+     * @param idPerso Le personnage à donner
+     * @param idDest  Le joueur destinataire
+     * @param idUser  L'utilisateur courant
+     * @throws DAOException
+     */
     @Override
     public void donnerPersonnage(int idPerso, int idDest, int idUser) throws DAOException {
         Connection link = null;

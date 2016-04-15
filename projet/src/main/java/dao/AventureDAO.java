@@ -89,6 +89,7 @@ public final class AventureDAO extends AbstractAventureDAO {
         }
     }
 
+    @Override
     public ArrayList<Aventure> getAventures() throws DAOException {
         ArrayList<Aventure> avs = new ArrayList<>();
         Connection link = null;
@@ -270,6 +271,7 @@ public final class AventureDAO extends AbstractAventureDAO {
         return aventure;
     }
 
+    @Override
     public ArrayList<Aventure> getParties(Personnage p) throws DAOException {
         ArrayList<Aventure> avs = new ArrayList<>();
         Connection link = null;
@@ -307,6 +309,7 @@ public final class AventureDAO extends AbstractAventureDAO {
         return avs;
     }
 
+    @Override
     public ArrayList<Aventure> getParties(Joueur j) throws DAOException {
         ArrayList<Aventure> avs = new ArrayList<>();
         Connection link = null;

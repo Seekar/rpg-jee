@@ -93,7 +93,7 @@ public final class EpisodeDAO extends AbstractEpisodeDAO {
     }
 
     /**
-     * Retourne les épisodes valide d'une biographie.
+     * Retourne les épisodes valides d'une biographie.
      * 
      * @param b La biographie
      * @return Ses épisodes valides

@@ -50,7 +50,13 @@ public class ParticipeDAO extends AbstractParticipeDAO {
         return instance;
     }
 
-    
+    /**
+     * Ajoute un personnage à une partie en cours
+     * avec vérification des droits.
+     *
+     * @param p La participation à ajouter
+     * @throws DAOException
+     */
     @Override
     public void creerParticipe(Participe p) throws DAOException {
         Connection link = null;
@@ -81,7 +87,7 @@ public class ParticipeDAO extends AbstractParticipeDAO {
             if (!rs.next())
                 throw new DAOException("Accès refusé");
             
-            
+            // Effectue l'ajout
             statement = link.prepareStatement("INSERT INTO Participe "
                     + "(aventure_id, personnage_id) VALUES (?, ?)");
 
@@ -105,6 +111,13 @@ public class ParticipeDAO extends AbstractParticipeDAO {
         }
     }
 
+    /**
+     * Retire un participant d'une partie en cours.
+     * 
+     * @param aventure La partie concernée
+     * @param perso    Le participant
+     * @throws DAOException
+     */
     @Override
     public void supprimerParticipe(Aventure aventure, Personnage perso) throws DAOException {
         Connection link = null;

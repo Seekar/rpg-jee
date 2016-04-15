@@ -3,11 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.sql.DataSource;
-import modele.Aventure;
-import modele.Personnage;
 import modele.Univers;
 
 /**
@@ -56,6 +53,7 @@ public final class UniversDAO extends AbstractUniversDAO {
      * Récupère la liste des univers ordonnés par nom
      *
      * @return La liste des univers
+     * @throws dao.DAOException
      */
     @Override
     public ArrayList<Univers> getUnivers() throws DAOException {

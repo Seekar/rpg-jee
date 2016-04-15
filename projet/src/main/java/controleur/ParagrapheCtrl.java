@@ -53,7 +53,7 @@ public class ParagrapheCtrl extends HttpServlet {
 
                 request.setAttribute("parag", p);
                 request.setAttribute("persoID", persoID);
-                request.getRequestDispatcher("/WEB-INF/Paragraphe/Editparagraphes.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/paragraphe/Editparagraphes.jsp").forward(request, response);
 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
@@ -74,7 +74,7 @@ public class ParagrapheCtrl extends HttpServlet {
                 Main.CheckOwnerOrMj(persoID, request);
                 request.setAttribute("eID", eid);
                 request.setAttribute("persoID", persoID);
-                request.getRequestDispatcher("/WEB-INF/Paragraphe/NewParagraphe.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/paragraphe/NewParagraphe.jsp").forward(request, response);
 
             } catch (Exception e) {
                 Main.invalidParameters(request, response, e);

@@ -70,7 +70,7 @@ public class BiographieCtrl extends HttpServlet {
                 
                 request.setAttribute("perso", p);
                 request.setAttribute("owner", p.getJoueur().getId() == j.getId() || p.getMj().getId() == j.getId());
-                request.getRequestDispatcher("/WEB-INF/Biographie/consultBio.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/biographie/consultBio.jsp").forward(request, response);
             
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
@@ -107,7 +107,7 @@ public class BiographieCtrl extends HttpServlet {
                 }
 
                 request.setAttribute("perso", p);
-                request.getRequestDispatcher("/WEB-INF/Biographie/EditionBio.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/biographie/EditionBio.jsp").forward(request, response);
 
             } catch (DAOException e) {
                 Main.dbError(request, response, e);
