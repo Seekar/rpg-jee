@@ -1,28 +1,5 @@
 Tool UML : https://genmymodel.com
 
-Code / design suffisant, faudrait arrêter de coder et finir la suite (sauf si trouvaille d'un bug important)
-
-
-### TODO
-
-Partie 1 : Analyse
-- acteurs, diagramme de cas d'utilisations et description de ces cas d'utilisations, illustrées par des diagrammes de séquence système pertinents : Jules
-
-Partie 2 : Conception
-- doc conception : Simon
-
-Partie 3
-- manuel utilisateur : Léo / Salim
-
-Partie 4
-- rédaction bilan : J'ai écrit 2-3 trucs
-
-
-- finir le script SQL pour préremplir la bdd : DONE
-- rédaction readme.txt : DONE
-
-- commentaires pertinents (parties non explicites) + Javadoc : (reste un peu de DAO peut-être)
-
 
 ### Identifiants Oracle
 
@@ -49,5 +26,3 @@ Tutos JSTL (pour les vues JSP) : http://www.tutorialspoint.com/jsp/jsp_standard_
 Design CSS : [Bootstrap Twitter [documentation]](http://getbootstrap.com/)
 
 
-
-[Appli en ligne (sans accès bdd)](http://rpg-723.rhcloud.com)
