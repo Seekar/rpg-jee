@@ -99,9 +99,9 @@
             <jsp:invoke fragment="footer"/>
         </div>
 
+        <!-- Load at last to reduce startup time -->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
     </div>
     </div>
     </body>
