@@ -18,10 +18,6 @@ a/ Connexion fournie
 
 Rien à faire (déjà installée).
 
-Identifiants Oracle
-Nom d'utilisateur : reysi
-Mot de passe      : simon
-
 
 b/ Connexion personnalisée
 --------------------------
