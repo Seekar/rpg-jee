@@ -1,1 +1,1 @@
-RPG Game using Java J2EE with Oracle
+RPG Web manager using Java J2EE with Oracle
