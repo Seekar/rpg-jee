@@ -1,8 +1,4 @@
 /*
- * Equipe 14 :
- *
- * ABOUBACAR Salim, DEMETS Jules-Eugène, GOUTTEFARDE Léo, REY Simon
- *
  * Projet ACVL / Web
  */
 
